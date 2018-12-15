@@ -22,4 +22,9 @@ Tasks:
 7. Should help docs be included with methylnet or separate?
 8. Host help docs on github.io
 
+"Wrapping the methylation pipeline in Python is a great contribution to the field in itself. We should consider cleaning that into its own repo and possibly submitting an application note to Bioinformatics or at a minimum bioRxiv to let the community use that as a separate resource.
+
+And if we do that we should create a PyPi package for easy use. @jlevy44 we should chat about a division of labor."
+- @AlexanderTitus
+
 Division of Labor:
