@@ -497,9 +497,17 @@ class MethylationArrays:
     def __len__(self):
         return len(self.methylation_arrays)
 
-    def combine(self): # FIXME add sort based on samples
-        pheno_df=pd.concat([methylArr.pheno for methylArr in self.methylation_arrays], join='inner')#.sort()
-        beta_df=pd.concat([methylArr.beta for methylArr in self.methylation_arrays], join='inner')#.sort()
+    def combine(self, array_generator=None): # FIXME add sort based on samples
+        if len(self.methylation_arrays)> 1:
+            pheno_df=pd.concat([methylArr.pheno for methylArr in self.methylation_arrays], join='inner')#.sort()
+            beta_df=pd.concat([methylArr.beta for methylArr in self.methylation_arrays], join='inner')#.sort()
+        else:
+            pheno_df=self.methylation_arrays[0].pheno
+            beta_df=self.methylation_arrays[0].beta
+        if array_generator != None:
+            for methylArr in array_generator:
+                pheno_df=pd.concat([pheno_df,methylArr.pheno], join='inner')
+                beta_df=pd.concat([beta_df,methylArr.beta], join='inner')
         return MethylationArray(pheno_df,beta_df)
 
     def write_dbs(self, conn):
@@ -809,22 +817,21 @@ def preprocess_pipeline(idat_dir, n_cores, output_pkl, meffil):
 
 @preprocess.command()
 @click.option('-i', '--input_pkls', default=['./preprocess_outputs/methyl_array.pkl'], multiple=True, help='Input pickles for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
-@click.option('-d', '--optional_input_pkl_dir', default='', multiple=True, help='Auto grab input pkls.', type=click.Path(exists=False), show_default=True)
+@click.option('-d', '--optional_input_pkl_dir', default='', help='Auto grab input pkls.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./combined_outputs/methyl_array.pkl', help='Output database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
-@click.option('-e', '--exclude', default=[], multiple=True, help='If -d selected, these diseases will be excluded from study.', type=click.Path(exists=False), show_default=True)
+@click.option('-e', '--exclude', default=[], multiple=True, help='If -d selected, these diseases will be excluded from study.', show_default=True)
 def combine_methylation_arrays(input_pkls, optional_input_pkl_dir, output_pkl, exclude):
     """If split MethylationArrays by subtype for either preprocessing or imputation, can use to recombine data for downstream step."""
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
-    list_methyl_arrays = []
     if optional_input_pkl_dir:
         input_pkls=glob.glob(os.path.join(optional_input_pkl_dir,'*','methyl_array.pkl'))
         if exclude:
             input_pkls=(np.array(input_pkls)[~np.isin(np.vectorize(lambda x: x.split('/')[-2])(input_pkls),np.array(exclude))]).tolist()
     if len(input_pkls) > 0:
-        for input_pkl in input_pkls:
-            list_methyl_arrays.append(MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(open(input_pkl,'rb')), '')))
-            list_methyl_arrays = MethylationArrays(list_methyl_arrays)
-            combined_methyl_array = list_methyl_arrays.combine()
+        base_methyl_array=MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(open(input_pkls[0],'rb')), ''))
+        methyl_arrays_generator = (MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(open(input_pkl,'rb')), '')) for input_pkl in input_pkls[1:])
+        list_methyl_arrays = MethylationArrays([base_methyl_array])
+        combined_methyl_array = list_methyl_arrays.combine(methyl_arrays_generator)
     else:
         combined_methyl_array=MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(open(input_pkls[0],'rb')), ''))
     combined_methyl_array.write_pickle(output_pkl)
