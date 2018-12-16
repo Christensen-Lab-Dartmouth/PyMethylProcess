@@ -867,7 +867,7 @@ def move_jpg(input_dir, output_dir):
 @click.option('-f', '--feature_selection_method', default='mad', type=click.Choice(['mad','spectral']))
 @click.option('-mm', '--metric', default='correlation', type=click.Choice(['euclidean','cosine','correlation']))
 @click.option('-nfs', '--n_neighbors_fs', default=0, help='Number neighbors for feature selection, default enacts rbf kernel.', show_default=True)
-def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fancyimpute', n_neighbors=5, orientation='rows', output_pkl='', n_top_cpgs=0, feature_selection_method='mad', metric='correlation', n_neighbors=10): # wrap a class around this
+def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fancyimpute', n_neighbors=5, orientation='rows', output_pkl='', n_top_cpgs=0, feature_selection_method='mad', metric='correlation', n_neighbors_fs=10): # wrap a class around this
     """Imputation of subtype or no subtype using various imputation methods."""
     orientation_dict = {'CpGs':'columns','Samples':'rows'}
     orientation = orientation_dict[orientation]
