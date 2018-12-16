@@ -472,7 +472,7 @@ class MethylationArray: # FIXME arrays should be samplesxCpG or samplesxpheno_da
     def split_by_subtype(self, disease_only, subtype_delimiter):
         for disease, pheno_df in self.pheno.groupby(self.split_key('disease',subtype_delimiter) if disease_only else 'disease'):
             new_disease_name = disease.replace(' ','')
-            beta_df = self.beta.loc[:,pheno_df.index]
+            beta_df = self.beta.loc[pheno_df.index,:]
             yield MethylationArray(pheno_df,beta_df,new_disease_name)
 
     def feature_select(self, n_top_cpgs, feature_selection_method='mad', metric='correlation', nn=10):
@@ -481,13 +481,13 @@ class MethylationArray: # FIXME arrays should be samplesxCpG or samplesxpheno_da
             top_mad_cpgs = np.array(list(mad_cpgs.iloc[:n_top_cpgs].index))
             self.beta = self.beta.loc[:, top_mad_cpgs]
         elif feature_selection_method=='spectral':
-            from pynndescent import PyNNDescentTransformer
+            from pynndescent.pynndescent_ import PyNNDescentTransformer
             from skfeature.function.similarity_based.SPEC import spec
             if nn:
-                W=PyNNDescentTransformer(n_neighbors=nn,metric=metric).fit_transform(methyl_array.beta.values)
-                f_weights = spec(methyl_array.beta.values,W=W)
+                W=PyNNDescentTransformer(n_neighbors=nn,metric=metric).fit_transform(self.beta.values)
+                f_weights = spec(self.beta.values,W=W)
             else:
-                f_weights = spec(methyl_array.beta.values)
+                f_weights = spec(self.beta.values)
             self.beta = self.beta.iloc[:, np.argsort(f_weights)[::-1][:n_top_cpgs]]
 
 
@@ -873,7 +873,7 @@ def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fa
     """Imputation of subtype or no subtype using various imputation methods."""
     orientation_dict = {'CpGs':'columns','Samples':'rows'}
     orientation = orientation_dict[orientation]
-    print("Selecting orientation for imputation not implemented yet.")
+    #print("Selecting orientation for imputation not implemented yet.")
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
     if method in ['DeepCpG', 'DAPL', 'EM']:
         print('Method {} coming soon...'.format(method))
