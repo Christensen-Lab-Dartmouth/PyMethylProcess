@@ -464,16 +464,16 @@ class MethylationArray: # FIXME arrays should be samplesxCpG or samplesxpheno_da
         test_idx = methyl_array_idx.drop(train_idx.index)
         return MethylationArray(self.pheno.loc[train_idx.values],self.beta.loc[train_idx.values,:],'train'),MethylationArray(self.pheno.loc[test_idx.values],self.beta.loc[test_idx.values,:],'test')
 
-    def split_by_subtype(self, write_pkl=False, out_pkl=None):
-        methyl_arrays = []
-        for disease, pheno_df in self.pheno.groupby('disease'):
+    def split_key(self, key, subtype_delimiter):
+        new_key = '{}_only'.format(key)
+        self.pheno[new_key] = self.pheno[key].map(lambda x: x.split(subtype_delimiter)[0])
+        return new_key
+
+    def split_by_subtype(self, disease_only, subtype_delimiter):
+        for disease, pheno_df in self.pheno.groupby(self.split_key('disease',subtype_delimiter) if disease_only else 'disease'):
             new_disease_name = disease.replace(' ','')
             beta_df = self.beta.loc[:,pheno_df.index]
-            methyl_arrays.append(MethylationArray(pheno_df,beta_df,new_disease_name))
-        methyl_arrays = MethylationArrays(methyl_arrays)
-        if write_pkl and out_pkl != None:
-            methyl_arrays.write_pkls(out_pkl)
-        return methyl_arrays
+            yield MethylationArray(pheno_df,beta_df,new_disease_name)
 
     def feature_select(self, n_top_cpgs, feature_selection_method='mad', metric='correlation', nn=10):
         if feature_selection_method=='mad':
@@ -867,7 +867,9 @@ def move_jpg(input_dir, output_dir):
 @click.option('-f', '--feature_selection_method', default='mad', type=click.Choice(['mad','spectral']))
 @click.option('-mm', '--metric', default='correlation', type=click.Choice(['euclidean','cosine','correlation']))
 @click.option('-nfs', '--n_neighbors_fs', default=0, help='Number neighbors for feature selection, default enacts rbf kernel.', show_default=True)
-def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fancyimpute', n_neighbors=5, orientation='rows', output_pkl='', n_top_cpgs=0, feature_selection_method='mad', metric='correlation', n_neighbors_fs=10): # wrap a class around this
+@click.option('-d', '--disease_only', is_flag=True, help='Only look at disease, or text before subtype_delimiter.')
+@click.option('-sd', '--subtype_delimiter', default=',', help='Delimiter for disease extraction.', type=click.Path(exists=False), show_default=True)
+def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fancyimpute', n_neighbors=5, orientation='rows', output_pkl='', n_top_cpgs=0, feature_selection_method='mad', metric='correlation', n_neighbors_fs=10, disease_only=False, subtype_delimiter=','): # wrap a class around this
     """Imputation of subtype or no subtype using various imputation methods."""
     orientation_dict = {'CpGs':'columns','Samples':'rows'}
     orientation = orientation_dict[orientation]
@@ -884,18 +886,17 @@ def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fa
 
     if split_by_subtype:
 
-        tables = [table[table.find('_')+1:] for table in input_dict.keys() if '_' in table]
-        diseases = np.unique(tables)
-        if not diseases.tolist():
-            methyl_array = MethylationArray(*extract_pheno_beta_df_from_pickle_dict(input_dict))
-            methyl_arrays = methyl_array.split_by_subtype()
-            del methyl_array
-        else:
-            methyl_arrays = MethylationArrays([MethylationArray(*extract_pheno_beta_df_from_pickle_dict(input_dict, disease)) for disease in diseases])
+        def impute_arrays(methyl_arrays):
+            for methyl_array in methyl_arrays:
+                methyl_array.impute(imputer)
+                yield methyl_array
 
-        methyl_arrays.impute(imputer)
+        methyl_array = MethylationArray(*extract_pheno_beta_df_from_pickle_dict(input_dict))
+        methyl_arrays = impute_arrays(methyl_array.split_by_subtype(disease_only, subtype_delimiter))
+        #del methyl_array
 
-        methyl_array = MethylationArrays.combine()
+        #methyl_arrays.impute(imputer)
+        methyl_array=MethylationArrays([next(methyl_arrays)]).combine(methyl_arrays)
 
     else:
         methyl_array = MethylationArray(*extract_pheno_beta_df_from_pickle_dict(input_dict))
