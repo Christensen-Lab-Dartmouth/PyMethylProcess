@@ -38,6 +38,10 @@ RUN python /scripts/installer.py install_r_packages -p openssl
 
 RUN python /scripts/installer.py install_custom -m -p rtracklayer=3.8 -p GEOquery=3.8
 
+RUN pip install git+https://github.com/jundongl/scikit-feature.git
+
+RUN pip install pynndescent
+
 COPY *.py /scripts/
 
 WORKDIR /root

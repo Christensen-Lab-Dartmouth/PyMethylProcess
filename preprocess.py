@@ -475,10 +475,21 @@ class MethylationArray: # FIXME arrays should be samplesxCpG or samplesxpheno_da
             methyl_arrays.write_pkls(out_pkl)
         return methyl_arrays
 
-    def mad_filter(self, n_top_cpgs):
-        mad_cpgs = self.beta.mad(axis=0).sort_values(ascending=False)
-        top_mad_cpgs = np.array(list(mad_cpgs.iloc[:n_top_cpgs].index))
-        self.beta = self.beta.loc[:, top_mad_cpgs]
+    def feature_select(self, n_top_cpgs, feature_selection_method='mad', metric='correlation', nn=10):
+        if feature_selection_method=='mad':
+            mad_cpgs = self.beta.mad(axis=0).sort_values(ascending=False)
+            top_mad_cpgs = np.array(list(mad_cpgs.iloc[:n_top_cpgs].index))
+            self.beta = self.beta.loc[:, top_mad_cpgs]
+        elif feature_selection_method=='spectral':
+            from pynndescent import PyNNDescentTransformer
+            from skfeature.function.similarity_based.SPEC import spec
+            if nn:
+                W=PyNNDescentTransformer(n_neighbors=nn,metric=metric).fit_transform(methyl_array.beta.values)
+                f_weights = spec(methyl_array.beta.values,W=W)
+            else:
+                f_weights = spec(methyl_array.beta.values)
+            self.beta = self.beta.iloc[:, np.argsort(f_weights)[::-1][:n_top_cpgs]]
+
 
     def merge_preprocess_sheet(self, preprocess_sample_df):
         self.pheno=self.pheno.merge(preprocess_sample_df,on=['Basename'],how='inner')
@@ -853,7 +864,10 @@ def move_jpg(input_dir, output_dir):
 @click.option('-r', '--orientation', default='Samples', help='Impute CpGs or samples.', type=click.Choice(['Samples','CpGs']), show_default=True)
 @click.option('-o', '--output_pkl', default='./imputed_outputs/methyl_array.pkl', help='Output database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-n', '--n_top_cpgs', default=0, help='Number cpgs to include with highest variance across population. Greater than 0 allows for mad filtering during imputation to skip mad step.', show_default=True)
-def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fancyimpute', n_neighbors=5, orientation='rows', output_pkl='', n_top_cpgs=0): # wrap a class around this
+@click.option('-f', '--feature_selection_method', default='mad', type=click.Choice(['mad','spectral']))
+@click.option('-mm', '--metric', default='correlation', type=click.Choice(['euclidean','cosine','correlation']))
+@click.option('-nfs', '--n_neighbors_fs', default=0, help='Number neighbors for feature selection, default enacts rbf kernel.', show_default=True)
+def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fancyimpute', n_neighbors=5, orientation='rows', output_pkl='', n_top_cpgs=0, feature_selection_method='mad', metric='correlation', n_neighbors=10): # wrap a class around this
     """Imputation of subtype or no subtype using various imputation methods."""
     orientation_dict = {'CpGs':'columns','Samples':'rows'}
     orientation = orientation_dict[orientation]
@@ -889,7 +903,7 @@ def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fa
         methyl_array.impute(imputer)
 
     if n_top_cpgs:
-        methyl_array.mad_filter(n_top_cpgs)
+        methyl_array.feature_select(n_top_cpgs,feature_selection_method, metric, nn=n_neighbors_fs)
 
     methyl_array.write_pickle(output_pkl)
 
@@ -897,13 +911,16 @@ def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fa
 @click.option('-i', '--input_pkl', default='./imputed_outputs/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./final_preprocessed/methyl_array.pkl', help='Output database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-n', '--n_top_cpgs', default=300000, help='Number cpgs to include with highest variance across population.', show_default=True)
-def mad_filter(input_pkl,output_pkl,n_top_cpgs=300000):
-    """Filter CpGs by taking x top CpGs with highest mean absolute deviation scores."""
+@click.option('-f', '--feature_selection_method', default='mad', type=click.Choice(['mad','spectral']))
+@click.option('-m', '--metric', default='correlation', type=click.Choice(['euclidean','cosine','correlation']))
+@click.option('-nn', '--n_neighbors', default=0, help='Number neighbors for feature selection, default enacts rbf kernel.', show_default=True)
+def feature_select(input_pkl,output_pkl,n_top_cpgs=300000, feature_selection_method='mad', metric='correlation', n_neighbors=10):
+    """Filter CpGs by taking x top CpGs with highest mean absolute deviation scores or via spectral feature selection."""
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
     input_dict=pickle.load(open(input_pkl,'rb'))
     methyl_array = MethylationArray(*extract_pheno_beta_df_from_pickle_dict(input_dict))
 
-    methyl_array.mad_filter(n_top_cpgs)
+    methyl_array.feature_select(n_top_cpgs,feature_selection_method, metric, nn=n_neighbors)
 
     methyl_array.write_pickle(output_pkl)
 
