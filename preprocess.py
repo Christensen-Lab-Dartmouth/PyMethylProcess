@@ -485,9 +485,12 @@ class MethylationArray: # FIXME arrays should be samplesxCpG or samplesxpheno_da
             from skfeature.function.similarity_based.SPEC import spec
             if nn:
                 W=PyNNDescentTransformer(n_neighbors=nn,metric=metric).fit_transform(self.beta.values)
+                print('W computed...')
                 f_weights = spec(self.beta.values,W=W)
+                print('weights',f_weights)
+                #print('weights_sorted',(np.sort(f_weights)[::-1][:n_top_cpgs].tolist()))
             else:
-                f_weights = spec(self.beta.values)
+                f_weights = spec(self.beta.values) # fixme are the weights actually in reversed order?
             self.beta = self.beta.iloc[:, np.argsort(f_weights)[::-1][:n_top_cpgs]]
 
 
