@@ -156,7 +156,7 @@ class PreProcessPhenoData:
         self.pheno_sheet = self.pheno_sheet[self.pheno_sheet['Basename'].isin(idat_basenames)]
         self.pheno_sheet.loc[:,['Basename']] = self.pheno_sheet['Basename'].map(lambda x: self.idat_dir+x)
         #self.pheno_sheet['Sample_Name']=self.pheno_sheet['Basename'].map(lambda x: x.split('/')[-1])
-        self.pheno_sheet = self.pheno_sheet[['Basename', 'disease', 'tumor_stage', 'vital_status', 'age_at_diagnosis', 'gender', 'race', 'ethnicity','case_control']].rename(columns={'tumor_stage':'stage','vital_status':'vital','gender':'Sex','age_at_diagnosis':'age'})
+        self.pheno_sheet = self.pheno_sheet[['Basename', 'bcr_patient_barcode', 'disease', 'tumor_stage', 'vital_status', 'age_at_diagnosis', 'gender', 'race', 'ethnicity','case_control']].rename(columns={'tumor_stage':'stage','bcr_patient_barcode':'PatientID','vital_status':'vital','gender':'Sex','age_at_diagnosis':'age'})
         #print(self.pheno_sheet)
 
     def format_custom(self, basename_col, disease_class_column, include_columns={}):
@@ -259,22 +259,27 @@ class PreProcessIDAT:
         self.MSet = self.minfi.preprocessRaw(self.RGset)
         return self.MSet
 
-    def preprocessMeffil(self, n_cores=6, n_pcs=4): # Deploy fewer jobs, less memory
+    def preprocessMeffil(self, n_cores=6, n_pcs=4, qc_report_fname="qc/report.html", normalization_report_fname='norm/report.html'): # Deploy fewer jobs, less memory
         #robjects.r['options'](mc_cores=n_cores)
         #dollar = self.base.__dict__["$"]
         self.pheno = self.meffil.meffil_read_samplesheet(self.idat_dir, verbose=True)
         print(self.pheno)
         # Background and dye bias correction, sexprediction, cell counts estimates
-        self.beta_final = robjects.r("""function(samplesheet,n.cores,n.pcs){
+        self.beta_final = robjects.r("""function(samplesheet,n.cores,n.pcs,qc.report.fname,norm.report.fname){
             qc.objects<-meffil.qc(samplesheet,mc.cores=n.cores,verbose=F)
             qc.summary<-meffil.qc.summary(qc.objects,verbose=F)
+            meffil.qc.report(qc.summary, output.file=qc.report.fname)
             if (nrow(qc.summary$bad.samples) > 0) {
             qc.objects <- meffil.remove.samples(qc.objects, qc.summary$bad.samples$sample.name)
             }
             norm.objects <- meffil.normalize.quantiles(qc.objects, number.pcs=n.pcs, verbose=F)
             norm <- meffil.normalize.samples(norm.objects, just.beta=F, cpglist.remove=qc.summary$bad.cpgs$name)
+            pcs = meffil.methylation_pcs(norm)
+            norm.summary = meffil.normalization.summary(norm.objects, pcs=pcs)
+            meffil.normalization.report(norm.summary, output.file=norm.report.fname)
             beta <- meffil.get.beta(norm$M, norm$U)
-            return(beta)}""")(self.pheno,n_cores, n_pcs)
+            return(beta)}""")(self.pheno,n_cores, n_pcs, qc_report_fname, normalization_report_fname)
+
         #print(self.beta_final)
         if 0:
             qc_objects = self.meffil.meffil_qc(self.pheno, mc_cores=n_cores, verbose=False) # , number_quantiles=500, detection_threshold=0.01, bead_threshold=3, sex_cutoff=-2, chip="450k",
@@ -456,13 +461,16 @@ class MethylationArray: # FIXME arrays should be samplesxCpG or samplesxpheno_da
     def return_shape(self):
         return self.beta.shape
 
-    def split_train_test(self, train_p=0.8):
+    def split_train_test(self, train_p=0.8, stratified=True, disease_only=False, key='disease', subtype_delimiter=','):
         np.random.seed(42)
-        methyl_array_idx = pd.Series(self.pheno.index)
+        #methyl_array_idx = pd.Series(self.pheno.index)
         #np.random.shuffle(methyl_array_idx)
-        train_idx = methyl_array_idx.sample(frac=train_p)
-        test_idx = methyl_array_idx.drop(train_idx.index)
-        return MethylationArray(self.pheno.loc[train_idx.values],self.beta.loc[train_idx.values,:],'train'),MethylationArray(self.pheno.loc[test_idx.values],self.beta.loc[test_idx.values,:],'test')
+        if stratified:
+            train_pheno=self.pheno.groupby(self.split_key('disease',subtype_delimiter) if disease_only else 'disease',group_keys=False).apply(lambda x: x.sample(frac=train_p))
+        else:
+            train_pheno = self.pheno.sample(frac=train_p)
+        test_pheno = self.pheno.drop(train_pheno.index)
+        return MethylationArray(train_pheno,self.beta.loc[train_pheno.index.values,:],'train'),MethylationArray(test_pheno,self.beta.loc[test_pheno.index.values,:],'test')
 
     def split_key(self, key, subtype_delimiter):
         new_key = '{}_only'.format(key)
@@ -703,45 +711,7 @@ def remove_diseases(formatted_sample_sheet, exclude_disease_list, output_sheet_n
     pData.export(output_sheet_name)
     print("Please remove {} from idat directory, if it exists in that directory.".format(formatted_sample_sheet))
 
-
-### TODO: Wrap a class around following functions ###
-
-def print_case_controls():
-    """Print number of case and controls for subtypes"""
-    pass
-
-def remove_controls():
-    """Remove controls for study"""
-    pass
-
-def remove_low_sample_number():
-    """Remove cases for study with low sample number"""
-    pass
-
 ## preprocess ##
-
-@preprocess.command() # update
-@click.option('-i', '--idat_dir', default='./tcga_idats/', help='Idat directory if one sample sheet, alternatively can be your phenotype sample sheet.', type=click.Path(exists=False), show_default=True)
-@click.option('-g', '--geo_query', default='', help='GEO study to query, do not use if already created geo sample sheet.', type=click.Path(exists=False), show_default=True)
-@click.option('-o', '--output_dir', default='./preprocess_outputs/', help='Output directory for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
-@click.option('-ss', '--split_by_subtype', is_flag=True, help='If using formatted sample sheet csv, split by subtype and perform preprocessing. Will need to combine later.')
-def plot_qc(idat_dir, geo_query, output_dir, split_by_subtype):
-    """Plot QC metrics using raw preprocessing via minfi and enmix."""
-    os.makedirs(output_dir, exist_ok=True)
-    if idat_dir.endswith('.csv') and split_by_subtype:
-        pheno=pd.read_csv(idat_dir)
-        for name, group in pheno.groupby('disease'):
-            new_sheet = idat_dir.replace('.csv','_{}.csv'.format(name)).split('/')[-1]
-            new_out_dir = '{}/{}/'.format(output_dir,name)
-            os.makedirs(new_out_dir, exist_ok=True)
-            group.to_csv('{}/{}'.format(new_out_dir,new_sheet))
-            preprocesser = PreProcessIDAT(new_out_dir)
-            preprocesser.load_idats(geo_query='')
-            preprocesser.plot_original_qc(new_out_dir)
-    else:
-        preprocesser = PreProcessIDAT(idat_dir)
-        preprocesser.load_idats(geo_query)
-        preprocesser.plot_original_qc(output_dir)
 
 @preprocess.command()
 @click.option('-i', '--idat_csv', default='./tcga_idats/minfiSheet.csv', help='Idat csv for one sample sheet, alternatively can be your phenotype sample sheet.', type=click.Path(exists=False), show_default=True)
@@ -821,7 +791,7 @@ def preprocess_pipeline(idat_dir, n_cores, output_pkl, meffil):
     os.makedirs(output_dir,exist_ok=True)
     preprocesser = PreProcessIDAT(idat_dir)
     if meffil:
-        preprocesser.preprocessMeffil(n_cores=n_cores,n_pcs=4)
+        preprocesser.preprocessMeffil(n_cores=n_cores,n_pcs=4,qc_report_fname=os.path.join(output_dir,'qc.report.html'), normalization_report_fname=os.path.join(output_dir,'norm.report.html'))
     else:
         preprocesser.preprocess(geo_query='', n_cores=n_cores)
     preprocesser.output_pheno_beta(meffil=meffil)
@@ -849,14 +819,6 @@ def combine_methylation_arrays(input_pkls, optional_input_pkl_dir, output_pkl, e
     else:
         combined_methyl_array=MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(open(input_pkls[0],'rb')), ''))
     combined_methyl_array.write_pickle(output_pkl)
-
-@preprocess.command()
-@click.option('-i', '--input_dir', default='./', help='Directory containing jpg.', type=click.Path(exists=False), show_default=True)
-@click.option('-o', '--output_dir', default='./preprocess_output_images/', help='Output directory for images.', type=click.Path(exists=False), show_default=True)
-def move_jpg(input_dir, output_dir):
-    """Move preprocessing jpegs to preprocessing output directory."""
-    os.makedirs(output_dir, exist_ok=True)
-    subprocess.call('mv {} {}'.format(os.path.join(input_dir,'*.jpg'),os.path.abspath(output_dir)),shell=True)
 
 @preprocess.command()
 @click.option('-i', '--input_pkl', default='./combined_outputs/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
@@ -928,6 +890,54 @@ def feature_select(input_pkl,output_pkl,n_top_cpgs=300000, feature_selection_met
 
     methyl_array.write_pickle(output_pkl)
 
+### QC
+
+@preprocess.command()
+@click.option('-i', '--input_pkl', default='./preprocess_outputs/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
+@click.option('-o', '--output_dir', default='./na_report/', help='Output database for na report.', type=click.Path(exists=False), show_default=True)
+def na_report(input_pkl, output_dir):
+    """Print proportion of missing values throughout dataset."""
+    import matplotlib.pyplot as plt
+    os.makedirs(output_dir,exist_ok=True)
+    df=pickle.load(open(input_pkl,'rb'))['beta']
+    na_frame = pd.isna(df.values).astype(int)
+    na_frame = na_frame.iloc[np.argsort(na_frame.sum(axis=1)),:]
+    print('NA Rate is on average: {}%'.format(sum(na_frame.values.flatten())/float(df.shape[0]*df.shape[1])*100.))
+    plt.figure()
+    pd.DataFrame(na_frame.sum(axis=1)).apply(lambda x: x/float(df.shape[1])).hist()
+    plt.savefig(os.path.join(output_dir,'sample_missingness.png'))
+    plt.figure()
+    pd.DataFrame(na_frame.sum(axis=0)).apply(lambda x: x/float(df.shape[0])).hist()
+    plt.savefig(os.path.join(output_dir,'cpg_missingness.png'))
+    xy=np.transpose(np.nonzero(na_frame.values))
+    plt.figure()
+    plt.scatter(xy[:,1],xy[:,0])
+    plt.xlim([0,df.shape[0]])
+    plt.ylim([0,df.shape[1]])
+    plt.xlabel('CpGs')
+    plt.ylabel('Samples')
+    plt.savefig(os.path.join(output_dir,'array_missingness.png'))
+
+
+
+### MISC
+
+@preprocess.command()
+@click.option('-i', '--input_dir', default='./', help='Directory containing jpg.', type=click.Path(exists=False), show_default=True)
+@click.option('-o', '--output_dir', default='./preprocess_output_images/', help='Output directory for images.', type=click.Path(exists=False), show_default=True)
+def move_jpg(input_dir, output_dir):
+    """Move preprocessing jpegs to preprocessing output directory."""
+    os.makedirs(output_dir, exist_ok=True)
+    subprocess.call('mv {} {}'.format(os.path.join(input_dir,'*.jpg'),os.path.abspath(output_dir)),shell=True)
+
+@preprocess.command()
+@click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
+@click.option('-o', '--output_pkl', default='./backup/methyl_array.pkl', help='Output database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
+def backup_pkl(input_pkl, output_pkl):
+    """Copy methylarray pickle to new location to backup."""
+    os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
+    subprocess.call('rsync {} {}'.format(input_pkl, output_pkl),shell=True)
+
 @preprocess.command()
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_dir', default='./final_preprocessed/', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
@@ -942,26 +952,6 @@ def pkl_to_csv(input_pkl, output_dir):
 
 @preprocess.command()
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
-@click.option('-o', '--output_pkl', default='./backup/methyl_array.pkl', help='Output database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
-def backup_pkl(input_pkl, output_pkl):
-    """Copy methylarray pickle to new location to backup."""
-    os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
-    subprocess.call('rsync {} {}'.format(input_pkl, output_pkl),shell=True)
-
-@preprocess.command()
-@click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
-def print_na_rate(input_pkl):
-    """Print proportion of missing values throughout dataset."""
-    import matplotlib.pyplot as plt
-    df=pickle.load(open(input_pkl,'rb'))['beta']
-    na_frame = pd.isna(df.values)
-    print('NA Rate is on average: {}%'.format(sum(sum(na_frame))/float(df.shape[0]*df.shape[1])*100.))
-    plt.figure()
-    pd.DataFrame(na_frame.sum(axis=1)).apply(lambda x: x/float(df.shape[1])).hist()
-    plt.savefig('nan_dist.png')
-
-@preprocess.command()
-@click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-is', '--input_formatted_sample_sheet', default='./tcga_idats/minfi_sheet.csv', help='Information passed through function create_sample_sheet, has Basename and disease fields.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./modified_processed/methyl_array.pkl', help='Output database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 def modify_pheno_data(input_pkl,input_formatted_sample_sheet,output_pkl):
@@ -971,7 +961,6 @@ def modify_pheno_data(input_pkl,input_formatted_sample_sheet,output_pkl):
     methyl_array = MethylationArray(*extract_pheno_beta_df_from_pickle_dict(input_dict))
     methyl_array.merge_preprocess_sheet(pd.read_csv(input_formatted_sample_sheet,header=0))
     methyl_array.write_pickle(output_pkl)
-
 
 ## Build methylation class with above features ##
 
