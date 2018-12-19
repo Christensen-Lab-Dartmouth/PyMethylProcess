@@ -280,6 +280,19 @@ class PreProcessIDAT:
             beta <- meffil.get.beta(norm$M, norm$U)
             return(beta)}""")(self.pheno,n_cores, n_pcs, qc_report_fname, normalization_report_fname)
 
+        try:
+            grdevice = importr("grDevices")
+            geneplotter = importr("geneplotter")
+            qr_report_fname=os.path.abspath(qc_report_fname).split('/')
+            qr_report_fname[-1]='beta_dist.jpg'
+            grdevice.jpeg('/'.join(qr_report_fname),height=900,width=600)
+            base.par(mfrow=robjects.vectors.IntVector([1,2]))
+            self.enmix.multidensity(self.beta_final, main="Multidensity")
+            self.enmix.multifreqpoly(self.beta_final, xlab="Beta value")
+            grdevice.dev_off()
+        except:
+            pass
+
         #print(self.beta_final)
         if 0:
             qc_objects = self.meffil.meffil_qc(self.pheno, mc_cores=n_cores, verbose=False) # , number_quantiles=500, detection_threshold=0.01, bead_threshold=3, sex_cutoff=-2, chip="450k",
