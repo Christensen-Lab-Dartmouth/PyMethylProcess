@@ -36,3 +36,50 @@ def remove_controls():
 def remove_low_sample_number():
     """Remove cases for study with low sample number"""
     pass
+
+
+
+
+#print(self.beta_final)
+if 0:
+    qc_objects = self.meffil.meffil_qc(self.pheno, mc_cores=n_cores, verbose=False) # , number_quantiles=500, detection_threshold=0.01, bead_threshold=3, sex_cutoff=-2, chip="450k",
+    #print(qc_objects)
+    robjects.r('saveRDS')(qc_objects,'{}/r_obj.rds'.format(self.idat_dir))
+    # Generate QC report
+    qc_summary = self.meffil.meffil_qc_summary(qc_objects, verbose=False)
+
+    #print(qc_summary)
+
+    #self.meffil.meffil_qc_report(qc_summary, output_file="qc/report.html")
+
+    # Remove outlier samples if necessary
+    qc_objects = self.meffil.meffil_remove_samples(qc_objects, dollar(dollar(qc_summary,'bad.samples'),'sample.name'))
+
+    #print(qc_objects)
+
+    # Plot residuals remaining after fitting control matrix to decide on the number PCs
+    # to include in the normalization below.
+    #print(self.meffil.meffil_plot_pc_fit(qc_objects)$plot)
+
+    # Perform quantile normalization
+    norm_objects = self.meffil.meffil_normalize_quantiles(qc_objects, number_pcs=n_pcs, mc_cores=n_cores, verbose=False)
+
+    # Generate normalized probe values
+    norm_beta = self.meffil.meffil_normalize_samples(norm_objects, just_beta=True, mc_cores=n_cores, cpglist_remove=dollar(dollar(qc_summary,'bad.cpgs'),'name'))
+    #beta <- meffil.get.beta(norm.dataset$M, norm.dataset$U)
+    # Generate normalization report
+    #pcs = self.meffil.meffil_methylation_pcs(norm_beta)
+    #norm_summary = self.meffil.meffil_normalization_summary(norm_objects, pcs=pcs)
+    #self.meffil.meffil_normalization_report(norm_summary, output_file="normalization/report.html")
+
+    self.beta_final = dollar(norm_beta,'beta')
+
+    #self.beta_final = dollar(self.meffil.meffil_normalize_dataset(self.pheno, qc_file="qc/report.html", author="", study="Illumina450", number_pcs=n_pcs, mc_cores=n_cores, verbose=True),'beta')#10
+    #robjects.r('saveRDS')(self.beta_final,'r_obj.rds')
+    #print(numpy2ri.ri2py(robjects.r("colnames")(self.beta_final)))
+    #print(self.beta_final.slots)
+    #self.beta_final = robjects.r['as'](self.beta_final,'data.frame'))
+    #print(robjects.r['as'](self.beta_final,'data.frame'))
+    #b=pandas2ri.ri2py(robjects.r['as'](self.beta_final,'data.frame'))
+    #print(b)
+    #print(pandas2ri.ri2py(robjects.r['as'](self.pheno,'data.frame'))[b.index])
