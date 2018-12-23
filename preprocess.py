@@ -831,7 +831,7 @@ def na_report(input_pkl, output_dir):
     import matplotlib.pyplot as plt
     os.makedirs(output_dir,exist_ok=True)
     df=pickle.load(open(input_pkl,'rb'))['beta']
-    na_frame = pd.isna(df.values).astype(int)
+    na_frame = pd.isna(df).astype(int)
     na_frame = na_frame.iloc[np.argsort(na_frame.sum(axis=1)),:]
     print('NA Rate is on average: {}%'.format(sum(na_frame.values.flatten())/float(df.shape[0]*df.shape[1])*100.))
     plt.figure()
