@@ -428,6 +428,20 @@ class MethylationArray:
                 f_weights = spec(self.beta.values)
             self.beta = self.beta.iloc[:, np.argsort(f_weights)[::-1][:n_top_cpgs]]
 
+    def subset_index(self,index):
+        return MethylationArray(self.pheno.loc[index,:],self.beta.loc[index,:])
+
+    def return_idx(self):
+        return np.array(list(self.pheno.index))
+
+    def return_cpgs(self):
+        return np.array(list(self.beta))
+
+    def return_raw_beta_array(self):
+        return self.beta.values
+
+    def subset_cpgs(self,cpgs):
+        return MethylationArray(self.pheno,self.beta.loc[:,cpgs])
 
     def merge_preprocess_sheet(self, preprocess_sample_df):
         self.pheno=self.pheno.merge(preprocess_sample_df,on=['Basename'],how='inner')
