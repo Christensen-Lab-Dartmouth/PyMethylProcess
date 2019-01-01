@@ -400,6 +400,14 @@ class MethylationArray:
         test_pheno = self.pheno.drop(train_pheno.index)
         return MethylationArray(train_pheno,self.beta.loc[train_pheno.index.values,:],'train'),MethylationArray(test_pheno,self.beta.loc[test_pheno.index.values,:],'test')
 
+    def subsample(self, key='disease', n_samples=None, frac=None, categorical=False):
+        np.random.seed(42)
+        if categorical:
+            pheno=self.pheno.groupby(key,group_keys=False).apply(lambda x: x.sample(frac=frac, n=n_samples))
+        else:
+            pheno=self.pheno.sample(frac=frac, n=n_samples)
+        return MethylationArray(pheno,self.beta.loc[pheno.index.values,:],'subsampled')
+
     def split_key(self, key, subtype_delimiter):
         new_key = '{}_only'.format(key)
         self.pheno[new_key] = self.pheno[key].map(lambda x: x.split(subtype_delimiter)[0])
