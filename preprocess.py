@@ -436,6 +436,19 @@ class MethylationArray:
                 f_weights = spec(self.beta.values)
             self.beta = self.beta.iloc[:, np.argsort(f_weights)[::-1][:n_top_cpgs]]
 
+    def remove_missingness(self, cpg_threshold=None, sample_threshold=None):
+        cpgs_remove = np.array([])
+        samples_remove = np.array()[])
+        cpgs=self.return_cpgs()
+        samples=self.return_idx()
+        na_frame = pd.isna(self.beta).astype(int)
+        if cpg_threshold != None:
+            cpgs_remove=cpgs[na_frame.sum(axis=0).apply(lambda x: x/float(na_frame.shape[0])).values >= cpg_threshold]
+        if sample_threshold != None:
+            samples_remove=samples[na_frame.sum(axis=1).apply(lambda x: x/float(na_frame.shape[1])) >= sample_threshold]
+        self.beta = self.beta.loc[~np.isin(samples,samples_remove),~np.isin(cpgs,cpgs_remove)]
+        self.pheno = self.pheno.loc[self.beta.index,:]
+
     def subset_index(self,index):
         return MethylationArray(self.pheno.loc[index,:],self.beta.loc[index,:])
 
@@ -787,7 +800,9 @@ def combine_methylation_arrays(input_pkls, optional_input_pkl_dir, output_pkl, e
 @click.option('-nfs', '--n_neighbors_fs', default=0, help='Number neighbors for feature selection, default enacts rbf kernel.', show_default=True)
 @click.option('-d', '--disease_only', is_flag=True, help='Only look at disease, or text before subtype_delimiter.')
 @click.option('-sd', '--subtype_delimiter', default=',', help='Delimiter for disease extraction.', type=click.Path(exists=False), show_default=True)
-def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fancyimpute', n_neighbors=5, orientation='rows', output_pkl='', n_top_cpgs=0, feature_selection_method='mad', metric='correlation', n_neighbors_fs=10, disease_only=False, subtype_delimiter=','): # wrap a class around this
+@click.option('-st', '--sample_threshold', default=-1, help='Value between 0 and 1 for NaN removal. If samples has sample_threshold proportion of cpgs missing, then remove sample. Set to -1 to not remove samples.', show_default=True)
+@click.option('-ct', '--cpg_threshold', default=-1, help='Value between 0 and 1 for NaN removal. If cpgs has cpg_threshold proportion of samples missing, then remove cpg. Set to -1 to not remove samples.', show_default=True)
+def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fancyimpute', n_neighbors=5, orientation='rows', output_pkl='', n_top_cpgs=0, feature_selection_method='mad', metric='correlation', n_neighbors_fs=10, disease_only=False, subtype_delimiter=',', sample_threshold=-1, cpg_threshold=-1): # wrap a class around this
     """Imputation of subtype or no subtype using various imputation methods."""
     orientation_dict = {'CpGs':'columns','Samples':'rows'}
     orientation = orientation_dict[orientation]
@@ -801,6 +816,12 @@ def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fa
         imputer = ImputerObject(solver, method, opts=dict(k=n_neighbors, orientation=orientation)).return_imputer()
     input_dict = pickle.load(open(input_pkl,'rb'))
 
+    if cpg_threshold == -1:
+        cpg_threshold = None
+
+    if sample_threshold == -1:
+        sample_threshold = None
+
     if split_by_subtype:
 
         def impute_arrays(methyl_arrays):
@@ -809,12 +830,13 @@ def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fa
                 yield methyl_array
 
         methyl_array = MethylationArray(*extract_pheno_beta_df_from_pickle_dict(input_dict))
+        methyl_array.remove_missingness(cpg_threshold=cpg_threshold, sample_threshold=sample_threshold)
         methyl_arrays = impute_arrays(methyl_array.split_by_subtype(disease_only, subtype_delimiter))
         methyl_array=MethylationArrays([next(methyl_arrays)]).combine(methyl_arrays)
 
     else:
         methyl_array = MethylationArray(*extract_pheno_beta_df_from_pickle_dict(input_dict))
-
+        methyl_array.remove_missingness(cpg_threshold=cpg_threshold, sample_threshold=sample_threshold)
         methyl_array.impute(imputer)
 
     if n_top_cpgs:
