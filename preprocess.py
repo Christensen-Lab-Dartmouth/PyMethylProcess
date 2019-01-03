@@ -403,7 +403,7 @@ class MethylationArray:
     def subsample(self, key='disease', n_samples=None, frac=None, categorical=False):
         np.random.seed(42)
         if categorical:
-            pheno=self.pheno.groupby(key,group_keys=False).apply(lambda x: x.sample(frac=frac, n=n_samples))
+            pheno=self.pheno.groupby(key,group_keys=False).apply(lambda x: x.sample(frac=frac, n=min(x.shape[0],n_samples)))
         else:
             pheno=self.pheno.sample(frac=frac, n=n_samples)
         return MethylationArray(pheno,self.beta.loc[pheno.index.values,:],'subsampled')
@@ -438,7 +438,7 @@ class MethylationArray:
 
     def remove_missingness(self, cpg_threshold=None, sample_threshold=None):
         cpgs_remove = np.array([])
-        samples_remove = np.array()[])
+        samples_remove = np.array([])
         cpgs=self.return_cpgs()
         samples=self.return_idx()
         na_frame = pd.isna(self.beta).astype(int)
