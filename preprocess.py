@@ -391,7 +391,7 @@ class MethylationArray:
     def return_shape(self):
         return self.beta.shape
 
-    def split_train_test(self, train_p=0.8, stratified=True, disease_only=False, key='disease', subtype_delimiter=','):
+    def split_train_test(self, train_p=0.8, stratified=True, disease_only=False, key='disease', subtype_delimiter=','): # https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
         np.random.seed(42)
         if stratified:
             train_pheno=self.pheno.groupby(self.split_key('disease',subtype_delimiter) if disease_only else 'disease',group_keys=False).apply(lambda x: x.sample(frac=train_p))
@@ -405,7 +405,7 @@ class MethylationArray:
         if categorical:
             pheno=self.pheno.groupby(key,group_keys=False).apply(lambda x: x.sample(frac=frac, n=min(x.shape[0],n_samples)))
         else:
-            pheno=self.pheno.sample(frac=frac, n=n_samples)
+            pheno=self.pheno.sample(frac=frac, n=min(n_samples,self.pheno.shape[0]))
         return MethylationArray(pheno,self.beta.loc[pheno.index.values,:],'subsampled')
 
     def split_key(self, key, subtype_delimiter):
@@ -826,11 +826,11 @@ def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fa
 
         def impute_arrays(methyl_arrays):
             for methyl_array in methyl_arrays:
+                methyl_array.remove_missingness(cpg_threshold=cpg_threshold, sample_threshold=sample_threshold)
                 methyl_array.impute(imputer)
                 yield methyl_array
 
         methyl_array = MethylationArray(*extract_pheno_beta_df_from_pickle_dict(input_dict))
-        methyl_array.remove_missingness(cpg_threshold=cpg_threshold, sample_threshold=sample_threshold)
         methyl_arrays = impute_arrays(methyl_array.split_by_subtype(disease_only, subtype_delimiter))
         methyl_array=MethylationArrays([next(methyl_arrays)]).combine(methyl_arrays)
 
