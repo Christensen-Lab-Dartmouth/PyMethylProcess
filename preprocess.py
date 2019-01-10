@@ -180,8 +180,12 @@ class PreProcessPhenoData:
 
     def remove_diseases(self,exclude_disease_list, low_count, disease_only,subtype_delimiter):
         if low_count:
-            count_diseases=pd.DataFrame(self.get_categorical_distribution(low_count, disease_only,subtype_delimiter).items(),columns=['disease','count'])
-            exclude_diseases_more=count_diseases.loc[count_diseases['count']<low_count,['disease']].unique().tolist()
+            low_count = int(low_count)
+            cat_dist = self.get_categorical_distribution('disease', disease_only,subtype_delimiter).items()
+            count_diseases=pd.DataFrame(list(cat_dist),columns=['disease','count'])
+            count_diseases.loc[:,'count'] = count_diseases.loc[:,'count'].astype(int)
+            exclude_diseases_more=count_diseases.loc[count_diseases['count'].values<low_count,'disease']
+            exclude_diseases_more=exclude_diseases_more.unique().tolist()
             if disease_only:
                 exclude_diseases_more=self.pheno_sheet.loc[self.pheno_sheet['disease_only'].isin(exclude_diseases_more),'disease'].unique().tolist()
         else:
@@ -692,8 +696,8 @@ def get_categorical_distribution(formatted_sample_sheet,key,disease_only=False,s
 
 @preprocess.command()
 @click.option('-is', '--formatted_sample_sheet', default='./tcga_idats/clinical_info.csv', help='Clinical information downloaded from tcga/geo/custom, formatted using create_sample_sheet.', type=click.Path(exists=False), show_default=True)
-@click.option('-e', '--exclude_disease_list', default='', help='List of conditions to exclude, from disease column.', type=click.Path(exists=False), show_default=True)
-@click.option('-os', '--output_sample_sheet', default='./tcga_idats/minfiSheet.csv', help='CSV for minfi input.', type=click.Path(exists=False), show_default=True)
+@click.option('-e', '--exclude_disease_list', default='', help='List of conditions to exclude, from disease column, comma delimited.', type=click.Path(exists=False), show_default=True)
+@click.option('-os', '--output_sheet_name', default='./tcga_idats/minfiSheet.csv', help='CSV for minfi input.', type=click.Path(exists=False), show_default=True)
 @click.option('-l', '--low_count', default=0, help='Remove diseases if they are below a certain count, default this is not used.', type=click.Path(exists=False), show_default=True)
 @click.option('-d', '--disease_only', is_flag=True, help='Only look at disease, or text before subtype_delimiter.')
 @click.option('-sd', '--subtype_delimiter', default=',', help='Delimiter for disease extraction.', type=click.Path(exists=False), show_default=True)
@@ -758,7 +762,7 @@ def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series,
     try:
         pc_qc_parameters = pd.read_csv(pc_qc_parameters).set_index('subtype')
     except:
-        pc_qc_parameters = pd.DataFrame([[name,4,0.1,0.1,0.1,0.1] for name in np.vectorize(lambda x: x.split('/')[-2])()],
+        pc_qc_parameters = pd.DataFrame([[name,4,0.1,0.1,0.1,0.1] for name in np.vectorize(lambda x: x.split('/')[-2])(pheno_csvs)],
                         columns=['subtype','n_pcs','p_beadnum_samples','p_detection_samples','p_beadnum_cpgs','p_detection_cpgs']).set_index('subtype')
     if meffil:
         opts['-m']=''
@@ -791,7 +795,7 @@ def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series,
         run_command = lambda command: subprocess.call('module load cuda && module load python/3-Anaconda && source activate py36 && {}'.format(command),shell=True)
         from pyina.schedulers import Torque
         from pyina.launchers import Mpi
-        config = {'nodes':'10:ppn=6', 'queue':'default', 'timelimit':'01:00'}
+        config = {'nodes':'1:ppn=6', 'queue':'default', 'timelimit':'01:00:00'}
         torque = Torque(**config)
         pool = Mpi(scheduler=torque)
         pool.map(run_command, commands)
