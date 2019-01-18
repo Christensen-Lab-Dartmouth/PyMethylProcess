@@ -192,7 +192,6 @@ class PreProcessPhenoData:
             exclude_diseases_more=[]
         self.pheno_sheet = self.pheno_sheet[~self.pheno_sheet['disease'].isin(exclude_disease_list+exclude_diseases_more)]
 
-
 class PreProcessIDAT:
     def __init__(self, idat_dir, minfi=None, enmix=None, base=None, meffil=None):
         self.idat_dir = idat_dir
@@ -227,6 +226,7 @@ class PreProcessIDAT:
         return self.MSet
 
     def preprocessMeffil(self, n_cores=6, n_pcs=4, qc_report_fname="qc/report.html", normalization_report_fname='norm/report.html', pc_plot_fname='qc/pc_plot.pdf', useCache=True, qc_only=True, qc_parameters={'p.beadnum.samples':0.1,'p.detection.samples':0.1,'p.detection.cpgs':0.1,'p.beadnum.cpgs':0.1}):
+        from meffil_functions import load_detection_p_values_beadnum, set_missing
         self.pheno = self.meffil.meffil_read_samplesheet(self.idat_dir, verbose=True)
         cache_storage_path = os.path.join(self.idat_dir,'QCObjects.rds')
         qc_parameters=robjects.r("""function(p.beadnum.samples,p.detection.samples,p.detection.cpgs,p.beadnum.cpgs,sex.outlier.sd){
@@ -253,8 +253,8 @@ class PreProcessIDAT:
                 qc.objects<-meffil.qc(samplesheet,mc.cores=n.cores,detection.threshold=0.000001,verbose=F)
                 qc.summary<-meffil.qc.summary(qc.objects,parameters=qc.parameters,verbose=F)
                 meffil.qc.report(qc.summary, output.file=qc.report.fname)
-                return(list(qc.objects=qc.objects,qc.summary=qc.summary, p.values=meffil.load.detection.pvalues(qc.objects)))
-                }""")(self.pheno, n_cores, qc_parameters, qc_report_fname)
+                return(list(qc.objects=qc.objects,qc.summary=qc.summary))
+                }""")(self.pheno, n_cores, qc_parameters, qc_report_fname) # p.values=meffil.load.detection.pvalues(qc.objects)
         pc_df = robjects.r("""function(qc.list,pc.plot.fname){
             y <- meffil.plot.pc.fit(qc.list$qc.objects)
             print(y)
@@ -274,6 +274,8 @@ class PreProcessIDAT:
             exit()
         if not os.path.exists(cache_storage_path):
             robjects.r('saveRDS')(qc_list,cache_storage_path)
+        pval_beadnum=load_detection_p_values_beadnum(qc_list,n_cores)
+        #print(pval_beadnum)
         self.beta_final = robjects.r("""function(qc.list, n.pcs, norm.report.fname,mc.cores) {
             options(mc.cores=mc.cores)
             qc.objects = qc.list$qc.objects
@@ -302,6 +304,8 @@ class PreProcessIDAT:
             norm.summary <- meffil.normalization.summary(norm.objects, pcs=pcs)
             meffil.normalization.report(norm.summary, output.file=norm.report.fname)
             return(beta)}""")(qc_list, n_pcs, normalization_report_fname,n_cores)
+
+        self.beta_final = set_missing(self.beta_final, pval_beadnum)
 
         try:
             grdevice = importr("grDevices")
@@ -577,7 +581,17 @@ class ImputerObject:
         import inspect
         imputers = {'fancyimpute':dict(KNN=KNN,MICE=IterativeImputer,BiScaler=BiScaler,Soft=SoftImpute),
                     'impyute':dict(),
-                    'simple':dict(Mean=SimpleImputer(strategy='mean'),Zero=SimpleImputer(strategy='constant'))}
+                    'sklearn':dict(Mean=SimpleImputer(strategy='mean'),Zero=SimpleImputer(strategy='constant'))}
+        try:
+            from sklearn.impute import IterativeImputer
+            f=IterativeImputer
+            opts['n_nearest_features']=opts['k']
+            opts={key: opts[key] for key in opts if key in inspect.getargspec(f.__init__)[0]}
+            opts.update(dict(min_value=0.,sample_posterior=True,max_value=1.))
+            imputers['sklearn']['MICE']=f(**opts)
+        except:
+            print('Please install development branch of iterative imputer from sklearn.')
+            exit()
         try:
             if solver == 'fancyimpute':
                 f=imputers[solver][method]
@@ -899,7 +913,7 @@ def combine_methylation_arrays(input_pkls, optional_input_pkl_dir, output_pkl, e
 @click.option('-i', '--input_pkl', default='./combined_outputs/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-ss', '--split_by_subtype', is_flag=True, help='Imputes CpGs by subtype before combining again.')
 @click.option('-m', '--method', default='KNN', help='Method of imputation.', type=click.Choice(['KNN', 'Mean', 'Zero', 'MICE', 'BiScaler', 'Soft', 'random', 'DeepCpG', 'DAPL']), show_default=True)
-@click.option('-s', '--solver', default='fancyimpute', help='Imputation library.', type=click.Choice(['fancyimpute', 'impyute', 'simple']), show_default=True)
+@click.option('-s', '--solver', default='fancyimpute', help='Imputation library.', type=click.Choice(['fancyimpute', 'impyute', 'sklearn']), show_default=True)
 @click.option('-k', '--n_neighbors', default=5, help='Number neighbors for imputation if using KNN.', show_default=True)
 @click.option('-r', '--orientation', default='Samples', help='Impute CpGs or samples.', type=click.Choice(['Samples','CpGs']), show_default=True)
 @click.option('-o', '--output_pkl', default='./imputed_outputs/methyl_array.pkl', help='Output database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
@@ -909,8 +923,8 @@ def combine_methylation_arrays(input_pkls, optional_input_pkl_dir, output_pkl, e
 @click.option('-nfs', '--n_neighbors_fs', default=0, help='Number neighbors for feature selection, default enacts rbf kernel.', show_default=True)
 @click.option('-d', '--disease_only', is_flag=True, help='Only look at disease, or text before subtype_delimiter.')
 @click.option('-sd', '--subtype_delimiter', default=',', help='Delimiter for disease extraction.', type=click.Path(exists=False), show_default=True)
-@click.option('-st', '--sample_threshold', default=-1, help='Value between 0 and 1 for NaN removal. If samples has sample_threshold proportion of cpgs missing, then remove sample. Set to -1 to not remove samples.', show_default=True)
-@click.option('-ct', '--cpg_threshold', default=-1, help='Value between 0 and 1 for NaN removal. If cpgs has cpg_threshold proportion of samples missing, then remove cpg. Set to -1 to not remove samples.', show_default=True)
+@click.option('-st', '--sample_threshold', default=-1., help='Value between 0 and 1 for NaN removal. If samples has sample_threshold proportion of cpgs missing, then remove sample. Set to -1 to not remove samples.', show_default=True)
+@click.option('-ct', '--cpg_threshold', default=-1., help='Value between 0 and 1 for NaN removal. If cpgs has cpg_threshold proportion of samples missing, then remove cpg. Set to -1 to not remove samples.', show_default=True)
 def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fancyimpute', n_neighbors=5, orientation='rows', output_pkl='', n_top_cpgs=0, feature_selection_method='mad', metric='correlation', n_neighbors_fs=10, disease_only=False, subtype_delimiter=',', sample_threshold=-1, cpg_threshold=-1): # wrap a class around this
     """Imputation of subtype or no subtype using various imputation methods."""
     orientation_dict = {'CpGs':'columns','Samples':'rows'}
@@ -925,10 +939,10 @@ def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fa
         imputer = ImputerObject(solver, method, opts=dict(k=n_neighbors, orientation=orientation)).return_imputer()
     input_dict = pickle.load(open(input_pkl,'rb'))
 
-    if cpg_threshold == -1:
+    if cpg_threshold == -1.:
         cpg_threshold = None
 
-    if sample_threshold == -1:
+    if sample_threshold == -1.:
         sample_threshold = None
 
     if split_by_subtype:
@@ -979,28 +993,37 @@ def feature_select(input_pkl,output_pkl,n_top_cpgs=300000, feature_selection_met
 @preprocess.command()
 @click.option('-i', '--input_pkl', default='./preprocess_outputs/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_dir', default='./na_report/', help='Output database for na report.', type=click.Path(exists=False), show_default=True)
-def na_report(input_pkl, output_dir):
+@click.option('-r', '--head_directory', is_flag=True, help='-i option becomes directory, and searches there for multiple input pickles.')
+def na_report(input_pkl, output_dir, head_directory):
     """Print proportion of missing values throughout dataset."""
     import matplotlib.pyplot as plt
-    os.makedirs(output_dir,exist_ok=True)
-    df=pickle.load(open(input_pkl,'rb'))['beta']
-    na_frame = pd.isna(df).astype(int)
-    na_frame = na_frame.iloc[np.argsort(na_frame.sum(axis=1)),:]
-    print('NA Rate is on average: {}%'.format(sum(na_frame.values.flatten())/float(df.shape[0]*df.shape[1])*100.))
-    plt.figure()
-    pd.DataFrame(na_frame.sum(axis=1)).apply(lambda x: x/float(df.shape[1])).hist()
-    plt.savefig(os.path.join(output_dir,'sample_missingness.png'))
-    plt.figure()
-    pd.DataFrame(na_frame.sum(axis=0)).apply(lambda x: x/float(df.shape[0])).hist()
-    plt.savefig(os.path.join(output_dir,'cpg_missingness.png'))
-    xy=np.transpose(np.nonzero(na_frame.values))
-    plt.figure()
-    plt.scatter(xy[:,1],xy[:,0])
-    plt.xlim([0,df.shape[0]])
-    plt.ylim([0,df.shape[1]])
-    plt.xlabel('CpGs')
-    plt.ylabel('Samples')
-    plt.savefig(os.path.join(output_dir,'array_missingness.png'))
+    if head_directory:
+        input_pickles=glob.glob(os.path.join(input_pkl,'*/*.pkl'))
+        output_dirs=np.vectorize(lambda x: x.replace('.pkl','.na_report'))(input_pickles).tolist()
+    else:
+        input_pickles=[input_pkl]
+        output_dirs=[output_dir]
+    for input_pkl,output_dir in zip(input_pickles,output_dirs):
+        os.makedirs(output_dir,exist_ok=True)
+        df=pickle.load(open(input_pkl,'rb'))['beta']
+        na_frame = pd.isna(df).astype(int)
+        na_frame = na_frame.iloc[np.argsort(na_frame.sum(axis=1)),:]
+        print('NA Rate is on average: {}%'.format(sum(na_frame.values.flatten())/float(df.shape[0]*df.shape[1])*100.))
+        plt.figure()
+        pd.DataFrame(na_frame.sum(axis=1)).apply(lambda x: x/float(df.shape[1])).hist()
+        plt.savefig(os.path.join(output_dir,'sample_missingness.png'))
+        plt.figure()
+        pd.DataFrame(na_frame.sum(axis=0)).apply(lambda x: x/float(df.shape[0])).hist()
+        plt.savefig(os.path.join(output_dir,'cpg_missingness.png'))
+        xy=np.transpose(np.nonzero(na_frame.values))
+        if 0:
+            plt.figure()
+            plt.scatter(xy[:,1],xy[:,0])
+            plt.xlim([0,df.shape[0]])
+            plt.ylim([0,df.shape[1]])
+            plt.xlabel('CpGs')
+            plt.ylabel('Samples')
+            plt.savefig(os.path.join(output_dir,'array_missingness.png'))
 
 
 
