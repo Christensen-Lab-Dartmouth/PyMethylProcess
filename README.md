@@ -28,3 +28,24 @@ And if we do that we should create a PyPi package for easy use. @jlevy44 we shou
 - @AlexanderTitus
 
 Division of Labor:
+
+Docker:
+module load singularity
+
+----------
+module load python/3-Anaconda
+conda create -n methylnet_runner python=3.6
+source activate methylnet_runner
+conda install -c bioconda udocker
+udocker login --username=joshualevy44 --password=xxx # --registry=cloud.canister.io:5000
+udocker pull joshualevy44/methylnet:preprocess #cloud.canister.io:5000/joshualevy44/methylnet:preprocess
+udocker create --name=methylnet joshualevy44/methylnet:preprocess #cloud.canister.io:5000/joshualevy44/methylnet:preprocess
+udocker setup --execmode=F3  methylnet
+# for GPUs
+udocker setup --nvidia --execmode=F3  methylnet
+udocker run methylnet /scripts/preprocess.py
+
+Base docker image:
+cloud.canister.io:5000/joshualevy44/methylnet:base
+Preprocess docker image
+cloud.canister.io:5000/joshualevy44/methylnet:preprocess

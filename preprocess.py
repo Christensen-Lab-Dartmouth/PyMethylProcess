@@ -1,5 +1,5 @@
 import rpy2.robjects as robjects
-from rpy2.robjects.packages import importr
+from rpy2.robjects.packages import importr #from utils import importr_ as importr#
 import rpy2.interactive as r
 import rpy2.robjects.packages as rpackages
 import os, subprocess
@@ -229,49 +229,79 @@ class PreProcessIDAT:
     def preprocessMeffil(self, n_cores=6, n_pcs=4, qc_report_fname="qc/report.html", normalization_report_fname='norm/report.html', pc_plot_fname='qc/pc_plot.pdf', useCache=True, qc_only=True, qc_parameters={'p.beadnum.samples':0.1,'p.detection.samples':0.1,'p.detection.cpgs':0.1,'p.beadnum.cpgs':0.1}):
         self.pheno = self.meffil.meffil_read_samplesheet(self.idat_dir, verbose=True)
         cache_storage_path = os.path.join(self.idat_dir,'QCObjects.rds')
-        qc_parameters=robjects.r("""function(p.beadnum.samples,p.detection.samples,p.detection.cpgs,p.beadnum.cpgs){
+        qc_parameters=robjects.r("""function(p.beadnum.samples,p.detection.samples,p.detection.cpgs,p.beadnum.cpgs,sex.outlier.sd){
                         qc.parameters <- meffil.qc.parameters(
                             	beadnum.samples.threshold             = p.beadnum.samples,
                             	detectionp.samples.threshold          = p.detection.samples,
                             	detectionp.cpgs.threshold             = p.detection.cpgs,
                             	beadnum.cpgs.threshold                = p.beadnum.cpgs,
-                            	sex.outlier.sd                        = 5,
+                            	sex.outlier.sd                        = sex.outlier.sd,
                             	snp.concordance.threshold             = 0.95,
                             	sample.genotype.concordance.threshold = 0.8
                             )
                         return(qc.parameters)
-                        }""")(qc_parameters['p.beadnum.samples'], qc_parameters['p.detection.samples'], qc_parameters['p.detection.cpgs'], qc_parameters['p.beadnum.cpgs'])
+                        }""")(qc_parameters['p.beadnum.samples'], qc_parameters['p.detection.samples'], qc_parameters['p.detection.cpgs'], qc_parameters['p.beadnum.cpgs'], qc_parameters['sex.outlier.sd'])
         if useCache:
             qc_list = robjects.r('readRDS')(cache_storage_path)
-            qc_list = robjects.r("""function(qc.list,qc.parameters) {
+            qc_list = robjects.r("""function(qc.list,qc.parameters, qc.report.fname) {
                                 qc.list$qc.summary <- meffil.qc.summary(qc.list$qc.objects,parameters=qc.parameters,verbose=F)
-                                }""")(qc_list,qc_parameters)
+                                meffil.qc.report(qc.list$qc.summary, output.file=qc.report.fname)
+                                return(qc.list)
+                                }""")(qc_list,qc_parameters, qc_report_fname)
         else:
-            qc_list = robjects.r("""function(samplesheet,n.cores,qc.parameters,qc.report.fname,pc.plot.fname){
-                qc.objects<-meffil.qc(samplesheet,mc.cores=n.cores,verbose=F)
+            qc_list = robjects.r("""function(samplesheet,n.cores,qc.parameters,qc.report.fname){
+                qc.objects<-meffil.qc(samplesheet,mc.cores=n.cores,detection.threshold=0.000001,verbose=F)
                 qc.summary<-meffil.qc.summary(qc.objects,parameters=qc.parameters,verbose=F)
                 meffil.qc.report(qc.summary, output.file=qc.report.fname)
-                y <- meffil.plot.pc.fit(qc.objects)
-                ggsave(y$plot,filename=plot,height=6,width=6)
-                return(list(qc.objects=qc.objects,qc.summary=qc.summary))
-                }""")(self.pheno, n_cores, qc_parameters, qc_report_fname, pc_plot_fname)
-            print("Check QC report and select number of PCs. Will add option in future to adjust thresholds.")
-            if qc_only:
-                robjects.r('saveRDS')(qc_list,cache_storage_path)
-                exit()
-        self.beta_final = robjects.r("""function(qc.list, n.pcs, norm.report.fname) {
+                return(list(qc.objects=qc.objects,qc.summary=qc.summary, p.values=meffil.load.detection.pvalues(qc.objects)))
+                }""")(self.pheno, n_cores, qc_parameters, qc_report_fname)
+        pc_df = robjects.r("""function(qc.list,pc.plot.fname){
+            y <- meffil.plot.pc.fit(qc.list$qc.objects)
+            print(y)
+            ggsave(y$plot,filename=pc.plot.fname,height=6,width=6)
+            return(y$data)
+            }""")(qc_list,pc_plot_fname)
+        print("Check QC report and select number of PCs. Will add option in future to adjust thresholds.")
+        if n_pcs == -1:
+            from kneed import KneeLocator
+            pc_df=pandas2ri.ri2py(robjects.r['as'](pc_df,'data.frame'))
+            pc_df['B'] = pc_df['U']+pc_df['M']
+            n_pcs=int(KneeLocator(pc_df['n'].values, pc_df['B'].values, S=1.0, curve='convex', direction='decreasing').knee)
+            with open(pc_plot_fname.replace('.pdf','.txt'),'w') as f:
+                f.write('pcs_selected:{}'.format(n_pcs))
+        if qc_only:
+            robjects.r('saveRDS')(qc_list,cache_storage_path)
+            exit()
+        if not os.path.exists(cache_storage_path):
+            robjects.r('saveRDS')(qc_list,cache_storage_path)
+        self.beta_final = robjects.r("""function(qc.list, n.pcs, norm.report.fname,mc.cores) {
+            options(mc.cores=mc.cores)
             qc.objects = qc.list$qc.objects
             qc.summary = qc.list$qc.summary
-            if (nrow(qc.summary$bad.samples) > 0) {
-            qc.objects <- meffil.remove.samples(qc.objects, qc.summary$bad.samples$sample.name)
+            outlier <- qc.summary$bad.samples
+            if (nrow(outlier) > 0) {
+            table(outlier$issue)
+            index <- outlier$issue %in% c("Control probe (dye.bias)",
+                                          "Methylated vs Unmethylated",
+                                          "X-Y ratio outlier",
+                                          "Low bead numbers",
+                                          "Detection p-value",
+                                          "Sex mismatch",
+                                          "Genotype mismatch",
+                                          "Control probe (bisulfite1)",
+                                          "Control probe (bisulfite2)")
+            outlier <- outlier[index,]
+            if (nrow(outlier) > 0) {
+                qc.objects <- meffil.remove.samples(qc.objects, outlier$sample.name)
+            }
             }
             norm.objects <- meffil.normalize.quantiles(qc.objects, number.pcs=n.pcs, verbose=F)
             norm <- meffil.normalize.samples(norm.objects, just.beta=F, cpglist.remove=qc.summary$bad.cpgs$name)
-            pcs = meffil.methylation_pcs(norm)
-            norm.summary = meffil.normalization.summary(norm.objects, pcs=pcs)
-            meffil.normalization.report(norm.summary, output.file=norm.report.fname)
             beta <- meffil.get.beta(norm$M, norm$U)
-            return(beta)}""")(qc_list, n_pcs, normalization_report_fname)
+            pcs <- meffil.methylation.pcs(beta)
+            norm.summary <- meffil.normalization.summary(norm.objects, pcs=pcs)
+            meffil.normalization.report(norm.summary, output.file=norm.report.fname)
+            return(beta)}""")(qc_list, n_pcs, normalization_report_fname,n_cores)
 
         try:
             grdevice = importr("grDevices")
@@ -580,6 +610,8 @@ def extract_pheno_beta_df_from_sql(conn, disease=''):
     else:
         return pd.read_sql('select * from {};'.format('pheno'),conn), pd.read_sql('select * from {};'.format('beta'),conn)
 
+
+
 #### COMMANDS ####
 
 ## Download ##
@@ -740,8 +772,8 @@ def split_preprocess_input_by_subtype(idat_csv,geo_query,disease_only,subtype_de
             if (group['Sex']==group['Sex'].mode().values[0][0]).all():
                 group=group.rename(columns={'Sex':'gender'})
         group.to_csv('{}/{}'.format(new_out_dir,new_sheet))
-        default_qc_df.append([name,4,0.1,0.1,0.1,0.1])
-    pd.DataFrame(default_qc_df,columns=['subtype','n_pcs','p_beadnum_samples','p_detection_samples','p_beadnum_cpgs','p_detection_cpgs']).to_csv(os.path.join(subtype_output_dir,'pc_qc_parameters.csv'))
+        default_qc_df.append([name,-1,0.05,0.05,0.05,0.05,5,-2])
+    pd.DataFrame(default_qc_df,columns=['subtype','n_pcs','p_beadnum_samples','p_detection_samples','p_beadnum_cpgs','p_detection_cpgs','sex_sd','sex_cutoff']).to_csv(os.path.join(subtype_output_dir,'pc_qc_parameters.csv'))
 
 
 
@@ -755,15 +787,16 @@ def split_preprocess_input_by_subtype(idat_csv,geo_query,disease_only,subtype_de
 @click.option('-p', '--pc_qc_parameters_csv', default='./preprocess_outputs/pc_qc_parameters.csv', show_default=True, help='For meffil, qc parameters and pcs for final qc and functional normalization.')
 @click.option('-u', '--use_cache', is_flag=True, help='If this is selected, loads qc results rather than running qc again. Only works for meffil selection.')
 @click.option('-qc', '--qc_only', is_flag=True, help='Only perform QC for meffil pipeline, caches results into rds file for loading again, only works if use_cache is false.')
-def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series, pc_qc_parameters_csv, use_cache, qc_only):
+@click.option('-c', '--chunk_size', default=-1, help='If not series, chunk up and run these number of commands at once.. -1 means all commands at once.')
+def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series, pc_qc_parameters_csv, use_cache, qc_only, chunk_size):
     """Deploy multiple preprocessing jobs in series or parallel."""
     pheno_csvs = glob.glob(os.path.join(subtype_output_dir,'*','*.csv'))
     opts = {'-n':n_cores}
     try:
-        pc_qc_parameters = pd.read_csv(pc_qc_parameters).set_index('subtype')
+        pc_qc_parameters = pd.read_csv(pc_qc_parameters).drop_duplicates().set_index('subtype')
     except:
-        pc_qc_parameters = pd.DataFrame([[name,4,0.1,0.1,0.1,0.1] for name in np.vectorize(lambda x: x.split('/')[-2])(pheno_csvs)],
-                        columns=['subtype','n_pcs','p_beadnum_samples','p_detection_samples','p_beadnum_cpgs','p_detection_cpgs']).set_index('subtype')
+        pc_qc_parameters = pd.DataFrame([[name,-1,0.05,0.05,0.05,0.05,5,-2] for name in np.vectorize(lambda x: x.split('/')[-2])(pheno_csvs)],
+                        columns=['subtype','n_pcs','p_beadnum_samples','p_detection_samples','p_beadnum_cpgs','p_detection_cpgs','sex_sd','sex_cutoff']).drop_duplicates().set_index('subtype')
     if meffil:
         opts['-m']=''
     if use_cache:
@@ -774,23 +807,31 @@ def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series,
     for pheno_csv in pheno_csvs:
         pheno_path = os.path.abspath(pheno_csv)
         subtype=pheno_path.split('/')[-2]
-        opts['-pc'] = pc_qc_parameters.loc[subtype,'n_pcs']
+        opts['-pc'] = int(pc_qc_parameters.loc[subtype,'n_pcs'])
         opts['-bns'] = pc_qc_parameters.loc[subtype,'p_beadnum_samples']
         opts['-pds'] = pc_qc_parameters.loc[subtype,'p_detection_samples']
         opts['-bnc'] = pc_qc_parameters.loc[subtype,'p_beadnum_cpgs']
         opts['-pdc'] = pc_qc_parameters.loc[subtype,'p_detection_cpgs']
+        opts['-sc'] = pc_qc_parameters.loc[subtype,'sex_cutoff']
+        opts['-sd'] = pc_qc_parameters.loc[subtype,'sex_sd']
         opts['-i']=pheno_path[:pheno_path.rfind('/')+1]
         opts['-o']=pheno_path[:pheno_path.rfind('/')+1]+'methyl_array.pkl'
         command='python preprocess.py preprocess_pipeline {}'.format(' '.join('{} {}'.format(k,v) for k,v in opts.items()))
         commands.append(command)
     if not torque:
-        for command in commands:
-            if not series:
-                command="nohup {} &".format(command)
-            if not run:
-                click.echo(command)
-            else:
-                subprocess.call(command,shell=True)
+        if not series and chunk_size != -1:
+            commands = np.array_split(commands,len(commands)//chunk_size)
+            print(commands)
+            for command_list in commands:
+                subprocess.call('./run_parallel {}'.format(' '.join(['"{}"'.format(command) for command in command_list])),shell=True)
+        else:
+            for command in commands:
+                if not series:
+                    command="nohup {} &".format(command)
+                if not run:
+                    click.echo(command)
+                else:
+                    subprocess.call(command,shell=True)
     else:
         run_command = lambda command: subprocess.call('module load cuda && module load python/3-Anaconda && source activate py36 && {}'.format(command),shell=True)
         from pyina.schedulers import Torque
@@ -800,26 +841,29 @@ def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series,
         pool = Mpi(scheduler=torque)
         pool.map(run_command, commands)
 
+
 @preprocess.command()
 @click.option('-i', '--idat_dir', default='./tcga_idats/', help='Idat dir for one sample sheet, alternatively can be your phenotype sample sheet.', type=click.Path(exists=False), show_default=True)
 @click.option('-n', '--n_cores', default=6, help='Number cores to use for preprocessing.', show_default=True)
 @click.option('-o', '--output_pkl', default='./preprocess_outputs/methyl_array.pkl', help='Output database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-m', '--meffil', is_flag=True, help='Preprocess using meffil.')
-@click.option('-pc', '--n_pcs', default=4, show_default=True, help='For meffil, number of principal components for functional normalization.')
+@click.option('-pc', '--n_pcs', default=-1, show_default=True, help='For meffil, number of principal components for functional normalization. If set to -1, then PCs are selected using elbow method.')
 @click.option('-p', '--pipeline', default='enmix', show_default=True, help='If not meffil, preprocess using minfi or enmix.', type=click.Choice(['minfi','enmix']))
 @click.option('-u', '--use_cache', is_flag=True, help='If this is selected, loads qc results rather than running qc again and update with new qc parameters. Only works for meffil selection.')
 @click.option('-qc', '--qc_only', is_flag=True, help='Only perform QC for meffil pipeline, caches results into rds file for loading again, only works if use_cache is false.')
-@click.option('-bns', '--p_beadnum_samples', default=0.1, show_default=True, help='From meffil documentation, "fraction of probes that failed the threshold of 3 beads".')
-@click.option('-pds', '--p_detection_samples', default=0.1, show_default=True, help='From meffil documentation, "fraction of probes that failed a detection.pvalue threshold of 0.01".')
-@click.option('-bnc', '--p_beadnum_cpgs', default=0.1, show_default=True, help='From meffil documentation, "fraction of samples that failed the threshold of 3 beads".')
-@click.option('-pdc', '--p_detection_cpgs', default=0.1, show_default=True, help='From meffil documentation, "fraction of samples that failed a detection.pvalue threshold of 0.01".')
-def preprocess_pipeline(idat_dir, n_cores, output_pkl, meffil, n_pcs, pipeline, use_cache, qc_only, p_beadnum_samples, p_detection_samples, p_beadnum_cpgs, p_detection_cpgs):
+@click.option('-bns', '--p_beadnum_samples', default=0.05, show_default=True, help='From meffil documentation, "fraction of probes that failed the threshold of 3 beads".')
+@click.option('-pds', '--p_detection_samples', default=0.05, show_default=True, help='From meffil documentation, "fraction of probes that failed a detection.pvalue threshold of 0.01".')
+@click.option('-bnc', '--p_beadnum_cpgs', default=0.05, show_default=True, help='From meffil documentation, "fraction of samples that failed the threshold of 3 beads".')
+@click.option('-pdc', '--p_detection_cpgs', default=0.05, show_default=True, help='From meffil documentation, "fraction of samples that failed a detection.pvalue threshold of 0.01".')
+@click.option('-sc', '--sex_cutoff', default=-2, show_default=True, help='From meffil documentation, "difference of total median intensity for Y chromosome probes and X chromosome probes".')
+@click.option('-sd', '--sex_sd', default=5, show_default=True, help='From meffil documentation, "sex detection outliers if outside this range".')
+def preprocess_pipeline(idat_dir, n_cores, output_pkl, meffil, n_pcs, pipeline, use_cache, qc_only, p_beadnum_samples, p_detection_samples, p_beadnum_cpgs, p_detection_cpgs, sex_cutoff, sex_sd):
     """Perform preprocessing of idats using enmix or meffil."""
     output_dir = output_pkl[:output_pkl.rfind('/')]
     os.makedirs(output_dir,exist_ok=True)
     preprocesser = PreProcessIDAT(idat_dir)
     if meffil:
-        qc_parameters={'p.beadnum.samples':p_beadnum_samples,'p.detection.samples':p_detection_samples,'p.detection.cpgs':p_detection_cpgs,'p.beadnum.cpgs':p_beadnum_cpgs}
+        qc_parameters={'p.beadnum.samples':p_beadnum_samples,'p.detection.samples':p_detection_samples,'p.detection.cpgs':p_detection_cpgs,'p.beadnum.cpgs':p_beadnum_cpgs,'sex.cutoff':sex_cutoff, 'sex.outlier.sd':sex_sd}
         preprocesser.preprocessMeffil(n_cores=n_cores,n_pcs=n_pcs,qc_report_fname=os.path.join(output_dir,'qc.report.html'), normalization_report_fname=os.path.join(output_dir,'norm.report.html'), pc_plot_fname=os.path.join(output_dir,'pc.plot.pdf'), useCache=use_cache, qc_only=qc_only, qc_parameters=qc_parameters)
     else:
         preprocesser.preprocess_enmix_pipeline(geo_query='', n_cores=n_cores, pipeline=pipeline)
