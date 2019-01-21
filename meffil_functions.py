@@ -5,7 +5,6 @@ def load_detection_p_values_beadnum(qc_list, n_cores):
                                             max.bytes=2^30-1,
                                             verbose=F,
                                             ...) {
-        #library(meffil)
         qc.objects <- qc.list$qc.objects
         options(mc.cores=mc.cores)
         stopifnot(all(sapply(qc.objects, meffil:::is.qc.object)))
