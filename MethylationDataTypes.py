@@ -1,7 +1,6 @@
 import pandas as pd, numpy as np
 import pickle, os
 
-
 class MethylationArray:
     def __init__(self, pheno_df, beta_df, name=''):
         self.pheno=pheno_df
@@ -57,8 +56,11 @@ class MethylationArray:
 
     def split_key(self, key, subtype_delimiter):
         new_key = '{}_only'.format(key)
-        self.pheno[new_key] = self.pheno[key].map(lambda x: x.split(subtype_delimiter)[0])
+        self.pheno.loc[:,new_key] = self.pheno[key].map(lambda x: x.split(subtype_delimiter)[0])
         return new_key
+
+    def remove_whitespace(self, key):
+        self.pheno.loc[:,key]=self.pheno[key].map(lambda x: x.replace(' ',''))
 
     def split_by_subtype(self, disease_only, subtype_delimiter):
         for disease, pheno_df in self.pheno.groupby(self.split_key('disease',subtype_delimiter) if disease_only else 'disease'):
@@ -111,6 +113,10 @@ class MethylationArray:
     def subset_cpgs(self,cpgs):
         return MethylationArray(self.pheno,self.beta.loc[:,cpgs])
 
+    def categorical_breakdown(self, key):
+        from collections import Counter
+        print('\n'.join(['{}:{}'.format(k,v) for k,v in Counter(self.pheno[key].values).items()]))
+
     def merge_preprocess_sheet(self, preprocess_sample_df):
         self.pheno=self.pheno.merge(preprocess_sample_df,on=['Basename'],how='inner')
         if 'disease_x' in list(self.pheno):
@@ -120,7 +126,7 @@ class MethylationArray:
 
     @classmethod
     def from_pickle(self, input_pickle):
-        return MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(input_pickle,'rb')))
+        return MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(open(input_pickle,'rb'))))
 
 class MethylationArrays:
     def __init__(self, list_methylation_arrays):
