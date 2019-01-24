@@ -33,14 +33,19 @@ class MethylationArray:
     def return_shape(self):
         return self.beta.shape
 
-    def split_train_test(self, train_p=0.8, stratified=True, disease_only=False, key='disease', subtype_delimiter=','): # https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
+    def split_train_test(self, train_p=0.8, stratified=True, disease_only=False, key='disease', subtype_delimiter=',', val_p=0.): # https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
         np.random.seed(42)
         if stratified:
-            train_pheno=self.pheno.groupby(self.split_key('disease',subtype_delimiter) if disease_only else 'disease',group_keys=False).apply(lambda x: x.sample(frac=train_p))
+            train_pheno=self.pheno.groupby(self.split_key('disease',subtype_delimiter) if disease_only else key,group_keys=False).apply(lambda x: x.sample(frac=train_p))
         else:
             train_pheno = self.pheno.sample(frac=train_p)
         test_pheno = self.pheno.drop(train_pheno.index)
-        return MethylationArray(train_pheno,self.beta.loc[train_pheno.index.values,:],'train'),MethylationArray(test_pheno,self.beta.loc[test_pheno.index.values,:],'test')
+        train_arr, test_arr = MethylationArray(train_pheno,self.beta.loc[train_pheno.index.values,:],'train'),MethylationArray(test_pheno,self.beta.loc[test_pheno.index.values,:],'test')
+        if val_p > 0:
+            train_arr, val_arr = train_arr.split_train_test(1.-val_p,stratified,disease_only,key,subtype_delimiter)
+            return train_arr, test_arr, val_arr
+        else:
+            return train_arr, test_arr
 
     def subsample(self, key='disease', n_samples=None, frac=None, categorical=False):
         np.random.seed(42)
@@ -113,8 +118,9 @@ class MethylationArray:
         self.pheno = self.pheno[[col for col in list(self.pheno) if not col.startswith('Unnamed:')]]
         self.pheno=self.pheno.set_index([np.vectorize(lambda x: x.split('/')[-1])(self.pheno['Basename'])],drop=False)
 
-    def load(self, input_pickle):
-        pass
+    @classmethod
+    def from_pickle(self, input_pickle):
+        return MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(input_pickle,'rb')))
 
 class MethylationArrays:
     def __init__(self, list_methylation_arrays):
