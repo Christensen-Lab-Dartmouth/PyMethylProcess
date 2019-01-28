@@ -361,21 +361,23 @@ def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fa
 @click.option('-o', '--output_pkl', default='./final_preprocessed/methyl_array.pkl', help='Output database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-n', '--n_top_cpgs', default=300000, help='Number cpgs to include with highest variance across population.', show_default=True)
 @click.option('-f', '--feature_selection_method', default='mad', type=click.Choice(['mad','spectral']))
-@click.option('-m', '--metric', default='correlation', type=click.Choice(['euclidean','cosine','correlation']))
+@click.option('-mm', '--metric', default='correlation', type=click.Choice(['euclidean','cosine','correlation']))
 @click.option('-nn', '--n_neighbors', default=0, help='Number neighbors for feature selection, default enacts rbf kernel.', show_default=True)
-@click.option('-m', '--mad_top_cpgs', default=0, help='Number cpgs to apply mad filtering first before more sophisticated feature selection. If 0, no mad pre-filtering.', show_default=True)
+@click.option('-m', '--mad_top_cpgs', default=0, help='Number cpgs to apply mad filtering first before more sophisticated feature selection. If 0 or primary feature selection is mad, no mad pre-filtering.', show_default=True)
 def feature_select(input_pkl,output_pkl,n_top_cpgs=300000, feature_selection_method='mad', metric='correlation', n_neighbors=10, mad_top_cpgs=0):
     """Filter CpGs by taking x top CpGs with highest mean absolute deviation scores or via spectral feature selection."""
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
     input_dict=pickle.load(open(input_pkl,'rb'))
     methyl_array = MethylationArray(*extract_pheno_beta_df_from_pickle_dict(input_dict))
 
-    if mad_top_cpgs:
+    if mad_top_cpgs and feature_selection_method != 'mad':
         methyl_array.feature_select(mad_top_cpgs,'mad')
 
     methyl_array.feature_select(n_top_cpgs,feature_selection_method, metric, nn=n_neighbors)
 
     methyl_array.write_pickle(output_pkl)
+
+    return methyl_array
 
 ### QC
 
@@ -397,7 +399,7 @@ def na_report(input_pkl, output_dir, head_directory):
         df=pickle.load(open(input_pkl,'rb'))['beta']
         na_frame = pd.isna(df).astype(int)
         na_frame = na_frame.iloc[np.argsort(na_frame.sum(axis=1)),:]
-        print('NA Rate is on average: {}%'.format(sum(na_frame.values.flatten())/float(df.shape[0]*df.shape[1])*100.))
+        print('{} NA Rate is on average: {}%'.format(input_pkl,sum(na_frame.values.flatten())/float(df.shape[0]*df.shape[1])*100.))
         plt.figure()
         pd.DataFrame(na_frame.sum(axis=1)).apply(lambda x: x/float(df.shape[1])).hist()
         plt.savefig(os.path.join(output_dir,'sample_missingness.png'))
@@ -414,47 +416,6 @@ def na_report(input_pkl, output_dir, head_directory):
             plt.ylabel('Samples')
             plt.savefig(os.path.join(output_dir,'array_missingness.png'))
 
-
-
-### MISC
-
-@preprocess.command()
-@click.option('-i', '--input_dir', default='./', help='Directory containing jpg.', type=click.Path(exists=False), show_default=True)
-@click.option('-o', '--output_dir', default='./preprocess_output_images/', help='Output directory for images.', type=click.Path(exists=False), show_default=True)
-def move_jpg(input_dir, output_dir):
-    """Move preprocessing jpegs to preprocessing output directory."""
-    os.makedirs(output_dir, exist_ok=True)
-    subprocess.call('mv {} {}'.format(os.path.join(input_dir,'*.jpg'),os.path.abspath(output_dir)),shell=True)
-
-@preprocess.command()
-@click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
-@click.option('-o', '--output_pkl', default='./backup/methyl_array.pkl', help='Output database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
-def backup_pkl(input_pkl, output_pkl):
-    """Copy methylarray pickle to new location to backup."""
-    os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
-    subprocess.call('rsync {} {}'.format(input_pkl, output_pkl),shell=True)
-
-@preprocess.command()
-@click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
-@click.option('-o', '--output_dir', default='./final_preprocessed/', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
-def pkl_to_csv(input_pkl, output_dir):
-    """Output methylarray pickle to csv."""
-    os.makedirs(output_dir,exist_ok=True)
-    input_dict=pickle.load(open(input_pkl,'rb'))
-    for k in input_dict.keys():
-        input_dict[k].to_csv('{}/{}.csv'.format(output_dir,k))
-
-@preprocess.command()
-@click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
-@click.option('-is', '--input_formatted_sample_sheet', default='./tcga_idats/minfi_sheet.csv', help='Information passed through function create_sample_sheet, has Basename and disease fields.', type=click.Path(exists=False), show_default=True)
-@click.option('-o', '--output_pkl', default='./modified_processed/methyl_array.pkl', help='Output database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
-def modify_pheno_data(input_pkl,input_formatted_sample_sheet,output_pkl):
-    """Use another spreadsheet to add more descriptive data to methylarray."""
-    os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
-    input_dict=pickle.load(open(input_pkl,'rb'))
-    methyl_array = MethylationArray(*extract_pheno_beta_df_from_pickle_dict(input_dict))
-    methyl_array.merge_preprocess_sheet(pd.read_csv(input_formatted_sample_sheet,header=0))
-    methyl_array.write_pickle(output_pkl)
 
 
 #################
