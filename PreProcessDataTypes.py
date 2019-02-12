@@ -140,10 +140,11 @@ class PreProcessPhenoData:
         self.pheno_sheet['disease'] = self.pheno_sheet[disease_class_column.replace("'",'')]
         self.pheno_sheet = self.pheno_sheet[np.unique(['Basename', 'disease']+list(include_columns.keys()))].rename(columns=include_columns)
 
-    def merge(self, other_formatted_sheet, use_second_sheet_disease=True):
+    def merge(self, other_formatted_sheet, use_second_sheet_disease=True, no_disease_merge=False):
         disease_dict = {False:'disease_x',True:'disease_y'}
         self.pheno_sheet = self.pheno_sheet.merge(other_formatted_sheet.pheno_sheet,how='inner', on='Basename')
-        self.pheno_sheet['disease'] = self.pheno_sheet[disease_dict[use_second_sheet_disease]]
+        if not no_disease_merge:
+            self.pheno_sheet['disease'] = self.pheno_sheet[disease_dict[use_second_sheet_disease]]
         cols=list(self.pheno_sheet)
         self.pheno_sheet = self.pheno_sheet[[col for col in cols if col!='Unnamed: 0_x' and col!='Unnamed: 0_y' and col!=disease_dict[use_second_sheet_disease]]]
 
@@ -208,22 +209,34 @@ class PreProcessIDAT:
             self.meffil=None
         self.qcinfo=robjects.r('NULL')
 
+    def move_jpg(self):
+        subprocess.call('mv *.jpg {}'.format(self.idat_dir),shell=True)
+
     def preprocessNoob(self):
         self.qcinfo = self.enmix.QCinfo(self.RGset, detPthre=1e-7)
+        self.move_jpg()
         self.MSet = self.minfi.preprocessNoob(self.RGset)
+        self.move_jpg()
         self.MSet = self.enmix.QCfilter(self.MSet,qcinfo=self.qcinfo,outlier=True)
+        self.move_jpg()
         return self.MSet
 
     def preprocessRAW(self):
         self.qcinfo = self.enmix.QCinfo(self.RGset, detPthre=1e-7)
+        self.move_jpg()
         self.MSet = self.minfi.preprocessRaw(self.RGset)
+        self.move_jpg()
         self.MSet = self.enmix.QCfilter(self.MSet,qcinfo=self.qcinfo,outlier=True)
+        self.move_jpg()
         return self.MSet
 
     def preprocessENmix(self, n_cores=6):
         self.qcinfo = self.enmix.QCinfo(self.RGset, detPthre=1e-7)
+        self.move_jpg()
         self.MSet = self.enmix.preprocessENmix(self.RGset, QCinfo=self.qcinfo, nCores=n_cores)
+        self.move_jpg()
         self.MSet = self.enmix.QCfilter(self.MSet,qcinfo=self.qcinfo,outlier=True)
+        self.move_jpg()
         return self.MSet
 
     def preprocessMeffil(self, n_cores=6, n_pcs=4, qc_report_fname="qc/report.html", normalization_report_fname='norm/report.html', pc_plot_fname='qc/pc_plot.pdf', useCache=True, qc_only=True, qc_parameters={'p.beadnum.samples':0.1,'p.detection.samples':0.1,'p.detection.cpgs':0.1,'p.beadnum.cpgs':0.1}):
@@ -321,12 +334,9 @@ class PreProcessIDAT:
         except:
             pass
 
-    def load_idats(self, geo_query=''):
+    def load_idats(self):
         targets = self.minfi.read_metharray_sheet(self.idat_dir)
         self.RGset = self.minfi.read_metharray_exp(targets=targets, extended=True)
-        if geo_query:
-            geo = importr('GEOquery')
-            self.RGset.slots["pData"] = robjects.r('pData')(robjects.r("getGEO('{}')[[1]]".format(query)))
         return self.RGset
 
     def plot_qc_metrics(self, output_dir):
@@ -378,8 +388,17 @@ class PreProcessIDAT:
         self.manifest = self.minfi.getManifest(self.RGset)
         return self.manifest
 
-    def preprocess_enmix_pipeline(self, geo_query='', n_cores=6, pipeline='enmix', noob=False):
-        self.load_idats(geo_query)
+    def preprocess_enmix_pipeline(self, n_cores=6, pipeline='enmix', noob=False, qc_only=False, use_cache=False):
+        cache_storage_path = os.path.join(self.idat_dir,'RGSet.rds')
+        if use_cache:
+            self.RGset=robjects.r('readRDS')(cache_storage_path)
+        else:
+            self.load_idats()
+        if qc_only:
+            robjects.r('saveRDS')(self.RGset,cache_storage_path)
+            exit()
+        if not os.path.exists(cache_storage_path):
+            robjects.r('saveRDS')(self.RGset,cache_storage_path)
         if pipeline =='enmix':
             self.preprocessENmix(n_cores)
         else:
@@ -403,6 +422,8 @@ class PreProcessIDAT:
         self.pheno_py=pandas2ri.ri2py(robjects.r['as'](self.pheno,'data.frame'))
         if not meffil:
             self.beta_py=pd.DataFrame(pandas2ri.ri2py(self.beta_final),index=numpy2ri.ri2py(robjects.r("featureNames")(self.RSet)),columns=numpy2ri.ri2py(robjects.r("sampleNames")(self.RSet))).transpose()
+            self.pheno_py['Sample_Name']=np.vectorize(lambda x: x.split('/')[-1])(self.pheno_py['Basename'])
+            self.pheno_py = self.pheno_py.set_index('Sample_Name').loc[self.beta_py.index,:]
         else:
             self.beta_py=pd.DataFrame(pandas2ri.ri2py(self.beta_final),index=robjects.r("rownames")(self.beta_final),columns=robjects.r("colnames")(self.beta_final)).transpose()
             print(self.beta_py)

@@ -30,7 +30,7 @@ def download_tcga(output_dir):
 @preprocess.command()
 @click.option('-o', '--output_dir', default='./tcga_idats/', help='Output directory for exported idats.', type=click.Path(exists=False), show_default=True)
 def download_clinical(output_dir):
-    """Download all 450k clinical info."""
+    """Download all TCGA 450k clinical info."""
     os.makedirs(output_dir, exist_ok=True)
     downloader = TCGADownloader()
     downloader.download_clinical(output_dir)
@@ -92,6 +92,12 @@ def meffil_encode(input_sample_sheet,output_sample_sheet):
     if k in list(pheno):
         pheno.loc[:,k] = pheno[k].map(lambda x: sex_dict[str(x).lower()])
     pheno = pheno[[col for col in list(pheno) if not col.startswith('Unnamed:')]].rename(columns={'sex':'Sex'})
+    if 'Sex' in list(pheno):
+        d=defaultdict(lambda:'NA')
+        d.update({'M':'M','F':'F'})
+        pheno.loc[:,'Sex'] = pheno['Sex'].map(d)
+        if (pheno['Sex']==pheno['Sex'].mode().values[0][0]).all():
+            pheno=pheno.rename(columns={'Sex':'gender'})
     pheno.to_csv(output_sample_sheet)
 
 @preprocess.command()
@@ -99,11 +105,12 @@ def meffil_encode(input_sample_sheet,output_sample_sheet):
 @click.option('-s2', '--sample_sheet2', default='./tcga_idats/clinical_info2.csv', help='Clinical information downloaded from tcga/geo/custom, formatted using create_sample_sheet.', type=click.Path(exists=False), show_default=True)
 @click.option('-os', '--output_sample_sheet', default='./tcga_idats/minfiSheet.csv', help='CSV for minfi input.', type=click.Path(exists=False), show_default=True)
 @click.option('-d', '--second_sheet_disease', is_flag=True, help='Use second sheet\'s disease column.')
-def merge_sample_sheets(sample_sheet1, sample_sheet2, output_sample_sheet, second_sheet_disease):
+@click.option('-nd', '--no_disease_merge', is_flag=True, help='Don\'t merge disease columns.')
+def merge_sample_sheets(sample_sheet1, sample_sheet2, output_sample_sheet, second_sheet_disease,no_disease_merge):
     """Merge two sample files for more fields for minfi+ input."""
     s1 = PreProcessPhenoData(sample_sheet1, idat_dir='', header_line=0)
     s2 = PreProcessPhenoData(sample_sheet2, idat_dir='', header_line=0)
-    s1.merge(s2,second_sheet_disease)
+    s1.merge(s2,second_sheet_disease, no_disease_merge=no_disease_merge)
     s1.export(output_sample_sheet)
 
 @preprocess.command()
@@ -148,11 +155,10 @@ def remove_diseases(formatted_sample_sheet, exclude_disease_list, output_sheet_n
 
 @preprocess.command()
 @click.option('-i', '--idat_csv', default='./tcga_idats/minfiSheet.csv', help='Idat csv for one sample sheet, alternatively can be your phenotype sample sheet.', type=click.Path(exists=False), show_default=True)
-@click.option('-g', '--geo_query', default='', help='GEO study to query, do not use if already created geo sample sheet.', type=click.Path(exists=False), show_default=True)
 @click.option('-d', '--disease_only', is_flag=True, help='Only look at disease, or text before subtype_delimiter.')
 @click.option('-sd', '--subtype_delimiter', default=',', help='Delimiter for disease extraction.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--subtype_output_dir', default='./preprocess_outputs/', help='Output subtypes pheno csv.', type=click.Path(exists=False), show_default=True)
-def split_preprocess_input_by_subtype(idat_csv,geo_query,disease_only,subtype_delimiter, subtype_output_dir):
+def split_preprocess_input_by_subtype(idat_csv,disease_only,subtype_delimiter, subtype_output_dir):
     """Split preprocess input samplesheet by disease subtype."""
     from collections import defaultdict
     subtype_delimiter=subtype_delimiter.replace('"','').replace("'","")
@@ -253,8 +259,8 @@ def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series,
 @click.option('-pc', '--n_pcs', default=-1, show_default=True, help='For meffil, number of principal components for functional normalization. If set to -1, then PCs are selected using elbow method.')
 @click.option('-p', '--pipeline', default='enmix', show_default=True, help='If not meffil, preprocess using minfi or enmix.', type=click.Choice(['minfi','enmix']))
 @click.option('-noob', '--noob_norm', is_flag=True, help='Run noob normalization of minfi selected.')
-@click.option('-u', '--use_cache', is_flag=True, help='If this is selected, loads qc results rather than running qc again and update with new qc parameters. Only works for meffil selection.')
-@click.option('-qc', '--qc_only', is_flag=True, help='Only perform QC for meffil pipeline, caches results into rds file for loading again, only works if use_cache is false.')
+@click.option('-u', '--use_cache', is_flag=True, help='If this is selected, loads qc results rather than running qc again and update with new qc parameters. Only works for meffil selection. Minfi and enmix just loads RG Set.')
+@click.option('-qc', '--qc_only', is_flag=True, help='Only perform QC for meffil pipeline, caches results into rds file for loading again, only works if use_cache is false. Minfi and enmix just saves the RGSet before preprocessing.')
 @click.option('-bns', '--p_beadnum_samples', default=0.05, show_default=True, help='From meffil documentation, "fraction of probes that failed the threshold of 3 beads".')
 @click.option('-pds', '--p_detection_samples', default=0.05, show_default=True, help='From meffil documentation, "fraction of probes that failed a detection.pvalue threshold of 0.01".')
 @click.option('-bnc', '--p_beadnum_cpgs', default=0.05, show_default=True, help='From meffil documentation, "fraction of samples that failed the threshold of 3 beads".')
@@ -270,7 +276,7 @@ def preprocess_pipeline(idat_dir, n_cores, output_pkl, meffil, n_pcs, pipeline, 
         qc_parameters={'p.beadnum.samples':p_beadnum_samples,'p.detection.samples':p_detection_samples,'p.detection.cpgs':p_detection_cpgs,'p.beadnum.cpgs':p_beadnum_cpgs,'sex.cutoff':sex_cutoff, 'sex.outlier.sd':sex_sd}
         preprocesser.preprocessMeffil(n_cores=n_cores,n_pcs=n_pcs,qc_report_fname=os.path.join(output_dir,'qc.report.html'), normalization_report_fname=os.path.join(output_dir,'norm.report.html'), pc_plot_fname=os.path.join(output_dir,'pc.plot.pdf'), useCache=use_cache, qc_only=qc_only, qc_parameters=qc_parameters)
     else:
-        preprocesser.preprocess_enmix_pipeline(geo_query='', n_cores=n_cores, pipeline=pipeline, noob=noob_norm)
+        preprocesser.preprocess_enmix_pipeline(n_cores=n_cores, pipeline=pipeline, noob=noob_norm, use_cache=use_cache, qc_only=qc_only)
         try:
             preprocesser.plot_qc_metrics(output_dir)
         except:
