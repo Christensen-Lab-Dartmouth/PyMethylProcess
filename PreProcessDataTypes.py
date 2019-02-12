@@ -206,9 +206,18 @@ class PreProcessIDAT:
                 self.meffil = meffil
         except:
             self.meffil=None
+        self.qcinfo=robjects.r('NULL')
+
+    def preprocessNoob(self):
+        self.qcinfo = self.enmix.QCinfo(self.RGset, detPthre=1e-7)
+        self.MSet = self.minfi.preprocessNoob(self.RGset)
+        self.MSet = self.enmix.QCfilter(self.MSet,qcinfo=self.qcinfo,outlier=True)
+        return self.MSet
 
     def preprocessRAW(self):
+        self.qcinfo = self.enmix.QCinfo(self.RGset, detPthre=1e-7)
         self.MSet = self.minfi.preprocessRaw(self.RGset)
+        self.MSet = self.enmix.QCfilter(self.MSet,qcinfo=self.qcinfo,outlier=True)
         return self.MSet
 
     def preprocessENmix(self, n_cores=6):
@@ -369,12 +378,15 @@ class PreProcessIDAT:
         self.manifest = self.minfi.getManifest(self.RGset)
         return self.manifest
 
-    def preprocess_enmix_pipeline(self, geo_query='', n_cores=6, pipeline='enmix'):
+    def preprocess_enmix_pipeline(self, geo_query='', n_cores=6, pipeline='enmix', noob=False):
         self.load_idats(geo_query)
         if pipeline =='enmix':
             self.preprocessENmix(n_cores)
         else:
-            self.preprocessRAW()
+            if noob:
+                self.preprocessNoob()
+            else:
+                self.preprocessRAW()
         self.return_beta()
         self.get_beta()
         self.filter_beta()

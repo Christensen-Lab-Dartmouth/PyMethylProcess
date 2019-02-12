@@ -252,6 +252,7 @@ def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series,
 @click.option('-m', '--meffil', is_flag=True, help='Preprocess using meffil.')
 @click.option('-pc', '--n_pcs', default=-1, show_default=True, help='For meffil, number of principal components for functional normalization. If set to -1, then PCs are selected using elbow method.')
 @click.option('-p', '--pipeline', default='enmix', show_default=True, help='If not meffil, preprocess using minfi or enmix.', type=click.Choice(['minfi','enmix']))
+@click.option('-noob', '--noob_norm', is_flag=True, help='Run noob normalization of minfi selected.')
 @click.option('-u', '--use_cache', is_flag=True, help='If this is selected, loads qc results rather than running qc again and update with new qc parameters. Only works for meffil selection.')
 @click.option('-qc', '--qc_only', is_flag=True, help='Only perform QC for meffil pipeline, caches results into rds file for loading again, only works if use_cache is false.')
 @click.option('-bns', '--p_beadnum_samples', default=0.05, show_default=True, help='From meffil documentation, "fraction of probes that failed the threshold of 3 beads".')
@@ -260,7 +261,7 @@ def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series,
 @click.option('-pdc', '--p_detection_cpgs', default=0.05, show_default=True, help='From meffil documentation, "fraction of samples that failed a detection.pvalue threshold of 0.01".')
 @click.option('-sc', '--sex_cutoff', default=-2, show_default=True, help='From meffil documentation, "difference of total median intensity for Y chromosome probes and X chromosome probes".')
 @click.option('-sd', '--sex_sd', default=5, show_default=True, help='From meffil documentation, "sex detection outliers if outside this range".')
-def preprocess_pipeline(idat_dir, n_cores, output_pkl, meffil, n_pcs, pipeline, use_cache, qc_only, p_beadnum_samples, p_detection_samples, p_beadnum_cpgs, p_detection_cpgs, sex_cutoff, sex_sd):
+def preprocess_pipeline(idat_dir, n_cores, output_pkl, meffil, n_pcs, pipeline, noob_norm, use_cache, qc_only, p_beadnum_samples, p_detection_samples, p_beadnum_cpgs, p_detection_cpgs, sex_cutoff, sex_sd):
     """Perform preprocessing of idats using enmix or meffil."""
     output_dir = output_pkl[:output_pkl.rfind('/')]
     os.makedirs(output_dir,exist_ok=True)
@@ -269,7 +270,7 @@ def preprocess_pipeline(idat_dir, n_cores, output_pkl, meffil, n_pcs, pipeline, 
         qc_parameters={'p.beadnum.samples':p_beadnum_samples,'p.detection.samples':p_detection_samples,'p.detection.cpgs':p_detection_cpgs,'p.beadnum.cpgs':p_beadnum_cpgs,'sex.cutoff':sex_cutoff, 'sex.outlier.sd':sex_sd}
         preprocesser.preprocessMeffil(n_cores=n_cores,n_pcs=n_pcs,qc_report_fname=os.path.join(output_dir,'qc.report.html'), normalization_report_fname=os.path.join(output_dir,'norm.report.html'), pc_plot_fname=os.path.join(output_dir,'pc.plot.pdf'), useCache=use_cache, qc_only=qc_only, qc_parameters=qc_parameters)
     else:
-        preprocesser.preprocess_enmix_pipeline(geo_query='', n_cores=n_cores, pipeline=pipeline)
+        preprocesser.preprocess_enmix_pipeline(geo_query='', n_cores=n_cores, pipeline=pipeline, noob=noob_norm)
         try:
             preprocesser.plot_qc_metrics(output_dir)
         except:
