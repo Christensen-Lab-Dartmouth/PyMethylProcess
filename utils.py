@@ -64,9 +64,9 @@ def stratify(input_pkl,key,output_dir):
         methyl_array.write_pickle(os.path.join(out_dir,'methyl_array.pkl'))
 
 @util.command()
-@click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
+@click.option('-i', '--input_pkl', default='./preprocess_outputs/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./autosomal/methyl_array.pkl', help='Output methyl array autosomal.', type=click.Path(exists=False), show_default=True)
-def return_autosomal_beta(input_pkl,output_pkl):
+def remove_sex(input_pkl,output_pkl):
     import numpy as np
     #from rpy2.robjects import pandas2ri
     from meffil_functions import r_autosomal_cpgs
@@ -77,6 +77,20 @@ def return_autosomal_beta(input_pkl,output_pkl):
     methyl_array.beta = methyl_array.beta.loc[:,np.intersect1d(list(methyl_array.beta),autosomal_cpgs)]
     methyl_array.write_pickle(output_pkl)
 
+@util.command()
+@click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
+def print_number_sex_cpgs(input_pkl):
+    import numpy as np
+    #from rpy2.robjects import pandas2ri
+    from meffil_functions import r_autosomal_cpgs
+    #pandas2ri.activate()
+    autosomal_cpgs = r_autosomal_cpgs()#pandas2ri.ri2py()
+    methyl_array=MethylationArray.from_pickle(input_pkl)
+    n_autosomal = len(np.intersect1d(list(methyl_array.beta),autosomal_cpgs))
+    n_cpgs = len(list(methyl_array.beta))
+    n_sex = n_cpgs - n_autosomal
+    percent_sex = round(float(n_sex)/n_cpgs,2)
+    print("There are {} autosomal cpgs in your methyl array and {} sex cpgs. Sex CpGs make up {}\% of {} total cpgs.".format(n_autosomal,n_sex,percent_sex,n_cpgs))
 
 @util.command()
 @click.option('-i', '--input_pkl_dir', default='./train_val_test_sets/', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
