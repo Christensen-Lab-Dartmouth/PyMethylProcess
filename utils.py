@@ -11,7 +11,6 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h','--help'], max_content_width=90)
 def util():
     pass
 
-
 @util.command()
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_dir', default='./train_val_test_sets/', help='Output directory for training, testing, and validation sets.', type=click.Path(exists=False), show_default=True)
@@ -53,6 +52,31 @@ def fix_key(input_pkl,key,disease_only,subtype_delimiter,output_pkl):
     if disease_only:
         methyl_array.split_key(key, subtype_delimiter)
     methyl_array.write_pickle(output_pkl)
+
+@util.command()
+@click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
+@click.option('-k', '--key', default='disease', help='Key to split on.', type=click.Path(exists=False), show_default=True)
+@click.option('-o', '--output_dir', default='./stratified/', help='Output directory for stratified.', type=click.Path(exists=False), show_default=True)
+def stratify(input_pkl,key,output_dir):
+    for name, methyl_array in MethylationArray.from_pickle(input_pkl).groupby(key):
+        out_dir=os.path.join(output_dir,name.replace('/','-').replace(' ',''))
+        os.makedirs(out_dir,exist_ok=True)
+        methyl_array.write_pickle(os.path.join(out_dir,'methyl_array.pkl'))
+
+@util.command()
+@click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
+@click.option('-o', '--output_pkl', default='./autosomal/methyl_array.pkl', help='Output methyl array autosomal.', type=click.Path(exists=False), show_default=True)
+def return_autosomal_beta(input_pkl,output_pkl):
+    import numpy as np
+    #from rpy2.robjects import pandas2ri
+    from meffil_functions import r_autosomal_cpgs
+    #pandas2ri.activate()
+    os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
+    autosomal_cpgs = r_autosomal_cpgs()#pandas2ri.ri2py()
+    methyl_array=MethylationArray.from_pickle(input_pkl)
+    methyl_array.beta = methyl_array.beta.loc[:,np.intersect1d(list(methyl_array.beta),autosomal_cpgs)]
+    methyl_array.write_pickle(output_pkl)
+
 
 @util.command()
 @click.option('-i', '--input_pkl_dir', default='./train_val_test_sets/', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)

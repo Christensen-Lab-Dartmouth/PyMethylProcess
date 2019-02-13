@@ -239,8 +239,8 @@ class PreProcessIDAT:
         self.move_jpg()
         return self.MSet
 
-    def preprocessMeffil(self, n_cores=6, n_pcs=4, qc_report_fname="qc/report.html", normalization_report_fname='norm/report.html', pc_plot_fname='qc/pc_plot.pdf', useCache=True, qc_only=True, qc_parameters={'p.beadnum.samples':0.1,'p.detection.samples':0.1,'p.detection.cpgs':0.1,'p.beadnum.cpgs':0.1}):
-        from meffil_functions import load_detection_p_values_beadnum, set_missing
+    def preprocessMeffil(self, n_cores=6, n_pcs=4, qc_report_fname="qc/report.html", normalization_report_fname='norm/report.html', pc_plot_fname='qc/pc_plot.pdf', useCache=True, qc_only=True, qc_parameters={'p.beadnum.samples':0.1,'p.detection.samples':0.1,'p.detection.cpgs':0.1,'p.beadnum.cpgs':0.1}, rm_sex=False):
+        from meffil_functions import load_detection_p_values_beadnum, set_missing, remove_sex
         self.pheno = self.meffil.meffil_read_samplesheet(self.idat_dir, verbose=True)
         cache_storage_path = os.path.join(self.idat_dir,'QCObjects.rds')
         qc_parameters=robjects.r("""function(p.beadnum.samples,p.detection.samples,p.detection.cpgs,p.beadnum.cpgs,sex.outlier.sd){
@@ -320,6 +320,9 @@ class PreProcessIDAT:
             return(beta)}""")(qc_list, n_pcs, normalization_report_fname,n_cores)
 
         self.beta_final = set_missing(self.beta_final, pval_beadnum)
+
+        if rm_sex:
+            self.beta_final = remove_sex(self.beta_final)
 
         try:
             grdevice = importr("grDevices")

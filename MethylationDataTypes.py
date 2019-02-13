@@ -124,6 +124,10 @@ class MethylationArray:
         self.pheno = self.pheno[[col for col in list(self.pheno) if not col.startswith('Unnamed:')]]
         self.pheno=self.pheno.set_index([np.vectorize(lambda x: x.split('/')[-1])(self.pheno['Basename'])],drop=False)
 
+    def groupby(self, key):
+        for name, df in self.pheno.groupby(key):
+            yield (str(name), MethylationArray(pheno_df=self.pheno.loc[df.index],beta_df=self.beta.loc[df.index]))
+
     @classmethod
     def from_pickle(self, input_pickle):
         return MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(open(input_pickle,'rb'))))

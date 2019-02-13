@@ -57,3 +57,18 @@ def set_missing(beta, pval_beadnum, detection_val=1e-6):
         return(beta)
         }""")(beta, pval_beadnum, detection_val)
     return beta
+
+def remove_sex(beta):
+    beta = robjects.r("""function (beta){
+        featureset<-"450k"
+        autosomal.sites <- meffil.get.autosomal.sites(featureset)
+        autosomal.sites <- intersect(autosomal.sites, rownames(norm.beta))
+        norm.beta <- norm.beta[autosomal.sites,]
+        return(beta)
+        }""")(beta)
+    return beta
+
+def r_autosomal_cpgs():
+    robjects.r('library(meffil)')
+    cpgs = robjects.r("""meffil.get.autosomal.sites('450k')""")
+    return cpgs
