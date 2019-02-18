@@ -225,7 +225,7 @@ def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series,
         opts['-sd'] = pc_qc_parameters.loc[subtype,'sex_sd']
         opts['-i']=pheno_path[:pheno_path.rfind('/')+1]
         opts['-o']=pheno_path[:pheno_path.rfind('/')+1]+'methyl_array.pkl'
-        command='python preprocess.py preprocess_pipeline {}'.format(' '.join('{} {}'.format(k,v) for k,v in opts.items()))
+        command='pymethyl-preprocess preprocess_pipeline {}'.format(' '.join('{} {}'.format(k,v) for k,v in opts.items()))
         commands.append(command)
     if not torque:
         if not series and chunk_size != -1:
