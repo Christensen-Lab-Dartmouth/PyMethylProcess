@@ -1,0 +1,7 @@
+[console_scripts]
+pymethyl-basic-install = pymethylprocess.basic_installer:main
+pymethyl-install = pymethylprocess.installer:install
+pymethyl-preprocess = pymethylprocess.preprocess:preprocess
+pymethyl-utils = pymethylprocess.utils:util
+pymethyl-visualize = pymethylprocess.visualizations:visualize
+

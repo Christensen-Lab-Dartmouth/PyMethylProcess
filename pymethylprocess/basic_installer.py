@@ -12,8 +12,7 @@ def install_r_packages(packages,bioconductor=False, github=False):
             packages = 'c({})'.format(','.join(["'{}'".format(package) for package in packages]))
             subprocess.call('Rscript -e "options(repos=structure(c(CRAN=\'http://cran.wustl.edu/\'))); install.packages({})"'.format(packages),shell=True)
 
-
-if __name__=='__main__':
+def main():
     p = argparse.ArgumentParser()
     p.add_argument('-g', '--github', action='store_true', help='Install from github.')
     p.add_argument('-b', '--bioconductor', action='store_true', help='Install from bioconductor.')
@@ -23,3 +22,7 @@ if __name__=='__main__':
     bioconductor=args.bioconductor
     packages = args.packages
     install_r_packages(packages,bioconductor, github)
+
+
+if __name__=='__main__':
+    main()

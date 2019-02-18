@@ -5,8 +5,8 @@ import numpy as np, pandas as pd
 #import impyute
 from functools import reduce
 import pickle
-from PreProcessDataTypes import *
-from MethylationDataTypes import *
+from pymethylprocess.PreProcessDataTypes import *
+from pymethylprocess.MethylationDataTypes import *
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h','--help'], max_content_width=90)
 

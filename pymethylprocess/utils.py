@@ -2,7 +2,7 @@ import click
 import os, subprocess, glob
 from os.path import join
 import time
-from MethylationDataTypes import MethylationArray
+from pymethylprocess.MethylationDataTypes import MethylationArray
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h','--help'], max_content_width=90)
 
@@ -74,7 +74,7 @@ def stratify(input_pkl,key,output_dir):
 def remove_sex(input_pkl,output_pkl):
     import numpy as np
     #from rpy2.robjects import pandas2ri
-    from meffil_functions import r_autosomal_cpgs
+    from pymethylprocess.meffil_functions import r_autosomal_cpgs
     #pandas2ri.activate()
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
     autosomal_cpgs = r_autosomal_cpgs()#pandas2ri.ri2py()
@@ -87,7 +87,7 @@ def remove_sex(input_pkl,output_pkl):
 def print_number_sex_cpgs(input_pkl):
     import numpy as np
     #from rpy2.robjects import pandas2ri
-    from meffil_functions import r_autosomal_cpgs
+    from pymethylprocess.meffil_functions import r_autosomal_cpgs
     #pandas2ri.activate()
     autosomal_cpgs = r_autosomal_cpgs()#pandas2ri.ri2py()
     methyl_array=MethylationArray.from_pickle(input_pkl)

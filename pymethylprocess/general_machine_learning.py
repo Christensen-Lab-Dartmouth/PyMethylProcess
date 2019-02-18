@@ -1,4 +1,4 @@
-from MethylationDataTypes import MethylationArray
+from pymethylprocess.MethylationDataTypes import MethylationArray
 import pickle, numpy as np
 
 class MachineLearning:

@@ -3,7 +3,7 @@ import rpy2.robjects as robjects
 from rpy2.robjects.packages import importr #from utils import importr_ as importr#
 import rpy2.interactive as r
 import rpy2.robjects.packages as rpackages
-from MethylationDataTypes import *
+from pymethylprocess.MethylationDataTypes import *
 from rpy2.robjects import pandas2ri, numpy2ri
 import pickle
 import sqlite3
@@ -240,7 +240,7 @@ class PreProcessIDAT:
         return self.MSet
 
     def preprocessMeffil(self, n_cores=6, n_pcs=4, qc_report_fname="qc/report.html", normalization_report_fname='norm/report.html', pc_plot_fname='qc/pc_plot.pdf', useCache=True, qc_only=True, qc_parameters={'p.beadnum.samples':0.1,'p.detection.samples':0.1,'p.detection.cpgs':0.1,'p.beadnum.cpgs':0.1}, rm_sex=False):
-        from meffil_functions import load_detection_p_values_beadnum, set_missing, remove_sex
+        from pymethylprocess.meffil_functions import load_detection_p_values_beadnum, set_missing, remove_sex
         self.pheno = self.meffil.meffil_read_samplesheet(self.idat_dir, verbose=True)
         cache_storage_path = os.path.join(self.idat_dir,'QCObjects.rds')
         qc_parameters=robjects.r("""function(p.beadnum.samples,p.detection.samples,p.detection.cpgs,p.beadnum.cpgs,sex.outlier.sd){

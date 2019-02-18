@@ -1,5 +1,6 @@
 # PyMethylProcess
-
+# Make sure to have GCC-8 installed env CC=/usr/local/Cellar/gcc/8.2.0/bin/gcc-8
+# env CC=/usr/local/Cellar/gcc/8.2.0/bin/gcc-8 pip install dist/pymethylprocess-0.1.tar.gz
 1. Download TCGA/GEO Data
 2. Preprocess using meffil+minfi+enmix in parallel
     * Preprocessing objects

@@ -180,8 +180,8 @@ class ImputerObject:
             opts.update(dict(min_value=0.,sample_posterior=True,max_value=1.))
             imputers['sklearn']['MICE']=f(**opts)
         except:
-            print('Please install development branch of iterative imputer from sklearn.')
-            exit()
+            print('Please install development branch of iterative imputer from sklearn. Defaulting to mean imputation.')
+            imputers['sklearn']['MICE']=imputers['sklearn']['SimpleImputer']
         try:
             if solver == 'fancyimpute':
                 f=imputers[solver][method]

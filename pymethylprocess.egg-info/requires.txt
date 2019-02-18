@@ -1,0 +1,17 @@
+rpy2
+numpy
+scs@ git+https://github.com/bodono/scs-python.git@bb45c69ce57b1fbb5ab23e02b30549a7e0b801e3
+kneed
+Cython
+pathos
+nevergrad
+umap-learn>=0.3.7
+plotly>=3.4.2
+fancyimpute>=0.4.2
+pandas>=0.23.4
+scikit-learn>=0.20.1
+shap
+matplotlib
+seaborn
+mlxtend
+click==6.7
