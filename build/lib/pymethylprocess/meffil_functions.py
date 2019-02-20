@@ -58,17 +58,39 @@ def set_missing(beta, pval_beadnum, detection_val=1e-6):
         }""")(beta, pval_beadnum, detection_val)
     return beta
 
-def remove_sex(beta):
-    beta = robjects.r("""function (beta){
-        featureset<-"450k"
+def remove_sex(beta, array_type='450k'):
+    beta = robjects.r("""function (beta,array.type){
+        featureset<-array.type
         autosomal.sites <- meffil.get.autosomal.sites(featureset)
         autosomal.sites <- intersect(autosomal.sites, rownames(norm.beta))
         norm.beta <- norm.beta[autosomal.sites,]
         return(beta)
-        }""")(beta)
+        }""")(beta,array_type)
     return beta
 
-def r_autosomal_cpgs():
+def r_autosomal_cpgs(array_type='450k'):
     robjects.r('library(meffil)')
-    cpgs = robjects.r("""meffil.get.autosomal.sites('450k')""")
+    cpgs = robjects.r("""meffil.get.autosomal.sites('{}')""".format(array_type))
     return cpgs
+
+def r_snp_cpgs(array_type='450k'):
+    robjects.r('library(meffil)')
+    cpgs = robjects.r("""meffil.snp.names('{}')""".format(array_type))
+    return cpgs
+
+def est_cell_counts_meffil(qc_list, cell_type_reference):
+    cell_count_estimates = robjects.r("""function (qc.list, cell.type.reference) {
+        qc.objects <- qc.list$qc.objects
+        cc<-t(sapply(qc.objects, function(obj) meffil.estimate.cell.counts(obj,cell.type.reference)))
+        cc<-data.frame(IID=row.names(cc),cc)
+        return(cc)
+        }""")(qc_list,cell_type_reference)
+    return cell_count_estimates
+
+def est_cell_counts_minfi(rgset):
+    robjects.r('library(FlowSorted.Blood.450k)')
+    cell_count_estimates = robjects.r("""function (RGset) {
+        cellCounts <- estimateCellCounts(RGset)
+        return(cellCounts)
+        }""")(rgset)
+    return cell_count_estimates

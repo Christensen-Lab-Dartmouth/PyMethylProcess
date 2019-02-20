@@ -71,25 +71,64 @@ def stratify(input_pkl,key,output_dir):
 @util.command()
 @click.option('-i', '--input_pkl', default='./preprocess_outputs/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./autosomal/methyl_array.pkl', help='Output methyl array autosomal.', type=click.Path(exists=False), show_default=True)
-def remove_sex(input_pkl,output_pkl):
+@click.option('-a', '--array_type', default='450k', help='Array Type.', type=click.Choice(['450k','850k']), show_default=True)
+def remove_sex(input_pkl,output_pkl, array_type):
     import numpy as np
     #from rpy2.robjects import pandas2ri
     from pymethylprocess.meffil_functions import r_autosomal_cpgs
     #pandas2ri.activate()
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
-    autosomal_cpgs = r_autosomal_cpgs()#pandas2ri.ri2py()
+    autosomal_cpgs = r_autosomal_cpgs(array_type)#pandas2ri.ri2py()
     methyl_array=MethylationArray.from_pickle(input_pkl)
     methyl_array.beta = methyl_array.beta.loc[:,np.intersect1d(list(methyl_array.beta),autosomal_cpgs)]
     methyl_array.write_pickle(output_pkl)
 
 @util.command()
+@click.option('-ro', '--input_r_object_dir', default='./preprocess_outputs/', help='Input directory containing qc data.', type=click.Path(exists=False), show_default=True)
+@click.option('-a', '--algorithm', default='meffil', help='Algorithm to run cell type.', type=click.Choice(['meffil','minfi']), show_default=True)
+@click.option('-ref', '--reference', default='cord blood gse68456', help='Cell Type Reference.', type=click.Choice(['andrews and bakulski cord blood','blood gse35069', 'blood gse35069 chen', 'blood gse35069 complete', 'cord blood gse68456', 'gervin and lyle cord blood', 'saliva gse48472']), show_default=True)
+@click.option('-o', '--output_csv', default='./added_cell_counts/cell_type_estimates.csv', help='Output cell type estimates.', type=click.Path(exists=False), show_default=True)
+def ref_estimate_cell_counts(input_r_object_dir, algorithm, reference, output_csv):
+    import rpy2.robjects as robjects
+    from rpy2.robjects import pandas2ri, numpy2ri
+    pandas2ri.activate()
+    from pymethylprocess.meffil_functions import est_cell_counts_meffil, est_cell_counts_minfi
+    os.makedirs(output_csv[:output_csv.rfind('/')],exist_ok=True)
+    read_r_object = robjects.r('readRDS')
+    robjects.r('library({})'.format(algorithm))
+    if algorithm == 'meffil':
+        qc_list = read_r_object(join(input_r_object_dir,'QCObjects.rds'))
+        cell_counts = est_cell_counts_meffil(qc_list,reference)
+    else:
+        rgset = read_r_object(join(input_r_object_dir,'RGSet.rds'))
+        cell_counts = est_cell_counts_minfi(rgset)
+    # find where samples intersect
+    pandas2ri.ri2py(robjects.r('as.data.frame')(robjects.r('as.table')(cell_counts))).to_csv(output_csv)
+
+@util.command()
+@click.option('-i', '--input_pkl', default='./autosomal/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
+@click.option('-o', '--output_pkl', default='./no_snp/methyl_array.pkl', help='Output methyl array autosomal.', type=click.Path(exists=False), show_default=True)
+@click.option('-a', '--array_type', default='450k', help='Array Type.', type=click.Choice(['450k','850k']), show_default=True)
+def remove_snps(input_pkl,output_pkl, array_type):
+    import numpy as np
+    #from rpy2.robjects import pandas2ri
+    from pymethylprocess.meffil_functions import r_snp_cpgs
+    #pandas2ri.activate()
+    os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
+    snp_cpgs = r_snp_cpgs(array_type)#pandas2ri.ri2py()
+    methyl_array=MethylationArray.from_pickle(input_pkl)
+    methyl_array.beta = methyl_array.beta.loc[:,np.setdiff1d(list(methyl_array.beta),snp_cpgs)]
+    methyl_array.write_pickle(output_pkl)
+
+@util.command()
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
-def print_number_sex_cpgs(input_pkl):
+@click.option('-a', '--array_type', default='450k', help='Array Type.', type=click.Choice(['450k','850k']), show_default=True)
+def print_number_sex_cpgs(input_pkl,array_type):
     import numpy as np
     #from rpy2.robjects import pandas2ri
     from pymethylprocess.meffil_functions import r_autosomal_cpgs
     #pandas2ri.activate()
-    autosomal_cpgs = r_autosomal_cpgs()#pandas2ri.ri2py()
+    autosomal_cpgs = r_autosomal_cpgs(array_type)#pandas2ri.ri2py()
     methyl_array=MethylationArray.from_pickle(input_pkl)
     n_autosomal = len(np.intersect1d(list(methyl_array.beta),autosomal_cpgs))
     n_cpgs = len(list(methyl_array.beta))
@@ -158,13 +197,24 @@ def pkl_to_csv(input_pkl, output_dir):
 @click.option('-o', '--output_pkl', default='./modified_processed/methyl_array.pkl', help='Output database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 def modify_pheno_data(input_pkl,input_formatted_sample_sheet,output_pkl):
     """Use another spreadsheet to add more descriptive data to methylarray."""
+    import pandas as pd
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
-    input_dict=pickle.load(open(input_pkl,'rb'))
-    methyl_array = MethylationArray(*extract_pheno_beta_df_from_pickle_dict(input_dict))
+    methyl_array = MethylationArray.from_pickle(input_pkl)
     methyl_array.merge_preprocess_sheet(pd.read_csv(input_formatted_sample_sheet,header=0))
     methyl_array.write_pickle(output_pkl)
 
-
+@util.command()
+@click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
+@click.option('-is', '--input_formatted_sample_sheet', default='./tcga_idats/minfi_sheet.csv', help='Information passed through function create_sample_sheet, has Basename and disease fields.', type=click.Path(exists=False), show_default=True)
+@click.option('-o', '--output_pkl', default='./modified_processed/methyl_array.pkl', help='Output database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
+@click.option('-c', '--index_col', default=0, help='Index col when reading csv.', show_default=True)
+def overwrite_pheno_data(input_pkl,input_formatted_sample_sheet,output_pkl,index_col):
+    """Use another spreadsheet to add more descriptive data to methylarray."""
+    import pandas as pd
+    os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
+    methyl_array = MethylationArray.from_pickle(input_pkl)
+    methyl_array.overwrite_pheno_data(pd.read_csv(input_formatted_sample_sheet,index_col=(index_col if index_col!=-1 else None),header=0))
+    methyl_array.write_pickle(output_pkl)
 
 if __name__ == '__main__':
     util()

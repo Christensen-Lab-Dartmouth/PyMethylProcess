@@ -97,6 +97,24 @@ def transform_plot(input_pkl, column_of_interest, output_file, n_neighbors,axes_
     plotly_plot(t_data, output_file, axes_off=axes_off)
 
 @visualize.command()
+@click.option('-i', '--input_csv', default='cell_type_estimates.csv', help='Input csv.', type=click.Path(exists=False), show_default=True)
+@click.option('-o', '--outfilename', default='visualizations/cell_type_results.png', help='Output png.', type=click.Path(exists=False), show_default=True)
+@click.option('-cols', '--plot_cols', default=['Gran','CD4T','CD8T','Bcell','Mono','NK','gMDSC'], multiple=True, help='Plot columns.', type=click.Path(exists=False), show_default=True)
+@click.option('-fs', '--font_scale', default=1., help='Font scaling', show_default=True)
+def plot_cell_type_results(input_csv,outfilename,plot_cols,font_scale):#
+    import os
+    os.makedirs(outfilename[:outfilename.rfind('/')],exist_ok=True)
+    import matplotlib
+    matplotlib.use('Agg')
+    import seaborn as sns
+    sns.set(font_scale=font_scale)
+    import matplotlib.pyplot as plt
+    plt.figure()
+    ax=sns.boxplot(data=pd.read_csv(input_csv,index_col=0).melt(),x='variable',y='value')
+    ax.set_xticklabels(ax.get_xticklabels(),rotation=40)
+    plt.savefig(outfilename,dpi=300)
+
+@visualize.command()
 @click.option('-i', '--input_csv', default='', help='Input csv.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--outfilename', default='output.png', help='Output png.', type=click.Path(exists=False), show_default=True)
 @click.option('-idx', '--index_col', default=0, help='Index load dataframe', show_default=True)

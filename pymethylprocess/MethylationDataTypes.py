@@ -125,6 +125,14 @@ class MethylationArray:
         from collections import Counter
         print('\n'.join(['{}:{}'.format(k,v) for k,v in Counter(self.pheno[key].values).items()]))
 
+    def overwrite_pheno_data(self, preprocess_sample_df):
+        preprocess_sample_df=preprocess_sample_df.loc[self.pheno.index,:]
+        for col in list(preprocess_sample_df):
+            if col in list(self.pheno):
+                self.pheno.loc[:,col]=preprocess_sample_df[col]
+            else:
+                self.pheno[col]=preprocess_sample_df[col]
+
     def merge_preprocess_sheet(self, preprocess_sample_df):
         self.pheno=self.pheno.merge(preprocess_sample_df,on=['Basename'],how='inner')
         if 'disease_x' in list(self.pheno):
