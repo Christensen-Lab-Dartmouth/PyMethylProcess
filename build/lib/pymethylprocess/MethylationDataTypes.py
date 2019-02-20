@@ -98,6 +98,14 @@ class MethylationArray:
         self.beta = self.beta.loc[~np.isin(samples,samples_remove),~np.isin(cpgs,cpgs_remove)]
         self.pheno = self.pheno.loc[self.beta.index,:]
 
+    def remove_na_samples(self, outcome_cols):
+        vals=self.pheno[outcome_cols].values
+        if vals.shape[0] == 1:
+            vals = vals[:,np.newaxis]
+        remove_bool = ~np.isnan(vals).any(axis=1)
+        self.pheno=self.pheno[remove_bool]
+        self.beta=self.beta[remove_bool]
+
     def subset_index(self,index):
         return MethylationArray(self.pheno.loc[index,:],self.beta.loc[index,:])
 

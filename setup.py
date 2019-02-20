@@ -31,4 +31,5 @@ setup(name='pymethylprocess',
                         'matplotlib',
                         'seaborn',
                         'mlxtend',
-                        'click==6.7'])
+                        'click==6.7',
+                        'hypopt'])

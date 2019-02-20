@@ -2,12 +2,22 @@ from pymethylprocess.MethylationDataTypes import MethylationArray
 import pickle, numpy as np
 
 class MachineLearning:
-    def __init__(self, model, options):
-        self.model=model(**options)
+    def __init__(self, model, options, grid={}):
+        if grid:
+            self.model = GridSearch(model = model())
+            self.param_grid_exists=True
+            self.grid=grid
+        else:
+            self.model=model(**options)
+            self.param_grid_exists=False
+        self.encoder=None
 
-    def fit(self, train_methyl_array, outcome_cols=None):
+    def fit(self, train_methyl_array, val_methyl_array=None, outcome_cols=None, scoring='accuracy'):
         if self.outcome_cols != None:
-            self.model.fit(train_methyl_array.beta,train_methyl_array.pheno[outcome_cols])
+            if self.param_grid_exists:
+                self.model.fit(train_methyl_array.beta,train_methyl_array.pheno[outcome_cols], self.grid, val_methyl_array.beta,val_methyl_array.pheno[outcome_cols], scoring='accuracy')
+            else:
+                self.model.fit(train_methyl_array.beta,train_methyl_array.pheno[outcome_cols])
         else:
             self.model.fit(train_methyl_array.beta)
         return self.model
