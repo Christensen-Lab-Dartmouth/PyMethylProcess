@@ -229,10 +229,13 @@ def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series,
         commands.append(command)
     if not torque:
         if not series and chunk_size != -1:
-            commands = np.array_split(commands,len(commands)//chunk_size)
+            #commands = np.array_split(commands,len(commands)//chunk_size)
             print(commands)
-            for command_list in commands:
-                subprocess.call('./run_parallel {}'.format(' '.join(['"{}"'.format(command) for command in command_list])),shell=True)
+            with open('commands.txt','w') as f:
+                f.write('\n'.join(commands))
+            subprocess.call('cat commands.txt | xargs -L 1 -I CMD -P {} bash -c CMD'.format(chunk_size),shell=True)
+            """for command_list in commands:
+                subprocess.call('run_parallel {}'.format(' '.join(['"{}"'.format(command) for command in command_list])),shell=True)"""
         else:
             for command in commands:
                 if not series:

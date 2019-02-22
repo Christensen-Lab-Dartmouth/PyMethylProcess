@@ -90,7 +90,12 @@ def est_cell_counts_meffil(qc_list, cell_type_reference):
 def est_cell_counts_minfi(rgset):
     robjects.r('library(FlowSorted.Blood.450k)')
     cell_count_estimates = robjects.r("""function (RGset) {
-        cellCounts <- estimateCellCounts(RGset)
+        cellCounts <- as.table(estimateCellCounts(RGset))
         return(cellCounts)
         }""")(rgset)
+    return cell_count_estimates
+
+def est_cell_counts_IDOL(rgset,library):
+    robjects.r('library(FlowSorted.Blood.EPIC)')
+    cell_count_estimates = robjects.r("""function (RGset) as.table(estimateCellCounts2(RGset,IDOLOptimizedCpGs={})$counts)""".format(library))(rgset)
     return cell_count_estimates

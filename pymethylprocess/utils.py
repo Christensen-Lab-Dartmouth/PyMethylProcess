@@ -85,25 +85,30 @@ def remove_sex(input_pkl,output_pkl, array_type):
 
 @util.command()
 @click.option('-ro', '--input_r_object_dir', default='./preprocess_outputs/', help='Input directory containing qc data.', type=click.Path(exists=False), show_default=True)
-@click.option('-a', '--algorithm', default='meffil', help='Algorithm to run cell type.', type=click.Choice(['meffil','minfi']), show_default=True)
+@click.option('-a', '--algorithm', default='meffil', help='Algorithm to run cell type.', type=click.Choice(['meffil','minfi','IDOL']), show_default=True)
 @click.option('-ref', '--reference', default='cord blood gse68456', help='Cell Type Reference.', type=click.Choice(['andrews and bakulski cord blood','blood gse35069', 'blood gse35069 chen', 'blood gse35069 complete', 'cord blood gse68456', 'gervin and lyle cord blood', 'saliva gse48472']), show_default=True)
+@click.option('-l', '--library', default='IDOLOptimizedCpGs450klegacy', help='IDOL Library.', type=click.Choice(['IDOLOptimizedCpGs','IDOLOptimizedCpGs450klegacy']), show_default=True)
 @click.option('-o', '--output_csv', default='./added_cell_counts/cell_type_estimates.csv', help='Output cell type estimates.', type=click.Path(exists=False), show_default=True)
-def ref_estimate_cell_counts(input_r_object_dir, algorithm, reference, output_csv):
+def ref_estimate_cell_counts(input_r_object_dir, algorithm, reference, library, output_csv):
     import rpy2.robjects as robjects
     from rpy2.robjects import pandas2ri, numpy2ri
     pandas2ri.activate()
-    from pymethylprocess.meffil_functions import est_cell_counts_meffil, est_cell_counts_minfi
+    from pymethylprocess.meffil_functions import est_cell_counts_meffil, est_cell_counts_minfi, est_cell_counts_IDOL
     os.makedirs(output_csv[:output_csv.rfind('/')],exist_ok=True)
     read_r_object = robjects.r('readRDS')
-    robjects.r('library({})'.format(algorithm))
+    robjects.r('library({})'.format(algorithm if algorithm != 'IDOL' else 'minfi'))
     if algorithm == 'meffil':
         qc_list = read_r_object(join(input_r_object_dir,'QCObjects.rds'))
         cell_counts = est_cell_counts_meffil(qc_list,reference)
     else:
         rgset = read_r_object(join(input_r_object_dir,'RGSet.rds'))
-        cell_counts = est_cell_counts_minfi(rgset)
+        if algorithm=='meffil':
+            cell_counts = est_cell_counts_minfi(rgset)
+        else:
+            cell_counts = est_cell_counts_IDOL(rgset,library)
+
     # find where samples intersect
-    pandas2ri.ri2py(robjects.r('as.data.frame')(robjects.r('as.table')(cell_counts))).to_csv(output_csv)
+    pandas2ri.ri2py(robjects.r('as.data.frame')(cell_counts)).to_csv(output_csv)
 
 @util.command()
 @click.option('-i', '--input_pkl', default='./autosomal/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
