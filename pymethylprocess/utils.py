@@ -197,6 +197,17 @@ def pkl_to_csv(input_pkl, output_dir):
         input_dict[k].to_csv('{}/{}.csv'.format(output_dir,k))
 
 @util.command()
+@click.option('-t', '--test_pkl', default='./train_val_test_sets/test_methyl_array.pkl', help='Pickle containing testing set.', type=click.Path(exists=False), show_default=True)
+@click.option('-c', '--col', default='age', help='Column to turn into bins.', type=click.Path(exists=False),show_default=True)
+@click.option('-n', '--n_bins', default=10, help='Number of bins.',show_default=True)
+@click.option('-ot', '--output_test_pkl', default='./train_val_test_sets/test_methyl_array_shap_binned.pkl', help='Binned shap pickle for further testing.', type=click.Path(exists=False), show_default=True)
+def bin_column(test_pkl,col,n_bins,output_test_pkl):
+    os.makedirs(output_test_pkl[:output_test_pkl.rfind('/')],exist_ok=True)
+    test_methyl_array=MethylationArray.from_pickle(test_pkl)
+    new_col_name = test_methyl_array.bin_column(col,n_bins)
+    test_methyl_array.write_pickle(output_test_pkl)
+
+@util.command()
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-is', '--input_formatted_sample_sheet', default='./tcga_idats/minfi_sheet.csv', help='Information passed through function create_sample_sheet, has Basename and disease fields.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./modified_processed/methyl_array.pkl', help='Output database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)

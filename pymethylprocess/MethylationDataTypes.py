@@ -32,6 +32,11 @@ class MethylationArray:
     def return_shape(self):
         return self.beta.shape
 
+    def bin_column(self, col, n_bins):
+        new_col_name='{}_{}'.format(col,binned)
+        self.pheno[new_col_name]=np.vectorize(lambda x: x.replace(' ',''))(pd.cut(self.pheno[col],n_bins).astype(str))
+        return new_col_name
+
     def split_train_test(self, train_p=0.8, stratified=True, disease_only=False, key='disease', subtype_delimiter=',', val_p=0.): # https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
         np.random.seed(42)
         if stratified:

@@ -28,7 +28,7 @@ class MethylationArray:
 
     def impute(self, imputer):
         self.beta = pd.DataFrame(imputer.fit_transform(self.beta),index=self.beta.index,columns=list(self.beta))
-
+        
     def return_shape(self):
         return self.beta.shape
 
