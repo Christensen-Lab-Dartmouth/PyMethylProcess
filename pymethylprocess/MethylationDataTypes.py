@@ -33,7 +33,7 @@ class MethylationArray:
         return self.beta.shape
 
     def bin_column(self, col, n_bins):
-        new_col_name='{}_{}'.format(col,binned)
+        new_col_name='{}_{}'.format(col,'binned')
         self.pheno[new_col_name]=np.vectorize(lambda x: x.replace(' ',''))(pd.cut(self.pheno[col],n_bins).astype(str))
         return new_col_name
 
