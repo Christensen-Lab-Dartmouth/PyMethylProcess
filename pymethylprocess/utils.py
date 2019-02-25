@@ -71,7 +71,7 @@ def stratify(input_pkl,key,output_dir):
 @util.command()
 @click.option('-i', '--input_pkl', default='./preprocess_outputs/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./autosomal/methyl_array.pkl', help='Output methyl array autosomal.', type=click.Path(exists=False), show_default=True)
-@click.option('-a', '--array_type', default='450k', help='Array Type.', type=click.Choice(['450k','850k']), show_default=True)
+@click.option('-a', '--array_type', default='450k', help='Array Type.', type=click.Choice(['450k','epic']), show_default=True)
 def remove_sex(input_pkl,output_pkl, array_type):
     import numpy as np
     #from rpy2.robjects import pandas2ri
@@ -113,7 +113,7 @@ def ref_estimate_cell_counts(input_r_object_dir, algorithm, reference, library, 
 @util.command()
 @click.option('-i', '--input_pkl', default='./autosomal/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./no_snp/methyl_array.pkl', help='Output methyl array autosomal.', type=click.Path(exists=False), show_default=True)
-@click.option('-a', '--array_type', default='450k', help='Array Type.', type=click.Choice(['450k','850k']), show_default=True)
+@click.option('-a', '--array_type', default='450k', help='Array Type.', type=click.Choice(['450k','epic']), show_default=True)
 def remove_snps(input_pkl,output_pkl, array_type):
     import numpy as np
     #from rpy2.robjects import pandas2ri
@@ -127,7 +127,7 @@ def remove_snps(input_pkl,output_pkl, array_type):
 
 @util.command()
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
-@click.option('-a', '--array_type', default='450k', help='Array Type.', type=click.Choice(['450k','850k']), show_default=True)
+@click.option('-a', '--array_type', default='450k', help='Array Type.', type=click.Choice(['450k','epic']), show_default=True)
 def print_number_sex_cpgs(input_pkl,array_type):
     import numpy as np
     #from rpy2.robjects import pandas2ri
