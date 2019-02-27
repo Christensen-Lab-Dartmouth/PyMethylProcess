@@ -4,4 +4,4 @@ pymethyl-basic-install -p Rcpp simpleCache BiocManager devtools Cairo remotes ti
 pymethyl-basic-install -b -p minfi ENmix geneplotter IlluminaHumanMethylation450kanno.ilmn12.hg19
 pymethyl-basic-install -b -p sva S4Vectors DNAcopy gdsfmt illuminaio ggbio FlowSorted.Blood.450k FlowSorted.Blood.EPIC
 pymethyl-basic-install -b -p rtracklayer GEOquery LOLA limma missMethyl TCGAbiolinks
-pymethyl-basic-install -g perishky/meffil
+pymethyl-basic-install -g -p perishky/meffil metamaden/cgageR

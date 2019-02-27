@@ -3,7 +3,8 @@ import subprocess
 
 def install_r_packages(packages,bioconductor=False, github=False):
     if github:
-        subprocess.call('Rscript -e "library(\'devtools\'); {}"'.format("install_github('{}')".format(package)),shell=True)
+        for package in packages:
+            subprocess.call('Rscript -e "library(\'devtools\'); {}"'.format("install_github('{}')".format(package)),shell=True)
     else:
         if bioconductor:
             for package in packages:

@@ -84,6 +84,45 @@ def remove_sex(input_pkl,output_pkl, array_type):
     methyl_array.write_pickle(output_pkl)
 
 @util.command()
+@click.option('-t', '--train_pkl', default='./train_val_test_sets/train_methyl_array.pkl', help='Input methyl array.', type=click.Path(exists=False), show_default=True)
+@click.option('-q', '--query_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input methylation array to add/subtract cpgs to.', type=click.Path(exists=False), show_default=True)
+@click.option('-o', '--output_pkl', default='./external_validation/methyl_array.pkl', help='Output methyl array external validation.', type=click.Path(exists=False), show_default=True)
+@click.option('-c', '--cpg_replace_method', default='zero', help='What to do for missing CpGs.', type=click.Choice(['zero']), show_default=True)
+def create_external_validation_set(train_pkl,query_pkl, output_pkl, cpg_replace_method):
+    import numpy as np
+    os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
+    ref_methyl_array=MethylationArray.from_pickle(train_pkl)
+    ref_cpgs=np.array(list(ref_methyl_array))
+    query_methyl_array=MethylationArray.from_pickle(query_pkl)
+    query_cpgs=np.array(list(query_methyl_array))
+    cpg_diff=np.setdiff1d(ref_cpgs,query_cpgs)
+    concat_df=pd.DataFrame(np.ones((query_methyl_array.beta.shape[0],len(cpg_diff))),index=query_methyl_array.beta.index,columns=cpg_diff)
+    query_methyl_array.beta=pd.concat([query_methyl_array.beta.loc[:,np.intersect1d(ref_cpgs,query_cpgs)],concat_df],axis=1).loc[ref_cpgs,ref_cpgs]
+    query_methyl_array.write_pickle(output_pkl)
+
+@util.command()
+@click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input methyl array.', type=click.Path(exists=False), show_default=True)
+@click.option('-c', '--cpg_pkl', default='./subset_cpgs.pkl', help='Pickled numpy array for subsetting.', type=click.Path(exists=False), show_default=True)
+@click.option('-o', '--output_pkl', default='./subset/methyl_array.pkl', help='Output methyl array external validation.', type=click.Path(exists=False), show_default=True)
+def subset_array(train_pkl,cpg_pkl,output_pkl):
+    import numpy as np, pickle
+    os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
+    cpgs=pickle.load(open(cpg_pkl,'rb'))
+    MethylationArray.from_pickle(input_pkl).subset_cpgs(cpgs).write_pickle(output_pickle)
+
+@util.command()
+@click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input methyl array.', type=click.Path(exists=False), show_default=True)
+@click.option('-c', '--cpg_pkl', default='./subset_cpgs.pkl', help='Pickled numpy array for subsetting.', type=click.Path(exists=False), show_default=True)
+@click.option('-o', '--output_pkl', default='./removal/methyl_array.pkl', help='Output methyl array external validation.', type=click.Path(exists=False), show_default=True)
+def set_part_array_zeros(input_pkl,cpg_pkl,output_pkl):
+    import numpy as np, pickle
+    os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
+    cpgs=pickle.load(open(cpg_pkl,'rb'))
+    methyl_array=MethylationArray.from_pickle(input_pkl)
+    methyl_array.beta.loc[:,cpgs]=0.
+    methyl_array.write_pickle(output_pickle)
+
+@util.command()
 @click.option('-ro', '--input_r_object_dir', default='./preprocess_outputs/', help='Input directory containing qc data.', type=click.Path(exists=False), show_default=True)
 @click.option('-a', '--algorithm', default='meffil', help='Algorithm to run cell type.', type=click.Choice(['meffil','minfi','IDOL']), show_default=True)
 @click.option('-ref', '--reference', default='cord blood gse68456', help='Cell Type Reference.', type=click.Choice(['andrews and bakulski cord blood','blood gse35069', 'blood gse35069 chen', 'blood gse35069 complete', 'cord blood gse68456', 'gervin and lyle cord blood', 'saliva gse48472']), show_default=True)

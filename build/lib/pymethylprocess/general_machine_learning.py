@@ -1,29 +1,36 @@
 from pymethylprocess.MethylationDataTypes import MethylationArray
 import pickle, numpy as np
+from hypopt import GridSearch
+from sklearn.preprocessing import LabelEncoder
 
 class MachineLearning:
-    def __init__(self, model, options, grid={}):
+    def __init__(self, model, options, grid={}, labelencode=False):
         if grid:
-            self.model = GridSearch(model = model())
+            self.model = GridSearch(model = model(), param_grid=grid)
             self.param_grid_exists=True
             self.grid=grid
         else:
             self.model=model(**options)
             self.param_grid_exists=False
-        self.encoder=None
+        if labelencode:
+            self.encoder=LabelEncoder()
+        else:
+            self.encoder=None
 
-    def fit(self, train_methyl_array, val_methyl_array=None, outcome_cols=None, scoring='accuracy'):
-        if self.outcome_cols != None:
+    def fit(self, train_methyl_array, val_methyl_array=None, outcome_cols=None):
+        if outcome_cols != None:
+            if self.encoder != None:
+                self.encoder.fit(train_methyl_array.pheno[outcome_cols])
             if self.param_grid_exists:
-                self.model.fit(train_methyl_array.beta,train_methyl_array.pheno[outcome_cols], self.grid, val_methyl_array.beta,val_methyl_array.pheno[outcome_cols], scoring='accuracy')
+                self.model.fit(train_methyl_array.beta,self.encoder.transform(train_methyl_array.pheno[outcome_cols]) if self.encoder != None else train_methyl_array.pheno[outcome_cols], val_methyl_array.beta,self.encoder.transform(val_methyl_array.pheno[outcome_cols]) if self.encoder != None else val_methyl_array.pheno[outcome_cols], scoring='accuracy' if self.encoder!=None else 'r2')
             else:
-                self.model.fit(train_methyl_array.beta,train_methyl_array.pheno[outcome_cols])
+                self.model.fit(train_methyl_array.beta,self.encoder.transform(train_methyl_array.pheno[outcome_cols]) if self.encoder != None else train_methyl_array.pheno[outcome_cols])
         else:
             self.model.fit(train_methyl_array.beta)
         return self.model
 
     def transform(self, test_methyl_array):
-        self.results=self.model.transform(test_methyl_array)
+        self.results=self.model.transform(test_methyl_array.beta)
         return self.results
 
     def fit_transform(self, train_methyl_array, outcome_cols=None):
@@ -31,7 +38,9 @@ class MachineLearning:
         return self.results
 
     def predict(self, test_methyl_array):
-        self.results=self.model.predict(test_methyl_array)
+        self.results=self.model.predict(test_methyl_array.beta)
+        if self.encoder != None:
+            self.results=self.encoder.inverse_transform(self.results)
         return self.results
 
     def fit_predict(self, train_methyl_array, outcome_cols=None):
