@@ -104,11 +104,11 @@ def create_external_validation_set(train_pkl,query_pkl, output_pkl, cpg_replace_
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input methyl array.', type=click.Path(exists=False), show_default=True)
 @click.option('-c', '--cpg_pkl', default='./subset_cpgs.pkl', help='Pickled numpy array for subsetting.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./subset/methyl_array.pkl', help='Output methyl array external validation.', type=click.Path(exists=False), show_default=True)
-def subset_array(train_pkl,cpg_pkl,output_pkl):
+def subset_array(input_pkl,cpg_pkl,output_pkl):
     import numpy as np, pickle
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
     cpgs=pickle.load(open(cpg_pkl,'rb'))
-    MethylationArray.from_pickle(input_pkl).subset_cpgs(cpgs).write_pickle(output_pickle)
+    MethylationArray.from_pickle(input_pkl).subset_cpgs(cpgs).write_pickle(output_pkl)
 
 @util.command()
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input methyl array.', type=click.Path(exists=False), show_default=True)
@@ -120,7 +120,7 @@ def set_part_array_zeros(input_pkl,cpg_pkl,output_pkl):
     cpgs=pickle.load(open(cpg_pkl,'rb'))
     methyl_array=MethylationArray.from_pickle(input_pkl)
     methyl_array.beta.loc[:,cpgs]=0.
-    methyl_array.write_pickle(output_pickle)
+    methyl_array.write_pickle(output_pkl)
 
 @util.command()
 @click.option('-ro', '--input_r_object_dir', default='./preprocess_outputs/', help='Input directory containing qc data.', type=click.Path(exists=False), show_default=True)
@@ -230,6 +230,7 @@ def backup_pkl(input_pkl, output_pkl):
 @click.option('-o', '--output_dir', default='./final_preprocessed/', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 def pkl_to_csv(input_pkl, output_dir):
     """Output methylarray pickle to csv."""
+    import pickle
     os.makedirs(output_dir,exist_ok=True)
     input_dict=pickle.load(open(input_pkl,'rb'))
     for k in input_dict.keys():
