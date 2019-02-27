@@ -127,7 +127,9 @@ def plot_cell_type_results(input_csv,outfilename,plot_cols,font_scale):#
 @click.option('-m', '--matrix_type', default='none', help='Type of matrix supplied', type=click.Choice(['none','similarity','distance']), show_default=True)
 @click.option('-x', '--xticks', is_flag=True, help='Show x ticks', show_default=True)
 @click.option('-y', '--yticks', is_flag=True, help='Show y ticks', show_default=True)
-def plot_heatmap(input_csv,outfilename,index_col,font_scale, min_val, max_val, annot,norm,cluster,matrix_type, xticks, yticks):
+@click.option('-t', '--transpose', is_flag=True, help='Transpose matrix data', show_default=True)
+@click.option('-col', '--color_column', default='color', help='Color column.', type=click.Path(exists=False), show_default=True)
+def plot_heatmap(input_csv,outfilename,index_col,font_scale, min_val, max_val, annot,norm,cluster,matrix_type, xticks, yticks, transpose, color_column):
     import os
     os.makedirs(outfilename[:outfilename.rfind('/')],exist_ok=True)
     import matplotlib
@@ -137,6 +139,12 @@ def plot_heatmap(input_csv,outfilename,index_col,font_scale, min_val, max_val, a
     import matplotlib.pyplot as plt
     plt.figure(figsize=(20,20))
     df=pd.read_csv(input_csv,index_col=index_col)
+    if color_column in list(df):
+        color_dict = dict(zip(["#"+''.join([np.random.choice('0123456789ABCDEF') for j in range(len(df[color_column].unique()))])
+             for i in range(number_of_colors)]))
+        df.loc[:,color_column] = df[color_column].map(color_dict)
+    if transpose:
+        df = df.T
     if norm:
         df.loc[:,:]=df.values.astype(np.float)/df.values.astype(np.float).sum(axis=1)[:, np.newaxis]
     #print(df)
@@ -150,7 +158,7 @@ def plot_heatmap(input_csv,outfilename,index_col,font_scale, min_val, max_val, a
                 print(df)
                 df = 1.-df
             linkage = hc.linkage(sp.distance.squareform(df), method='average')
-        sns.clustermap(df, row_linkage=linkage, col_linkage=linkage, xticklabels=xticks, yticklabels=yticks)
+        sns.clustermap(df, row_linkage=linkage, col_linkage=linkage, xticklabels=xticks, yticklabels=yticks, row_colors=None if color_column not in list(df) else color_column, col_colors=None if color_column not in list(df.index) else color_column)
     else:
         sns.heatmap(df,vmin=min_val, vmax=max_val if max_val!=-1 else None, annot=annot, xticklabels=xticks, yticklabels=yticks)#,fmt='g'
     plt.tight_layout()

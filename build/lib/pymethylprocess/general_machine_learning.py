@@ -4,9 +4,9 @@ from hypopt import GridSearch
 from sklearn.preprocessing import LabelEncoder
 
 class MachineLearning:
-    def __init__(self, model, options, grid={}, labelencode=False):
+    def __init__(self, model, options, grid={}, labelencode=False, n_eval=0):
         if grid:
-            self.model = GridSearch(model = model(), param_grid=grid)
+            self.model = GridSearch(model = model(), param_grid=grid, num_random_search=None if not n_eval else n_eval)
             self.param_grid_exists=True
             self.grid=grid
         else:

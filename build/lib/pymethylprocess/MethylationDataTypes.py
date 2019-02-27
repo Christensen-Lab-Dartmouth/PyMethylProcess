@@ -105,9 +105,9 @@ class MethylationArray:
 
     def remove_na_samples(self, outcome_cols):
         vals=self.pheno[outcome_cols].values
-        if vals.shape[0] == 1:
+        if len(vals.shape) < 2:
             vals = vals[:,np.newaxis]
-        remove_bool = ~np.isnan(vals).any(axis=1)
+        remove_bool = ~np.isnan(vals).any(axis=1).flatten()
         self.pheno=self.pheno[remove_bool]
         self.beta=self.beta[remove_bool]
 

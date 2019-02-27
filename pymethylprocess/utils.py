@@ -87,17 +87,17 @@ def remove_sex(input_pkl,output_pkl, array_type):
 @click.option('-t', '--train_pkl', default='./train_val_test_sets/train_methyl_array.pkl', help='Input methyl array.', type=click.Path(exists=False), show_default=True)
 @click.option('-q', '--query_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input methylation array to add/subtract cpgs to.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./external_validation/methyl_array.pkl', help='Output methyl array external validation.', type=click.Path(exists=False), show_default=True)
-@click.option('-c', '--cpg_replace_method', default='zero', help='What to do for missing CpGs.', type=click.Choice(['zero']), show_default=True)
+@click.option('-c', '--cpg_replace_method', default='mid', help='What to do for missing CpGs.', type=click.Choice(['mid']), show_default=True)
 def create_external_validation_set(train_pkl,query_pkl, output_pkl, cpg_replace_method):
-    import numpy as np
+    import numpy as np, pandas as pd
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
     ref_methyl_array=MethylationArray.from_pickle(train_pkl)
-    ref_cpgs=np.array(list(ref_methyl_array))
+    ref_cpgs=np.array(list(ref_methyl_array.beta))
     query_methyl_array=MethylationArray.from_pickle(query_pkl)
-    query_cpgs=np.array(list(query_methyl_array))
+    query_cpgs=np.array(list(query_methyl_array.beta))
     cpg_diff=np.setdiff1d(ref_cpgs,query_cpgs)
-    concat_df=pd.DataFrame(np.ones((query_methyl_array.beta.shape[0],len(cpg_diff))),index=query_methyl_array.beta.index,columns=cpg_diff)
-    query_methyl_array.beta=pd.concat([query_methyl_array.beta.loc[:,np.intersect1d(ref_cpgs,query_cpgs)],concat_df],axis=1).loc[ref_cpgs,ref_cpgs]
+    concat_df=pd.DataFrame(np.ones((query_methyl_array.beta.shape[0],len(cpg_diff)))*0.5,index=query_methyl_array.beta.index,columns=cpg_diff)
+    query_methyl_array.beta=pd.concat([query_methyl_array.beta.loc[:,np.intersect1d(ref_cpgs,query_cpgs)],concat_df],axis=1).loc[:,ref_cpgs]
     query_methyl_array.write_pickle(output_pkl)
 
 @util.command()
@@ -228,13 +228,26 @@ def backup_pkl(input_pkl, output_pkl):
 @util.command()
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_dir', default='./final_preprocessed/', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
-def pkl_to_csv(input_pkl, output_dir):
+@click.option('-c', '--col', default='', help='Column to color.', show_default=True)
+def pkl_to_csv(input_pkl, output_dir, col):
     """Output methylarray pickle to csv."""
     import pickle
     os.makedirs(output_dir,exist_ok=True)
     input_dict=pickle.load(open(input_pkl,'rb'))
+    if col:
+        input_dict['beta'][col]=input_dict['pheno'][col]
     for k in input_dict.keys():
         input_dict[k].to_csv('{}/{}.csv'.format(output_dir,k))
+
+@util.command()
+@click.option('-i1', '--input_csv', default='./beta1.csv', help='Beta csv.', type=click.Path(exists=False), show_default=True)
+@click.option('-i2', '--input_csv2', default='./cell_estimates.csv', help='Beta/other csv 2.', type=click.Path(exists=False), show_default=True)
+@click.option('-o', '--output_csv', default='./beta.concat.csv', help='Output csv.', type=click.Path(exists=False), show_default=True)
+@click.option('-a', '--axis', default=1, help='Axis to merge on. Columns are 0, rows are 1.', show_default=True)
+def concat_csv(input_csv, input_csv2, output_csv, axis):
+    import pandas as pd
+    os.makedirs(output_csv[:output_csv.rfind('/')],exist_ok=True)
+    pd.concat([pd.read_csv(input_csv),pd.read_csv(input_csv2)],axis=axis).to_csv(output_csv)
 
 @util.command()
 @click.option('-t', '--test_pkl', default='./train_val_test_sets/test_methyl_array.pkl', help='Pickle containing testing set.', type=click.Path(exists=False), show_default=True)

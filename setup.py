@@ -32,4 +32,4 @@ setup(name='pymethylprocess',
                         'seaborn',
                         'mlxtend',
                         'click==6.7',
-                        'hypopt'])
+                        'scs @ git+https://github.com/jlevy44/hypopt.git@27aefef62483174736bd6d5a1b3983dbaf4184dc'])
