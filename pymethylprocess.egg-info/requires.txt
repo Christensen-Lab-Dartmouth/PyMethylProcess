@@ -15,4 +15,4 @@ matplotlib
 seaborn
 mlxtend
 click==6.7
-scs@ git+https://github.com/jlevy44/hypopt.git
+scs@ git+https://github.com/jlevy44/hypopt.git@27aefef62483174736bd6d5a1b3983dbaf4184dc

@@ -87,7 +87,7 @@ def remove_sex(input_pkl,output_pkl, array_type):
 @click.option('-t', '--train_pkl', default='./train_val_test_sets/train_methyl_array.pkl', help='Input methyl array.', type=click.Path(exists=False), show_default=True)
 @click.option('-q', '--query_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input methylation array to add/subtract cpgs to.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./external_validation/methyl_array.pkl', help='Output methyl array external validation.', type=click.Path(exists=False), show_default=True)
-@click.option('-c', '--cpg_replace_method', default='mid', help='What to do for missing CpGs.', type=click.Choice(['mid']), show_default=True)
+@click.option('-c', '--cpg_replace_method', default='mid', help='What to do for missing CpGs.', type=click.Choice(['mid', 'background','simulated']), show_default=True)
 def create_external_validation_set(train_pkl,query_pkl, output_pkl, cpg_replace_method):
     import numpy as np, pandas as pd
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
@@ -96,7 +96,11 @@ def create_external_validation_set(train_pkl,query_pkl, output_pkl, cpg_replace_
     query_methyl_array=MethylationArray.from_pickle(query_pkl)
     query_cpgs=np.array(list(query_methyl_array.beta))
     cpg_diff=np.setdiff1d(ref_cpgs,query_cpgs)
-    concat_df=pd.DataFrame(np.ones((query_methyl_array.beta.shape[0],len(cpg_diff)))*0.5,index=query_methyl_array.beta.index,columns=cpg_diff)
+    if cpg_replace_method == 'mid':
+        background=np.ones((query_methyl_array.beta.shape[0],len(cpg_diff)))*0.5
+    elif cpg_replace_method == 'background':
+        background = np.ones((query_methyl_array.beta.shape[0],len(cpg_diff)))*query_methyl_array.beta.mean().mean()
+    concat_df=pd.DataFrame(background,index=query_methyl_array.beta.index,columns=cpg_diff)
     query_methyl_array.beta=pd.concat([query_methyl_array.beta.loc[:,np.intersect1d(ref_cpgs,query_cpgs)],concat_df],axis=1).loc[:,ref_cpgs]
     query_methyl_array.write_pickle(output_pkl)
 
@@ -114,12 +118,12 @@ def subset_array(input_pkl,cpg_pkl,output_pkl):
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input methyl array.', type=click.Path(exists=False), show_default=True)
 @click.option('-c', '--cpg_pkl', default='./subset_cpgs.pkl', help='Pickled numpy array for subsetting.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./removal/methyl_array.pkl', help='Output methyl array external validation.', type=click.Path(exists=False), show_default=True)
-def set_part_array_zeros(input_pkl,cpg_pkl,output_pkl):
+def set_part_array_background(input_pkl,cpg_pkl,output_pkl):
     import numpy as np, pickle
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
     cpgs=pickle.load(open(cpg_pkl,'rb'))
     methyl_array=MethylationArray.from_pickle(input_pkl)
-    methyl_array.beta.loc[:,cpgs]=0.
+    methyl_array.beta.loc[:,cpgs]=methyl_array.beta.loc[:,np.setdiff1d(list(methyl_array.beta),cpgs)].mean().mean()
     methyl_array.write_pickle(output_pkl)
 
 @util.command()
@@ -224,6 +228,14 @@ def backup_pkl(input_pkl, output_pkl):
     """Copy methylarray pickle to new location to backup."""
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
     subprocess.call('rsync {} {}'.format(input_pkl, output_pkl),shell=True)
+
+@util.command()
+@click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input methyl array.', type=click.Path(exists=False), show_default=True)
+@click.option('-c', '--cpg_pkl', default='./subset_cpgs.pkl', help='Pickled numpy array for subsetting.', type=click.Path(exists=False), show_default=True)
+def write_cpgs(input_pkl,cpg_pkl):
+    import numpy as np, pickle
+    os.makedirs(cpg_pkl[:cpg_pkl.rfind('/')],exist_ok=True)
+    pickle.dump(MethylationArray.from_pickle(input_pkl).return_cpgs(),open(cpg_pkl,'wb'))
 
 @util.command()
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
