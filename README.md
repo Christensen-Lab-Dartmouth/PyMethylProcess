@@ -1,52 +1,37 @@
-# PyMethylProcess
-# Make sure to have GCC-8 installed env CC=/usr/local/Cellar/gcc/8.2.0/bin/gcc-8
-# env CC=/usr/local/Cellar/gcc/8.2.0/bin/gcc-8 pip install dist/pymethylprocess-0.1.tar.gz
-1. Download TCGA/GEO Data
-2. Preprocess using meffil+minfi+enmix in parallel
-    * Preprocessing objects
-3. Imputation and MAD feature selection
-4. Output as input into MethylNet
-5. Wrapped into docker, CWL, and Toil
-    * pypi+anaconda
+## PyMethylProcess
 
-For developers:
-1. To give you an idea of the install requirements just for preprocessing, I have a docker file containing the requirements.
-2. Please leave existing command line commands in place for now. We can modify this.
+![Overview](./help_docs/build/html/_images/pymethylprocess_overview.jpeg)
 
-Tasks:
-1. Finish creation and cleaning of downloader and preprocessing classes.
-2. Add impyute, DAPL and DeepCpG to imputation methods.
-3. Finish testing CWL pipeline and separate it from methylnet.
-4. MethylArray class must be able to be imported into MethylNet and should be pickleable
-5. Thorough documentation.
-6. Submit to journal as application note that MethylNet will reference.
-7. Should help docs be included with methylnet or separate?
-8. Host help docs on github.io
+https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess  
 
-"Wrapping the methylation pipeline in Python is a great contribution to the field in itself. We should consider cleaning that into its own repo and possibly submitting an application note to Bioinformatics or at a minimum bioRxiv to let the community use that as a separate resource.
+What is it:
+* Preprocess 450k and 850k methylation IDAT files in parallel using Minfi, ENmix, and meffil  
+* Convenient and scalable implementation  
+* Imputation and Feature Selection  
+* Preparation for machine learning pipelines    
 
-And if we do that we should create a PyPi package for easy use. @jlevy44 we should chat about a division of labor."
-- @AlexanderTitus
+Why:
+* Make DNAm accessible to python developers and more machine learning oriented researchers  
+* Streamlined analysis makes processing easy  
 
-Division of Labor:
+Getting Started:  
+* Installation:    
+    * pip install pymethylprocess && pymethyl-install_r_dependencies  
+    * docker pull pymethylprocess  
+    * Or see example scripts for usage, install from github
+* Example Usage Scripts (in github repo): Located in ./help_docs/example_scripts/  
+* Help docs (in github repo): ./help_docs/build/html/index.html (to be updated; also will be hosted soon)
 
-Docker:
-module load singularity
+*PyMethyProcess* is pending submission and review, and link to paper will be posted shortly.
 
-----------
-module load python/3-Anaconda
-conda create -n methylnet_runner python=3.6
-source activate methylnet_runner
-conda install -c bioconda udocker
-udocker login --username=joshualevy44 --password=xxx # --registry=cloud.canister.io:5000
-udocker pull joshualevy44/methylnet:preprocess #cloud.canister.io:5000/joshualevy44/methylnet:preprocess
-udocker create --name=methylnet joshualevy44/methylnet:preprocess #cloud.canister.io:5000/joshualevy44/methylnet:preprocess
-udocker setup --execmode=F3  methylnet
-# for GPUs
-udocker setup --nvidia --execmode=F3  methylnet
-udocker run methylnet /scripts/preprocess.py
+![Download](./help_docs/build/html/_images/pipeline-download.jpeg)
 
-Base docker image:
-cloud.canister.io:5000/joshualevy44/methylnet:base
-Preprocess docker image
-cloud.canister.io:5000/joshualevy44/methylnet:preprocess
+![Format](./help_docs/build/html/_images/pipeline-format.jpeg)
+
+![PreProcess](./help_docs/build/html/_images/pipeline-preprocess.jpeg)
+
+![Visualize](./help_docs/build/html/_images/pipeline-visualize.jpeg)
+
+![Split](./help_docs/build/html/_images/pipeline-train-test-split.jpeg)
+
+Note: May need to prefix pip install with MACOSX_DEPLOYMENT_TARGET=10.9 CC=clang CXX=clang++ for Mac OS install

@@ -12,7 +12,8 @@ setup(name='pymethylprocess',
                                'pymethyl-install=pymethylprocess.installer:install',
                                'pymethyl-visualize=pymethylprocess.visualizations:visualize',
                                'pymethyl-preprocess=pymethylprocess.preprocess:preprocess',
-                               'pymethyl-utils=pymethylprocess.utils:util']
+                               'pymethyl-utils=pymethylprocess.utils:util',
+                               'pymethyl-basic-ml=pymethylprocess.run_rand_forest:main']
       },
       packages=['pymethylprocess'],
       install_requires=['rpy2',

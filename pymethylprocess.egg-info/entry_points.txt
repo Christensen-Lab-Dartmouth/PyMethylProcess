@@ -1,5 +1,6 @@
 [console_scripts]
 pymethyl-basic-install = pymethylprocess.basic_installer:main
+pymethyl-basic-ml = pymethylprocess.run_rand_forest:main
 pymethyl-install = pymethylprocess.installer:install
 pymethyl-preprocess = pymethylprocess.preprocess:preprocess
 pymethyl-utils = pymethylprocess.utils:util

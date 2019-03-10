@@ -1,6 +1,7 @@
 from rpy2.robjects.packages import importr
 import rpy2.robjects as robjects
 import click
+import os, subprocess
 
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h','--help'], max_content_width=90)
@@ -12,7 +13,8 @@ def install():
 
 class PackageInstaller:
     def __init__(self):
-        pass
+        self.lib_xml_location=os.popen('type xml2-config').read().split()[-1]
+        self.lib_xml_location=robjects.r('function (xml.config) {Sys.setenv(XML_CONFIG=xml.config)}')(self.lib_xml_location)
 
     def install_bioconductor(self):
         base = importr('base')
@@ -55,6 +57,12 @@ class PackageInstaller:
         else:
             subprocess.call("wget https://github.com/perishky/meffil/archive/master.zip && unzip master.zip && mv meffil-master meffil && R CMD INSTALL meffil",shell=True)
 
+@install.command()
+def change_gcc_path():
+    """Change GCC and G++ paths if don't have version 7.2.0. [Experimental]"""
+    bin_path = os.path.join(os.popen('conda list | grep "packages in environment at" | awk "{print $6}"').read().split()[-1].replace(':',''),'bin')
+    subprocess.call('export CC={}'.format(os.path.join(bin_path,'x86_64-conda_cos6-linux-gnu-gcc')),shell=True)
+    subprocess.call('export CXX={}'.format(os.path.join(bin_path,'x86_64-conda_cos6-linux-gnu-g++')),shell=True)
 
 ## Install ##
 @install.command()
@@ -104,6 +112,8 @@ def install_some_deps():
     installer.install_minfi_others()
     installer.install_tcga_biolinks()
     installer.install_meffil()
+
+# install.packages("png", "/home/user/anaconda3/lib/R/library")
 
 
 

@@ -10,6 +10,7 @@ pymethylprocess/general_machine_learning.py
 pymethylprocess/installer.py
 pymethylprocess/meffil_functions.py
 pymethylprocess/preprocess.py
+pymethylprocess/run_random_forest.py
 pymethylprocess/utils.py
 pymethylprocess/visualizations.py
 pymethylprocess.egg-info/PKG-INFO
