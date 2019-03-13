@@ -1,6 +1,6 @@
 ## PyMethylProcess
 
-![Overview](./help_docs/build/html/_images/pymethylprocess_overview.jpeg)
+![Overview](./Docs/build/html/_images/pymethylprocess_overview.jpeg)
 
 https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess  
 
@@ -19,19 +19,19 @@ Getting Started:
     * pip install pymethylprocess && pymethyl-install_r_dependencies  
     * docker pull pymethylprocess  
     * Or see example scripts for usage, install from github
-* Example Usage Scripts (in github repo): Located in ./help_docs/example_scripts/  
-* Help docs (in github repo): ./help_docs/build/html/index.html (to be updated; also will be hosted soon)
+* Example Usage Scripts (in github repo): Located in ./example_scripts/  
+* Help docs (in github repo): ./Docs/build/html/index.html (to be updated; also will be hosted soon)
 
 *PyMethyProcess* is pending submission and review, and link to paper will be posted shortly.
 
-![Download](./help_docs/build/html/_images/pipeline-download.jpeg)
+![Download](./Docs/build/html/_images/pipeline-download.jpeg)
 
-![Format](./help_docs/build/html/_images/pipeline-format.jpeg)
+![Format](./Docs/build/html/_images/pipeline-format.jpeg)
 
-![PreProcess](./help_docs/build/html/_images/pipeline-preprocess.jpeg)
+![PreProcess](./Docs/build/html/_images/pipeline-preprocess.jpeg)
 
-![Visualize](./help_docs/build/html/_images/pipeline-visualize.jpeg)
+![Visualize](./Docs/build/html/_images/pipeline-visualize.jpeg)
 
-![Split](./help_docs/build/html/_images/pipeline-train-test-split.jpeg)
+![Split](./Docs/build/html/_images/pipeline-train-test-split.jpeg)
 
 Note: May need to prefix pip install with MACOSX_DEPLOYMENT_TARGET=10.9 CC=clang CXX=clang++ for Mac OS install
