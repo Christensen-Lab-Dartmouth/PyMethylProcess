@@ -19,7 +19,8 @@ Why:
 * Streamlined analysis makes processing easy  
 
 Getting Started:  
-* Installation:    
+* Installation:   
+    * pip install git+https://github.com/bodono/scs-python.git@bb45c69ce57b1fbb5ab23e02b30549a7e0b801e3 git+https://github.com/jlevy44/hypopt.git@27aefef62483174736bd6d5a1b3983dbaf4184dc
     * pip install pymethylprocess && pymethyl-install_r_dependencies  
     * docker pull joshualevy44/pymethylprocess  
     * Or see example scripts for usage, install from github

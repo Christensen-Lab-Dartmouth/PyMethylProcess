@@ -1,8 +1,10 @@
 from setuptools import setup
+with open('README.md','r', encoding='utf-8') as f:
+      long_description = f.read()
 setup(name='pymethylprocess',
       version='0.1',
-      description='What the module does',
-      url='https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess',
+      description='Preprocessing methylation pipeline, written in python. Easy to use and highly parallelized.',
+      url='https://upload.pypi.org/legacy/',
       author='Joshua Levy',
       author_email='joshualevy44@berkeley.edu',
       license='MIT',
@@ -15,10 +17,11 @@ setup(name='pymethylprocess',
                                'pymethyl-utils=pymethylprocess.utils:util',
                                'pymethyl-basic-ml=pymethylprocess.run_rand_forest:main']
       },
+      long_description=long_description,
+      long_description_content_type='text/markdown',
       packages=['pymethylprocess'],
       install_requires=['rpy2',
                         'numpy',
-                        'scs @ git+https://github.com/bodono/scs-python.git@bb45c69ce57b1fbb5ab23e02b30549a7e0b801e3',
                         'kneed',
                         'Cython',
                         'pathos',
@@ -32,5 +35,4 @@ setup(name='pymethylprocess',
                         'matplotlib',
                         'seaborn',
                         'mlxtend',
-                        'click==6.7',
-                        'scs @ git+https://github.com/jlevy44/hypopt.git@27aefef62483174736bd6d5a1b3983dbaf4184dc'])
+                        'click==6.7'])
