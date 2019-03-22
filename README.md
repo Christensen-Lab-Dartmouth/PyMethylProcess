@@ -1,6 +1,6 @@
 ## PyMethylProcess
 
-![Overview](https://raw.githubusercontent.com/Christensen-Lab-Dartmouth/PyMethylProcess/master/docs/yimages/pymethylprocess_overview.jpeg)
+![pymethylprocess_overview](https://user-images.githubusercontent.com/19698023/54838986-4e152e00-4ca0-11e9-9012-a6d710fffee3.jpeg)
 
 https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess  
 
@@ -28,14 +28,10 @@ Getting Started:
 
 *PyMethyProcess* is pending submission and review, and link to paper will be posted shortly.
 
-![Download](https://raw.githubusercontent.com/Christensen-Lab-Dartmouth/PyMethylProcess/master/docs/yimages/pipeline-download.jpeg?token=ASyRZ6VozGl-fk1XitRFkeYYZJjArIe7ks5cnkqcwA%3D%3D)
-
-![Format](https://raw.githubusercontent.com/Christensen-Lab-Dartmouth/PyMethylProcess/master/docs/yimages/pipeline-format.jpeg)
-
-![PreProcess](https://raw.githubusercontent.com/Christensen-Lab-Dartmouth/PyMethylProcess/master/docs/yimages/pipeline-preprocess.jpeg)
-
-![Visualize](https://raw.githubusercontent.com/Christensen-Lab-Dartmouth/PyMethylProcess/master/docs/yimages/pipeline-visualize.jpeg)
-
-![Split](https://raw.githubusercontent.com/Christensen-Lab-Dartmouth/PyMethylProcess/master/docs/yimages/pipeline-train-test-split.jpeg)
+![pipeline-download](https://user-images.githubusercontent.com/19698023/54839004-566d6900-4ca0-11e9-97fa-f338d11b896b.jpeg)  
+![pipeline-format](https://user-images.githubusercontent.com/19698023/54839010-59685980-4ca0-11e9-92da-58bccec68347.jpeg)  
+![pipeline-preprocess](https://user-images.githubusercontent.com/19698023/54839016-5cfbe080-4ca0-11e9-8c7e-22a871483d16.jpeg)  
+![pipeline-visualize](https://user-images.githubusercontent.com/19698023/54839038-66854880-4ca0-11e9-8afe-e167806f83ce.jpeg)  
+![pipeline-train-test-split](https://user-images.githubusercontent.com/19698023/54839060-713fdd80-4ca0-11e9-85a8-9385012a6807.jpeg)  
 
 Note: May need to prefix pip install with MACOSX_DEPLOYMENT_TARGET=10.9 CC=clang CXX=clang++ for Mac OS install

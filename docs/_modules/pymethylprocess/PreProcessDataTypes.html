@@ -1,0 +1,876 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pymethylprocess.PreProcessDataTypes &mdash; PyMethylProcess 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> PyMethylProcess
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyMethylProcess</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>pymethylprocess.PreProcessDataTypes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pymethylprocess.PreProcessDataTypes</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">PreProcessDataTypes.py</span>
+<span class="sd">======================</span>
+<span class="sd">Contains datatypes core to downloading IDATs, preprocessing IDATs and samplesheets.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">rpy2.robjects</span> <span class="k">as</span> <span class="nn">robjects</span>
+<span class="kn">from</span> <span class="nn">rpy2.robjects.packages</span> <span class="k">import</span> <span class="n">importr</span> <span class="c1">#from utils import importr_ as importr#</span>
+<span class="kn">from</span> <span class="nn">rpy2.robjects</span> <span class="k">import</span> <span class="n">r</span>
+<span class="kn">import</span> <span class="nn">rpy2.robjects.packages</span> <span class="k">as</span> <span class="nn">rpackages</span>
+<span class="kn">from</span> <span class="nn">pymethylprocess.MethylationDataTypes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">rpy2.robjects</span> <span class="k">import</span> <span class="n">pandas2ri</span><span class="p">,</span> <span class="n">numpy2ri</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">subprocess</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
+
+<span class="n">pandas2ri</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
+<span class="n">numpy2ri</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="TCGADownloader"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.TCGADownloader">[docs]</a><span class="k">class</span> <span class="nc">TCGADownloader</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Downloads TCGA and GEO IDAT and clinical data&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="TCGADownloader.download_tcga"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.TCGADownloader.download_tcga">[docs]</a>    <span class="k">def</span> <span class="nf">download_tcga</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Download TCGA IDATs.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        output_dir</span>
+<span class="sd">            Where to output idat files.&quot;&quot;&quot;</span>
+        <span class="n">tcga</span> <span class="o">=</span> <span class="n">importr</span><span class="p">(</span><span class="s2">&quot;TCGAbiolinks&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">tcga</span><span class="p">)</span>
+        <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                   library(TCGAbiolinks)</span>
+<span class="s2">                   projects &lt;- TCGAbiolinks:::getGDCprojects()$project_id</span>
+<span class="s2">                   projects &lt;- projects[grepl(&#39;^TCGA&#39;,projects,perl=T)]</span>
+<span class="s2">                   match.file.cases.all &lt;- NULL</span>
+<span class="s2">                   for(proj in projects){</span>
+<span class="s2">                        print(proj)</span>
+<span class="s2">                        query &lt;- GDCquery(project = proj,</span>
+<span class="s2">                                          data.category = &quot;Raw microarray data&quot;,</span>
+<span class="s2">                                          data.type = &quot;Raw intensities&quot;,</span>
+<span class="s2">                                          experimental.strategy = &quot;Methylation array&quot;,</span>
+<span class="s2">                                          legacy = TRUE,</span>
+<span class="s2">                                          file.type = &quot;.idat&quot;,</span>
+<span class="s2">                                          platform = &quot;Illumina Human Methylation 450&quot;)</span>
+<span class="s2">                        match.file.cases &lt;- getResults(query,cols=c(&quot;cases&quot;,&quot;file_name&quot;))</span>
+<span class="s2">                        match.file.cases$project &lt;- proj</span>
+<span class="s2">                        match.file.cases.all &lt;- rbind(match.file.cases.all,match.file.cases)</span>
+<span class="s2">                        tryCatch(GDCdownload(query, method = &quot;api&quot;, files.per.chunk = 20),</span>
+<span class="s2">                                 error = function(e) GDCdownload(query, method = &quot;client&quot;))</span>
+<span class="s2">                    }</span>
+<span class="s2">                    # This will create a map between idat file name, cases (barcode) and project</span>
+<span class="s2">                    readr::write_tsv(match.file.cases.all, path = &quot;idat_filename_case.txt&quot;)</span>
+<span class="s2">                    # code to move all files to local folder</span>
+<span class="s2">                    for(file in dir(&quot;.&quot;,pattern = &quot;.idat&quot;, recursive = T)){</span>
+<span class="s2">                        TCGAbiolinks:::move(file,file.path(&#39;</span><span class="si">%s</span><span class="s2">&#39;,basename(file)))</span>
+<span class="s2">                    }</span>
+<span class="s2">                   &quot;&quot;&quot;</span><span class="o">%</span><span class="n">output_dir</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TCGADownloader.download_clinical"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.TCGADownloader.download_clinical">[docs]</a>    <span class="k">def</span> <span class="nf">download_clinical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Download TCGA Clinical Data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        output_dir</span>
+<span class="sd">            Where to output clinical data csv.&quot;&quot;&quot;</span>
+        <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                   library(TCGAbiolinks)</span>
+<span class="s2">                   library(data.table)</span>
+<span class="s2">                   projects &lt;- TCGAbiolinks:::getGDCprojects()$project_id</span>
+<span class="s2">                   projects &lt;- projects[grepl(&#39;^TCGA&#39;,projects,perl=T)]</span>
+<span class="s2">                   match.file.cases.all &lt;- NULL</span>
+<span class="s2">                   data &lt;- list()</span>
+<span class="s2">                   for(n in 1:length(projects)){</span>
+<span class="s2">                        proj &lt;- projects[n]</span>
+<span class="s2">                        clin.query &lt;- GDCquery_clinic(project = proj,</span>
+<span class="s2">                                          type=&#39;clinical&#39;, save.csv=F)</span>
+<span class="s2">                        data[[length(data)+1]] = clin.query</span>
+<span class="s2">                    }</span>
+<span class="s2">                    df &lt;- rbindlist(data)</span>
+<span class="s2">                    write.csv(df, file=file.path(&#39;</span><span class="si">%s</span><span class="s2">&#39;,&#39;clinical_info.csv&#39;))</span>
+<span class="s2">                   &quot;&quot;&quot;</span><span class="o">%</span><span class="n">output_dir</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TCGADownloader.download_geo"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.TCGADownloader.download_geo">[docs]</a>    <span class="k">def</span> <span class="nf">download_geo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Download GEO IDATs.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        query</span>
+<span class="sd">            GEO accession number to query, must be 450k/850k.</span>
+<span class="sd">        output_dir</span>
+<span class="sd">            Output directory to store idats and clinical information csv&quot;&quot;&quot;</span>
+        <span class="n">base</span><span class="o">=</span><span class="n">importr</span><span class="p">(</span><span class="s1">&#39;base&#39;</span><span class="p">)</span>
+        <span class="n">geo</span> <span class="o">=</span> <span class="n">importr</span><span class="p">(</span><span class="s2">&quot;GEOquery&quot;</span><span class="p">)</span>
+        <span class="n">geo</span><span class="o">.</span><span class="n">getGEOSuppFiles</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">tar_path</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;conda list | grep &quot;packages in environment at&quot; | awk &quot;{print $6}&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;/bin/tar&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tar_path</span><span class="p">):</span>
+            <span class="n">tar_path</span> <span class="o">=</span> <span class="s1">&#39;internal&#39;</span>
+        <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;untar&quot;</span><span class="p">](</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">/</span><span class="si">{0}</span><span class="s2">_RAW.tar&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">query</span><span class="p">),</span> <span class="n">exdir</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/idat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">query</span><span class="p">),</span> <span class="n">tar</span><span class="o">=</span><span class="n">tar_path</span><span class="p">)</span>
+        <span class="n">idatFiles</span> <span class="o">=</span> <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;list.files(&quot;</span><span class="si">{}</span><span class="s1">/idat&quot;, pattern = &quot;idat.gz$&quot;, full = TRUE)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">query</span><span class="p">))</span>
+        <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;sapply&quot;</span><span class="p">](</span><span class="n">idatFiles</span><span class="p">,</span> <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;gunzip&quot;</span><span class="p">],</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;mv </span><span class="si">{}</span><span class="s1">/idat/*.idat </span><span class="si">{}</span><span class="s1">/&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">),</span><span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">pandas2ri</span><span class="o">.</span><span class="n">ri2py</span><span class="p">(</span><span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;as&#39;</span><span class="p">](</span><span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;phenoData(getGEO(&#39;</span><span class="si">{}</span><span class="s2">&#39;)[[1]])&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">query</span><span class="p">)),</span><span class="s1">&#39;data.frame&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">_clinical_info.csv&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span><span class="n">query</span><span class="p">))</span><span class="c1"># ,GSEMatrix = FALSE</span></div></div>
+
+
+<div class="viewcode-block" id="PreProcessPhenoData"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData">[docs]</a><span class="k">class</span> <span class="nc">PreProcessPhenoData</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Class that will manipute phenotype samplesheet before preprocessing of IDATs.</span>
+
+<span class="sd">    pheno_sheet</span>
+<span class="sd">        Location of clinical info csv.</span>
+<span class="sd">    idat_dir</span>
+<span class="sd">        Location of idats</span>
+<span class="sd">    header_line</span>
+<span class="sd">        Where to start reading clinical csv&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pheno_sheet</span><span class="p">,</span> <span class="n">idat_dir</span><span class="p">,</span> <span class="n">header_line</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xlsx</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">pheno_sheet</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.xlsx&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">pheno_sheet</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.xls&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">xlsx</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">pheno_sheet</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="n">header_line</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">pheno_sheet</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="n">header_line</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idat_dir</span> <span class="o">=</span> <span class="n">idat_dir</span>
+
+<div class="viewcode-block" id="PreProcessPhenoData.format_geo"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_geo">[docs]</a>    <span class="k">def</span> <span class="nf">format_geo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">disease_class_column</span><span class="o">=</span><span class="s2">&quot;methylation class:ch1&quot;</span><span class="p">,</span> <span class="n">include_columns</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot;Format clinical sheets if downloaded geo idats.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        disease_class_column</span>
+<span class="sd">            Disease column of clinical info csv.</span>
+<span class="sd">        include_columns</span>
+<span class="sd">            Dictionary specifying other columns to include, and new names to assign them to.&quot;&quot;&quot;</span>
+        <span class="n">idats</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/*.idat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">idat_dir</span><span class="p">))</span>
+        <span class="n">idat_basenames</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]))(</span><span class="n">idats</span><span class="p">))</span>
+        <span class="n">idat_geo_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])(</span><span class="n">idat_basenames</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">idat_basenames</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;Basename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;geo_accession&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">idat_geo_map</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;Basename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">idat_basenames</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Basename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;Basename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">idat_dir</span><span class="o">+</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">col_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;geo_accession&#39;</span><span class="p">:</span><span class="s1">&#39;AccNum&#39;</span><span class="p">,</span><span class="n">disease_class_column</span><span class="p">:</span><span class="s1">&#39;disease&#39;</span><span class="p">}</span>
+        <span class="n">col_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">include_columns</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[[</span><span class="s1">&#39;Basename&#39;</span><span class="p">,</span> <span class="s1">&#39;geo_accession&#39;</span><span class="p">,</span><span class="n">disease_class_column</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">include_columns</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="k">if</span> <span class="n">include_columns</span> <span class="k">else</span> <span class="p">[])]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">col_dict</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PreProcessPhenoData.format_tcga"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_tcga">[docs]</a>    <span class="k">def</span> <span class="nf">format_tcga</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapping_file</span><span class="o">=</span><span class="s2">&quot;idat_filename_case.txt&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Format clinical sheets if downloaded tcga idats.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mapping_file</span>
+<span class="sd">            Maps uuids to proper tcga sample names, should be downloaded with tcga clinical information.&quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">decide_case_control</span><span class="p">(</span><span class="n">barcode</span><span class="p">):</span>
+            <span class="n">case_control_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">barcode</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="mi">3</span><span class="p">][:</span><span class="mi">2</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">case_control_num</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">&#39;case&#39;</span>
+            <span class="k">elif</span> <span class="n">case_control_num</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">&#39;normal&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">&#39;control&#39;</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="n">idats</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/*.idat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">idat_dir</span><span class="p">))</span>
+        <span class="n">barcode_mappings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">mapping_file</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">barcode_mappings</span><span class="p">[</span><span class="s1">&#39;barcodes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]))(</span><span class="n">barcode_mappings</span><span class="p">[</span><span class="s1">&#39;cases&#39;</span><span class="p">])</span>
+        <span class="n">barcode_mappings</span><span class="p">[</span><span class="s1">&#39;idats&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">barcode_mappings</span><span class="p">[</span><span class="s1">&#39;file_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[:</span><span class="n">x</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)])</span>
+        <span class="n">barcode_mappings_d1</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">barcode_mappings</span><span class="p">[[</span><span class="s1">&#39;barcodes&#39;</span><span class="p">,</span><span class="s1">&#39;idats&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+        <span class="n">barcode_mappings</span><span class="p">[</span><span class="s1">&#39;case_controls&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">barcode_mappings</span><span class="p">[</span><span class="s1">&#39;cases&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">decide_case_control</span><span class="p">)</span>
+        <span class="n">barcode_mappings_d2</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">barcode_mappings</span><span class="p">[[</span><span class="s1">&#39;barcodes&#39;</span><span class="p">,</span><span class="s1">&#39;case_controls&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;Basename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;bcr_patient_barcode&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">barcode_mappings_d1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;case_control&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;bcr_patient_barcode&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">barcode_mappings_d2</span><span class="p">)</span>
+        <span class="n">idat_basenames</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[:</span><span class="mi">2</span><span class="p">]))(</span><span class="n">idats</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;Basename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">idat_basenames</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;Basename&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;Basename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">idat_dir</span><span class="o">+</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[[</span><span class="s1">&#39;Basename&#39;</span><span class="p">,</span> <span class="s1">&#39;bcr_patient_barcode&#39;</span><span class="p">,</span> <span class="s1">&#39;disease&#39;</span><span class="p">,</span> <span class="s1">&#39;tumor_stage&#39;</span><span class="p">,</span> <span class="s1">&#39;vital_status&#39;</span><span class="p">,</span> <span class="s1">&#39;age_at_diagnosis&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="s1">&#39;ethnicity&#39;</span><span class="p">,</span><span class="s1">&#39;case_control&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tumor_stage&#39;</span><span class="p">:</span><span class="s1">&#39;stage&#39;</span><span class="p">,</span><span class="s1">&#39;bcr_patient_barcode&#39;</span><span class="p">:</span><span class="s1">&#39;PatientID&#39;</span><span class="p">,</span><span class="s1">&#39;vital_status&#39;</span><span class="p">:</span><span class="s1">&#39;vital&#39;</span><span class="p">,</span><span class="s1">&#39;gender&#39;</span><span class="p">:</span><span class="s1">&#39;Sex&#39;</span><span class="p">,</span><span class="s1">&#39;age_at_diagnosis&#39;</span><span class="p">:</span><span class="s1">&#39;age&#39;</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="PreProcessPhenoData.format_custom"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_custom">[docs]</a>    <span class="k">def</span> <span class="nf">format_custom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">basename_col</span><span class="p">,</span> <span class="n">disease_class_column</span><span class="p">,</span> <span class="n">include_columns</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot;Custom format clinical sheet if user supplied idats.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        basename_col</span>
+<span class="sd">            Column name of sample names.</span>
+<span class="sd">        disease_class_column</span>
+<span class="sd">            Disease column of clinical info csv.</span>
+<span class="sd">        include_columns</span>
+<span class="sd">            Dictionary specifying other columns to include, and new names to assign them to.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">idats</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/*.idat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">idat_dir</span><span class="p">))</span>
+        <span class="n">idat_basenames</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))(</span><span class="n">idats</span><span class="p">))</span>
+        <span class="n">idat_count_underscores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">))(</span><span class="n">idat_basenames</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;Basename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="n">basename_col</span><span class="p">]</span>
+        <span class="n">basename_count_underscores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">))(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;Basename&#39;</span><span class="p">])</span>
+        <span class="n">min_underscores</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">idat_count_underscores</span><span class="p">,</span><span class="n">basename_count_underscores</span><span class="p">]))</span>
+        <span class="n">basic_basename_fn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="o">-</span><span class="n">min_underscores</span><span class="o">-</span><span class="mi">1</span><span class="p">:]))</span>
+        <span class="n">basic_basename</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">basic_basename_fn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;Basename&#39;</span><span class="p">]),</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;Basename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+        <span class="n">basic_idat</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">basic_basename_fn</span><span class="p">(</span><span class="n">idat_basenames</span><span class="p">),</span><span class="n">idat_basenames</span><span class="p">))</span>
+        <span class="n">complete_mapping</span><span class="o">=</span><span class="p">{</span><span class="n">basic_basename</span><span class="p">[</span><span class="n">basename</span><span class="p">]:</span><span class="n">basic_idat</span><span class="p">[</span><span class="n">basename</span><span class="p">]</span> <span class="k">for</span> <span class="n">basename</span> <span class="ow">in</span> <span class="n">basic_basename</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;Basename&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;Basename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">complete_mapping</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">idat_dir</span><span class="o">+</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;disease&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="n">disease_class_column</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([</span><span class="s1">&#39;Basename&#39;</span><span class="p">,</span> <span class="s1">&#39;disease&#39;</span><span class="p">]</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">include_columns</span><span class="o">.</span><span class="n">keys</span><span class="p">()))]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">include_columns</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PreProcessPhenoData.merge"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_formatted_sheet</span><span class="p">,</span> <span class="n">use_second_sheet_disease</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">no_disease_merge</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Merge multiple PreProcessPhenoData objects, merge their dataframes to accept more than one saplesheet/dataset or add more pheno info.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        other_formatted_sheet</span>
+<span class="sd">            Other PreProcessPhenoData to merge.</span>
+<span class="sd">        use_second_sheet_disease</span>
+<span class="sd">            Change disease column to that of second sheet instead of first.</span>
+<span class="sd">        no_disease_merge</span>
+<span class="sd">            Keep both disease columns from both sheets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">disease_dict</span> <span class="o">=</span> <span class="p">{</span><span class="kc">False</span><span class="p">:</span><span class="s1">&#39;disease_x&#39;</span><span class="p">,</span><span class="kc">True</span><span class="p">:</span><span class="s1">&#39;disease_y&#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">other_formatted_sheet</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Basename&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">no_disease_merge</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;disease&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="n">disease_dict</span><span class="p">[</span><span class="n">use_second_sheet_disease</span><span class="p">]]</span>
+        <span class="n">cols</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span> <span class="k">if</span> <span class="n">col</span><span class="o">!=</span><span class="s1">&#39;Unnamed: 0_x&#39;</span> <span class="ow">and</span> <span class="n">col</span><span class="o">!=</span><span class="s1">&#39;Unnamed: 0_y&#39;</span> <span class="ow">and</span> <span class="n">col</span><span class="o">!=</span><span class="n">disease_dict</span><span class="p">[</span><span class="n">use_second_sheet_disease</span><span class="p">]]]</span></div>
+
+<div class="viewcode-block" id="PreProcessPhenoData.concat"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.concat">[docs]</a>    <span class="k">def</span> <span class="nf">concat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_formatted_sheet</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Concat multiple PreProcessPhenoData objects, concat their dataframes to accept more than one smaplesheet/dataset.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        other_formatted_sheet</span>
+<span class="sd">            Other PreProcessPhenoData to concat.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">,</span><span class="n">other_formatted_sheet</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">],</span><span class="n">join</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Unnamed:&#39;</span><span class="p">)]]</span></div>
+
+<div class="viewcode-block" id="PreProcessPhenoData.export"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.export">[docs]</a>    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_sheet_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Export pheno data to csv after done with manipulation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        output_sheet_name</span>
+<span class="sd">            Output csv name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_sheet_name</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please move all other sample sheets out of this directory.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PreProcessPhenoData.split_key"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.split_key">[docs]</a>    <span class="k">def</span> <span class="nf">split_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">subtype_delimiter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Split pheno column by key, with subtype delimiter, eg. entry S1,s2 -&gt; S1 with delimiter &quot;,&quot;.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key</span>
+<span class="sd">            Pheno column name.</span>
+<span class="sd">        subtype_delimiter</span>
+<span class="sd">            Subtype delimiter to split on.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new_key</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_only&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="n">new_key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">subtype_delimiter</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">new_key</span></div>
+
+<div class="viewcode-block" id="PreProcessPhenoData.get_categorical_distribution"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.get_categorical_distribution">[docs]</a>    <span class="k">def</span> <span class="nf">get_categorical_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">disease_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">subtype_delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Print categorical distribution, counts for each unique value in phenotype column.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key</span>
+<span class="sd">            Phenotype Column.</span>
+<span class="sd">        disease_only</span>
+<span class="sd">            Whether to split phenotype column entries by delimiter.</span>
+<span class="sd">        subtype_delimiter</span>
+<span class="sd">            Subtype delimiter to split on.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">disease_only</span><span class="p">:</span>
+                <span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">split_key</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="n">subtype_delimiter</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Counter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cols</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+            <span class="n">cols</span><span class="o">=</span><span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">:</span> <span class="n">a</span><span class="o">+</span><span class="s1">&#39;_&#39;</span><span class="o">+</span><span class="n">b</span><span class="p">,[</span><span class="n">cols</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cols</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+            <span class="k">return</span> <span class="n">Counter</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PreProcessPhenoData.remove_diseases"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.remove_diseases">[docs]</a>    <span class="k">def</span> <span class="nf">remove_diseases</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">exclude_disease_list</span><span class="p">,</span> <span class="n">low_count</span><span class="p">,</span> <span class="n">disease_only</span><span class="p">,</span><span class="n">subtype_delimiter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove samples with certain diseases from disease column.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        exclude_disease_list</span>
+<span class="sd">            List containing diseases to remove.</span>
+<span class="sd">        low_count</span>
+<span class="sd">            Remove samples that have less than x disease occurances in column.</span>
+<span class="sd">        disease_only</span>
+<span class="sd">            Whether to split phenotype column entries by delimiter.</span>
+<span class="sd">        subtype_delimiter</span>
+<span class="sd">            Subtype delimiter to split on.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">low_count</span><span class="p">:</span>
+            <span class="n">low_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">low_count</span><span class="p">)</span>
+            <span class="n">cat_dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_categorical_distribution</span><span class="p">(</span><span class="s1">&#39;disease&#39;</span><span class="p">,</span> <span class="n">disease_only</span><span class="p">,</span><span class="n">subtype_delimiter</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="n">count_diseases</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">cat_dist</span><span class="p">),</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;disease&#39;</span><span class="p">,</span><span class="s1">&#39;count&#39;</span><span class="p">])</span>
+            <span class="n">count_diseases</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;count&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">count_diseases</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">exclude_diseases_more</span><span class="o">=</span><span class="n">count_diseases</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">count_diseases</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">&lt;</span><span class="n">low_count</span><span class="p">,</span><span class="s1">&#39;disease&#39;</span><span class="p">]</span>
+            <span class="n">exclude_diseases_more</span><span class="o">=</span><span class="n">exclude_diseases_more</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">disease_only</span><span class="p">:</span>
+                <span class="n">exclude_diseases_more</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;disease_only&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">exclude_diseases_more</span><span class="p">),</span><span class="s1">&#39;disease&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">exclude_diseases_more</span><span class="o">=</span><span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="o">~</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_sheet</span><span class="p">[</span><span class="s1">&#39;disease&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">exclude_disease_list</span><span class="o">+</span><span class="n">exclude_diseases_more</span><span class="p">)]</span></div></div>
+
+<div class="viewcode-block" id="PreProcessIDAT"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT">[docs]</a><span class="k">class</span> <span class="nc">PreProcessIDAT</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Class that will preprocess IDATs using R pipelines.</span>
+
+<span class="sd">    idat_dir</span>
+<span class="sd">        Location of idats or samplesheet csv.</span>
+<span class="sd">    minfi</span>
+<span class="sd">        Rpy2 importr minfi library, default to None will load through rpy2</span>
+<span class="sd">    enmix</span>
+<span class="sd">        Rpy2 importr enmix library, default to None will load through rpy2</span>
+<span class="sd">    base</span>
+<span class="sd">        Rpy2 importr base library, default to None will load through rpy2</span>
+<span class="sd">    meffil</span>
+<span class="sd">        Rpy2 importr meffil library, default to None will load through rpy2&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idat_dir</span><span class="p">,</span> <span class="n">minfi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enmix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">meffil</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">idat_dir</span> <span class="o">=</span> <span class="n">idat_dir</span>
+        <span class="k">if</span> <span class="n">minfi</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">minfi</span> <span class="o">=</span> <span class="n">importr</span><span class="p">(</span><span class="s1">&#39;minfi&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">minfi</span> <span class="o">=</span> <span class="n">minfi</span>
+        <span class="k">if</span> <span class="n">enmix</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span> <span class="o">=</span> <span class="n">importr</span><span class="p">(</span><span class="s2">&quot;ENmix&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span> <span class="o">=</span> <span class="n">enmix</span>
+        <span class="k">if</span> <span class="n">base</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base</span> <span class="o">=</span> <span class="n">importr</span><span class="p">(</span><span class="s1">&#39;base&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base</span> <span class="o">=</span> <span class="n">base</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">meffil</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">meffil</span> <span class="o">=</span> <span class="n">importr</span><span class="p">(</span><span class="s1">&#39;meffil&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">meffil</span> <span class="o">=</span> <span class="n">meffil</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">meffil</span><span class="o">=</span><span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qcinfo</span><span class="o">=</span><span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;NULL&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PreProcessIDAT.move_jpg"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.move_jpg">[docs]</a>    <span class="k">def</span> <span class="nf">move_jpg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Move jpeg files from current working directory to the idat directory.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;mv *.jpg </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">idat_dir</span><span class="p">),</span><span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.preprocessNoob"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessNoob">[docs]</a>    <span class="k">def</span> <span class="nf">preprocessNoob</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run minfi preprocessing with Noob normalization&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qcinfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">QCinfo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="p">,</span> <span class="n">detPthre</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_jpg</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MSet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">minfi</span><span class="o">.</span><span class="n">preprocessNoob</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_jpg</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MSet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">QCfilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MSet</span><span class="p">,</span><span class="n">qcinfo</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">qcinfo</span><span class="p">,</span><span class="n">outlier</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_jpg</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">MSet</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.preprocessRAW"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessRAW">[docs]</a>    <span class="k">def</span> <span class="nf">preprocessRAW</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run minfi preprocessing with RAW normalization&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qcinfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">QCinfo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="p">,</span> <span class="n">detPthre</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_jpg</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MSet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">minfi</span><span class="o">.</span><span class="n">preprocessRaw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_jpg</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MSet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">QCfilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MSet</span><span class="p">,</span><span class="n">qcinfo</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">qcinfo</span><span class="p">,</span><span class="n">outlier</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_jpg</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">MSet</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.preprocessENmix"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessENmix">[docs]</a>    <span class="k">def</span> <span class="nf">preprocessENmix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">6</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run ENmix preprocessing pipeline.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        n_cores</span>
+<span class="sd">            Number of CPUs to use.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qcinfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">QCinfo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="p">,</span> <span class="n">detPthre</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_jpg</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MSet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">preprocessENmix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="p">,</span> <span class="n">QCinfo</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">qcinfo</span><span class="p">,</span> <span class="n">nCores</span><span class="o">=</span><span class="n">n_cores</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_jpg</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MSet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">QCfilter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MSet</span><span class="p">,</span><span class="n">qcinfo</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">qcinfo</span><span class="p">,</span><span class="n">outlier</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_jpg</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">MSet</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.preprocessMeffil"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessMeffil">[docs]</a>    <span class="k">def</span> <span class="nf">preprocessMeffil</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">n_pcs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">qc_report_fname</span><span class="o">=</span><span class="s2">&quot;qc/report.html&quot;</span><span class="p">,</span> <span class="n">normalization_report_fname</span><span class="o">=</span><span class="s1">&#39;norm/report.html&#39;</span><span class="p">,</span> <span class="n">pc_plot_fname</span><span class="o">=</span><span class="s1">&#39;qc/pc_plot.pdf&#39;</span><span class="p">,</span> <span class="n">useCache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">qc_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">qc_parameters</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;p.beadnum.samples&#39;</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span><span class="s1">&#39;p.detection.samples&#39;</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span><span class="s1">&#39;p.detection.cpgs&#39;</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span><span class="s1">&#39;p.beadnum.cpgs&#39;</span><span class="p">:</span><span class="mf">0.1</span><span class="p">},</span> <span class="n">rm_sex</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run meffil preprocessing pipeline with functional normalization.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        n_cores</span>
+<span class="sd">            Number of CPUs to use.</span>
+<span class="sd">        n_pcs</span>
+<span class="sd">            Number of principal components to use for functional normalization, set to -1 to autoselect via kneedle algorithm.</span>
+<span class="sd">        qc_report_fname</span>
+<span class="sd">            HTML filename to store QC report.</span>
+<span class="sd">        normalization_report_fname</span>
+<span class="sd">            HTML filename to store normalization report</span>
+<span class="sd">        pc_plot_fname</span>
+<span class="sd">            PDF file to store principal components plot.</span>
+<span class="sd">        useCache</span>
+<span class="sd">            Use saved QC objects instead of running through QC again.</span>
+<span class="sd">        qc_only</span>
+<span class="sd">            Perform QC, then save and quit before normalization.</span>
+<span class="sd">        qc_parameters</span>
+<span class="sd">            Python dictionary with parameters for qc.</span>
+<span class="sd">        rm_sex</span>
+<span class="sd">            Remove non-autosomal cpgs?&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">pymethylprocess.meffil_functions</span> <span class="k">import</span> <span class="n">load_detection_p_values_beadnum</span><span class="p">,</span> <span class="n">set_missing</span><span class="p">,</span> <span class="n">remove_sex</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meffil</span><span class="o">.</span><span class="n">meffil_read_samplesheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">idat_dir</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">cache_storage_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">idat_dir</span><span class="p">,</span><span class="s1">&#39;QCObjects.rds&#39;</span><span class="p">)</span>
+        <span class="n">qc_parameters</span><span class="o">=</span><span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;function(p.beadnum.samples,p.detection.samples,p.detection.cpgs,p.beadnum.cpgs,sex.outlier.sd){</span>
+<span class="s2">                        qc.parameters &lt;- meffil.qc.parameters(</span>
+<span class="s2">                            	beadnum.samples.threshold             = p.beadnum.samples,</span>
+<span class="s2">                            	detectionp.samples.threshold          = p.detection.samples,</span>
+<span class="s2">                            	detectionp.cpgs.threshold             = p.detection.cpgs,</span>
+<span class="s2">                            	beadnum.cpgs.threshold                = p.beadnum.cpgs,</span>
+<span class="s2">                            	sex.outlier.sd                        = sex.outlier.sd,</span>
+<span class="s2">                            	snp.concordance.threshold             = 0.95,</span>
+<span class="s2">                            	sample.genotype.concordance.threshold = 0.8</span>
+<span class="s2">                            )</span>
+<span class="s2">                        return(qc.parameters)</span>
+<span class="s2">                        }&quot;&quot;&quot;</span><span class="p">)(</span><span class="n">qc_parameters</span><span class="p">[</span><span class="s1">&#39;p.beadnum.samples&#39;</span><span class="p">],</span> <span class="n">qc_parameters</span><span class="p">[</span><span class="s1">&#39;p.detection.samples&#39;</span><span class="p">],</span> <span class="n">qc_parameters</span><span class="p">[</span><span class="s1">&#39;p.detection.cpgs&#39;</span><span class="p">],</span> <span class="n">qc_parameters</span><span class="p">[</span><span class="s1">&#39;p.beadnum.cpgs&#39;</span><span class="p">],</span> <span class="n">qc_parameters</span><span class="p">[</span><span class="s1">&#39;sex.outlier.sd&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">useCache</span><span class="p">:</span>
+            <span class="n">qc_list</span> <span class="o">=</span> <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;readRDS&#39;</span><span class="p">)(</span><span class="n">cache_storage_path</span><span class="p">)</span>
+            <span class="n">qc_list</span> <span class="o">=</span> <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;function(qc.list,qc.parameters, qc.report.fname) {</span>
+<span class="s2">                                qc.list$qc.summary &lt;- meffil.qc.summary(qc.list$qc.objects,parameters=qc.parameters,verbose=F)</span>
+<span class="s2">                                meffil.qc.report(qc.list$qc.summary, output.file=qc.report.fname)</span>
+<span class="s2">                                return(qc.list)</span>
+<span class="s2">                                }&quot;&quot;&quot;</span><span class="p">)(</span><span class="n">qc_list</span><span class="p">,</span><span class="n">qc_parameters</span><span class="p">,</span> <span class="n">qc_report_fname</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">qc_list</span> <span class="o">=</span> <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;function(samplesheet,n.cores,qc.parameters,qc.report.fname){</span>
+<span class="s2">                qc.objects&lt;-meffil.qc(samplesheet,mc.cores=n.cores,detection.threshold=0.000001,verbose=F)</span>
+<span class="s2">                qc.summary&lt;-meffil.qc.summary(qc.objects,parameters=qc.parameters,verbose=F)</span>
+<span class="s2">                meffil.qc.report(qc.summary, output.file=qc.report.fname)</span>
+<span class="s2">                return(list(qc.objects=qc.objects,qc.summary=qc.summary))</span>
+<span class="s2">                }&quot;&quot;&quot;</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">,</span> <span class="n">n_cores</span><span class="p">,</span> <span class="n">qc_parameters</span><span class="p">,</span> <span class="n">qc_report_fname</span><span class="p">)</span> <span class="c1"># p.values=meffil.load.detection.pvalues(qc.objects)</span>
+        <span class="n">pc_df</span> <span class="o">=</span> <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;function(qc.list,pc.plot.fname){</span>
+<span class="s2">            y &lt;- meffil.plot.pc.fit(qc.list$qc.objects)</span>
+<span class="s2">            print(y)</span>
+<span class="s2">            ggsave(y$plot,filename=pc.plot.fname,height=6,width=6)</span>
+<span class="s2">            return(y$data)</span>
+<span class="s2">            }&quot;&quot;&quot;</span><span class="p">)(</span><span class="n">qc_list</span><span class="p">,</span><span class="n">pc_plot_fname</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Check QC report and select number of PCs. Will add option in future to adjust thresholds.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_pcs</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">kneed</span> <span class="k">import</span> <span class="n">KneeLocator</span>
+            <span class="n">pc_df</span><span class="o">=</span><span class="n">pandas2ri</span><span class="o">.</span><span class="n">ri2py</span><span class="p">(</span><span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;as&#39;</span><span class="p">](</span><span class="n">pc_df</span><span class="p">,</span><span class="s1">&#39;data.frame&#39;</span><span class="p">))</span>
+            <span class="n">pc_df</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pc_df</span><span class="p">[</span><span class="s1">&#39;U&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">pc_df</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">]</span>
+            <span class="n">n_pcs</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">KneeLocator</span><span class="p">(</span><span class="n">pc_df</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">pc_df</span><span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">curve</span><span class="o">=</span><span class="s1">&#39;convex&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;decreasing&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">knee</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pc_plot_fname</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.pdf&#39;</span><span class="p">,</span><span class="s1">&#39;.txt&#39;</span><span class="p">),</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;pcs_selected:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_pcs</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">qc_only</span><span class="p">:</span>
+            <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;saveRDS&#39;</span><span class="p">)(</span><span class="n">qc_list</span><span class="p">,</span><span class="n">cache_storage_path</span><span class="p">)</span>
+            <span class="n">exit</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cache_storage_path</span><span class="p">):</span>
+            <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;saveRDS&#39;</span><span class="p">)(</span><span class="n">qc_list</span><span class="p">,</span><span class="n">cache_storage_path</span><span class="p">)</span>
+        <span class="n">pval_beadnum</span><span class="o">=</span><span class="n">load_detection_p_values_beadnum</span><span class="p">(</span><span class="n">qc_list</span><span class="p">,</span><span class="n">n_cores</span><span class="p">)</span>
+        <span class="c1">#print(pval_beadnum)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_final</span> <span class="o">=</span> <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;function(qc.list, n.pcs, norm.report.fname,mc.cores) {</span>
+<span class="s2">            options(mc.cores=mc.cores)</span>
+<span class="s2">            qc.objects = qc.list$qc.objects</span>
+<span class="s2">            qc.summary = qc.list$qc.summary</span>
+<span class="s2">            outlier &lt;- qc.summary$bad.samples</span>
+<span class="s2">            if (nrow(outlier) &gt; 0) {</span>
+<span class="s2">            table(outlier$issue)</span>
+<span class="s2">            index &lt;- outlier$issue </span><span class="si">%i</span><span class="s2">n</span><span class="si">% c</span><span class="s2">(&quot;Control probe (dye.bias)&quot;,</span>
+<span class="s2">                                          &quot;Methylated vs Unmethylated&quot;,</span>
+<span class="s2">                                          &quot;X-Y ratio outlier&quot;,</span>
+<span class="s2">                                          &quot;Low bead numbers&quot;,</span>
+<span class="s2">                                          &quot;Detection p-value&quot;,</span>
+<span class="s2">                                          &quot;Sex mismatch&quot;,</span>
+<span class="s2">                                          &quot;Genotype mismatch&quot;,</span>
+<span class="s2">                                          &quot;Control probe (bisulfite1)&quot;,</span>
+<span class="s2">                                          &quot;Control probe (bisulfite2)&quot;)</span>
+<span class="s2">            outlier &lt;- outlier[index,]</span>
+<span class="s2">            if (nrow(outlier) &gt; 0) {</span>
+<span class="s2">                qc.objects &lt;- meffil.remove.samples(qc.objects, outlier$sample.name)</span>
+<span class="s2">            }</span>
+<span class="s2">            }</span>
+<span class="s2">            norm.objects &lt;- meffil.normalize.quantiles(qc.objects, number.pcs=n.pcs, verbose=F)</span>
+<span class="s2">            norm &lt;- meffil.normalize.samples(norm.objects, just.beta=F, cpglist.remove=qc.summary$bad.cpgs$name)</span>
+<span class="s2">            beta &lt;- meffil.get.beta(norm$M, norm$U)</span>
+<span class="s2">            pcs &lt;- meffil.methylation.pcs(beta)</span>
+<span class="s2">            norm.summary &lt;- meffil.normalization.summary(norm.objects, pcs=pcs)</span>
+<span class="s2">            meffil.normalization.report(norm.summary, output.file=norm.report.fname)</span>
+<span class="s2">            return(beta)}&quot;&quot;&quot;</span><span class="p">)(</span><span class="n">qc_list</span><span class="p">,</span> <span class="n">n_pcs</span><span class="p">,</span> <span class="n">normalization_report_fname</span><span class="p">,</span><span class="n">n_cores</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_final</span> <span class="o">=</span> <span class="n">set_missing</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_final</span><span class="p">,</span> <span class="n">pval_beadnum</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">rm_sex</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">beta_final</span> <span class="o">=</span> <span class="n">remove_sex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_final</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">grdevice</span> <span class="o">=</span> <span class="n">importr</span><span class="p">(</span><span class="s2">&quot;grDevices&quot;</span><span class="p">)</span>
+            <span class="n">geneplotter</span> <span class="o">=</span> <span class="n">importr</span><span class="p">(</span><span class="s2">&quot;geneplotter&quot;</span><span class="p">)</span>
+            <span class="n">qr_report_fname</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">qc_report_fname</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+            <span class="n">qr_report_fname</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;beta_dist.jpg&#39;</span>
+            <span class="n">grdevice</span><span class="o">.</span><span class="n">jpeg</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">qr_report_fname</span><span class="p">),</span><span class="n">height</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+            <span class="n">base</span><span class="o">.</span><span class="n">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="n">robjects</span><span class="o">.</span><span class="n">vectors</span><span class="o">.</span><span class="n">IntVector</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">multidensity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_final</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s2">&quot;Multidensity&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">multifreqpoly</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_final</span><span class="p">,</span> <span class="n">xlab</span><span class="o">=</span><span class="s2">&quot;Beta value&quot;</span><span class="p">)</span>
+            <span class="n">grdevice</span><span class="o">.</span><span class="n">dev_off</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.load_idats"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.load_idats">[docs]</a>    <span class="k">def</span> <span class="nf">load_idats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;For minfi pipeline, load IDATs from specified idat_dir.&quot;&quot;&quot;</span>
+        <span class="n">targets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">minfi</span><span class="o">.</span><span class="n">read_metharray_sheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">idat_dir</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">RGset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">minfi</span><span class="o">.</span><span class="n">read_metharray_exp</span><span class="p">(</span><span class="n">targets</span><span class="o">=</span><span class="n">targets</span><span class="p">,</span> <span class="n">extended</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">RGset</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.plot_qc_metrics"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.plot_qc_metrics">[docs]</a>    <span class="k">def</span> <span class="nf">plot_qc_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot QC results from ENmix pipeline and possible minfi. Still experimental.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        output_dir</span>
+<span class="sd">            Where to store plots.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">plotCtrl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="p">)</span>
+        <span class="n">grdevice</span> <span class="o">=</span> <span class="n">importr</span><span class="p">(</span><span class="s2">&quot;grDevices&quot;</span><span class="p">)</span>
+        <span class="n">geneplotter</span> <span class="o">=</span> <span class="n">importr</span><span class="p">(</span><span class="s2">&quot;geneplotter&quot;</span><span class="p">)</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="n">importr</span><span class="p">(</span><span class="s1">&#39;base&#39;</span><span class="p">)</span>
+        <span class="n">anno</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">minfi</span><span class="o">.</span><span class="n">getAnnotation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="p">)</span>
+        <span class="n">anno_py</span> <span class="o">=</span> <span class="n">pandas2ri</span><span class="o">.</span><span class="n">ri2py</span><span class="p">(</span><span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;as&#39;</span><span class="p">](</span><span class="n">anno</span><span class="p">,</span><span class="s1">&#39;data.frame&#39;</span><span class="p">))</span>
+        <span class="n">beta_py</span> <span class="o">=</span> <span class="n">pandas2ri</span><span class="o">.</span><span class="n">ri2py</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">)</span>
+        <span class="n">beta1</span><span class="o">=</span><span class="n">numpy2ri</span><span class="o">.</span><span class="n">py2ri</span><span class="p">(</span><span class="n">beta_py</span><span class="p">[</span><span class="n">anno_py</span><span class="p">[</span><span class="s2">&quot;Type&quot;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;I&quot;</span><span class="p">])</span>
+        <span class="n">beta2</span><span class="o">=</span><span class="n">numpy2ri</span><span class="o">.</span><span class="n">py2ri</span><span class="p">(</span><span class="n">beta_py</span><span class="p">[</span><span class="n">anno_py</span><span class="p">[</span><span class="s2">&quot;Type&quot;</span><span class="p">]</span><span class="o">==</span><span class="s2">&quot;II&quot;</span><span class="p">])</span>
+        <span class="n">grdevice</span><span class="o">.</span><span class="n">jpeg</span><span class="p">(</span><span class="n">output_dir</span><span class="o">+</span><span class="s1">&#39;/dist.jpg&#39;</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">900</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+        <span class="n">base</span><span class="o">.</span><span class="n">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="n">robjects</span><span class="o">.</span><span class="n">vectors</span><span class="o">.</span><span class="n">IntVector</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">multidensity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s2">&quot;Multidensity&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">multifreqpoly</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="n">xlab</span><span class="o">=</span><span class="s2">&quot;Beta value&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">multidensity</span><span class="p">(</span><span class="n">beta1</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s2">&quot;Multidensity: Infinium I&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">multifreqpoly</span><span class="p">(</span><span class="n">beta1</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s2">&quot;Multidensity: Infinium I&quot;</span><span class="p">,</span> <span class="n">xlab</span><span class="o">=</span><span class="s2">&quot;Beta value&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">multidensity</span><span class="p">(</span><span class="n">beta2</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s2">&quot;Multidensity: Infinium II&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">multifreqpoly</span><span class="p">(</span><span class="n">beta2</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s2">&quot;Multidensity: Infinium II&quot;</span><span class="p">,</span> <span class="n">xlab</span><span class="o">=</span><span class="s2">&quot;Beta value&quot;</span><span class="p">)</span>
+        <span class="n">grdevice</span><span class="o">.</span><span class="n">dev_off</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minfi</span><span class="o">.</span><span class="n">qcReport</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="p">,</span> <span class="n">pdf</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/qcReport.pdf&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output_dir</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minfi</span><span class="o">.</span><span class="n">mdsPlot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minfi</span><span class="o">.</span><span class="n">densityPlot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s1">&#39;Beta&#39;</span><span class="p">,</span> <span class="n">xlab</span><span class="o">=</span><span class="s1">&#39;Beta&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.return_beta"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.return_beta">[docs]</a>    <span class="k">def</span> <span class="nf">return_beta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return minfi RSet after having created MSet.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">RSet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">minfi</span><span class="o">.</span><span class="n">ratioConvert</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MSet</span><span class="p">,</span> <span class="n">what</span> <span class="o">=</span> <span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">keepCN</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">RSet</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.get_beta"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_beta">[docs]</a>    <span class="k">def</span> <span class="nf">get_beta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get beta value matrix from minfi after finding RSet.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">minfi</span><span class="o">.</span><span class="n">getBeta</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RSet</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.filter_beta"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.filter_beta">[docs]</a>    <span class="k">def</span> <span class="nf">filter_beta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;After creating beta, filter out outliers.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_final</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">enmix</span><span class="o">.</span><span class="n">rm_outlier</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span><span class="n">qcscore</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">qcinfo</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_final</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.get_meth"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_meth">[docs]</a>    <span class="k">def</span> <span class="nf">get_meth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get methylation intensity matrix from MSet&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">minfi</span><span class="o">.</span><span class="n">getMeth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MSet</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.get_unmeth"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_unmeth">[docs]</a>    <span class="k">def</span> <span class="nf">get_unmeth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get unmethylated intensity matrix from MSet&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">minfi</span><span class="o">.</span><span class="n">getUnmeth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MSet</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.extract_pheno_data"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.extract_pheno_data">[docs]</a>    <span class="k">def</span> <span class="nf">extract_pheno_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">methylset</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Extract pheno data from MSet or RGSet, minfi.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        methylset</span>
+<span class="sd">            If MSet has beenn created, set to True, else extract from original RGSet.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span> <span class="o">=</span> <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;pData&quot;</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">MSet</span><span class="p">)</span> <span class="k">if</span> <span class="n">methylset</span> <span class="k">else</span> <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;pData&quot;</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.extract_manifest"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.extract_manifest">[docs]</a>    <span class="k">def</span> <span class="nf">extract_manifest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get manifest from RGSet.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">manifest</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">minfi</span><span class="o">.</span><span class="n">getManifest</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">manifest</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.preprocess_enmix_pipeline"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocess_enmix_pipeline">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess_enmix_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">pipeline</span><span class="o">=</span><span class="s1">&#39;enmix&#39;</span><span class="p">,</span> <span class="n">noob</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">qc_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run complete ENmix or minfi preprocessing pipeline.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        n_cores</span>
+<span class="sd">            Number CPUs.</span>
+<span class="sd">        pipeline</span>
+<span class="sd">            Run enmix or minfi</span>
+<span class="sd">        noob</span>
+<span class="sd">            Noob norm or RAW if minfi running.</span>
+<span class="sd">        qc_only</span>
+<span class="sd">            Save and quit after only running QC?</span>
+<span class="sd">        use_cache</span>
+<span class="sd">            Load preexisting RGSet instead of running QC again.&quot;&quot;&quot;</span>
+        <span class="n">cache_storage_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">idat_dir</span><span class="p">,</span><span class="s1">&#39;RGSet.rds&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">use_cache</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="o">=</span><span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;readRDS&#39;</span><span class="p">)(</span><span class="n">cache_storage_path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_idats</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">qc_only</span><span class="p">:</span>
+            <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;saveRDS&#39;</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="p">,</span><span class="n">cache_storage_path</span><span class="p">)</span>
+            <span class="n">exit</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cache_storage_path</span><span class="p">):</span>
+            <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s1">&#39;saveRDS&#39;</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">RGset</span><span class="p">,</span><span class="n">cache_storage_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pipeline</span> <span class="o">==</span><span class="s1">&#39;enmix&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">preprocessENmix</span><span class="p">(</span><span class="n">n_cores</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">noob</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">preprocessNoob</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">preprocessRAW</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">return_beta</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_beta</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filter_beta</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extract_pheno_data</span><span class="p">(</span><span class="n">methylset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_final</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.plot_original_qc"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.plot_original_qc">[docs]</a>    <span class="k">def</span> <span class="nf">plot_original_qc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot QC results from ENmix pipeline and possible minfi. Still experimental.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        output_dir</span>
+<span class="sd">            Where to store plots.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preprocessRAW</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">return_beta</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_beta</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_qc_metrics</span><span class="p">(</span><span class="n">output_dir</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.output_pheno_beta"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.output_pheno_beta">[docs]</a>    <span class="k">def</span> <span class="nf">output_pheno_beta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">meffil</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get pheno and beta dataframe objects stored as attributes for input to MethylationArray object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        meffil</span>
+<span class="sd">            True if ran meffil pipeline.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_py</span><span class="o">=</span><span class="n">pandas2ri</span><span class="o">.</span><span class="n">ri2py</span><span class="p">(</span><span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;as&#39;</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">,</span><span class="s1">&#39;data.frame&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">meffil</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">beta_py</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pandas2ri</span><span class="o">.</span><span class="n">ri2py</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_final</span><span class="p">),</span><span class="n">index</span><span class="o">=</span><span class="n">numpy2ri</span><span class="o">.</span><span class="n">ri2py</span><span class="p">(</span><span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;featureNames&quot;</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">RSet</span><span class="p">)),</span><span class="n">columns</span><span class="o">=</span><span class="n">numpy2ri</span><span class="o">.</span><span class="n">ri2py</span><span class="p">(</span><span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;sampleNames&quot;</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">RSet</span><span class="p">)))</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pheno_py</span><span class="p">[</span><span class="s1">&#39;Sample_Name&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_py</span><span class="p">[</span><span class="s1">&#39;Basename&#39;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pheno_py</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_py</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Sample_Name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_py</span><span class="o">.</span><span class="n">index</span><span class="p">,:]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">beta_py</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pandas2ri</span><span class="o">.</span><span class="n">ri2py</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_final</span><span class="p">),</span><span class="n">index</span><span class="o">=</span><span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;rownames&quot;</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_final</span><span class="p">),</span><span class="n">columns</span><span class="o">=</span><span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">&quot;colnames&quot;</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_final</span><span class="p">))</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_py</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_py</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_py</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pheno_py</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_py</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Sample_Name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_py</span><span class="o">.</span><span class="n">index</span><span class="p">,:]</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.export_pickle"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_pickle">[docs]</a>    <span class="k">def</span> <span class="nf">export_pickle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_pickle</span><span class="p">,</span> <span class="n">disease</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Export pheno and beta dataframes to pickle, stored in python dict that can be loaded into MethylationArray</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        output_pickle</span>
+<span class="sd">            Where to store MethylationArray.</span>
+<span class="sd">        disease</span>
+<span class="sd">            Custom naming scheme for data.&quot;&quot;&quot;</span>
+        <span class="n">output_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_pickle</span><span class="p">):</span>
+            <span class="n">output_dict</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">output_pickle</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+        <span class="n">output_dict</span><span class="p">[</span><span class="s1">&#39;pheno&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">disease</span> <span class="k">else</span> <span class="s1">&#39;pheno_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">disease</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno_py</span>
+        <span class="n">output_dict</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">disease</span> <span class="k">else</span> <span class="s1">&#39;beta_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">disease</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_py</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">output_dict</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_pickle</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">),</span><span class="n">protocol</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.export_sql"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_sql">[docs]</a>    <span class="k">def</span> <span class="nf">export_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_db</span><span class="p">,</span> <span class="n">disease</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Export pheno and beta dataframes to SQL</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        output_db</span>
+<span class="sd">            Where to store data, sqlite db.</span>
+<span class="sd">        disease</span>
+<span class="sd">            Custom naming scheme for data.&quot;&quot;&quot;</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">output_db</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_py</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;pheno&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">disease</span> <span class="k">else</span> <span class="s1">&#39;pheno_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">disease</span><span class="p">),</span> <span class="n">con</span><span class="o">=</span><span class="n">conn</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_py</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">disease</span> <span class="k">else</span> <span class="s1">&#39;beta_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">disease</span><span class="p">),</span> <span class="n">con</span><span class="o">=</span><span class="n">conn</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">)</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.export_csv"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_csv">[docs]</a>    <span class="k">def</span> <span class="nf">export_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Export pheno and beta dataframes to CSVs</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        output_dir</span>
+<span class="sd">            Where to store csvs.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno_py</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/pheno.csv&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output_dir</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta_py</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/beta.csv&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output_dir</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="PreProcessIDAT.to_methyl_array"><a class="viewcode-back" href="../../index.html#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.to_methyl_array">[docs]</a>    <span class="k">def</span> <span class="nf">to_methyl_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">disease</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Convert results from preprocessing into MethylationArray, and directly return MethylationArray object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        disease</span>
+<span class="sd">            Custom naming scheme for data.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">MethylationArray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno_py</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_py</span><span class="p">,</span> <span class="n">disease</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Joshua Levy
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

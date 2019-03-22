@@ -1,0 +1,685 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pymethylprocess.MethylationDataTypes &mdash; PyMethylProcess 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> PyMethylProcess
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyMethylProcess</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>pymethylprocess.MethylationDataTypes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pymethylprocess.MethylationDataTypes</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">MethylationDataTypes.py</span>
+<span class="sd">=======================</span>
+<span class="sd">Contains datatypes core to storing beta and phenotype methylation data, and imputation.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pickle</span><span class="o">,</span> <span class="nn">os</span>
+
+<div class="viewcode-block" id="MethylationArray"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray">[docs]</a><span class="k">class</span> <span class="nc">MethylationArray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Stores beta and phenotype information and performs various operations.</span>
+<span class="sd">    Initialize MethylationArray object by inputting dataframe of phenotypes</span>
+<span class="sd">    and dataframe of beta values with samples as index.</span>
+
+<span class="sd">    pheno_df</span>
+<span class="sd">        Phenotype dataframe (samples x covariates)</span>
+<span class="sd">    beta_df</span>
+<span class="sd">        Beta Values Dataframe (samples x cpgs)&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pheno_df</span><span class="p">,</span> <span class="n">beta_df</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">=</span><span class="n">pheno_df</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">=</span><span class="n">beta_df</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">name</span>
+
+    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_pickle</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="MethylationArray.write_csvs"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.write_csvs">[docs]</a>    <span class="k">def</span> <span class="nf">write_csvs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Write phenotype data and beta values to csvs.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        output_dir</span>
+<span class="sd">            Directory to output csv files.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/pheno.csv&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output_dir</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/beta.csv&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output_dir</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="MethylationArray.write_pickle"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.write_pickle">[docs]</a>    <span class="k">def</span> <span class="nf">write_pickle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_pickle</span><span class="p">,</span> <span class="n">disease</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Store phenotype data and beta values in pickle file.</span>
+<span class="sd">        Is default file format for storing MethylationArray objects.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        output_pickle</span>
+<span class="sd">            Pickle file to store MethylationArray data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">output_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_pickle</span><span class="p">):</span>
+            <span class="n">output_dict</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">output_pickle</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+        <span class="n">output_dict</span><span class="p">[</span><span class="s1">&#39;pheno&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span> <span class="c1">#  if not disease else &#39;pheno_{}&#39;.format(disease)</span>
+        <span class="n">output_dict</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="c1">#  if not disease else &#39;beta_{}&#39;.format(disease)</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">output_dict</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_pickle</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">),</span><span class="n">protocol</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MethylationArray.write_db"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.write_db">[docs]</a>    <span class="k">def</span> <span class="nf">write_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">disease</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Store phenotype data and beta values in SQL database.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        conn</span>
+<span class="sd">            SQLite connection.</span>
+<span class="sd">        disease</span>
+<span class="sd">            Create new tables in db that are related to disease state by this name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;pheno&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">disease</span> <span class="k">else</span> <span class="s1">&#39;pheno_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">disease</span><span class="p">),</span> <span class="n">con</span><span class="o">=</span><span class="n">conn</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">disease</span> <span class="k">else</span> <span class="s1">&#39;beta_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">disease</span><span class="p">),</span> <span class="n">con</span><span class="o">=</span><span class="n">conn</span><span class="p">,</span> <span class="n">if_exists</span><span class="o">=</span><span class="s1">&#39;replace&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MethylationArray.impute"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.impute">[docs]</a>    <span class="k">def</span> <span class="nf">impute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imputer</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Perform imputation on NaN beta vaues. Input imputater returned from ImputerObject.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        imputer</span>
+<span class="sd">            Type of imputer object, in sklearn type interface.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">imputer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">),</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="MethylationArray.return_shape"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.return_shape">[docs]</a>    <span class="k">def</span> <span class="nf">return_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return dimensionality and number of samples of beta matrix.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">shape</span></div>
+
+<div class="viewcode-block" id="MethylationArray.bin_column"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.bin_column">[docs]</a>    <span class="k">def</span> <span class="nf">bin_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Turn continuous variable/covariate into categorical bins.</span>
+<span class="sd">        Returns name of new column and updates phenotype matrix to reflect this change.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        col</span>
+<span class="sd">            Continuous column of phenotype array to bin.</span>
+<span class="sd">        n_bins</span>
+<span class="sd">            Number of bins to create.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new_col_name</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col</span><span class="p">,</span><span class="s1">&#39;binned&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">new_col_name</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))(</span><span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">col</span><span class="p">],</span><span class="n">n_bins</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">new_col_name</span></div>
+
+<div class="viewcode-block" id="MethylationArray.split_train_test"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.split_train_test">[docs]</a>    <span class="k">def</span> <span class="nf">split_train_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_p</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">stratified</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">disease_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;disease&#39;</span><span class="p">,</span> <span class="n">subtype_delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">val_p</span><span class="o">=</span><span class="mf">0.</span><span class="p">):</span> <span class="c1"># https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html</span>
+        <span class="sd">&quot;&quot;&quot;Split MethylationArray into training and test sets, with option to stratify by categorical covariate.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        train_p</span>
+<span class="sd">            Fraction of methylation array to use as training set.</span>
+<span class="sd">        stratified</span>
+<span class="sd">            Whether to stratify by categorical variable.</span>
+<span class="sd">        disease_only</span>
+<span class="sd">            Consider disease superclass by some delimiter. For instance if disease is S1,s2, superclass would be S1.</span>
+<span class="sd">        key</span>
+<span class="sd">            Column to stratify on.</span>
+<span class="sd">        subtype_delimiter</span>
+<span class="sd">            How to split disease column into super/subclass.</span>
+<span class="sd">        val_p</span>
+<span class="sd">            If set greater than 0, will create additional validation set, fraction of which is broken off from training set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">stratified</span><span class="p">:</span>
+            <span class="n">train_pheno</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">split_key</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="n">subtype_delimiter</span><span class="p">)</span> <span class="k">if</span> <span class="n">disease_only</span> <span class="k">else</span> <span class="n">key</span><span class="p">,</span><span class="n">group_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="n">train_p</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">train_pheno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="n">train_p</span><span class="p">)</span>
+        <span class="n">test_pheno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">train_pheno</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">train_arr</span><span class="p">,</span> <span class="n">test_arr</span> <span class="o">=</span> <span class="n">MethylationArray</span><span class="p">(</span><span class="n">train_pheno</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">train_pheno</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">,:],</span><span class="s1">&#39;train&#39;</span><span class="p">),</span><span class="n">MethylationArray</span><span class="p">(</span><span class="n">test_pheno</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_pheno</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">,:],</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">val_p</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">train_arr</span><span class="p">,</span> <span class="n">val_arr</span> <span class="o">=</span> <span class="n">train_arr</span><span class="o">.</span><span class="n">split_train_test</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">val_p</span><span class="p">,</span><span class="n">stratified</span><span class="p">,</span><span class="n">disease_only</span><span class="p">,</span><span class="n">key</span><span class="p">,</span><span class="n">subtype_delimiter</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">train_arr</span><span class="p">,</span> <span class="n">test_arr</span><span class="p">,</span> <span class="n">val_arr</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">train_arr</span><span class="p">,</span> <span class="n">test_arr</span></div>
+
+<div class="viewcode-block" id="MethylationArray.subsample"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.subsample">[docs]</a>    <span class="k">def</span> <span class="nf">subsample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">&#39;disease&#39;</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frac</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">categorical</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Subsample MethylationArray, make the set randomly smaller.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key</span>
+<span class="sd">            If stratifying, use this column of pheno array.</span>
+<span class="sd">        n_samples</span>
+<span class="sd">            Number of samples to consider overall, or per stratum.</span>
+<span class="sd">        frac</span>
+<span class="sd">            Alternative to n_samples, where x frac of array or stratum is considered.</span>
+<span class="sd">        categorical</span>
+<span class="sd">            Whether to stratify by column.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">categorical</span><span class="p">:</span>
+            <span class="n">pheno</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="n">group_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="n">frac</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">n_samples</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pheno</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="n">frac</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">MethylationArray</span><span class="p">(</span><span class="n">pheno</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pheno</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">,:],</span><span class="s1">&#39;subsampled&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MethylationArray.split_key"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.split_key">[docs]</a>    <span class="k">def</span> <span class="nf">split_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">subtype_delimiter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Manipulate an entire phenotype column, splitting each element up by some delimiter.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key</span>
+<span class="sd">            Phenotype column.</span>
+<span class="sd">        subtype_delimiter</span>
+<span class="sd">            How to break up strings in columns. S1,s2 -&gt; S1 for instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new_key</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_only&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">new_key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">subtype_delimiter</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">new_key</span></div>
+
+<div class="viewcode-block" id="MethylationArray.remove_whitespace"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.remove_whitespace">[docs]</a>    <span class="k">def</span> <span class="nf">remove_whitespace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove whitespaces from phenotype column.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key</span>
+<span class="sd">            Phenotype column.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">key</span><span class="p">]</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="MethylationArray.split_by_subtype"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.split_by_subtype">[docs]</a>    <span class="k">def</span> <span class="nf">split_by_subtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">disease_only</span><span class="p">,</span> <span class="n">subtype_delimiter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Split MethylationArray into generator of MethylationArrays by phenotype column. Much akin to groupby. Only splits from disease column.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        disease_only</span>
+<span class="sd">            Consider disease superclass.</span>
+<span class="sd">        subtype_delimiter</span>
+<span class="sd">            How to break up disease column if using disease_only.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">disease</span><span class="p">,</span> <span class="n">pheno_df</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">split_key</span><span class="p">(</span><span class="s1">&#39;disease&#39;</span><span class="p">,</span><span class="n">subtype_delimiter</span><span class="p">)</span> <span class="k">if</span> <span class="n">disease_only</span> <span class="k">else</span> <span class="s1">&#39;disease&#39;</span><span class="p">):</span>
+            <span class="n">new_disease_name</span> <span class="o">=</span> <span class="n">disease</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">beta_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pheno_df</span><span class="o">.</span><span class="n">index</span><span class="p">,:]</span>
+            <span class="k">yield</span> <span class="n">MethylationArray</span><span class="p">(</span><span class="n">pheno_df</span><span class="p">,</span><span class="n">beta_df</span><span class="p">,</span><span class="n">new_disease_name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MethylationArray.feature_select"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.feature_select">[docs]</a>    <span class="k">def</span> <span class="nf">feature_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_top_cpgs</span><span class="p">,</span> <span class="n">feature_selection_method</span><span class="o">=</span><span class="s1">&#39;mad&#39;</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;correlation&#39;</span><span class="p">,</span> <span class="n">nn</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Perform unsupervised feature selection on MethylationArray.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        n_top_cpgs</span>
+<span class="sd">            Number of CpGs to retain.</span>
+<span class="sd">        feature_selection_method</span>
+<span class="sd">            Method to perform selection.</span>
+<span class="sd">        metric</span>
+<span class="sd">            If considering structural feature selection like SPEC, use this distance metric.</span>
+<span class="sd">        nn</span>
+<span class="sd">            Number of nearest neighbors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">feature_selection_method</span><span class="o">==</span><span class="s1">&#39;mad&#39;</span><span class="p">:</span>
+            <span class="n">mad_cpgs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">mad</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">top_mad_cpgs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">mad_cpgs</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">n_top_cpgs</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">top_mad_cpgs</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">feature_selection_method</span><span class="o">==</span><span class="s1">&#39;spectral&#39;</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">pynndescent.pynndescent_</span> <span class="k">import</span> <span class="n">PyNNDescentTransformer</span>
+            <span class="kn">from</span> <span class="nn">skfeature.function.similarity_based.SPEC</span> <span class="k">import</span> <span class="n">spec</span>
+            <span class="k">if</span> <span class="n">nn</span><span class="p">:</span>
+                <span class="n">W</span><span class="o">=</span><span class="n">PyNNDescentTransformer</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">nn</span><span class="p">,</span><span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;W computed...&#39;</span><span class="p">)</span>
+                <span class="n">f_weights</span> <span class="o">=</span> <span class="n">spec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">values</span><span class="p">,</span><span class="n">W</span><span class="o">=</span><span class="n">W</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;weights&#39;</span><span class="p">,</span><span class="n">f_weights</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">f_weights</span> <span class="o">=</span> <span class="n">spec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">f_weights</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="n">n_top_cpgs</span><span class="p">]]</span></div>
+
+<div class="viewcode-block" id="MethylationArray.remove_missingness"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.remove_missingness">[docs]</a>    <span class="k">def</span> <span class="nf">remove_missingness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cpg_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove samples and CpGs with certain level of missingness..</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cpg_threshold</span>
+<span class="sd">            If more than fraction of Samples for this CpG are missing, remove cpg.</span>
+<span class="sd">        sample_threshold</span>
+<span class="sd">            If more than fraction of CpGs for this sample are missing, remove sample.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cpgs_remove</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="n">samples_remove</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="n">cpgs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">return_cpgs</span><span class="p">()</span>
+        <span class="n">samples</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">return_idx</span><span class="p">()</span>
+        <span class="n">na_frame</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cpg_threshold</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cpgs_remove</span><span class="o">=</span><span class="n">cpgs</span><span class="p">[</span><span class="n">na_frame</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">na_frame</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">.</span><span class="n">values</span> <span class="o">&gt;=</span> <span class="n">cpg_threshold</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">sample_threshold</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">samples_remove</span><span class="o">=</span><span class="n">samples</span><span class="p">[</span><span class="n">na_frame</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">na_frame</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">&gt;=</span> <span class="n">sample_threshold</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span><span class="n">samples_remove</span><span class="p">),</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">cpgs</span><span class="p">,</span><span class="n">cpgs_remove</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">index</span><span class="p">,:]</span></div>
+
+<div class="viewcode-block" id="MethylationArray.remove_na_samples"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.remove_na_samples">[docs]</a>    <span class="k">def</span> <span class="nf">remove_na_samples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outcome_cols</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove samples of MethylationArray who have missing values in phenotype column.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        outcome_cols</span>
+<span class="sd">            Phenotype columns, if any rows contain missing values, samples are removed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">vals</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">outcome_cols</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+        <span class="n">remove_bool</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">remove_bool</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">[</span><span class="n">remove_bool</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="MethylationArray.subset_index"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.subset_index">[docs]</a>    <span class="k">def</span> <span class="nf">subset_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Subset MethylationArray by samples.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        index</span>
+<span class="sd">            Sample names to subset by.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">MethylationArray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,:],</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,:])</span></div>
+
+<div class="viewcode-block" id="MethylationArray.return_idx"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.return_idx">[docs]</a>    <span class="k">def</span> <span class="nf">return_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return sample names of MethylationArray.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">index</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="MethylationArray.return_cpgs"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.return_cpgs">[docs]</a>    <span class="k">def</span> <span class="nf">return_cpgs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return list of cpgs of MethylationArray&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="MethylationArray.return_raw_beta_array"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.return_raw_beta_array">[docs]</a>    <span class="k">def</span> <span class="nf">return_raw_beta_array</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return numpy array of methylation beta vaues.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">values</span></div>
+
+<div class="viewcode-block" id="MethylationArray.subset_cpgs"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.subset_cpgs">[docs]</a>    <span class="k">def</span> <span class="nf">subset_cpgs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">cpgs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Subset beta matrix by list of Cpgs.</span>
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            cpgs</span>
+<span class="sd">                Cpgs to subset by.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">MethylationArray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">cpgs</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="MethylationArray.categorical_breakdown"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.categorical_breakdown">[docs]</a>    <span class="k">def</span> <span class="nf">categorical_breakdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Print categorical distribution, counts for each unique value in phenotype column.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key</span>
+<span class="sd">            Phenotype Column.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">Counter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()]))</span></div>
+
+<div class="viewcode-block" id="MethylationArray.overwrite_pheno_data"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.overwrite_pheno_data">[docs]</a>    <span class="k">def</span> <span class="nf">overwrite_pheno_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocess_sample_df</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Feed in another phenotype dataframe that will overwrite overlapping keys of existing phenotype array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        preprocess_sample_df</span>
+<span class="sd">            New phenotype dataframe.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">preprocess_sample_df</span><span class="o">=</span><span class="n">preprocess_sample_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">index</span><span class="p">,:]</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">preprocess_sample_df</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">col</span><span class="p">]</span><span class="o">=</span><span class="n">preprocess_sample_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">=</span><span class="n">preprocess_sample_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="MethylationArray.merge_preprocess_sheet"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.merge_preprocess_sheet">[docs]</a>    <span class="k">def</span> <span class="nf">merge_preprocess_sheet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preprocess_sample_df</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Feed in another phenotype dataframe that will be merged with existing phenotype array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        preprocess_sample_df</span>
+<span class="sd">            New phenotype dataframe.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">preprocess_sample_df</span><span class="p">,</span><span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Basename&#39;</span><span class="p">],</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;disease_x&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;disease_x&#39;</span><span class="p">:</span><span class="s1">&#39;disease&#39;</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">[[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Unnamed:&#39;</span><span class="p">)]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])(</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="s1">&#39;Basename&#39;</span><span class="p">])],</span><span class="n">drop</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MethylationArray.groupby"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.groupby">[docs]</a>    <span class="k">def</span> <span class="nf">groupby</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Groupby for Methylation Array. Returns generator of methylation arrays grouped by key.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        preprocess_sample_df</span>
+<span class="sd">            New phenotype dataframe.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="n">MethylationArray</span><span class="p">(</span><span class="n">pheno_df</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">],</span><span class="n">beta_df</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">]))</span></div>
+
+<div class="viewcode-block" id="MethylationArray.from_pickle"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray.from_pickle">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_pickle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_pickle</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load MethylationArray stored in pickle.</span>
+
+<span class="sd">        Usage: MethylationArray.from_pickle([input_pickle])</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        input_pickle</span>
+<span class="sd">            Stored MethylationArray pickle.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">MethylationArray</span><span class="p">(</span><span class="o">*</span><span class="n">extract_pheno_beta_df_from_pickle_dict</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">input_pickle</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">))))</span></div></div>
+
+<div class="viewcode-block" id="MethylationArrays"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArrays">[docs]</a><span class="k">class</span> <span class="nc">MethylationArrays</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Literally a list of methylation arrays, with methods operate on these arrays that is memory efficient.</span>
+<span class="sd">    Initialize with list of methylation arrays. Can optionally leave list empty or with one element.</span>
+
+<span class="sd">    list_methylation_arrays</span>
+<span class="sd">        List of methylation arrays.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_methylation_arrays</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">methylation_arrays</span> <span class="o">=</span> <span class="n">list_methylation_arrays</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Number of stored methylation arrays.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">methylation_arrays</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MethylationArrays.combine"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArrays.combine">[docs]</a>    <span class="k">def</span> <span class="nf">combine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array_generator</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> <span class="c1"># FIXME add sort based on samples</span>
+        <span class="sd">&quot;&quot;&quot;Combine the list of methylation arrays into one array via concatenation of beta matrices and phenotype arrays.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        array_generator</span>
+<span class="sd">            Generator of additional methylation arrays for computational memory minimization.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">methylation_arrays</span><span class="p">)</span><span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">pheno_df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">methylArr</span><span class="o">.</span><span class="n">pheno</span> <span class="k">for</span> <span class="n">methylArr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">methylation_arrays</span><span class="p">],</span> <span class="n">join</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span><span class="c1">#.sort()</span>
+            <span class="n">beta_df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">methylArr</span><span class="o">.</span><span class="n">beta</span> <span class="k">for</span> <span class="n">methylArr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">methylation_arrays</span><span class="p">],</span> <span class="n">join</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span><span class="c1">#.sort()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pheno_df</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">methylation_arrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pheno</span>
+            <span class="n">beta_df</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">methylation_arrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">beta</span>
+        <span class="k">if</span> <span class="n">array_generator</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">methylArr</span> <span class="ow">in</span> <span class="n">array_generator</span><span class="p">:</span>
+                <span class="n">pheno_df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pheno_df</span><span class="p">,</span><span class="n">methylArr</span><span class="o">.</span><span class="n">pheno</span><span class="p">],</span> <span class="n">join</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+                <span class="n">beta_df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">beta_df</span><span class="p">,</span><span class="n">methylArr</span><span class="o">.</span><span class="n">beta</span><span class="p">],</span> <span class="n">join</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">MethylationArray</span><span class="p">(</span><span class="n">pheno_df</span><span class="p">,</span><span class="n">beta_df</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MethylationArrays.write_dbs"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArrays.write_dbs">[docs]</a>    <span class="k">def</span> <span class="nf">write_dbs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Write list of methylation arrays to SQL database. Recommend naming MethylationArray.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        conn</span>
+<span class="sd">            SQL connection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">methyl_arr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">methylation_arrays</span><span class="p">:</span>
+            <span class="n">methyl_arr</span><span class="o">.</span><span class="n">write_db</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">methyl_arr</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MethylationArrays.write_pkls"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArrays.write_pkls">[docs]</a>    <span class="k">def</span> <span class="nf">write_pkls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pkl</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Write list of methylation arrays to single pickle. Recommend naming each MethylationArray.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pkl</span>
+<span class="sd">            Pickle file to write to.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">methyl_arr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">methylation_arrays</span><span class="p">:</span>
+            <span class="n">methyl_arr</span><span class="o">.</span><span class="n">write_pickle</span><span class="p">(</span><span class="n">pkl</span><span class="p">,</span> <span class="n">methyl_arr</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MethylationArrays.impute"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArrays.impute">[docs]</a>    <span class="k">def</span> <span class="nf">impute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imputer</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Impute all methylation arrays.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        imputer</span>
+<span class="sd">            Type of imputation, sklearn-like.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">methylation_arrays</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">methylation_arrays</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">impute</span><span class="p">(</span><span class="n">imputer</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="ImputerObject"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.ImputerObject">[docs]</a><span class="k">class</span> <span class="nc">ImputerObject</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Class that stores and accesses different types of imputers.</span>
+<span class="sd">    Construct sklearn-like imputer given certain input arguments.</span>
+
+<span class="sd">    solver</span>
+<span class="sd">        Library for imputation, eg. sklearn, fancyimpute.</span>
+<span class="sd">    method</span>
+<span class="sd">        Imputation method in library, named.</span>
+<span class="sd">    opts</span>
+<span class="sd">        Additional options to assign to imputer.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solver</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">opts</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">fancyimpute</span> <span class="k">import</span> <span class="n">KNN</span><span class="p">,</span> <span class="n">NuclearNormMinimization</span><span class="p">,</span> <span class="n">SoftImpute</span><span class="p">,</span> <span class="n">IterativeImputer</span><span class="p">,</span> <span class="n">BiScaler</span>
+        <span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="k">import</span> <span class="n">SimpleImputer</span>
+        <span class="kn">import</span> <span class="nn">inspect</span>
+        <span class="n">imputers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;fancyimpute&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">(</span><span class="n">KNN</span><span class="o">=</span><span class="n">KNN</span><span class="p">,</span><span class="n">MICE</span><span class="o">=</span><span class="n">IterativeImputer</span><span class="p">,</span><span class="n">BiScaler</span><span class="o">=</span><span class="n">BiScaler</span><span class="p">,</span><span class="n">Soft</span><span class="o">=</span><span class="n">SoftImpute</span><span class="p">),</span>
+                    <span class="s1">&#39;impyute&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">(),</span>
+                    <span class="s1">&#39;sklearn&#39;</span><span class="p">:</span><span class="nb">dict</span><span class="p">(</span><span class="n">Mean</span><span class="o">=</span><span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">),</span><span class="n">Zero</span><span class="o">=</span><span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">))}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="k">import</span> <span class="n">IterativeImputer</span>
+            <span class="n">f</span><span class="o">=</span><span class="n">IterativeImputer</span>
+            <span class="n">opts</span><span class="p">[</span><span class="s1">&#39;n_nearest_features&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">opts</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>
+            <span class="n">opts</span><span class="o">=</span><span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">opts</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">opts</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getargspec</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="fm">__init__</span><span class="p">)[</span><span class="mi">0</span><span class="p">]}</span>
+            <span class="n">opts</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span><span class="n">sample_posterior</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">max_value</span><span class="o">=</span><span class="mf">1.</span><span class="p">))</span>
+            <span class="n">imputers</span><span class="p">[</span><span class="s1">&#39;sklearn&#39;</span><span class="p">][</span><span class="s1">&#39;MICE&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="o">**</span><span class="n">opts</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Please install development branch of iterative imputer from sklearn. Defaulting to mean imputation.&#39;</span><span class="p">)</span>
+            <span class="n">imputers</span><span class="p">[</span><span class="s1">&#39;sklearn&#39;</span><span class="p">][</span><span class="s1">&#39;MICE&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">imputers</span><span class="p">[</span><span class="s1">&#39;sklearn&#39;</span><span class="p">][</span><span class="s1">&#39;SimpleImputer&#39;</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">solver</span> <span class="o">==</span> <span class="s1">&#39;fancyimpute&#39;</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">=</span><span class="n">imputers</span><span class="p">[</span><span class="n">solver</span><span class="p">][</span><span class="n">method</span><span class="p">]</span>
+                <span class="n">opts</span><span class="o">=</span><span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">opts</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">opts</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getargspec</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="fm">__init__</span><span class="p">)[</span><span class="mi">0</span><span class="p">]}</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">imputer</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="o">**</span><span class="n">opts</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">imputer</span> <span class="o">=</span> <span class="n">imputers</span><span class="p">[</span><span class="n">solver</span><span class="p">][</span><span class="n">method</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1"> not a valid combination.</span><span class="se">\n</span><span class="s1">Valid combinations:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">solver</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">imputers</span><span class="p">[</span><span class="n">solver</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span> <span class="k">for</span> <span class="n">solver</span> <span class="ow">in</span> <span class="n">imputers</span><span class="p">)))</span>
+            <span class="n">exit</span><span class="p">()</span>
+
+<div class="viewcode-block" id="ImputerObject.return_imputer"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.ImputerObject.return_imputer">[docs]</a>    <span class="k">def</span> <span class="nf">return_imputer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return initialized sklearn-like imputer.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">imputer</span></div></div>
+
+<span class="c1">#### FUNCTIONS ####</span>
+
+<div class="viewcode-block" id="extract_pheno_beta_df_from_folder"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.extract_pheno_beta_df_from_folder">[docs]</a><span class="k">def</span> <span class="nf">extract_pheno_beta_df_from_folder</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return phenotype and beta dataframes from specified folder with csv.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    folder</span>
+<span class="sd">        Input folder.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">folder</span><span class="o">+</span><span class="s1">&#39;/pheno.csv&#39;</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">folder</span><span class="o">+</span><span class="s1">&#39;/beta.csv&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="extract_pheno_beta_df_from_pickle_dict"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.extract_pheno_beta_df_from_pickle_dict">[docs]</a><span class="k">def</span> <span class="nf">extract_pheno_beta_df_from_pickle_dict</span><span class="p">(</span><span class="n">input_dict</span><span class="p">,</span> <span class="n">disease</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return phenotype and beta dataframes from specified dictionary storing MethylationArray python dictionary.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    input_dict</span>
+<span class="sd">        Python disctionary storing pheno/beta information.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">disease</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;pheno_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">disease</span><span class="p">)],</span> <span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;beta_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">disease</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;pheno&#39;</span><span class="p">],</span> <span class="n">input_dict</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="extract_pheno_beta_df_from_sql"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.extract_pheno_beta_df_from_sql">[docs]</a><span class="k">def</span> <span class="nf">extract_pheno_beta_df_from_sql</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">disease</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return phenotype and beta dataframes from SQL tables storing MethylationArray info.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    conn</span>
+<span class="sd">        SQL connection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">disease</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s1">&#39;select * from </span><span class="si">{}</span><span class="s1">;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;pheno_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">disease</span><span class="p">)),</span><span class="n">conn</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s1">&#39;select * from </span><span class="si">{}</span><span class="s1">;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;beta_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">disease</span><span class="p">)),</span><span class="n">conn</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s1">&#39;select * from </span><span class="si">{}</span><span class="s1">;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;pheno&#39;</span><span class="p">),</span><span class="n">conn</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s1">&#39;select * from </span><span class="si">{}</span><span class="s1">;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">),</span><span class="n">conn</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Joshua Levy
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
