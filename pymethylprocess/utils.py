@@ -21,6 +21,7 @@ def util():
 @click.option('-k', '--key', default='disease', help='Key to split on.', type=click.Path(exists=False), show_default=True)
 @click.option('-sd', '--subtype_delimiter', default=',', help='Delimiter for disease extraction.', type=click.Path(exists=False), show_default=True)
 def train_test_val_split(input_pkl,output_dir,train_percent,val_percent, categorical, disease_only, key, subtype_delimiter):
+    """Split methylation array into train, test, val."""
     os.makedirs(output_dir,exist_ok=True)
     methyl_array = MethylationArray.from_pickle(input_pkl)
     train_arr, test_arr, val_arr = methyl_array.split_train_test(train_percent, categorical, disease_only, key, subtype_delimiter, val_percent)
@@ -32,6 +33,7 @@ def train_test_val_split(input_pkl,output_dir,train_percent,val_percent, categor
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-k', '--key', default='disease', help='Key to split on.', type=click.Path(exists=False), show_default=True)
 def counts(input_pkl,key):
+    """Return categorical breakdown of phenotype column."""
     if input_pkl.endswith('.pkl'):
         MethylationArray.from_pickle(input_pkl).categorical_breakdown(key)
     else:
@@ -42,6 +44,7 @@ def counts(input_pkl,key):
 @util.command()
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 def print_shape(input_pkl):
+    """Print dimensions of beta matrix."""
     print(MethylationArray.from_pickle(input_pkl).beta.shape)
 
 @util.command()
@@ -51,6 +54,7 @@ def print_shape(input_pkl):
 @click.option('-sd', '--subtype_delimiter', default=',', help='Delimiter for disease extraction.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./fixed_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 def fix_key(input_pkl,key,disease_only,subtype_delimiter,output_pkl):
+    """Format certain column of phenotype array in MethylationArray."""
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
     methyl_array=MethylationArray.from_pickle(input_pkl)
     methyl_array.remove_whitespace(key)
@@ -63,6 +67,7 @@ def fix_key(input_pkl,key,disease_only,subtype_delimiter,output_pkl):
 @click.option('-k', '--key', default='disease', help='Key to split on.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_dir', default='./stratified/', help='Output directory for stratified.', type=click.Path(exists=False), show_default=True)
 def stratify(input_pkl,key,output_dir):
+    """Split methylation array by key and store."""
     for name, methyl_array in MethylationArray.from_pickle(input_pkl).groupby(key):
         out_dir=os.path.join(output_dir,name.replace('/','-').replace(' ',''))
         os.makedirs(out_dir,exist_ok=True)
@@ -73,6 +78,7 @@ def stratify(input_pkl,key,output_dir):
 @click.option('-o', '--output_pkl', default='./autosomal/methyl_array.pkl', help='Output methyl array autosomal.', type=click.Path(exists=False), show_default=True)
 @click.option('-a', '--array_type', default='450k', help='Array Type.', type=click.Choice(['450k','epic']), show_default=True)
 def remove_sex(input_pkl,output_pkl, array_type):
+    """Remove non-autosomal CpGs."""
     import numpy as np
     #from rpy2.robjects import pandas2ri
     from pymethylprocess.meffil_functions import r_autosomal_cpgs
@@ -89,6 +95,7 @@ def remove_sex(input_pkl,output_pkl, array_type):
 @click.option('-o', '--output_pkl', default='./external_validation/methyl_array.pkl', help='Output methyl array external validation.', type=click.Path(exists=False), show_default=True)
 @click.option('-c', '--cpg_replace_method', default='mid', help='What to do for missing CpGs.', type=click.Choice(['mid', 'background','simulated']), show_default=True)
 def create_external_validation_set(train_pkl,query_pkl, output_pkl, cpg_replace_method):
+    """Create external validation set containing same CpGs as training set."""
     import numpy as np, pandas as pd
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
     ref_methyl_array=MethylationArray.from_pickle(train_pkl)
@@ -109,6 +116,7 @@ def create_external_validation_set(train_pkl,query_pkl, output_pkl, cpg_replace_
 @click.option('-c', '--cpg_pkl', default='./subset_cpgs.pkl', help='Pickled numpy array for subsetting.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./subset/methyl_array.pkl', help='Output methyl array external validation.', type=click.Path(exists=False), show_default=True)
 def subset_array(input_pkl,cpg_pkl,output_pkl):
+    """Only retain certain number of CpGs from methylation array."""
     import numpy as np, pickle
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
     cpgs=pickle.load(open(cpg_pkl,'rb'))
@@ -119,6 +127,7 @@ def subset_array(input_pkl,cpg_pkl,output_pkl):
 @click.option('-c', '--cpg_pkl', default='./subset_cpgs.pkl', help='Pickled numpy array for subsetting.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./removal/methyl_array.pkl', help='Output methyl array external validation.', type=click.Path(exists=False), show_default=True)
 def set_part_array_background(input_pkl,cpg_pkl,output_pkl):
+    """Set subset of CpGs from beta matrix to background values."""
     import numpy as np, pickle
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
     cpgs=pickle.load(open(cpg_pkl,'rb'))
@@ -133,6 +142,7 @@ def set_part_array_background(input_pkl,cpg_pkl,output_pkl):
 @click.option('-l', '--library', default='IDOLOptimizedCpGs450klegacy', help='IDOL Library.', type=click.Choice(['IDOLOptimizedCpGs','IDOLOptimizedCpGs450klegacy']), show_default=True)
 @click.option('-o', '--output_csv', default='./added_cell_counts/cell_type_estimates.csv', help='Output cell type estimates.', type=click.Path(exists=False), show_default=True)
 def ref_estimate_cell_counts(input_r_object_dir, algorithm, reference, library, output_csv):
+    """Reference based cell type estimates."""
     import rpy2.robjects as robjects
     from rpy2.robjects import pandas2ri, numpy2ri
     pandas2ri.activate()
@@ -158,6 +168,7 @@ def ref_estimate_cell_counts(input_r_object_dir, algorithm, reference, library, 
 @click.option('-o', '--output_pkl', default='./no_snp/methyl_array.pkl', help='Output methyl array autosomal.', type=click.Path(exists=False), show_default=True)
 @click.option('-a', '--array_type', default='450k', help='Array Type.', type=click.Choice(['450k','epic']), show_default=True)
 def remove_snps(input_pkl,output_pkl, array_type):
+    """Remove SNPs from methylation array."""
     import numpy as np
     #from rpy2.robjects import pandas2ri
     from pymethylprocess.meffil_functions import r_snp_cpgs
@@ -172,6 +183,7 @@ def remove_snps(input_pkl,output_pkl, array_type):
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-a', '--array_type', default='450k', help='Array Type.', type=click.Choice(['450k','epic']), show_default=True)
 def print_number_sex_cpgs(input_pkl,array_type):
+    """Print number of non-autosomal CpGs."""
     import numpy as np
     #from rpy2.robjects import pandas2ri
     from pymethylprocess.meffil_functions import r_autosomal_cpgs
@@ -233,6 +245,7 @@ def backup_pkl(input_pkl, output_pkl):
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input methyl array.', type=click.Path(exists=False), show_default=True)
 @click.option('-c', '--cpg_pkl', default='./subset_cpgs.pkl', help='Pickled numpy array for subsetting.', type=click.Path(exists=False), show_default=True)
 def write_cpgs(input_pkl,cpg_pkl):
+    """Write CpGs in methylation array to file."""
     import numpy as np, pickle
     os.makedirs(cpg_pkl[:cpg_pkl.rfind('/')],exist_ok=True)
     pickle.dump(MethylationArray.from_pickle(input_pkl).return_cpgs(),open(cpg_pkl,'wb'))
@@ -257,6 +270,7 @@ def pkl_to_csv(input_pkl, output_dir, col):
 @click.option('-o', '--output_csv', default='./beta.concat.csv', help='Output csv.', type=click.Path(exists=False), show_default=True)
 @click.option('-a', '--axis', default=1, help='Axis to merge on. Columns are 0, rows are 1.', show_default=True)
 def concat_csv(input_csv, input_csv2, output_csv, axis):
+    """Concatenate two csv files together."""
     import pandas as pd
     os.makedirs(output_csv[:output_csv.rfind('/')],exist_ok=True)
     pd.concat([pd.read_csv(input_csv),pd.read_csv(input_csv2)],axis=axis).to_csv(output_csv)
@@ -267,6 +281,7 @@ def concat_csv(input_csv, input_csv2, output_csv, axis):
 @click.option('-n', '--n_bins', default=10, help='Number of bins.',show_default=True)
 @click.option('-ot', '--output_test_pkl', default='./train_val_test_sets/test_methyl_array_shap_binned.pkl', help='Binned shap pickle for further testing.', type=click.Path(exists=False), show_default=True)
 def bin_column(test_pkl,col,n_bins,output_test_pkl):
+    """Convert continuous phenotype column into categorical by binning."""
     os.makedirs(output_test_pkl[:output_test_pkl.rfind('/')],exist_ok=True)
     test_methyl_array=MethylationArray.from_pickle(test_pkl)
     new_col_name = test_methyl_array.bin_column(col,n_bins)

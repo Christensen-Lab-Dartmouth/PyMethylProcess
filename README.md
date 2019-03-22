@@ -1,6 +1,6 @@
 ## PyMethylProcess
 
-![Overview](./Docs/build/html/_images/pymethylprocess_overview.jpeg)
+![Overview](./docs/yimages/pymethylprocess_overview.jpeg)
 
 https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess  
 
@@ -17,21 +17,23 @@ Why:
 Getting Started:  
 * Installation:    
     * pip install pymethylprocess && pymethyl-install_r_dependencies  
-    * docker pull pymethylprocess  
+    * docker pull joshualevy44/pymethylprocess  
     * Or see example scripts for usage, install from github
 * Example Usage Scripts (in github repo): Located in ./example_scripts/  
 * Help docs (in github repo): ./Docs/build/html/index.html (to be updated; also will be hosted soon)
 
 *PyMethyProcess* is pending submission and review, and link to paper will be posted shortly.
 
-![Download](./Docs/build/html/_images/pipeline-download.jpeg)
+![Download](./docs/yimages/pipeline-download.jpeg)
 
-![Format](./Docs/build/html/_images/pipeline-format.jpeg)
+![Format](./docs/yimages/pipeline-format.jpeg)
 
-![PreProcess](./Docs/build/html/_images/pipeline-preprocess.jpeg)
+![PreProcess](./docs/yimages/pipeline-preprocess.jpeg)
 
-![Visualize](./Docs/build/html/_images/pipeline-visualize.jpeg)
+![Visualize](./docs/yimages/pipeline-visualize.jpeg)
 
-![Split](./Docs/build/html/_images/pipeline-train-test-split.jpeg)
+![Split](./docs/yimages/pipeline-train-test-split.jpeg)
 
 Note: May need to prefix pip install with MACOSX_DEPLOYMENT_TARGET=10.9 CC=clang CXX=clang++ for Mac OS install
+
+# todo: add images, add other two CLI, fix general machine learning, document all classes, publish and reference published help docs in readme

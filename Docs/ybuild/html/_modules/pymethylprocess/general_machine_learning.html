@@ -1,0 +1,376 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pymethylprocess.general_machine_learning &mdash; PyMethylProcess 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> PyMethylProcess
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyMethylProcess</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>pymethylprocess.general_machine_learning</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pymethylprocess.general_machine_learning</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">general_machine_learning.py</span>
+<span class="sd">===========================</span>
+<span class="sd">Contains a machine learning class to perform scikit-learn like operations, along with held-out hyperparameter grid search.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">pymethylprocess.MethylationDataTypes</span> <span class="k">import</span> <span class="n">MethylationArray</span>
+<span class="kn">import</span> <span class="nn">pickle</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">hypopt</span> <span class="k">import</span> <span class="n">GridSearch</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">LabelEncoder</span>
+
+<div class="viewcode-block" id="MachineLearning"><a class="viewcode-back" href="../../index.html#pymethylprocess.general_machine_learning.MachineLearning">[docs]</a><span class="k">class</span> <span class="nc">MachineLearning</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Machine learning class to run sklearn-like pipeline on MethylationArray data.</span>
+<span class="sd">    Initialize object with scikit-learn model, and optionally supply a hyperparameter search grid.</span>
+
+<span class="sd">    model</span>
+<span class="sd">        Scikit-learn-like model, classification, regression, dimensionality reduction, clustering etc.</span>
+<span class="sd">    options</span>
+<span class="sd">        Options to supply model in form of dictionary.</span>
+<span class="sd">    grid</span>
+<span class="sd">        Alternatively, supply search grid to search for bets hyperparameters.</span>
+<span class="sd">    labelencode</span>
+<span class="sd">        T/F encode string labels.</span>
+<span class="sd">    n_eval</span>
+<span class="sd">        Number of evaluations for randomized grid search, if set to 0, perform exhaustive grid search</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="p">{},</span> <span class="n">labelencode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_eval</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">grid</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">GridSearch</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="p">(),</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span> <span class="n">num_random_search</span><span class="o">=</span><span class="kc">None</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">n_eval</span> <span class="k">else</span> <span class="n">n_eval</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param_grid_exists</span><span class="o">=</span><span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param_grid_exists</span><span class="o">=</span><span class="kc">False</span>
+        <span class="k">if</span> <span class="n">labelencode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">=</span><span class="n">LabelEncoder</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">=</span><span class="kc">None</span>
+
+<div class="viewcode-block" id="MachineLearning.fit"><a class="viewcode-back" href="../../index.html#pymethylprocess.general_machine_learning.MachineLearning.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_methyl_array</span><span class="p">,</span> <span class="n">val_methyl_array</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outcome_cols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fit data to model.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        train_methyl_array</span>
+<span class="sd">            Training MethylationArray.</span>
+<span class="sd">        val_methyl_array</span>
+<span class="sd">            Validation MethylationArray. Can set to None.</span>
+<span class="sd">        outcome_cols</span>
+<span class="sd">            Set to none if not needed, but phenotype column to train on, can be multiple.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">outcome_cols</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_methyl_array</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">outcome_cols</span><span class="p">])</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_grid_exists</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_methyl_array</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">train_methyl_array</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">outcome_cols</span><span class="p">])</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">!=</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">train_methyl_array</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">outcome_cols</span><span class="p">],</span> <span class="n">val_methyl_array</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">val_methyl_array</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">outcome_cols</span><span class="p">])</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">!=</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">val_methyl_array</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">outcome_cols</span><span class="p">],</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">!=</span><span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;r2&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_methyl_array</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">train_methyl_array</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">outcome_cols</span><span class="p">])</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">!=</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">train_methyl_array</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">outcome_cols</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_methyl_array</span><span class="o">.</span><span class="n">beta</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span></div>
+
+<div class="viewcode-block" id="MachineLearning.transform"><a class="viewcode-back" href="../../index.html#pymethylprocess.general_machine_learning.MachineLearning.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_methyl_array</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Transform test methylation array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        test_methyl_array</span>
+<span class="sd">            Testing MethylationArray.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">test_methyl_array</span><span class="o">.</span><span class="n">beta</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span></div>
+
+<div class="viewcode-block" id="MachineLearning.fit_transform"><a class="viewcode-back" href="../../index.html#pymethylprocess.general_machine_learning.MachineLearning.fit_transform">[docs]</a>    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_methyl_array</span><span class="p">,</span> <span class="n">outcome_cols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fit and transform to training data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        train_methyl_array</span>
+<span class="sd">            Training MethylationArray.</span>
+<span class="sd">        outcome_cols</span>
+<span class="sd">            Set to none if not needed, but phenotype column to train on, can be multiple.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_methyl_array</span><span class="p">,</span> <span class="n">outcome_cols</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">train_methyl_array</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span></div>
+
+<div class="viewcode-block" id="MachineLearning.predict"><a class="viewcode-back" href="../../index.html#pymethylprocess.general_machine_learning.MachineLearning.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_methyl_array</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Make new predictions on test methylation array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        test_methyl_array</span>
+<span class="sd">            Testing MethylationArray.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_methyl_array</span><span class="o">.</span><span class="n">beta</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span></div>
+
+<div class="viewcode-block" id="MachineLearning.fit_predict"><a class="viewcode-back" href="../../index.html#pymethylprocess.general_machine_learning.MachineLearning.fit_predict">[docs]</a>    <span class="k">def</span> <span class="nf">fit_predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_methyl_array</span><span class="p">,</span> <span class="n">outcome_cols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fit and predict training data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        train_methyl_array</span>
+<span class="sd">            Training MethylationArray.</span>
+<span class="sd">        outcome_cols</span>
+<span class="sd">            Set to none if not needed, but phenotype column to train on, can be multiple.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_methyl_array</span><span class="p">,</span> <span class="n">outcome_cols</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">train_methyl_array</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span></div>
+
+<div class="viewcode-block" id="MachineLearning.store_results"><a class="viewcode-back" href="../../index.html#pymethylprocess.general_machine_learning.MachineLearning.store_results">[docs]</a>    <span class="k">def</span> <span class="nf">store_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_pkl</span><span class="p">,</span> <span class="n">results_dict</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot;Store results in pickle file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        output_pkl</span>
+<span class="sd">            Output pickle to dump results to.</span>
+<span class="sd">        results_dict</span>
+<span class="sd">            Supply own results dict to be dumped.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">results_dict</span><span class="p">:</span>
+            <span class="n">results_dict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">results</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">results_dict</span><span class="p">,</span><span class="nb">open</span><span class="p">(</span><span class="n">results_dict</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="MachineLearning.assign_results_to_pheno_col"><a class="viewcode-back" href="../../index.html#pymethylprocess.general_machine_learning.MachineLearning.assign_results_to_pheno_col">[docs]</a>    <span class="k">def</span> <span class="nf">assign_results_to_pheno_col</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">methyl_array</span><span class="p">,</span> <span class="n">new_col</span><span class="p">,</span> <span class="n">output_pkl</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Assign results to new phenotype column.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        methyl_array</span>
+<span class="sd">            MethylationArray.</span>
+<span class="sd">        new_col</span>
+<span class="sd">            New column name.</span>
+<span class="sd">        output_pkl</span>
+<span class="sd">            Output pickle to dump MethylationArray to.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">methyl_array</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">new_col</span><span class="p">]</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span>
+        <span class="n">methyl_array</span><span class="o">.</span><span class="n">write_pickle</span><span class="p">(</span><span class="n">output_pkl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MachineLearning.transform_results_to_beta"><a class="viewcode-back" href="../../index.html#pymethylprocess.general_machine_learning.MachineLearning.transform_results_to_beta">[docs]</a>    <span class="k">def</span> <span class="nf">transform_results_to_beta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">methyl_array</span><span class="p">,</span> <span class="n">output_pkl</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Transform beta matrix into reduced beta matrix and store.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        methyl_array</span>
+<span class="sd">            MethylationArray.</span>
+<span class="sd">        output_pkl</span>
+<span class="sd">            Output pickle to dump MethylationArray to.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">methyl_array</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">methyl_array</span><span class="o">.</span><span class="n">write_pickle</span><span class="p">(</span><span class="n">output_pkl</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MachineLearning.return_outcome_metric"><a class="viewcode-back" href="../../index.html#pymethylprocess.general_machine_learning.MachineLearning.return_outcome_metric">[docs]</a>    <span class="k">def</span> <span class="nf">return_outcome_metric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">methyl_array</span><span class="p">,</span> <span class="n">outcome_cols</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">run_bootstrap</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Supply metric to evaluate results.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        methyl_array</span>
+<span class="sd">            MethylationArray to evaluate.</span>
+<span class="sd">        outcome_cols</span>
+<span class="sd">            Outcome phenotype columns.</span>
+<span class="sd">        metric</span>
+<span class="sd">            Sklearn evaluation metric.</span>
+<span class="sd">        run_bootstrap</span>
+<span class="sd">            Make 95% CI from 1k bootstraps.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y_true</span> <span class="o">=</span> <span class="n">methyl_array</span><span class="o">.</span><span class="n">pheno</span><span class="p">[</span><span class="n">outcome_cols</span><span class="p">]</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bootstrap</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">metric</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="k">import</span> <span class="n">resample</span>
+            <span class="n">boot_results</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">metric</span><span class="p">(</span><span class="o">*</span><span class="n">resample</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span><span class="n">y_pred</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_bootstrap</span><span class="p">)])</span>
+            <span class="n">original</span> <span class="o">=</span> <span class="n">metric</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)</span>
+            <span class="n">std_err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">boot_results</span><span class="p">)</span>
+            <span class="n">boot_results</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">boot_results</span><span class="p">)</span>
+            <span class="n">ci</span><span class="o">=</span><span class="mf">0.95</span>
+            <span class="n">bound</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ci</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span>
+            <span class="c1"># BORROWED FROM MLXTEND</span>
+            <span class="k">def</span> <span class="nf">quantile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+                <span class="n">rank</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">q</span> <span class="o">*</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">rank</span> <span class="o">&gt;=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="n">rank</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="n">rank</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">rank</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">rank</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">rank</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span>
+            <span class="n">high_ci</span> <span class="o">=</span> <span class="n">quantile</span><span class="p">(</span><span class="n">boot_results</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="p">(</span><span class="n">ci</span> <span class="o">+</span> <span class="n">bound</span><span class="p">))</span>
+            <span class="n">low_ci</span> <span class="o">=</span> <span class="n">quantile</span><span class="p">(</span><span class="n">boot_results</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="n">bound</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">original</span><span class="p">,</span> <span class="n">std_err</span><span class="p">,</span> <span class="p">(</span><span class="n">low_ci</span><span class="p">,</span><span class="n">high_ci</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Joshua Levy
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

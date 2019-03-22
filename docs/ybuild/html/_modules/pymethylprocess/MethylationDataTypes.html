@@ -151,17 +151,16 @@
 <span class="kn">import</span> <span class="nn">pickle</span><span class="o">,</span> <span class="nn">os</span>
 
 <div class="viewcode-block" id="MethylationArray"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArray">[docs]</a><span class="k">class</span> <span class="nc">MethylationArray</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Stores beta and phenotype information and performs various operations.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pheno_df</span><span class="p">,</span> <span class="n">beta_df</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize MethylationArray object by inputting dataframe of phenotypes</span>
-<span class="sd">        and dataframe of beta values with samples as index.</span>
+    <span class="sd">&quot;&quot;&quot;Stores beta and phenotype information and performs various operations.</span>
+<span class="sd">    Initialize MethylationArray object by inputting dataframe of phenotypes</span>
+<span class="sd">    and dataframe of beta values with samples as index.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        pheno_df</span>
-<span class="sd">            Phenotype dataframe (samples x covariates)</span>
-<span class="sd">        beta_df</span>
-<span class="sd">            Beta Values Dataframe (samples x cpgs)&quot;&quot;&quot;</span>
+<span class="sd">    pheno_df</span>
+<span class="sd">        Phenotype dataframe (samples x covariates)</span>
+<span class="sd">    beta_df</span>
+<span class="sd">        Beta Values Dataframe (samples x cpgs)&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pheno_df</span><span class="p">,</span> <span class="n">beta_df</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pheno</span><span class="o">=</span><span class="n">pheno_df</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">=</span><span class="n">beta_df</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">name</span>
@@ -493,14 +492,13 @@
         <span class="k">return</span> <span class="n">MethylationArray</span><span class="p">(</span><span class="o">*</span><span class="n">extract_pheno_beta_df_from_pickle_dict</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">input_pickle</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">))))</span></div></div>
 
 <div class="viewcode-block" id="MethylationArrays"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.MethylationArrays">[docs]</a><span class="k">class</span> <span class="nc">MethylationArrays</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Literally a list of methylation arrays, with methods operate on these arrays that is memory efficient.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_methylation_arrays</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initialize with list of methylation arrays. Can optionally leave list empty or with one element.</span>
+    <span class="sd">&quot;&quot;&quot;Literally a list of methylation arrays, with methods operate on these arrays that is memory efficient.</span>
+<span class="sd">    Initialize with list of methylation arrays. Can optionally leave list empty or with one element.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        list_methylation_arrays</span>
-<span class="sd">            List of methylation arrays.</span>
+<span class="sd">    list_methylation_arrays</span>
+<span class="sd">        List of methylation arrays.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_methylation_arrays</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">methylation_arrays</span> <span class="o">=</span> <span class="n">list_methylation_arrays</span>
 
@@ -562,18 +560,17 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">methylation_arrays</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">impute</span><span class="p">(</span><span class="n">imputer</span><span class="p">)</span></div></div>
 
 <div class="viewcode-block" id="ImputerObject"><a class="viewcode-back" href="../../index.html#pymethylprocess.MethylationDataTypes.ImputerObject">[docs]</a><span class="k">class</span> <span class="nc">ImputerObject</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Class that stores and accesses different types of imputers.&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solver</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">opts</span><span class="o">=</span><span class="p">{}):</span>
-        <span class="sd">&quot;&quot;&quot;Construct sklearn-like imputer given certain input arguments.</span>
+    <span class="sd">&quot;&quot;&quot;Class that stores and accesses different types of imputers.</span>
+<span class="sd">    Construct sklearn-like imputer given certain input arguments.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        solver</span>
-<span class="sd">            Library for imputation, eg. sklearn, fancyimpute.</span>
-<span class="sd">        method</span>
-<span class="sd">            Imputation method in library, named.</span>
-<span class="sd">        opts</span>
-<span class="sd">            Additional options to assign to imputer.</span>
+<span class="sd">    solver</span>
+<span class="sd">        Library for imputation, eg. sklearn, fancyimpute.</span>
+<span class="sd">    method</span>
+<span class="sd">        Imputation method in library, named.</span>
+<span class="sd">    opts</span>
+<span class="sd">        Additional options to assign to imputer.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solver</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">opts</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">fancyimpute</span> <span class="k">import</span> <span class="n">KNN</span><span class="p">,</span> <span class="n">NuclearNormMinimization</span><span class="p">,</span> <span class="n">SoftImpute</span><span class="p">,</span> <span class="n">IterativeImputer</span><span class="p">,</span> <span class="n">BiScaler</span>
         <span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="k">import</span> <span class="n">SimpleImputer</span>

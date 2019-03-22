@@ -7,41 +7,46 @@ To get started, download pymethylprocess using Docker (joshualevy44/pymethylproc
 
 There is both an API and CLI available for use. Examples for CLI usage can be found in ./example_scripts.
 
-# todo: add images, add other two CLI, fix general machine learning, document all classes, publish and reference published help docs in readme
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-.. image:: .images/pipeline-download.jpeg
+.. image:: yimages/pymethylprocess_overview.jpeg
+   :width: 800px
+   :height: 600px
+   :scale: 60%
+   :alt: Download
+   :align: center
+
+.. image:: yimages/pipeline-download.jpeg
   :width: 800px
   :height: 600px
   :scale: 60%
   :alt: Download
   :align: center
 
-.. image:: .images/pipeline-format.jpeg
+.. image:: yimages/pipeline-format.jpeg
   :width: 800px
   :height: 600px
   :scale: 60%
   :alt: Format
   :align: center
 
-.. image:: .images/pipeline-preprocess.jpeg
+.. image:: yimages/pipeline-preprocess.jpeg
   :width: 800px
   :height: 600px
   :scale: 60%
   :alt: Preprocess
   :align: center
 
-.. image:: .images/pipeline-visualize.jpeg
+.. image:: yimages/pipeline-visualize.jpeg
   :width: 800px
   :height: 600px
   :scale: 60%
   :alt: Visualize
   :align: center
 
-.. image:: .images/pipeline-train-test-split.jpeg
+.. image:: yimages/pipeline-train-test-split.jpeg
   :width: 800px
   :height: 600px
   :scale: 60%
@@ -55,6 +60,9 @@ There is both an API and CLI available for use. Examples for CLI usage can be fo
   :members:
 
 .. automodule:: pymethylprocess.meffil_functions
+  :members:
+
+.. automodule:: pymethylprocess.general_machine_learning
   :members:
 
 .. click:: pymethylprocess.installer:install

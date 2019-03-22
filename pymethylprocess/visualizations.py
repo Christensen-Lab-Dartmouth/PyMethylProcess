@@ -102,6 +102,7 @@ def transform_plot(input_pkl, column_of_interest, output_file, n_neighbors,axes_
 @click.option('-cols', '--plot_cols', default=['Gran','CD4T','CD8T','Bcell','Mono','NK','gMDSC'], multiple=True, help='Plot columns.', type=click.Path(exists=False), show_default=True)
 @click.option('-fs', '--font_scale', default=1., help='Font scaling', show_default=True)
 def plot_cell_type_results(input_csv,outfilename,plot_cols,font_scale):#
+    """Plot csv containing cell type results into side by side boxplots."""
     import os
     os.makedirs(outfilename[:outfilename.rfind('/')],exist_ok=True)
     import matplotlib
@@ -130,6 +131,7 @@ def plot_cell_type_results(input_csv,outfilename,plot_cols,font_scale):#
 @click.option('-t', '--transpose', is_flag=True, help='Transpose matrix data', show_default=True)
 @click.option('-col', '--color_column', default='color', help='Color column.', type=click.Path(exists=False), show_default=True)
 def plot_heatmap(input_csv,outfilename,index_col,font_scale, min_val, max_val, annot,norm,cluster,matrix_type, xticks, yticks, transpose, color_column):
+    """Plot heatmap from CSV file."""
     import os
     os.makedirs(outfilename[:outfilename.rfind('/')],exist_ok=True)
     import matplotlib

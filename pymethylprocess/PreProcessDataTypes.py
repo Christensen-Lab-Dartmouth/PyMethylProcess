@@ -63,6 +63,12 @@ class TCGADownloader:
                    """%output_dir)
 
     def download_clinical(self, output_dir):
+        """Download TCGA Clinical Data.
+
+        Parameters
+        ----------
+        output_dir
+            Where to output clinical data csv."""
         robjects.r("""
                    library(TCGAbiolinks)
                    library(data.table)
@@ -81,6 +87,14 @@ class TCGADownloader:
                    """%output_dir)
 
     def download_geo(self, query, output_dir):
+        """Download GEO IDATs.
+
+        Parameters
+        ----------
+        query
+            GEO accession number to query, must be 450k/850k.
+        output_dir
+            Output directory to store idats and clinical information csv"""
         base=importr('base')
         geo = importr("GEOquery")
         geo.getGEOSuppFiles(query)
@@ -95,6 +109,14 @@ class TCGADownloader:
 
 
 class PreProcessPhenoData:
+    """Class that will manipute phenotype samplesheet before preprocessing of IDATs.
+
+    pheno_sheet
+        Location of clinical info csv.
+    idat_dir
+        Location of idats
+    header_line
+        Where to start reading clinical csv"""
     def __init__(self, pheno_sheet, idat_dir, header_line=0):
         self.xlsx = True if pheno_sheet.endswith('.xlsx') or pheno_sheet.endswith('.xls') else False
         if self.xlsx:
@@ -104,6 +126,14 @@ class PreProcessPhenoData:
         self.idat_dir = idat_dir
 
     def format_geo(self, disease_class_column="methylation class:ch1", include_columns={}):
+        """Format clinical sheets if downloaded geo idats.
+
+        Parameters
+        ----------
+        disease_class_column
+            Disease column of clinical info csv.
+        include_columns
+            Dictionary specifying other columns to include, and new names to assign them to."""
         idats = glob.glob("{}/*.idat".format(self.idat_dir))
         idat_basenames = np.unique(np.vectorize(lambda x: '_'.join(x.split('/')[-1].split('_')[:3]))(idats))
         idat_geo_map = dict(zip(np.vectorize(lambda x: x.split('_')[0])(idat_basenames),np.array(idat_basenames)))
@@ -115,6 +145,12 @@ class PreProcessPhenoData:
         self.pheno_sheet = self.pheno_sheet[['Basename', 'geo_accession',disease_class_column]+(list(include_columns.keys()) if include_columns else [])].rename(columns=col_dict)
 
     def format_tcga(self, mapping_file="idat_filename_case.txt"):
+        """Format clinical sheets if downloaded tcga idats.
+
+        Parameters
+        ----------
+        mapping_file
+            Maps uuids to proper tcga sample names, should be downloaded with tcga clinical information."""
         def decide_case_control(barcode):
             case_control_num = int(barcode.split('-')[3][:2])
             if case_control_num < 10:
@@ -139,6 +175,17 @@ class PreProcessPhenoData:
         self.pheno_sheet = self.pheno_sheet[['Basename', 'bcr_patient_barcode', 'disease', 'tumor_stage', 'vital_status', 'age_at_diagnosis', 'gender', 'race', 'ethnicity','case_control']].rename(columns={'tumor_stage':'stage','bcr_patient_barcode':'PatientID','vital_status':'vital','gender':'Sex','age_at_diagnosis':'age'})
 
     def format_custom(self, basename_col, disease_class_column, include_columns={}):
+        """Custom format clinical sheet if user supplied idats.
+
+        Parameters
+        ----------
+        basename_col
+            Column name of sample names.
+        disease_class_column
+            Disease column of clinical info csv.
+        include_columns
+            Dictionary specifying other columns to include, and new names to assign them to.
+        """
         idats = glob.glob("{}/*.idat".format(self.idat_dir))
         idat_basenames = np.unique(np.vectorize(lambda x: '_'.join(x.split('/')[-1].split('_')[:-1]))(idats))
         idat_count_underscores = np.vectorize(lambda x: x.count('_'))(idat_basenames)
@@ -154,6 +201,17 @@ class PreProcessPhenoData:
         self.pheno_sheet = self.pheno_sheet[np.unique(['Basename', 'disease']+list(include_columns.keys()))].rename(columns=include_columns)
 
     def merge(self, other_formatted_sheet, use_second_sheet_disease=True, no_disease_merge=False):
+        """Merge multiple PreProcessPhenoData objects, merge their dataframes to accept more than one saplesheet/dataset or add more pheno info.
+
+        Parameters
+        ----------
+        other_formatted_sheet
+            Other PreProcessPhenoData to merge.
+        use_second_sheet_disease
+            Change disease column to that of second sheet instead of first.
+        no_disease_merge
+            Keep both disease columns from both sheets.
+        """
         disease_dict = {False:'disease_x',True:'disease_y'}
         self.pheno_sheet = self.pheno_sheet.merge(other_formatted_sheet.pheno_sheet,how='inner', on='Basename')
         if not no_disease_merge:
@@ -162,19 +220,53 @@ class PreProcessPhenoData:
         self.pheno_sheet = self.pheno_sheet[[col for col in cols if col!='Unnamed: 0_x' and col!='Unnamed: 0_y' and col!=disease_dict[use_second_sheet_disease]]]
 
     def concat(self, other_formatted_sheet):
+        """Concat multiple PreProcessPhenoData objects, concat their dataframes to accept more than one smaplesheet/dataset.
+
+        Parameters
+        ----------
+        other_formatted_sheet
+            Other PreProcessPhenoData to concat.
+        """
         self.pheno_sheet=pd.concat([self.pheno_sheet,other_formatted_sheet.pheno_sheet],join='inner').reset_index(drop=True)
         self.pheno_sheet=self.pheno_sheet[[col for col in list(self.pheno_sheet) if not col.startswith('Unnamed:')]]
 
     def export(self, output_sheet_name):
+        """Export pheno data to csv after done with manipulation.
+
+        Parameters
+        ----------
+        output_sheet_name
+            Output csv name.
+        """
         self.pheno_sheet.to_csv(output_sheet_name)
         print("Please move all other sample sheets out of this directory.")
 
     def split_key(self, key, subtype_delimiter):
+        """Split pheno column by key, with subtype delimiter, eg. entry S1,s2 -> S1 with delimiter ",".
+
+        Parameters
+        ----------
+        key
+            Pheno column name.
+        subtype_delimiter
+            Subtype delimiter to split on.
+        """
         new_key = '{}_only'.format(key)
         self.pheno_sheet[new_key] = self.pheno_sheet[key].map(lambda x: x.split(subtype_delimiter)[0])
         return new_key
 
     def get_categorical_distribution(self, key, disease_only=False, subtype_delimiter=','):
+        """Print categorical distribution, counts for each unique value in phenotype column.
+
+        Parameters
+        ----------
+        key
+            Phenotype Column.
+        disease_only
+            Whether to split phenotype column entries by delimiter.
+        subtype_delimiter
+            Subtype delimiter to split on.
+        """
         if type(key) == type('string'):
             if disease_only:
                 key=self.split_key(key,subtype_delimiter)
@@ -185,6 +277,19 @@ class PreProcessPhenoData:
             return Counter(cols)
 
     def remove_diseases(self,exclude_disease_list, low_count, disease_only,subtype_delimiter):
+        """Remove samples with certain diseases from disease column.
+
+        Parameters
+        ----------
+        exclude_disease_list
+            List containing diseases to remove.
+        low_count
+            Remove samples that have less than x disease occurances in column.
+        disease_only
+            Whether to split phenotype column entries by delimiter.
+        subtype_delimiter
+            Subtype delimiter to split on.
+        """
         if low_count:
             low_count = int(low_count)
             cat_dist = self.get_categorical_distribution('disease', disease_only,subtype_delimiter).items()
@@ -199,6 +304,18 @@ class PreProcessPhenoData:
         self.pheno_sheet = self.pheno_sheet[~self.pheno_sheet['disease'].isin(exclude_disease_list+exclude_diseases_more)]
 
 class PreProcessIDAT:
+    """Class that will preprocess IDATs using R pipelines.
+
+    idat_dir
+        Location of idats or samplesheet csv.
+    minfi
+        Rpy2 importr minfi library, default to None will load through rpy2
+    enmix
+        Rpy2 importr enmix library, default to None will load through rpy2
+    base
+        Rpy2 importr base library, default to None will load through rpy2
+    meffil
+        Rpy2 importr meffil library, default to None will load through rpy2"""
     def __init__(self, idat_dir, minfi=None, enmix=None, base=None, meffil=None):
         self.idat_dir = idat_dir
         if minfi == None:
@@ -223,9 +340,12 @@ class PreProcessIDAT:
         self.qcinfo=robjects.r('NULL')
 
     def move_jpg(self):
+        """Move jpeg files from current working directory to the idat directory.
+        """
         subprocess.call('mv *.jpg {}'.format(self.idat_dir),shell=True)
 
     def preprocessNoob(self):
+        """Run minfi preprocessing with Noob normalization"""
         self.qcinfo = self.enmix.QCinfo(self.RGset, detPthre=1e-7)
         self.move_jpg()
         self.MSet = self.minfi.preprocessNoob(self.RGset)
@@ -235,6 +355,7 @@ class PreProcessIDAT:
         return self.MSet
 
     def preprocessRAW(self):
+        """Run minfi preprocessing with RAW normalization"""
         self.qcinfo = self.enmix.QCinfo(self.RGset, detPthre=1e-7)
         self.move_jpg()
         self.MSet = self.minfi.preprocessRaw(self.RGset)
@@ -244,6 +365,12 @@ class PreProcessIDAT:
         return self.MSet
 
     def preprocessENmix(self, n_cores=6):
+        """Run ENmix preprocessing pipeline.
+
+        Parameters
+        ----------
+        n_cores
+            Number of CPUs to use."""
         self.qcinfo = self.enmix.QCinfo(self.RGset, detPthre=1e-7)
         self.move_jpg()
         self.MSet = self.enmix.preprocessENmix(self.RGset, QCinfo=self.qcinfo, nCores=n_cores)
@@ -253,6 +380,28 @@ class PreProcessIDAT:
         return self.MSet
 
     def preprocessMeffil(self, n_cores=6, n_pcs=4, qc_report_fname="qc/report.html", normalization_report_fname='norm/report.html', pc_plot_fname='qc/pc_plot.pdf', useCache=True, qc_only=True, qc_parameters={'p.beadnum.samples':0.1,'p.detection.samples':0.1,'p.detection.cpgs':0.1,'p.beadnum.cpgs':0.1}, rm_sex=False):
+        """Run meffil preprocessing pipeline with functional normalization.
+
+        Parameters
+        ----------
+        n_cores
+            Number of CPUs to use.
+        n_pcs
+            Number of principal components to use for functional normalization, set to -1 to autoselect via kneedle algorithm.
+        qc_report_fname
+            HTML filename to store QC report.
+        normalization_report_fname
+            HTML filename to store normalization report
+        pc_plot_fname
+            PDF file to store principal components plot.
+        useCache
+            Use saved QC objects instead of running through QC again.
+        qc_only
+            Perform QC, then save and quit before normalization.
+        qc_parameters
+            Python dictionary with parameters for qc.
+        rm_sex
+            Remove non-autosomal cpgs?"""
         from pymethylprocess.meffil_functions import load_detection_p_values_beadnum, set_missing, remove_sex
         self.pheno = self.meffil.meffil_read_samplesheet(self.idat_dir, verbose=True)
         cache_storage_path = os.path.join(self.idat_dir,'QCObjects.rds')
@@ -351,11 +500,18 @@ class PreProcessIDAT:
             pass
 
     def load_idats(self):
+        """For minfi pipeline, load IDATs from specified idat_dir."""
         targets = self.minfi.read_metharray_sheet(self.idat_dir)
         self.RGset = self.minfi.read_metharray_exp(targets=targets, extended=True)
         return self.RGset
 
     def plot_qc_metrics(self, output_dir):
+        """Plot QC results from ENmix pipeline and possible minfi. Still experimental.
+
+        Parameters
+        ----------
+        output_dir
+            Where to store plots."""
         self.enmix.plotCtrl(self.RGset)
         grdevice = importr("grDevices")
         geneplotter = importr("geneplotter")
@@ -379,32 +535,58 @@ class PreProcessIDAT:
         self.minfi.densityPlot(self.RGset, main='Beta', xlab='Beta')
 
     def return_beta(self):
+        """Return minfi RSet after having created MSet."""
         self.RSet = self.minfi.ratioConvert(self.MSet, what = "both", keepCN = True)
         return self.RSet
 
     def get_beta(self):
+        """Get beta value matrix from minfi after finding RSet."""
         self.beta = self.minfi.getBeta(self.RSet)
         return self.beta
 
     def filter_beta(self):
+        """After creating beta, filter out outliers."""
         self.beta_final=self.enmix.rm_outlier(self.beta,qcscore=self.qcinfo)
         return self.beta_final
 
     def get_meth(self):
+        """Get methylation intensity matrix from MSet"""
         return self.minfi.getMeth(self.MSet)
 
     def get_unmeth(self):
+        """Get unmethylated intensity matrix from MSet"""
         return self.minfi.getUnmeth(self.MSet)
 
     def extract_pheno_data(self, methylset=False):
+        """Extract pheno data from MSet or RGSet, minfi.
+
+        Parameters
+        ----------
+        methylset
+            If MSet has beenn created, set to True, else extract from original RGSet."""
         self.pheno = robjects.r("pData")(self.MSet) if methylset else robjects.r("pData")(self.RGset)
         return self.pheno
 
     def extract_manifest(self):
+        """Get manifest from RGSet."""
         self.manifest = self.minfi.getManifest(self.RGset)
         return self.manifest
 
     def preprocess_enmix_pipeline(self, n_cores=6, pipeline='enmix', noob=False, qc_only=False, use_cache=False):
+        """Run complete ENmix or minfi preprocessing pipeline.
+
+        Parameters
+        ----------
+        n_cores
+            Number CPUs.
+        pipeline
+            Run enmix or minfi
+        noob
+            Noob norm or RAW if minfi running.
+        qc_only
+            Save and quit after only running QC?
+        use_cache
+            Load preexisting RGSet instead of running QC again."""
         cache_storage_path = os.path.join(self.idat_dir,'RGSet.rds')
         if use_cache:
             self.RGset=robjects.r('readRDS')(cache_storage_path)
@@ -429,12 +611,24 @@ class PreProcessIDAT:
         return self.pheno, self.beta_final
 
     def plot_original_qc(self, output_dir):
+        """Plot QC results from ENmix pipeline and possible minfi. Still experimental.
+
+        Parameters
+        ----------
+        output_dir
+            Where to store plots."""
         self.preprocessRAW()
         self.return_beta()
         self.get_beta()
         self.plot_qc_metrics(output_dir)
 
     def output_pheno_beta(self, meffil=False):
+        """Get pheno and beta dataframe objects stored as attributes for input to MethylationArray object.
+
+        Parameters
+        ----------
+        meffil
+            True if ran meffil pipeline."""
         self.pheno_py=pandas2ri.ri2py(robjects.r['as'](self.pheno,'data.frame'))
         if not meffil:
             self.beta_py=pd.DataFrame(pandas2ri.ri2py(self.beta_final),index=numpy2ri.ri2py(robjects.r("featureNames")(self.RSet)),columns=numpy2ri.ri2py(robjects.r("sampleNames")(self.RSet))).transpose()
@@ -448,6 +642,14 @@ class PreProcessIDAT:
             self.pheno_py = self.pheno_py.set_index('Sample_Name').loc[self.beta_py.index,:]
 
     def export_pickle(self, output_pickle, disease=''):
+        """Export pheno and beta dataframes to pickle, stored in python dict that can be loaded into MethylationArray
+
+        Parameters
+        ----------
+        output_pickle
+            Where to store MethylationArray.
+        disease
+            Custom naming scheme for data."""
         output_dict = {}
         if os.path.exists(output_pickle):
             output_dict = pickle.load(open(output_pickle,'rb'))
@@ -456,14 +658,34 @@ class PreProcessIDAT:
         pickle.dump(output_dict, open(output_pickle,'wb'),protocol=4)
 
     def export_sql(self, output_db, disease=''):
+        """Export pheno and beta dataframes to SQL
+
+        Parameters
+        ----------
+        output_db
+            Where to store data, sqlite db.
+        disease
+            Custom naming scheme for data."""
         conn = sqlite3.connect(output_db)
         self.pheno_py.to_sql('pheno' if not disease else 'pheno_{}'.format(disease), con=conn, if_exists='replace')
         self.beta_py.to_sql('beta' if not disease else 'beta_{}'.format(disease), con=conn, if_exists='replace')
         conn.close()
 
     def export_csv(self, output_dir):
+        """Export pheno and beta dataframes to CSVs
+
+        Parameters
+        ----------
+        output_dir
+            Where to store csvs."""
         self.pheno_py.to_csv('{}/pheno.csv'.format(output_dir))
         self.beta_py.to_csv('{}/beta.csv'.format(output_dir))
 
     def to_methyl_array(self,disease=''):
+        """Convert results from preprocessing into MethylationArray, and directly return MethylationArray object.
+
+        Parameters
+        ----------
+        disease
+            Custom naming scheme for data."""
         return MethylationArray(self.pheno_py,self.beta_py, disease)

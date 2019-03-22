@@ -8,17 +8,16 @@ import pandas as pd, numpy as np
 import pickle, os
 
 class MethylationArray:
-    """Stores beta and phenotype information and performs various operations."""
-    def __init__(self, pheno_df, beta_df, name=''):
-        """Initialize MethylationArray object by inputting dataframe of phenotypes
-        and dataframe of beta values with samples as index.
+    """Stores beta and phenotype information and performs various operations.
+    Initialize MethylationArray object by inputting dataframe of phenotypes
+    and dataframe of beta values with samples as index.
 
-        Parameters
-        ----------
-        pheno_df
-            Phenotype dataframe (samples x covariates)
-        beta_df
-            Beta Values Dataframe (samples x cpgs)"""
+    pheno_df
+        Phenotype dataframe (samples x covariates)
+    beta_df
+        Beta Values Dataframe (samples x cpgs)"""
+    def __init__(self, pheno_df, beta_df, name=''):
+        """"""
         self.pheno=pheno_df
         self.beta=beta_df
         self.name=name
@@ -350,14 +349,13 @@ class MethylationArray:
         return MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(open(input_pickle,'rb'))))
 
 class MethylationArrays:
-    """Literally a list of methylation arrays, with methods operate on these arrays that is memory efficient."""
-    def __init__(self, list_methylation_arrays):
-        """Initialize with list of methylation arrays. Can optionally leave list empty or with one element.
+    """Literally a list of methylation arrays, with methods operate on these arrays that is memory efficient.
+    Initialize with list of methylation arrays. Can optionally leave list empty or with one element.
 
-        Parameters
-        ----------
-        list_methylation_arrays
-            List of methylation arrays.
+    list_methylation_arrays
+        List of methylation arrays."""
+    def __init__(self, list_methylation_arrays):
+        """
         """
         self.methylation_arrays = list_methylation_arrays
 
@@ -419,18 +417,17 @@ class MethylationArrays:
             self.methylation_arrays[i].impute(imputer)
 
 class ImputerObject:
-    """Class that stores and accesses different types of imputers."""
-    def __init__(self, solver, method, opts={}):
-        """Construct sklearn-like imputer given certain input arguments.
+    """Class that stores and accesses different types of imputers.
+    Construct sklearn-like imputer given certain input arguments.
 
-        Parameters
-        ----------
-        solver
-            Library for imputation, eg. sklearn, fancyimpute.
-        method
-            Imputation method in library, named.
-        opts
-            Additional options to assign to imputer.
+    solver
+        Library for imputation, eg. sklearn, fancyimpute.
+    method
+        Imputation method in library, named.
+    opts
+        Additional options to assign to imputer."""
+    def __init__(self, solver, method, opts={}):
+        """
         """
         from fancyimpute import KNN, NuclearNormMinimization, SoftImpute, IterativeImputer, BiScaler
         from sklearn.impute import SimpleImputer
