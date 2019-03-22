@@ -1,0 +1,932 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter {\sphinxsymbolsname}
+  \item \spxentry{--version}
+    \subitem \spxentry{pymethyl-install command line option}, \hyperpage{17}
+    \subitem \spxentry{pymethyl-preprocess command line option}, \hyperpage{23}
+    \subitem \spxentry{pymethyl-utils command line option}, \hyperpage{33}
+    \subitem \spxentry{pymethyl-visualize command line option}, \hyperpage{19}
+  \item \spxentry{-a, --algorithm \textless{}algorithm\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-ref\_estimate\_cell\_counts command line option}, 
+		\hyperpage{38}
+  \item \spxentry{-a, --annot}
+    \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
+  \item \spxentry{-a, --array\_type \textless{}array\_type\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-print\_number\_sex\_cpgs command line option}, \hyperpage{37}
+    \subitem \spxentry{pymethyl-utils-remove\_sex command line option}, \hyperpage{38}
+    \subitem \spxentry{pymethyl-utils-remove\_snps command line option}, \hyperpage{39}
+  \item \spxentry{-a, --axes\_off}
+    \subitem \spxentry{pymethyl-visualize-transform\_plot command line option}, \hyperpage{21}
+  \item \spxentry{-a, --axis \textless{}axis\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-concat\_csv command line option}, \hyperpage{34}
+  \item \spxentry{-b, --basename\_col \textless{}basename\_col\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-create\_sample\_sheet command line option}, 
+		\hyperpage{25}
+  \item \spxentry{-bnc, --p\_beadnum\_cpgs \textless{}p\_beadnum\_cpgs\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
+		\hyperpage{30}
+  \item \spxentry{-bns, --p\_beadnum\_samples \textless{}p\_beadnum\_samples\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
+		\hyperpage{29}
+  \item \spxentry{-c, --chunk\_size \textless{}chunk\_size\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-batch\_deploy\_preprocess command line option}, 
+		\hyperpage{24}
+  \item \spxentry{-c, --cluster}
+    \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
+  \item \spxentry{-c, --col \textless{}col\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-bin\_column command line option}, \hyperpage{33}
+    \subitem \spxentry{pymethyl-utils-pkl\_to\_csv command line option}, \hyperpage{37}
+  \item \spxentry{-c, --column\_of\_interest \textless{}column\_of\_interest\textgreater{}}
+    \subitem \spxentry{pymethyl-visualize-transform\_plot command line option}, \hyperpage{20}
+  \item \spxentry{-c, --cpg\_pkl \textless{}cpg\_pkl\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-set\_part\_array\_background command line option}, 
+		\hyperpage{39}
+    \subitem \spxentry{pymethyl-utils-subset\_array command line option}, \hyperpage{40}
+    \subitem \spxentry{pymethyl-utils-write\_cpgs command line option}, \hyperpage{41}
+  \item \spxentry{-c, --cpg\_replace\_method \textless{}cpg\_replace\_method\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-create\_external\_validation\_set command line option}, 
+		\hyperpage{35}
+  \item \spxentry{-c, --include\_columns\_file \textless{}include\_columns\_file\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-create\_sample\_sheet command line option}, 
+		\hyperpage{25}
+  \item \spxentry{-c, --index\_col \textless{}index\_col\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-overwrite\_pheno\_data command line option}, \hyperpage{37}
+  \item \spxentry{-cat, --categorical}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
+  \item \spxentry{-cc, --case\_control\_override}
+    \subitem \spxentry{pymethyl-visualize-transform\_plot command line option}, \hyperpage{21}
+  \item \spxentry{-col, --color\_column \textless{}color\_column\textgreater{}}
+    \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
+  \item \spxentry{-cols, --plot\_cols \textless{}plot\_cols\textgreater{}}
+    \subitem \spxentry{pymethyl-visualize-plot\_cell\_type\_results command line option}, 
+		\hyperpage{19}
+  \item \spxentry{-ct, --cpg\_threshold \textless{}cpg\_threshold\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
+		\hyperpage{28}
+  \item \spxentry{-d, --disease\_class\_column \textless{}disease\_class\_column\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-create\_sample\_sheet command line option}, 
+		\hyperpage{25}
+  \item \spxentry{-d, --disease\_only}
+    \subitem \spxentry{pymethyl-preprocess-get\_categorical\_distribution command line option}, 
+		\hyperpage{27}
+    \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
+		\hyperpage{27}
+    \subitem \spxentry{pymethyl-preprocess-remove\_diseases command line option}, \hyperpage{30}
+    \subitem \spxentry{pymethyl-preprocess-split\_preprocess\_input\_by\_subtype command line option}, 
+		\hyperpage{31}
+    \subitem \spxentry{pymethyl-utils-fix\_key command line option}, \hyperpage{36}
+  \item \spxentry{-d, --min\_dist \textless{}min\_dist\textgreater{}}
+    \subitem \spxentry{pymethyl-visualize-transform\_plot command line option}, \hyperpage{21}
+  \item \spxentry{-d, --optional\_input\_pkl\_dir \textless{}optional\_input\_pkl\_dir\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-combine\_methylation\_arrays command line option}, 
+		\hyperpage{24}
+  \item \spxentry{-d, --second\_sheet\_disease}
+    \subitem \spxentry{pymethyl-preprocess-merge\_sample\_sheets command line option}, 
+		\hyperpage{28}
+  \item \spxentry{-do, --disease\_only}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
+  \item \spxentry{-e, --exclude \textless{}exclude\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-combine\_methylation\_arrays command line option}, 
+		\hyperpage{24}
+  \item \spxentry{-e, --exclude\_disease\_list \textless{}exclude\_disease\_list\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-remove\_diseases command line option}, \hyperpage{30}
+  \item \spxentry{-f, --feature\_selection\_method \textless{}feature\_selection\_method\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-feature\_select command line option}, \hyperpage{26}
+    \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
+		\hyperpage{27}
+    \subitem \spxentry{pymethyl-utils-feature\_select\_train\_val\_test command line option}, 
+		\hyperpage{35}
+  \item \spxentry{-fs, --font\_scale \textless{}font\_scale\textgreater{}}
+    \subitem \spxentry{pymethyl-visualize-plot\_cell\_type\_results command line option}, 
+		\hyperpage{19}
+    \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
+  \item \spxentry{-g, --geo\_query \textless{}geo\_query\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-download\_geo command line option}, \hyperpage{26}
+  \item \spxentry{-i, --idat\_csv \textless{}idat\_csv\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-split\_preprocess\_input\_by\_subtype command line option}, 
+		\hyperpage{31}
+  \item \spxentry{-i, --idat\_dir \textless{}idat\_dir\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-create\_sample\_sheet command line option}, 
+		\hyperpage{25}
+    \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
+		\hyperpage{29}
+  \item \spxentry{-i, --input\_csv \textless{}input\_csv\textgreater{}}
+    \subitem \spxentry{pymethyl-visualize-plot\_cell\_type\_results command line option}, 
+		\hyperpage{19}
+    \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
+  \item \spxentry{-i, --input\_dir \textless{}input\_dir\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-move\_jpg command line option}, \hyperpage{36}
+  \item \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-feature\_select command line option}, \hyperpage{26}
+    \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
+		\hyperpage{27}
+    \subitem \spxentry{pymethyl-preprocess-na\_report command line option}, \hyperpage{29}
+    \subitem \spxentry{pymethyl-utils-backup\_pkl command line option}, \hyperpage{33}
+    \subitem \spxentry{pymethyl-utils-counts command line option}, \hyperpage{34}
+    \subitem \spxentry{pymethyl-utils-fix\_key command line option}, \hyperpage{35}
+    \subitem \spxentry{pymethyl-utils-modify\_pheno\_data command line option}, \hyperpage{36}
+    \subitem \spxentry{pymethyl-utils-overwrite\_pheno\_data command line option}, \hyperpage{37}
+    \subitem \spxentry{pymethyl-utils-pkl\_to\_csv command line option}, \hyperpage{37}
+    \subitem \spxentry{pymethyl-utils-print\_number\_sex\_cpgs command line option}, \hyperpage{37}
+    \subitem \spxentry{pymethyl-utils-print\_shape command line option}, \hyperpage{38}
+    \subitem \spxentry{pymethyl-utils-remove\_sex command line option}, \hyperpage{38}
+    \subitem \spxentry{pymethyl-utils-remove\_snps command line option}, \hyperpage{39}
+    \subitem \spxentry{pymethyl-utils-set\_part\_array\_background command line option}, 
+		\hyperpage{39}
+    \subitem \spxentry{pymethyl-utils-stratify command line option}, \hyperpage{39}
+    \subitem \spxentry{pymethyl-utils-subset\_array command line option}, \hyperpage{40}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
+    \subitem \spxentry{pymethyl-utils-write\_cpgs command line option}, \hyperpage{41}
+    \subitem \spxentry{pymethyl-visualize-transform\_plot command line option}, \hyperpage{20}
+  \item \spxentry{-i, --input\_pkl\_dir \textless{}input\_pkl\_dir\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-feature\_select\_train\_val\_test command line option}, 
+		\hyperpage{35}
+  \item \spxentry{-i, --input\_pkls \textless{}input\_pkls\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-combine\_methylation\_arrays command line option}, 
+		\hyperpage{24}
+  \item \spxentry{-i, --subtype\_output\_dir \textless{}subtype\_output\_dir\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-batch\_deploy\_preprocess command line option}, 
+		\hyperpage{23}
+  \item \spxentry{-i1, --input\_csv \textless{}input\_csv\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-concat\_csv command line option}, \hyperpage{34}
+  \item \spxentry{-i2, --input\_csv2 \textless{}input\_csv2\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-concat\_csv command line option}, \hyperpage{34}
+  \item \spxentry{-idx, --index\_col \textless{}index\_col\textgreater{}}
+    \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
+  \item \spxentry{-is, --formatted\_sample\_sheet \textless{}formatted\_sample\_sheet\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-get\_categorical\_distribution command line option}, 
+		\hyperpage{27}
+    \subitem \spxentry{pymethyl-preprocess-remove\_diseases command line option}, \hyperpage{30}
+  \item \spxentry{-is, --input\_formatted\_sample\_sheet \textless{}input\_formatted\_sample\_sheet\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-modify\_pheno\_data command line option}, \hyperpage{36}
+    \subitem \spxentry{pymethyl-utils-overwrite\_pheno\_data command line option}, \hyperpage{37}
+  \item \spxentry{-is, --input\_sample\_sheet \textless{}input\_sample\_sheet\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-create\_sample\_sheet command line option}, 
+		\hyperpage{25}
+    \subitem \spxentry{pymethyl-preprocess-meffil\_encode command line option}, \hyperpage{28}
+  \item \spxentry{-k, --key \textless{}key\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-get\_categorical\_distribution command line option}, 
+		\hyperpage{27}
+    \subitem \spxentry{pymethyl-utils-counts command line option}, \hyperpage{34}
+    \subitem \spxentry{pymethyl-utils-fix\_key command line option}, \hyperpage{35}
+    \subitem \spxentry{pymethyl-utils-stratify command line option}, \hyperpage{39}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
+  \item \spxentry{-k, --n\_neighbors \textless{}n\_neighbors\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
+		\hyperpage{27}
+  \item \spxentry{-l, --header\_line \textless{}header\_line\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-create\_sample\_sheet command line option}, 
+		\hyperpage{25}
+  \item \spxentry{-l, --library \textless{}library\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-ref\_estimate\_cell\_counts command line option}, 
+		\hyperpage{38}
+  \item \spxentry{-l, --low\_count \textless{}low\_count\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-remove\_diseases command line option}, \hyperpage{30}
+  \item \spxentry{-m, --mad\_top\_cpgs \textless{}mad\_top\_cpgs\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-feature\_select command line option}, \hyperpage{26}
+    \subitem \spxentry{pymethyl-utils-feature\_select\_train\_val\_test command line option}, 
+		\hyperpage{35}
+  \item \spxentry{-m, --manager}
+    \subitem \spxentry{pymethyl-install-install\_custom command line option}, \hyperpage{17}
+  \item \spxentry{-m, --mapping\_file \textless{}mapping\_file\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-create\_sample\_sheet command line option}, 
+		\hyperpage{25}
+  \item \spxentry{-m, --matrix\_type \textless{}matrix\_type\textgreater{}}
+    \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
+  \item \spxentry{-m, --meffil}
+    \subitem \spxentry{pymethyl-preprocess-batch\_deploy\_preprocess command line option}, 
+		\hyperpage{23}
+    \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
+		\hyperpage{29}
+  \item \spxentry{-m, --method \textless{}method\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
+		\hyperpage{27}
+  \item \spxentry{-m, --metric \textless{}metric\textgreater{}}
+    \subitem \spxentry{pymethyl-visualize-transform\_plot command line option}, \hyperpage{21}
+  \item \spxentry{-max, --max\_val \textless{}max\_val\textgreater{}}
+    \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
+  \item \spxentry{-min, --min\_val \textless{}min\_val\textgreater{}}
+    \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
+  \item \spxentry{-mm, --metric \textless{}metric\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-feature\_select command line option}, \hyperpage{26}
+    \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
+		\hyperpage{27}
+    \subitem \spxentry{pymethyl-utils-feature\_select\_train\_val\_test command line option}, 
+		\hyperpage{35}
+  \item \spxentry{-n, --n\_bins \textless{}n\_bins\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-bin\_column command line option}, \hyperpage{33}
+  \item \spxentry{-n, --n\_cores \textless{}n\_cores\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-batch\_deploy\_preprocess command line option}, 
+		\hyperpage{23}
+    \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
+		\hyperpage{29}
+  \item \spxentry{-n, --n\_top\_cpgs \textless{}n\_top\_cpgs\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-feature\_select command line option}, \hyperpage{26}
+    \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
+		\hyperpage{27}
+    \subitem \spxentry{pymethyl-utils-feature\_select\_train\_val\_test command line option}, 
+		\hyperpage{35}
+  \item \spxentry{-n, --norm}
+    \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
+  \item \spxentry{-nd, --no\_disease\_merge}
+    \subitem \spxentry{pymethyl-preprocess-merge\_sample\_sheets command line option}, 
+		\hyperpage{28}
+  \item \spxentry{-nfs, --n\_neighbors\_fs \textless{}n\_neighbors\_fs\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
+		\hyperpage{27}
+  \item \spxentry{-nn, --n\_neighbors \textless{}n\_neighbors\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-feature\_select command line option}, \hyperpage{26}
+    \subitem \spxentry{pymethyl-utils-feature\_select\_train\_val\_test command line option}, 
+		\hyperpage{35}
+    \subitem \spxentry{pymethyl-visualize-transform\_plot command line option}, \hyperpage{21}
+  \item \spxentry{-noob, --noob\_norm}
+    \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
+		\hyperpage{29}
+  \item \spxentry{-o, --outfilename \textless{}outfilename\textgreater{}}
+    \subitem \spxentry{pymethyl-visualize-plot\_cell\_type\_results command line option}, 
+		\hyperpage{19}
+    \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
+  \item \spxentry{-o, --output\_csv \textless{}output\_csv\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-concat\_csv command line option}, \hyperpage{34}
+    \subitem \spxentry{pymethyl-utils-ref\_estimate\_cell\_counts command line option}, 
+		\hyperpage{38}
+  \item \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-download\_clinical command line option}, \hyperpage{25}
+    \subitem \spxentry{pymethyl-preprocess-download\_geo command line option}, \hyperpage{26}
+    \subitem \spxentry{pymethyl-preprocess-download\_tcga command line option}, \hyperpage{26}
+    \subitem \spxentry{pymethyl-preprocess-na\_report command line option}, \hyperpage{29}
+    \subitem \spxentry{pymethyl-utils-feature\_select\_train\_val\_test command line option}, 
+		\hyperpage{35}
+    \subitem \spxentry{pymethyl-utils-move\_jpg command line option}, \hyperpage{36}
+    \subitem \spxentry{pymethyl-utils-pkl\_to\_csv command line option}, \hyperpage{37}
+    \subitem \spxentry{pymethyl-utils-stratify command line option}, \hyperpage{39}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
+  \item \spxentry{-o, --output\_file \textless{}output\_file\textgreater{}}
+    \subitem \spxentry{pymethyl-visualize-transform\_plot command line option}, \hyperpage{20}
+  \item \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-combine\_methylation\_arrays command line option}, 
+		\hyperpage{24}
+    \subitem \spxentry{pymethyl-preprocess-feature\_select command line option}, \hyperpage{26}
+    \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
+		\hyperpage{27}
+    \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
+		\hyperpage{29}
+    \subitem \spxentry{pymethyl-utils-backup\_pkl command line option}, \hyperpage{33}
+    \subitem \spxentry{pymethyl-utils-create\_external\_validation\_set command line option}, 
+		\hyperpage{35}
+    \subitem \spxentry{pymethyl-utils-fix\_key command line option}, \hyperpage{36}
+    \subitem \spxentry{pymethyl-utils-modify\_pheno\_data command line option}, \hyperpage{36}
+    \subitem \spxentry{pymethyl-utils-overwrite\_pheno\_data command line option}, \hyperpage{37}
+    \subitem \spxentry{pymethyl-utils-remove\_sex command line option}, \hyperpage{38}
+    \subitem \spxentry{pymethyl-utils-remove\_snps command line option}, \hyperpage{39}
+    \subitem \spxentry{pymethyl-utils-set\_part\_array\_background command line option}, 
+		\hyperpage{39}
+    \subitem \spxentry{pymethyl-utils-subset\_array command line option}, \hyperpage{40}
+  \item \spxentry{-o, --subtype\_output\_dir \textless{}subtype\_output\_dir\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-split\_preprocess\_input\_by\_subtype command line option}, 
+		\hyperpage{31}
+  \item \spxentry{-os, --output\_sample\_sheet \textless{}output\_sample\_sheet\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-concat\_sample\_sheets command line option}, 
+		\hyperpage{24}
+    \subitem \spxentry{pymethyl-preprocess-create\_sample\_sheet command line option}, 
+		\hyperpage{25}
+    \subitem \spxentry{pymethyl-preprocess-meffil\_encode command line option}, \hyperpage{28}
+    \subitem \spxentry{pymethyl-preprocess-merge\_sample\_sheets command line option}, 
+		\hyperpage{28}
+  \item \spxentry{-os, --output\_sheet\_name \textless{}output\_sheet\_name\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-remove\_diseases command line option}, \hyperpage{30}
+  \item \spxentry{-ot, --output\_test\_pkl \textless{}output\_test\_pkl\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-bin\_column command line option}, \hyperpage{34}
+  \item \spxentry{-p, --package \textless{}package\textgreater{}}
+    \subitem \spxentry{pymethyl-install-install\_custom command line option}, \hyperpage{17}
+    \subitem \spxentry{pymethyl-install-install\_r\_packages command line option}, \hyperpage{18}
+  \item \spxentry{-p, --pc\_qc\_parameters\_csv \textless{}pc\_qc\_parameters\_csv\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-batch\_deploy\_preprocess command line option}, 
+		\hyperpage{23}
+  \item \spxentry{-p, --pipeline \textless{}pipeline\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
+		\hyperpage{29}
+  \item \spxentry{-pc, --n\_pcs \textless{}n\_pcs\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
+		\hyperpage{29}
+  \item \spxentry{-pdc, --p\_detection\_cpgs \textless{}p\_detection\_cpgs\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
+		\hyperpage{30}
+  \item \spxentry{-pds, --p\_detection\_samples \textless{}p\_detection\_samples\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
+		\hyperpage{30}
+  \item \spxentry{-q, --query\_pkl \textless{}query\_pkl\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-create\_external\_validation\_set command line option}, 
+		\hyperpage{35}
+  \item \spxentry{-qc, --qc\_only}
+    \subitem \spxentry{pymethyl-preprocess-batch\_deploy\_preprocess command line option}, 
+		\hyperpage{23}
+    \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
+		\hyperpage{29}
+  \item \spxentry{-r, --head\_directory}
+    \subitem \spxentry{pymethyl-preprocess-na\_report command line option}, \hyperpage{29}
+  \item \spxentry{-r, --orientation \textless{}orientation\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
+		\hyperpage{27}
+  \item \spxentry{-r, --run}
+    \subitem \spxentry{pymethyl-preprocess-batch\_deploy\_preprocess command line option}, 
+		\hyperpage{23}
+  \item \spxentry{-ref, --reference \textless{}reference\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-ref\_estimate\_cell\_counts command line option}, 
+		\hyperpage{38}
+  \item \spxentry{-ro, --input\_r\_object\_dir \textless{}input\_r\_object\_dir\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-ref\_estimate\_cell\_counts command line option}, 
+		\hyperpage{38}
+  \item \spxentry{-s, --series}
+    \subitem \spxentry{pymethyl-preprocess-batch\_deploy\_preprocess command line option}, 
+		\hyperpage{23}
+  \item \spxentry{-s, --solver \textless{}solver\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
+		\hyperpage{27}
+  \item \spxentry{-s, --source\_type \textless{}source\_type\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-create\_sample\_sheet command line option}, 
+		\hyperpage{25}
+  \item \spxentry{-s, --supervised}
+    \subitem \spxentry{pymethyl-visualize-transform\_plot command line option}, \hyperpage{21}
+  \item \spxentry{-s1, --sample\_sheet1 \textless{}sample\_sheet1\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-concat\_sample\_sheets command line option}, 
+		\hyperpage{24}
+    \subitem \spxentry{pymethyl-preprocess-merge\_sample\_sheets command line option}, 
+		\hyperpage{28}
+  \item \spxentry{-s2, --sample\_sheet2 \textless{}sample\_sheet2\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-concat\_sample\_sheets command line option}, 
+		\hyperpage{24}
+    \subitem \spxentry{pymethyl-preprocess-merge\_sample\_sheets command line option}, 
+		\hyperpage{28}
+  \item \spxentry{-sc, --sex\_cutoff \textless{}sex\_cutoff\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
+		\hyperpage{30}
+  \item \spxentry{-sd, --sex\_sd \textless{}sex\_sd\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
+		\hyperpage{30}
+  \item \spxentry{-sd, --subtype\_delimiter \textless{}subtype\_delimiter\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-get\_categorical\_distribution command line option}, 
+		\hyperpage{27}
+    \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
+		\hyperpage{28}
+    \subitem \spxentry{pymethyl-preprocess-remove\_diseases command line option}, \hyperpage{30}
+    \subitem \spxentry{pymethyl-preprocess-split\_preprocess\_input\_by\_subtype command line option}, 
+		\hyperpage{31}
+    \subitem \spxentry{pymethyl-utils-fix\_key command line option}, \hyperpage{36}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
+  \item \spxentry{-ss, --split\_by\_subtype}
+    \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
+		\hyperpage{27}
+  \item \spxentry{-st, --sample\_threshold \textless{}sample\_threshold\textgreater{}}
+    \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
+		\hyperpage{28}
+  \item \spxentry{-t, --test\_pkl \textless{}test\_pkl\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-bin\_column command line option}, \hyperpage{33}
+  \item \spxentry{-t, --torque}
+    \subitem \spxentry{pymethyl-preprocess-batch\_deploy\_preprocess command line option}, 
+		\hyperpage{23}
+  \item \spxentry{-t, --train\_pkl \textless{}train\_pkl\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-create\_external\_validation\_set command line option}, 
+		\hyperpage{35}
+  \item \spxentry{-t, --transpose}
+    \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
+  \item \spxentry{-tp, --train\_percent \textless{}train\_percent\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
+  \item \spxentry{-u, --use\_cache}
+    \subitem \spxentry{pymethyl-preprocess-batch\_deploy\_preprocess command line option}, 
+		\hyperpage{23}
+    \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
+		\hyperpage{29}
+  \item \spxentry{-vp, --val\_percent \textless{}val\_percent\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
+  \item \spxentry{-x, --xticks}
+    \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
+  \item \spxentry{-y, --yticks}
+    \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
+
+  \indexspace
+  \bigletter A
+  \item \spxentry{assign\_results\_to\_pheno\_col()}\spxextra{pymethylprocess.general\_machine\_learning.MachineLearning method}, 
+		\hyperpage{15}
+
+  \indexspace
+  \bigletter B
+  \item \spxentry{bin\_column()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{9}
+
+  \indexspace
+  \bigletter C
+  \item \spxentry{categorical\_breakdown()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{9}
+  \item \spxentry{combine()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArrays method}, 
+		\hyperpage{11}
+  \item \spxentry{concat()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessPhenoData method}, 
+		\hyperpage{7}
+
+  \indexspace
+  \bigletter D
+  \item \spxentry{download\_clinical()}\spxextra{pymethylprocess.PreProcessDataTypes.TCGADownloader method}, 
+		\hyperpage{8}
+  \item \spxentry{download\_geo()}\spxextra{pymethylprocess.PreProcessDataTypes.TCGADownloader method}, 
+		\hyperpage{8}
+  \item \spxentry{download\_tcga()}\spxextra{pymethylprocess.PreProcessDataTypes.TCGADownloader method}, 
+		\hyperpage{8}
+
+  \indexspace
+  \bigletter E
+  \item \spxentry{est\_cell\_counts\_IDOL()}\spxextra{in module pymethylprocess.meffil\_functions}, 
+		\hyperpage{13}
+  \item \spxentry{est\_cell\_counts\_meffil()}\spxextra{in module pymethylprocess.meffil\_functions}, 
+		\hyperpage{13}
+  \item \spxentry{est\_cell\_counts\_minfi()}\spxextra{in module pymethylprocess.meffil\_functions}, 
+		\hyperpage{13}
+  \item \spxentry{export()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessPhenoData method}, 
+		\hyperpage{7}
+  \item \spxentry{export\_csv()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{5}
+  \item \spxentry{export\_pickle()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{5}
+  \item \spxentry{export\_sql()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{5}
+  \item \spxentry{extract\_manifest()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{5}
+  \item \spxentry{extract\_pheno\_beta\_df\_from\_folder()}\spxextra{in module pymethylprocess.MethylationDataTypes}, 
+		\hyperpage{12}
+  \item \spxentry{extract\_pheno\_beta\_df\_from\_pickle\_dict()}\spxextra{in module pymethylprocess.MethylationDataTypes}, 
+		\hyperpage{12}
+  \item \spxentry{extract\_pheno\_beta\_df\_from\_sql()}\spxextra{in module pymethylprocess.MethylationDataTypes}, 
+		\hyperpage{12}
+  \item \spxentry{extract\_pheno\_data()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{5}
+
+  \indexspace
+  \bigletter F
+  \item \spxentry{feature\_select()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{9}
+  \item \spxentry{filter\_beta()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{5}
+  \item \spxentry{fit()}\spxextra{pymethylprocess.general\_machine\_learning.MachineLearning method}, 
+		\hyperpage{15}
+  \item \spxentry{fit\_predict()}\spxextra{pymethylprocess.general\_machine\_learning.MachineLearning method}, 
+		\hyperpage{15}
+  \item \spxentry{fit\_transform()}\spxextra{pymethylprocess.general\_machine\_learning.MachineLearning method}, 
+		\hyperpage{15}
+  \item \spxentry{format\_custom()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessPhenoData method}, 
+		\hyperpage{7}
+  \item \spxentry{format\_geo()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessPhenoData method}, 
+		\hyperpage{7}
+  \item \spxentry{format\_tcga()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessPhenoData method}, 
+		\hyperpage{7}
+  \item \spxentry{from\_pickle()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray class method}, 
+		\hyperpage{9}
+
+  \indexspace
+  \bigletter G
+  \item \spxentry{get\_beta()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{5}
+  \item \spxentry{get\_categorical\_distribution()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessPhenoData method}, 
+		\hyperpage{7}
+  \item \spxentry{get\_meth()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{5}
+  \item \spxentry{get\_unmeth()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{6}
+  \item \spxentry{groupby()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{10}
+
+  \indexspace
+  \bigletter I
+  \item \spxentry{impute()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{10}
+  \item \spxentry{impute()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArrays method}, 
+		\hyperpage{12}
+  \item \spxentry{ImputerObject}\spxextra{class in pymethylprocess.MethylationDataTypes}, 
+		\hyperpage{9}
+
+  \indexspace
+  \bigletter L
+  \item \spxentry{load\_detection\_p\_values\_beadnum()}\spxextra{in module pymethylprocess.meffil\_functions}, 
+		\hyperpage{13}
+  \item \spxentry{load\_idats()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{6}
+
+  \indexspace
+  \bigletter M
+  \item \spxentry{MachineLearning}\spxextra{class in pymethylprocess.general\_machine\_learning}, 
+		\hyperpage{15}
+  \item \spxentry{merge()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessPhenoData method}, 
+		\hyperpage{8}
+  \item \spxentry{merge\_preprocess\_sheet()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{10}
+  \item \spxentry{MethylationArray}\spxextra{class in pymethylprocess.MethylationDataTypes}, 
+		\hyperpage{9}
+  \item \spxentry{MethylationArrays}\spxextra{class in pymethylprocess.MethylationDataTypes}, 
+		\hyperpage{11}
+  \item \spxentry{move\_jpg()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{6}
+
+  \indexspace
+  \bigletter O
+  \item \spxentry{output\_pheno\_beta()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{6}
+  \item \spxentry{overwrite\_pheno\_data()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{10}
+
+  \indexspace
+  \bigletter P
+  \item \spxentry{plot\_original\_qc()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{6}
+  \item \spxentry{plot\_qc\_metrics()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{6}
+  \item \spxentry{predict()}\spxextra{pymethylprocess.general\_machine\_learning.MachineLearning method}, 
+		\hyperpage{15}
+  \item \spxentry{preprocess\_enmix\_pipeline()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{6}
+  \item \spxentry{preprocessENmix()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{6}
+  \item \spxentry{PreProcessIDAT}\spxextra{class in pymethylprocess.PreProcessDataTypes}, 
+		\hyperpage{5}
+  \item \spxentry{preprocessMeffil()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{6}
+  \item \spxentry{preprocessNoob()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{6}
+  \item \spxentry{PreProcessPhenoData}\spxextra{class in pymethylprocess.PreProcessDataTypes}, 
+		\hyperpage{7}
+  \item \spxentry{preprocessRAW()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{6}
+  \item \spxentry{pymethyl-install command line option}
+    \subitem \spxentry{--version}, \hyperpage{17}
+  \item \spxentry{pymethyl-install-install\_custom command line option}
+    \subitem \spxentry{-m, --manager}, \hyperpage{17}
+    \subitem \spxentry{-p, --package \textless{}package\textgreater{}}, \hyperpage{17}
+  \item \spxentry{pymethyl-install-install\_r\_packages command line option}
+    \subitem \spxentry{-p, --package \textless{}package\textgreater{}}, \hyperpage{18}
+  \item \spxentry{pymethyl-preprocess command line option}
+    \subitem \spxentry{--version}, \hyperpage{23}
+  \item \spxentry{pymethyl-preprocess-batch\_deploy\_preprocess command line option}
+    \subitem \spxentry{-c, --chunk\_size \textless{}chunk\_size\textgreater{}}, \hyperpage{24}
+    \subitem \spxentry{-i, --subtype\_output\_dir \textless{}subtype\_output\_dir\textgreater{}}, 
+		\hyperpage{23}
+    \subitem \spxentry{-m, --meffil}, \hyperpage{23}
+    \subitem \spxentry{-n, --n\_cores \textless{}n\_cores\textgreater{}}, \hyperpage{23}
+    \subitem \spxentry{-p, --pc\_qc\_parameters\_csv \textless{}pc\_qc\_parameters\_csv\textgreater{}}, 
+		\hyperpage{23}
+    \subitem \spxentry{-qc, --qc\_only}, \hyperpage{23}
+    \subitem \spxentry{-r, --run}, \hyperpage{23}
+    \subitem \spxentry{-s, --series}, \hyperpage{23}
+    \subitem \spxentry{-t, --torque}, \hyperpage{23}
+    \subitem \spxentry{-u, --use\_cache}, \hyperpage{23}
+  \item \spxentry{pymethyl-preprocess-combine\_methylation\_arrays command line option}
+    \subitem \spxentry{-d, --optional\_input\_pkl\_dir \textless{}optional\_input\_pkl\_dir\textgreater{}}, 
+		\hyperpage{24}
+    \subitem \spxentry{-e, --exclude \textless{}exclude\textgreater{}}, \hyperpage{24}
+    \subitem \spxentry{-i, --input\_pkls \textless{}input\_pkls\textgreater{}}, \hyperpage{24}
+    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{24}
+  \item \spxentry{pymethyl-preprocess-concat\_sample\_sheets command line option}
+    \subitem \spxentry{-os, --output\_sample\_sheet \textless{}output\_sample\_sheet\textgreater{}}, 
+		\hyperpage{24}
+    \subitem \spxentry{-s1, --sample\_sheet1 \textless{}sample\_sheet1\textgreater{}}, 
+		\hyperpage{24}
+    \subitem \spxentry{-s2, --sample\_sheet2 \textless{}sample\_sheet2\textgreater{}}, 
+		\hyperpage{24}
+  \item \spxentry{pymethyl-preprocess-create\_sample\_sheet command line option}
+    \subitem \spxentry{-b, --basename\_col \textless{}basename\_col\textgreater{}}, \hyperpage{25}
+    \subitem \spxentry{-c, --include\_columns\_file \textless{}include\_columns\_file\textgreater{}}, 
+		\hyperpage{25}
+    \subitem \spxentry{-d, --disease\_class\_column \textless{}disease\_class\_column\textgreater{}}, 
+		\hyperpage{25}
+    \subitem \spxentry{-i, --idat\_dir \textless{}idat\_dir\textgreater{}}, \hyperpage{25}
+    \subitem \spxentry{-is, --input\_sample\_sheet \textless{}input\_sample\_sheet\textgreater{}}, 
+		\hyperpage{25}
+    \subitem \spxentry{-l, --header\_line \textless{}header\_line\textgreater{}}, \hyperpage{25}
+    \subitem \spxentry{-m, --mapping\_file \textless{}mapping\_file\textgreater{}}, \hyperpage{25}
+    \subitem \spxentry{-os, --output\_sample\_sheet \textless{}output\_sample\_sheet\textgreater{}}, 
+		\hyperpage{25}
+    \subitem \spxentry{-s, --source\_type \textless{}source\_type\textgreater{}}, \hyperpage{25}
+  \item \spxentry{pymethyl-preprocess-download\_clinical command line option}
+    \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{25}
+  \item \spxentry{pymethyl-preprocess-download\_geo command line option}
+    \subitem \spxentry{-g, --geo\_query \textless{}geo\_query\textgreater{}}, \hyperpage{26}
+    \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{26}
+  \item \spxentry{pymethyl-preprocess-download\_tcga command line option}
+    \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{26}
+  \item \spxentry{pymethyl-preprocess-feature\_select command line option}
+    \subitem \spxentry{-f, --feature\_selection\_method \textless{}feature\_selection\_method\textgreater{}}, 
+		\hyperpage{26}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{26}
+    \subitem \spxentry{-m, --mad\_top\_cpgs \textless{}mad\_top\_cpgs\textgreater{}}, 
+		\hyperpage{26}
+    \subitem \spxentry{-mm, --metric \textless{}metric\textgreater{}}, \hyperpage{26}
+    \subitem \spxentry{-n, --n\_top\_cpgs \textless{}n\_top\_cpgs\textgreater{}}, \hyperpage{26}
+    \subitem \spxentry{-nn, --n\_neighbors \textless{}n\_neighbors\textgreater{}}, \hyperpage{26}
+    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{26}
+  \item \spxentry{pymethyl-preprocess-get\_categorical\_distribution command line option}
+    \subitem \spxentry{-d, --disease\_only}, \hyperpage{27}
+    \subitem \spxentry{-is, --formatted\_sample\_sheet \textless{}formatted\_sample\_sheet\textgreater{}}, 
+		\hyperpage{27}
+    \subitem \spxentry{-k, --key \textless{}key\textgreater{}}, \hyperpage{27}
+    \subitem \spxentry{-sd, --subtype\_delimiter \textless{}subtype\_delimiter\textgreater{}}, 
+		\hyperpage{27}
+  \item \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}
+    \subitem \spxentry{-ct, --cpg\_threshold \textless{}cpg\_threshold\textgreater{}}, 
+		\hyperpage{28}
+    \subitem \spxentry{-d, --disease\_only}, \hyperpage{27}
+    \subitem \spxentry{-f, --feature\_selection\_method \textless{}feature\_selection\_method\textgreater{}}, 
+		\hyperpage{27}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{27}
+    \subitem \spxentry{-k, --n\_neighbors \textless{}n\_neighbors\textgreater{}}, \hyperpage{27}
+    \subitem \spxentry{-m, --method \textless{}method\textgreater{}}, \hyperpage{27}
+    \subitem \spxentry{-mm, --metric \textless{}metric\textgreater{}}, \hyperpage{27}
+    \subitem \spxentry{-n, --n\_top\_cpgs \textless{}n\_top\_cpgs\textgreater{}}, \hyperpage{27}
+    \subitem \spxentry{-nfs, --n\_neighbors\_fs \textless{}n\_neighbors\_fs\textgreater{}}, 
+		\hyperpage{27}
+    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{27}
+    \subitem \spxentry{-r, --orientation \textless{}orientation\textgreater{}}, \hyperpage{27}
+    \subitem \spxentry{-s, --solver \textless{}solver\textgreater{}}, \hyperpage{27}
+    \subitem \spxentry{-sd, --subtype\_delimiter \textless{}subtype\_delimiter\textgreater{}}, 
+		\hyperpage{28}
+    \subitem \spxentry{-ss, --split\_by\_subtype}, \hyperpage{27}
+    \subitem \spxentry{-st, --sample\_threshold \textless{}sample\_threshold\textgreater{}}, 
+		\hyperpage{28}
+  \item \spxentry{pymethyl-preprocess-meffil\_encode command line option}
+    \subitem \spxentry{-is, --input\_sample\_sheet \textless{}input\_sample\_sheet\textgreater{}}, 
+		\hyperpage{28}
+    \subitem \spxentry{-os, --output\_sample\_sheet \textless{}output\_sample\_sheet\textgreater{}}, 
+		\hyperpage{28}
+  \item \spxentry{pymethyl-preprocess-merge\_sample\_sheets command line option}
+    \subitem \spxentry{-d, --second\_sheet\_disease}, \hyperpage{28}
+    \subitem \spxentry{-nd, --no\_disease\_merge}, \hyperpage{28}
+    \subitem \spxentry{-os, --output\_sample\_sheet \textless{}output\_sample\_sheet\textgreater{}}, 
+		\hyperpage{28}
+    \subitem \spxentry{-s1, --sample\_sheet1 \textless{}sample\_sheet1\textgreater{}}, 
+		\hyperpage{28}
+    \subitem \spxentry{-s2, --sample\_sheet2 \textless{}sample\_sheet2\textgreater{}}, 
+		\hyperpage{28}
+  \item \spxentry{pymethyl-preprocess-na\_report command line option}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{29}
+    \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{29}
+    \subitem \spxentry{-r, --head\_directory}, \hyperpage{29}
+  \item \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}
+    \subitem \spxentry{-bnc, --p\_beadnum\_cpgs \textless{}p\_beadnum\_cpgs\textgreater{}}, 
+		\hyperpage{30}
+    \subitem \spxentry{-bns, --p\_beadnum\_samples \textless{}p\_beadnum\_samples\textgreater{}}, 
+		\hyperpage{29}
+    \subitem \spxentry{-i, --idat\_dir \textless{}idat\_dir\textgreater{}}, \hyperpage{29}
+    \subitem \spxentry{-m, --meffil}, \hyperpage{29}
+    \subitem \spxentry{-n, --n\_cores \textless{}n\_cores\textgreater{}}, \hyperpage{29}
+    \subitem \spxentry{-noob, --noob\_norm}, \hyperpage{29}
+    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{29}
+    \subitem \spxentry{-p, --pipeline \textless{}pipeline\textgreater{}}, \hyperpage{29}
+    \subitem \spxentry{-pc, --n\_pcs \textless{}n\_pcs\textgreater{}}, \hyperpage{29}
+    \subitem \spxentry{-pdc, --p\_detection\_cpgs \textless{}p\_detection\_cpgs\textgreater{}}, 
+		\hyperpage{30}
+    \subitem \spxentry{-pds, --p\_detection\_samples \textless{}p\_detection\_samples\textgreater{}}, 
+		\hyperpage{30}
+    \subitem \spxentry{-qc, --qc\_only}, \hyperpage{29}
+    \subitem \spxentry{-sc, --sex\_cutoff \textless{}sex\_cutoff\textgreater{}}, \hyperpage{30}
+    \subitem \spxentry{-sd, --sex\_sd \textless{}sex\_sd\textgreater{}}, \hyperpage{30}
+    \subitem \spxentry{-u, --use\_cache}, \hyperpage{29}
+  \item \spxentry{pymethyl-preprocess-remove\_diseases command line option}
+    \subitem \spxentry{-d, --disease\_only}, \hyperpage{30}
+    \subitem \spxentry{-e, --exclude\_disease\_list \textless{}exclude\_disease\_list\textgreater{}}, 
+		\hyperpage{30}
+    \subitem \spxentry{-is, --formatted\_sample\_sheet \textless{}formatted\_sample\_sheet\textgreater{}}, 
+		\hyperpage{30}
+    \subitem \spxentry{-l, --low\_count \textless{}low\_count\textgreater{}}, \hyperpage{30}
+    \subitem \spxentry{-os, --output\_sheet\_name \textless{}output\_sheet\_name\textgreater{}}, 
+		\hyperpage{30}
+    \subitem \spxentry{-sd, --subtype\_delimiter \textless{}subtype\_delimiter\textgreater{}}, 
+		\hyperpage{30}
+  \item \spxentry{pymethyl-preprocess-split\_preprocess\_input\_by\_subtype command line option}
+    \subitem \spxentry{-d, --disease\_only}, \hyperpage{31}
+    \subitem \spxentry{-i, --idat\_csv \textless{}idat\_csv\textgreater{}}, \hyperpage{31}
+    \subitem \spxentry{-o, --subtype\_output\_dir \textless{}subtype\_output\_dir\textgreater{}}, 
+		\hyperpage{31}
+    \subitem \spxentry{-sd, --subtype\_delimiter \textless{}subtype\_delimiter\textgreater{}}, 
+		\hyperpage{31}
+  \item \spxentry{pymethyl-utils command line option}
+    \subitem \spxentry{--version}, \hyperpage{33}
+  \item \spxentry{pymethyl-utils-backup\_pkl command line option}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{33}
+    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{33}
+  \item \spxentry{pymethyl-utils-bin\_column command line option}
+    \subitem \spxentry{-c, --col \textless{}col\textgreater{}}, \hyperpage{33}
+    \subitem \spxentry{-n, --n\_bins \textless{}n\_bins\textgreater{}}, \hyperpage{33}
+    \subitem \spxentry{-ot, --output\_test\_pkl \textless{}output\_test\_pkl\textgreater{}}, 
+		\hyperpage{34}
+    \subitem \spxentry{-t, --test\_pkl \textless{}test\_pkl\textgreater{}}, \hyperpage{33}
+  \item \spxentry{pymethyl-utils-concat\_csv command line option}
+    \subitem \spxentry{-a, --axis \textless{}axis\textgreater{}}, \hyperpage{34}
+    \subitem \spxentry{-i1, --input\_csv \textless{}input\_csv\textgreater{}}, \hyperpage{34}
+    \subitem \spxentry{-i2, --input\_csv2 \textless{}input\_csv2\textgreater{}}, \hyperpage{34}
+    \subitem \spxentry{-o, --output\_csv \textless{}output\_csv\textgreater{}}, \hyperpage{34}
+  \item \spxentry{pymethyl-utils-counts command line option}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{34}
+    \subitem \spxentry{-k, --key \textless{}key\textgreater{}}, \hyperpage{34}
+  \item \spxentry{pymethyl-utils-create\_external\_validation\_set command line option}
+    \subitem \spxentry{-c, --cpg\_replace\_method \textless{}cpg\_replace\_method\textgreater{}}, 
+		\hyperpage{35}
+    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{35}
+    \subitem \spxentry{-q, --query\_pkl \textless{}query\_pkl\textgreater{}}, \hyperpage{35}
+    \subitem \spxentry{-t, --train\_pkl \textless{}train\_pkl\textgreater{}}, \hyperpage{35}
+  \item \spxentry{pymethyl-utils-feature\_select\_train\_val\_test command line option}
+    \subitem \spxentry{-f, --feature\_selection\_method \textless{}feature\_selection\_method\textgreater{}}, 
+		\hyperpage{35}
+    \subitem \spxentry{-i, --input\_pkl\_dir \textless{}input\_pkl\_dir\textgreater{}}, 
+		\hyperpage{35}
+    \subitem \spxentry{-m, --mad\_top\_cpgs \textless{}mad\_top\_cpgs\textgreater{}}, 
+		\hyperpage{35}
+    \subitem \spxentry{-mm, --metric \textless{}metric\textgreater{}}, \hyperpage{35}
+    \subitem \spxentry{-n, --n\_top\_cpgs \textless{}n\_top\_cpgs\textgreater{}}, \hyperpage{35}
+    \subitem \spxentry{-nn, --n\_neighbors \textless{}n\_neighbors\textgreater{}}, \hyperpage{35}
+    \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{35}
+  \item \spxentry{pymethyl-utils-fix\_key command line option}
+    \subitem \spxentry{-d, --disease\_only}, \hyperpage{36}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{35}
+    \subitem \spxentry{-k, --key \textless{}key\textgreater{}}, \hyperpage{35}
+    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{36}
+    \subitem \spxentry{-sd, --subtype\_delimiter \textless{}subtype\_delimiter\textgreater{}}, 
+		\hyperpage{36}
+  \item \spxentry{pymethyl-utils-modify\_pheno\_data command line option}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{36}
+    \subitem \spxentry{-is, --input\_formatted\_sample\_sheet \textless{}input\_formatted\_sample\_sheet\textgreater{}}, 
+		\hyperpage{36}
+    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{36}
+  \item \spxentry{pymethyl-utils-move\_jpg command line option}
+    \subitem \spxentry{-i, --input\_dir \textless{}input\_dir\textgreater{}}, \hyperpage{36}
+    \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{36}
+  \item \spxentry{pymethyl-utils-overwrite\_pheno\_data command line option}
+    \subitem \spxentry{-c, --index\_col \textless{}index\_col\textgreater{}}, \hyperpage{37}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{37}
+    \subitem \spxentry{-is, --input\_formatted\_sample\_sheet \textless{}input\_formatted\_sample\_sheet\textgreater{}}, 
+		\hyperpage{37}
+    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{37}
+  \item \spxentry{pymethyl-utils-pkl\_to\_csv command line option}
+    \subitem \spxentry{-c, --col \textless{}col\textgreater{}}, \hyperpage{37}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{37}
+    \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{37}
+  \item \spxentry{pymethyl-utils-print\_number\_sex\_cpgs command line option}
+    \subitem \spxentry{-a, --array\_type \textless{}array\_type\textgreater{}}, \hyperpage{37}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{37}
+  \item \spxentry{pymethyl-utils-print\_shape command line option}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{38}
+  \item \spxentry{pymethyl-utils-ref\_estimate\_cell\_counts command line option}
+    \subitem \spxentry{-a, --algorithm \textless{}algorithm\textgreater{}}, \hyperpage{38}
+    \subitem \spxentry{-l, --library \textless{}library\textgreater{}}, \hyperpage{38}
+    \subitem \spxentry{-o, --output\_csv \textless{}output\_csv\textgreater{}}, \hyperpage{38}
+    \subitem \spxentry{-ref, --reference \textless{}reference\textgreater{}}, \hyperpage{38}
+    \subitem \spxentry{-ro, --input\_r\_object\_dir \textless{}input\_r\_object\_dir\textgreater{}}, 
+		\hyperpage{38}
+  \item \spxentry{pymethyl-utils-remove\_sex command line option}
+    \subitem \spxentry{-a, --array\_type \textless{}array\_type\textgreater{}}, \hyperpage{38}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{38}
+    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{38}
+  \item \spxentry{pymethyl-utils-remove\_snps command line option}
+    \subitem \spxentry{-a, --array\_type \textless{}array\_type\textgreater{}}, \hyperpage{39}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{39}
+    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{39}
+  \item \spxentry{pymethyl-utils-set\_part\_array\_background command line option}
+    \subitem \spxentry{-c, --cpg\_pkl \textless{}cpg\_pkl\textgreater{}}, \hyperpage{39}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{39}
+    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{39}
+  \item \spxentry{pymethyl-utils-stratify command line option}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{39}
+    \subitem \spxentry{-k, --key \textless{}key\textgreater{}}, \hyperpage{39}
+    \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{39}
+  \item \spxentry{pymethyl-utils-subset\_array command line option}
+    \subitem \spxentry{-c, --cpg\_pkl \textless{}cpg\_pkl\textgreater{}}, \hyperpage{40}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{40}
+    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{40}
+  \item \spxentry{pymethyl-utils-train\_test\_val\_split command line option}
+    \subitem \spxentry{-cat, --categorical}, \hyperpage{40}
+    \subitem \spxentry{-do, --disease\_only}, \hyperpage{40}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{40}
+    \subitem \spxentry{-k, --key \textless{}key\textgreater{}}, \hyperpage{40}
+    \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{40}
+    \subitem \spxentry{-sd, --subtype\_delimiter \textless{}subtype\_delimiter\textgreater{}}, 
+		\hyperpage{40}
+    \subitem \spxentry{-tp, --train\_percent \textless{}train\_percent\textgreater{}}, 
+		\hyperpage{40}
+    \subitem \spxentry{-vp, --val\_percent \textless{}val\_percent\textgreater{}}, \hyperpage{40}
+  \item \spxentry{pymethyl-utils-write\_cpgs command line option}
+    \subitem \spxentry{-c, --cpg\_pkl \textless{}cpg\_pkl\textgreater{}}, \hyperpage{41}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{41}
+  \item \spxentry{pymethyl-visualize command line option}
+    \subitem \spxentry{--version}, \hyperpage{19}
+  \item \spxentry{pymethyl-visualize-plot\_cell\_type\_results command line option}
+    \subitem \spxentry{-cols, --plot\_cols \textless{}plot\_cols\textgreater{}}, \hyperpage{19}
+    \subitem \spxentry{-fs, --font\_scale \textless{}font\_scale\textgreater{}}, \hyperpage{19}
+    \subitem \spxentry{-i, --input\_csv \textless{}input\_csv\textgreater{}}, \hyperpage{19}
+    \subitem \spxentry{-o, --outfilename \textless{}outfilename\textgreater{}}, \hyperpage{19}
+  \item \spxentry{pymethyl-visualize-plot\_heatmap command line option}
+    \subitem \spxentry{-a, --annot}, \hyperpage{20}
+    \subitem \spxentry{-c, --cluster}, \hyperpage{20}
+    \subitem \spxentry{-col, --color\_column \textless{}color\_column\textgreater{}}, 
+		\hyperpage{20}
+    \subitem \spxentry{-fs, --font\_scale \textless{}font\_scale\textgreater{}}, \hyperpage{20}
+    \subitem \spxentry{-i, --input\_csv \textless{}input\_csv\textgreater{}}, \hyperpage{20}
+    \subitem \spxentry{-idx, --index\_col \textless{}index\_col\textgreater{}}, \hyperpage{20}
+    \subitem \spxentry{-m, --matrix\_type \textless{}matrix\_type\textgreater{}}, \hyperpage{20}
+    \subitem \spxentry{-max, --max\_val \textless{}max\_val\textgreater{}}, \hyperpage{20}
+    \subitem \spxentry{-min, --min\_val \textless{}min\_val\textgreater{}}, \hyperpage{20}
+    \subitem \spxentry{-n, --norm}, \hyperpage{20}
+    \subitem \spxentry{-o, --outfilename \textless{}outfilename\textgreater{}}, \hyperpage{20}
+    \subitem \spxentry{-t, --transpose}, \hyperpage{20}
+    \subitem \spxentry{-x, --xticks}, \hyperpage{20}
+    \subitem \spxentry{-y, --yticks}, \hyperpage{20}
+  \item \spxentry{pymethyl-visualize-transform\_plot command line option}
+    \subitem \spxentry{-a, --axes\_off}, \hyperpage{21}
+    \subitem \spxentry{-c, --column\_of\_interest \textless{}column\_of\_interest\textgreater{}}, 
+		\hyperpage{20}
+    \subitem \spxentry{-cc, --case\_control\_override}, \hyperpage{21}
+    \subitem \spxentry{-d, --min\_dist \textless{}min\_dist\textgreater{}}, \hyperpage{21}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{20}
+    \subitem \spxentry{-m, --metric \textless{}metric\textgreater{}}, \hyperpage{21}
+    \subitem \spxentry{-nn, --n\_neighbors \textless{}n\_neighbors\textgreater{}}, \hyperpage{21}
+    \subitem \spxentry{-o, --output\_file \textless{}output\_file\textgreater{}}, \hyperpage{20}
+    \subitem \spxentry{-s, --supervised}, \hyperpage{21}
+  \item \spxentry{pymethylprocess.general\_machine\_learning}\spxextra{module}, \hyperpage{13}
+  \item \spxentry{pymethylprocess.meffil\_functions}\spxextra{module}, \hyperpage{12}
+  \item \spxentry{pymethylprocess.MethylationDataTypes}\spxextra{module}, \hyperpage{8}
+  \item \spxentry{pymethylprocess.PreProcessDataTypes}\spxextra{module}, \hyperpage{3}
+
+  \indexspace
+  \bigletter R
+  \item \spxentry{r\_autosomal\_cpgs()}\spxextra{in module pymethylprocess.meffil\_functions}, 
+		\hyperpage{13}
+  \item \spxentry{r\_snp\_cpgs()}\spxextra{in module pymethylprocess.meffil\_functions}, 
+		\hyperpage{13}
+  \item \spxentry{remove\_diseases()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessPhenoData method}, 
+		\hyperpage{8}
+  \item \spxentry{remove\_missingness()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{10}
+  \item \spxentry{remove\_na\_samples()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{10}
+  \item \spxentry{remove\_sex()}\spxextra{in module pymethylprocess.meffil\_functions}, 
+		\hyperpage{13}
+  \item \spxentry{remove\_whitespace()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{10}
+  \item \spxentry{return\_beta()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{7}
+  \item \spxentry{return\_cpgs()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{10}
+  \item \spxentry{return\_idx()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{10}
+  \item \spxentry{return\_imputer()}\spxextra{pymethylprocess.MethylationDataTypes.ImputerObject method}, 
+		\hyperpage{9}
+  \item \spxentry{return\_outcome\_metric()}\spxextra{pymethylprocess.general\_machine\_learning.MachineLearning method}, 
+		\hyperpage{16}
+  \item \spxentry{return\_raw\_beta\_array()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{10}
+  \item \spxentry{return\_shape()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{10}
+
+  \indexspace
+  \bigletter S
+  \item \spxentry{set\_missing()}\spxextra{in module pymethylprocess.meffil\_functions}, 
+		\hyperpage{13}
+  \item \spxentry{split\_by\_subtype()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{10}
+  \item \spxentry{split\_key()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{10}
+  \item \spxentry{split\_key()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessPhenoData method}, 
+		\hyperpage{8}
+  \item \spxentry{split\_train\_test()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{10}
+  \item \spxentry{store\_results()}\spxextra{pymethylprocess.general\_machine\_learning.MachineLearning method}, 
+		\hyperpage{16}
+  \item \spxentry{subsample()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{11}
+  \item \spxentry{subset\_cpgs()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{11}
+  \item \spxentry{subset\_index()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{11}
+
+  \indexspace
+  \bigletter T
+  \item \spxentry{TCGADownloader}\spxextra{class in pymethylprocess.PreProcessDataTypes}, 
+		\hyperpage{8}
+  \item \spxentry{to\_methyl\_array()}\spxextra{pymethylprocess.PreProcessDataTypes.PreProcessIDAT method}, 
+		\hyperpage{7}
+  \item \spxentry{transform()}\spxextra{pymethylprocess.general\_machine\_learning.MachineLearning method}, 
+		\hyperpage{16}
+  \item \spxentry{transform\_results\_to\_beta()}\spxextra{pymethylprocess.general\_machine\_learning.MachineLearning method}, 
+		\hyperpage{16}
+
+  \indexspace
+  \bigletter W
+  \item \spxentry{write\_csvs()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{11}
+  \item \spxentry{write\_db()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{11}
+  \item \spxentry{write\_dbs()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArrays method}, 
+		\hyperpage{12}
+  \item \spxentry{write\_pickle()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArray method}, 
+		\hyperpage{11}
+  \item \spxentry{write\_pkls()}\spxextra{pymethylprocess.MethylationDataTypes.MethylationArrays method}, 
+		\hyperpage{12}
+
+\end{sphinxtheindex}

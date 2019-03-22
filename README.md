@@ -4,6 +4,9 @@
 
 https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess  
 
+Help documentation: https://christensen-lab-dartmouth.github.io/PyMethylProcess/
+Alternatively, you can access the pdf: PyMethylProcess.pdf
+
 What is it:
 * Preprocess 450k and 850k methylation IDAT files in parallel using Minfi, ENmix, and meffil  
 * Convenient and scalable implementation  
@@ -20,7 +23,7 @@ Getting Started:
     * docker pull joshualevy44/pymethylprocess  
     * Or see example scripts for usage, install from github
 * Example Usage Scripts (in github repo): Located in ./example_scripts/  
-* Help docs (in github repo): ./Docs/build/html/index.html (to be updated; also will be hosted soon)
+* Help docs (in github repo): https://christensen-lab-dartmouth.github.io/PyMethylProcess/
 
 *PyMethyProcess* is pending submission and review, and link to paper will be posted shortly.
 
@@ -35,5 +38,3 @@ Getting Started:
 ![Split](./docs/yimages/pipeline-train-test-split.jpeg)
 
 Note: May need to prefix pip install with MACOSX_DEPLOYMENT_TARGET=10.9 CC=clang CXX=clang++ for Mac OS install
-
-# todo: add images, add other two CLI, fix general machine learning, document all classes, publish and reference published help docs in readme

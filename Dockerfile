@@ -12,6 +12,8 @@ RUN apt-get install -y libgtk2.0-dev xvfb xauth xfonts-base libcairo2-dev libcur
 
 RUN apt-get install -y libx11-dev openssl libxt-dev #libxaw xlib
 
+RUN pip install --upgrade rpy2
+
 RUN pip install pymethylprocess
 
 RUN pymethyl-install_r_dependencies
