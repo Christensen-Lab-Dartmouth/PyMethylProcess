@@ -1,7 +1,13 @@
+"""
+PreProcessDataTypes.py
+======================
+Contains datatypes core to downloading IDATs, preprocessing IDATs and samplesheets.
+"""
+
 import pandas as pd
 import rpy2.robjects as robjects
 from rpy2.robjects.packages import importr #from utils import importr_ as importr#
-import rpy2.interactive as r
+from rpy2.robjects import r
 import rpy2.robjects.packages as rpackages
 from pymethylprocess.MethylationDataTypes import *
 from rpy2.robjects import pandas2ri, numpy2ri
@@ -15,10 +21,17 @@ numpy2ri.activate()
 
 
 class TCGADownloader:
+    """Downloads TCGA and GEO IDAT and clinical data"""
     def __init__(self):
         pass
 
     def download_tcga(self, output_dir):
+        """Download TCGA IDATs.
+
+        Parameters
+        ----------
+        output_dir
+            Where to output idat files."""
         tcga = importr("TCGAbiolinks")
         print(tcga)
         robjects.r("""

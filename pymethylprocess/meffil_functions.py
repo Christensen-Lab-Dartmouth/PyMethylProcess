@@ -1,6 +1,21 @@
+"""
+meffil_functions.py
+===================
+Contains a few R functions that interact with meffil and minfi.
+"""
+
 import rpy2.robjects as robjects
 
 def load_detection_p_values_beadnum(qc_list, n_cores):
+    """Return list of detection p-value matrix and bead number matrix.
+
+    Parameters
+    ----------
+    qc_list
+        R list containing qc objects.
+    n_cores
+        Number of cores to use in computation.
+    """
     pval_beadnum = robjects.r("""function(qc.list,mc.cores=1,
                                             max.bytes=2^30-1,
                                             verbose=F,
@@ -50,6 +65,15 @@ def load_detection_p_values_beadnum(qc_list, n_cores):
     return pval_beadnum
 
 def set_missing(beta, pval_beadnum, detection_val=1e-6):
+    """Set missing beta values to NA, taking into account detection values and bead number thesholds.
+
+    Parameters
+    ----------
+    pval_beadnum
+        Detection pvalues and number of beads per cpg/samples
+    detection_val
+        If threshold to set site to missingness based on p-value detection.
+    """
     beta = robjects.r("""function (beta, pval.beadnum, detection.p=1e-6){
         p.values <- pval.beadnum$p.values[rownames(beta),colnames(beta)]
         beadnum <- pval.beadnum$beadnum[rownames(beta),colnames(beta)]
@@ -59,6 +83,13 @@ def set_missing(beta, pval_beadnum, detection_val=1e-6):
     return beta
 
 def remove_sex(beta, array_type='450k'):
+    """Remove non-autosomal cpgs from beta matrix.
+
+    Parameters
+    ----------
+    array_type
+        450k/850k array?
+    """
     beta = robjects.r("""function (beta,array.type){
         featureset<-array.type
         autosomal.sites <- meffil.get.autosomal.sites(featureset)
@@ -69,16 +100,38 @@ def remove_sex(beta, array_type='450k'):
     return beta
 
 def r_autosomal_cpgs(array_type='450k'):
+    """Return list of autosomal cpg probes per platform.
+
+    Parameters
+    ----------
+    array_type
+        450k/850k array?
+    """
     robjects.r('library(meffil)')
     cpgs = robjects.r("""meffil.get.autosomal.sites('{}')""".format(array_type))
     return cpgs
 
 def r_snp_cpgs(array_type='450k'):
+    """Return list of SNP cpg probes per platform.
+
+    Parameters
+    ----------
+    array_type
+        450k/850k array?
+    """
     robjects.r('library(meffil)')
     cpgs = robjects.r("""meffil.snp.names('{}')""".format(array_type))
     return cpgs
 
 def est_cell_counts_meffil(qc_list, cell_type_reference):
+    """Given QCObject list R object, estimate cell counts using reference approach via meffil.
+
+    Parameters
+    ----------
+    qc_list
+        R list containing qc objects.
+    cell_type_reference
+        Reference blood/tissue set."""
     cell_count_estimates = robjects.r("""function (qc.list, cell.type.reference) {
         qc.objects <- qc.list$qc.objects
         cc<-t(sapply(qc.objects, function(obj) meffil.estimate.cell.counts(obj,cell.type.reference)))
@@ -88,6 +141,12 @@ def est_cell_counts_meffil(qc_list, cell_type_reference):
     return cell_count_estimates
 
 def est_cell_counts_minfi(rgset):
+    """Given RGSet object, estimate cell counts using reference approach via minfi.
+
+    Parameters
+    ----------
+    rgset
+        RGSet object stored in python via rpy2"""
     robjects.r('library(FlowSorted.Blood.450k)')
     cell_count_estimates = robjects.r("""function (RGset) {
         cellCounts <- as.table(estimateCellCounts(RGset))
@@ -96,6 +155,14 @@ def est_cell_counts_minfi(rgset):
     return cell_count_estimates
 
 def est_cell_counts_IDOL(rgset,library):
+    """Given RGSet object, estimate cell counts for 450k/850k using reference approach via IDOL library.
+
+    Parameters
+    ----------
+    rgset
+        RGSet object stored in python via rpy2
+    library
+        What type of CpG library to use."""
     robjects.r('library(FlowSorted.Blood.EPIC)')
     cell_count_estimates = robjects.r("""function (RGset) as.table(estimateCellCounts2(RGset,IDOLOptimizedCpGs={})$counts)""".format(library))(rgset)
     return cell_count_estimates

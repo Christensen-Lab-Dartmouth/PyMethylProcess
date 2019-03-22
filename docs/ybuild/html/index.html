@@ -1,0 +1,1595 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to PyMethylProcess’s documentation! &mdash; PyMethylProcess 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> PyMethylProcess
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to PyMethylProcess’s documentation!</a><ul>
+<li><a class="reference internal" href="#methylationdatatypes-py">MethylationDataTypes.py</a></li>
+<li><a class="reference internal" href="#meffil-functions-py">meffil_functions.py</a></li>
+<li><a class="reference internal" href="#pymethyl-install">pymethyl-install</a><ul>
+<li><a class="reference internal" href="#pymethyl-install-change-gcc-path">change_gcc_path</a></li>
+<li><a class="reference internal" href="#pymethyl-install-install-bioconductor">install_bioconductor</a></li>
+<li><a class="reference internal" href="#pymethyl-install-install-custom">install_custom</a></li>
+<li><a class="reference internal" href="#pymethyl-install-install-meffil">install_meffil</a></li>
+<li><a class="reference internal" href="#pymethyl-install-install-minfi-others">install_minfi_others</a></li>
+<li><a class="reference internal" href="#pymethyl-install-install-r-packages">install_r_packages</a></li>
+<li><a class="reference internal" href="#pymethyl-install-install-some-deps">install_some_deps</a></li>
+<li><a class="reference internal" href="#pymethyl-install-install-tcga-biolinks">install_tcga_biolinks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pymethyl-visualize">pymethyl-visualize</a><ul>
+<li><a class="reference internal" href="#pymethyl-visualize-plot-cell-type-results">plot_cell_type_results</a></li>
+<li><a class="reference internal" href="#pymethyl-visualize-plot-heatmap">plot_heatmap</a></li>
+<li><a class="reference internal" href="#pymethyl-visualize-transform-plot">transform_plot</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pymethyl-utils">pymethyl-utils</a><ul>
+<li><a class="reference internal" href="#pymethyl-utils-backup-pkl">backup_pkl</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-bin-column">bin_column</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-concat-csv">concat_csv</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-counts">counts</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-create-external-validation-set">create_external_validation_set</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-feature-select-train-val-test">feature_select_train_val_test</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-fix-key">fix_key</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-modify-pheno-data">modify_pheno_data</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-move-jpg">move_jpg</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-overwrite-pheno-data">overwrite_pheno_data</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-pkl-to-csv">pkl_to_csv</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-print-number-sex-cpgs">print_number_sex_cpgs</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-print-shape">print_shape</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-ref-estimate-cell-counts">ref_estimate_cell_counts</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-remove-sex">remove_sex</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-remove-snps">remove_snps</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-set-part-array-background">set_part_array_background</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-stratify">stratify</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-subset-array">subset_array</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-train-test-val-split">train_test_val_split</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-write-cpgs">write_cpgs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">PyMethylProcess</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Welcome to PyMethylProcess’s documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-pymethylprocess-s-documentation">
+<h1>Welcome to PyMethylProcess’s documentation!<a class="headerlink" href="#welcome-to-pymethylprocess-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess">https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess</a></p>
+<p>To get started, download pymethylprocess using Docker (joshualevy44/pymethylprocess) or PIP (pymethylprocess) and run pymethyl-install_r_dependencies.</p>
+<p>There is both an API and CLI available for use. Examples for CLI usage can be found in ./example_scripts.</p>
+<p># todo: add images, add other two CLI, fix general machine learning, document all classes, publish and reference published help docs in readme</p>
+<div class="toctree-wrapper compound">
+</div>
+<a class="reference internal image-reference" href=".images/pipeline-download.jpeg"><img alt="Download" class="align-center" src=".images/pipeline-download.jpeg" style="width: 480.0px; height: 360.0px;" /></a>
+<a class="reference internal image-reference" href=".images/pipeline-format.jpeg"><img alt="Format" class="align-center" src=".images/pipeline-format.jpeg" style="width: 480.0px; height: 360.0px;" /></a>
+<a class="reference internal image-reference" href=".images/pipeline-preprocess.jpeg"><img alt="Preprocess" class="align-center" src=".images/pipeline-preprocess.jpeg" style="width: 480.0px; height: 360.0px;" /></a>
+<a class="reference internal image-reference" href=".images/pipeline-visualize.jpeg"><img alt="Visualize" class="align-center" src=".images/pipeline-visualize.jpeg" style="width: 480.0px; height: 360.0px;" /></a>
+<a class="reference internal image-reference" href=".images/pipeline-train-test-split.jpeg"><img alt="TrainTestSplit" class="align-center" src=".images/pipeline-train-test-split.jpeg" style="width: 480.0px; height: 360.0px;" /></a>
+<span class="target" id="module-pymethylprocess.MethylationDataTypes"></span><div class="section" id="methylationdatatypes-py">
+<h2>MethylationDataTypes.py<a class="headerlink" href="#methylationdatatypes-py" title="Permalink to this headline">¶</a></h2>
+<p>Contains datatypes core to storing beta and phenotype methylation data, and imputation.</p>
+<dl class="class">
+<dt id="pymethylprocess.MethylationDataTypes.ImputerObject">
+<em class="property">class </em><code class="descclassname">pymethylprocess.MethylationDataTypes.</code><code class="descname">ImputerObject</code><span class="sig-paren">(</span><em>solver</em>, <em>method</em>, <em>opts={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#ImputerObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.ImputerObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class that stores and accesses different types of imputers.</p>
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.ImputerObject.return_imputer">
+<code class="descname">return_imputer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#ImputerObject.return_imputer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.ImputerObject.return_imputer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return initialized sklearn-like imputer.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray">
+<em class="property">class </em><code class="descclassname">pymethylprocess.MethylationDataTypes.</code><code class="descname">MethylationArray</code><span class="sig-paren">(</span><em>pheno_df</em>, <em>beta_df</em>, <em>name=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores beta and phenotype information and performs various operations.</p>
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.bin_column">
+<code class="descname">bin_column</code><span class="sig-paren">(</span><em>col</em>, <em>n_bins</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.bin_column"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.bin_column" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn continuous variable/covariate into categorical bins.
+Returns name of new column and updates phenotype matrix to reflect this change.</p>
+<dl class="docutils">
+<dt>col</dt>
+<dd>Continuous column of phenotype array to bin.</dd>
+<dt>n_bins</dt>
+<dd>Number of bins to create.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.categorical_breakdown">
+<code class="descname">categorical_breakdown</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.categorical_breakdown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.categorical_breakdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print categorical distribution, counts for each unique value in phenotype column.</p>
+<dl class="docutils">
+<dt>key</dt>
+<dd>Phenotype Column.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.feature_select">
+<code class="descname">feature_select</code><span class="sig-paren">(</span><em>n_top_cpgs</em>, <em>feature_selection_method='mad'</em>, <em>metric='correlation'</em>, <em>nn=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.feature_select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.feature_select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform unsupervised feature selection on MethylationArray.</p>
+<dl class="docutils">
+<dt>n_top_cpgs</dt>
+<dd>Number of CpGs to retain.</dd>
+<dt>feature_selection_method</dt>
+<dd>Method to perform selection.</dd>
+<dt>metric</dt>
+<dd>If considering structural feature selection like SPEC, use this distance metric.</dd>
+<dt>nn</dt>
+<dd>Number of nearest neighbors.</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.from_pickle">
+<em class="property">classmethod </em><code class="descname">from_pickle</code><span class="sig-paren">(</span><em>input_pickle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.from_pickle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.from_pickle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load MethylationArray stored in pickle.</p>
+<p>Usage: MethylationArray.from_pickle([input_pickle])</p>
+<dl class="docutils">
+<dt>input_pickle</dt>
+<dd>Stored MethylationArray pickle.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.groupby">
+<code class="descname">groupby</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.groupby"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.groupby" title="Permalink to this definition">¶</a></dt>
+<dd><p>Groupby for Methylation Array. Returns generator of methylation arrays grouped by key.</p>
+<dl class="docutils">
+<dt>preprocess_sample_df</dt>
+<dd>New phenotype dataframe.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.impute">
+<code class="descname">impute</code><span class="sig-paren">(</span><em>imputer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.impute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.impute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform imputation on NaN beta vaues. Input imputater returned from ImputerObject.</p>
+<dl class="docutils">
+<dt>imputer</dt>
+<dd>Type of imputer object, in sklearn type interface.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.merge_preprocess_sheet">
+<code class="descname">merge_preprocess_sheet</code><span class="sig-paren">(</span><em>preprocess_sample_df</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.merge_preprocess_sheet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.merge_preprocess_sheet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feed in another phenotype dataframe that will be merged with existing phenotype array.</p>
+<dl class="docutils">
+<dt>preprocess_sample_df</dt>
+<dd>New phenotype dataframe.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.overwrite_pheno_data">
+<code class="descname">overwrite_pheno_data</code><span class="sig-paren">(</span><em>preprocess_sample_df</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.overwrite_pheno_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.overwrite_pheno_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feed in another phenotype dataframe that will overwrite overlapping keys of existing phenotype array.</p>
+<dl class="docutils">
+<dt>preprocess_sample_df</dt>
+<dd>New phenotype dataframe.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.remove_missingness">
+<code class="descname">remove_missingness</code><span class="sig-paren">(</span><em>cpg_threshold=None</em>, <em>sample_threshold=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.remove_missingness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.remove_missingness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove samples and CpGs with certain level of missingness..</p>
+<dl class="docutils">
+<dt>cpg_threshold</dt>
+<dd>If more than fraction of Samples for this CpG are missing, remove cpg.</dd>
+<dt>sample_threshold</dt>
+<dd>If more than fraction of CpGs for this sample are missing, remove sample.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.remove_na_samples">
+<code class="descname">remove_na_samples</code><span class="sig-paren">(</span><em>outcome_cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.remove_na_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.remove_na_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove samples of MethylationArray who have missing values in phenotype column.</p>
+<dl class="docutils">
+<dt>outcome_cols</dt>
+<dd>Phenotype columns, if any rows contain missing values, samples are removed.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.remove_whitespace">
+<code class="descname">remove_whitespace</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.remove_whitespace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.remove_whitespace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove whitespaces from phenotype column.</p>
+<dl class="docutils">
+<dt>key</dt>
+<dd>Phenotype column.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.return_cpgs">
+<code class="descname">return_cpgs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.return_cpgs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_cpgs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of cpgs of MethylationArray</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.return_idx">
+<code class="descname">return_idx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.return_idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_idx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return sample names of MethylationArray.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.return_raw_beta_array">
+<code class="descname">return_raw_beta_array</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.return_raw_beta_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_raw_beta_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return numpy array of methylation beta vaues.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.return_shape">
+<code class="descname">return_shape</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.return_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return dimensionality and number of samples of beta matrix.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.split_by_subtype">
+<code class="descname">split_by_subtype</code><span class="sig-paren">(</span><em>disease_only</em>, <em>subtype_delimiter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.split_by_subtype"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.split_by_subtype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split MethylationArray into generator of MethylationArrays by phenotype column. Much akin to groupby. Only splits from disease column.</p>
+<dl class="docutils">
+<dt>disease_only</dt>
+<dd>Consider disease superclass.</dd>
+<dt>subtype_delimiter</dt>
+<dd>How to break up disease column if using disease_only.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.split_key">
+<code class="descname">split_key</code><span class="sig-paren">(</span><em>key</em>, <em>subtype_delimiter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.split_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.split_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manipulate an entire phenotype column, splitting each element up by some delimiter.</p>
+<dl class="docutils">
+<dt>key</dt>
+<dd>Phenotype column.</dd>
+<dt>subtype_delimiter</dt>
+<dd>How to break up strings in columns. S1,s2 -&gt; S1 for instance.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.split_train_test">
+<code class="descname">split_train_test</code><span class="sig-paren">(</span><em>train_p=0.8</em>, <em>stratified=True</em>, <em>disease_only=False</em>, <em>key='disease'</em>, <em>subtype_delimiter='</em>, <em>'</em>, <em>val_p=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.split_train_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.split_train_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split MethylationArray into training and test sets, with option to stratify by categorical covariate.</p>
+<dl class="docutils">
+<dt>train_p</dt>
+<dd>Fraction of methylation array to use as training set.</dd>
+<dt>stratified</dt>
+<dd>Whether to stratify by categorical variable.</dd>
+<dt>disease_only</dt>
+<dd>Consider disease superclass by some delimiter. For instance if disease is S1,s2, superclass would be S1.</dd>
+<dt>key</dt>
+<dd>Column to stratify on.</dd>
+<dt>subtype_delimiter</dt>
+<dd>How to split disease column into super/subclass.</dd>
+<dt>val_p</dt>
+<dd>If set greater than 0, will create additional validation set, fraction of which is broken off from training set.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.subsample">
+<code class="descname">subsample</code><span class="sig-paren">(</span><em>key='disease'</em>, <em>n_samples=None</em>, <em>frac=None</em>, <em>categorical=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.subsample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.subsample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subsample MethylationArray, make the set randomly smaller.</p>
+<dl class="docutils">
+<dt>key</dt>
+<dd>If stratifying, use this column of pheno array.</dd>
+<dt>n_samples</dt>
+<dd>Number of samples to consider overall, or per stratum.</dd>
+<dt>frac</dt>
+<dd>Alternative to n_samples, where x frac of array or stratum is considered.</dd>
+<dt>categorical</dt>
+<dd>Whether to stratify by column.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.subset_cpgs">
+<code class="descname">subset_cpgs</code><span class="sig-paren">(</span><em>cpgs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.subset_cpgs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.subset_cpgs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subset beta matrix by list of Cpgs.
+Parameters
+———-
+cpgs</p>
+<blockquote>
+<div>Cpgs to subset by.</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.subset_index">
+<code class="descname">subset_index</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.subset_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.subset_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subset MethylationArray by samples.</p>
+<dl class="docutils">
+<dt>index</dt>
+<dd>Sample names to subset by.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.write_csvs">
+<code class="descname">write_csvs</code><span class="sig-paren">(</span><em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.write_csvs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.write_csvs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write phenotype data and beta values to csvs.</p>
+<dl class="docutils">
+<dt>output_dir</dt>
+<dd>Directory to output csv files.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.write_db">
+<code class="descname">write_db</code><span class="sig-paren">(</span><em>conn</em>, <em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.write_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.write_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store phenotype data and beta values in SQL database.</p>
+<dl class="docutils">
+<dt>conn</dt>
+<dd>SQLite connection.</dd>
+<dt>disease</dt>
+<dd>Create new tables in db that are related to disease state by this name.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArray.write_pickle">
+<code class="descname">write_pickle</code><span class="sig-paren">(</span><em>output_pickle</em>, <em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.write_pickle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.write_pickle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store phenotype data and beta values in pickle file.
+Is default file format for storing MethylationArray objects.</p>
+<dl class="docutils">
+<dt>output_pickle</dt>
+<dd>Pickle file to store MethylationArray data.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArrays">
+<em class="property">class </em><code class="descclassname">pymethylprocess.MethylationDataTypes.</code><code class="descname">MethylationArrays</code><span class="sig-paren">(</span><em>list_methylation_arrays</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArrays"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArrays" title="Permalink to this definition">¶</a></dt>
+<dd><p>Literally a list of methylation arrays, with methods operate on these arrays that is memory efficient.</p>
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArrays.combine">
+<code class="descname">combine</code><span class="sig-paren">(</span><em>array_generator=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArrays.combine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.combine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine the list of methylation arrays into one array via concatenation of beta matrices and phenotype arrays.</p>
+<dl class="docutils">
+<dt>array_generator</dt>
+<dd>Generator of additional methylation arrays for computational memory minimization.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArrays.impute">
+<code class="descname">impute</code><span class="sig-paren">(</span><em>imputer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArrays.impute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.impute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Impute all methylation arrays.</p>
+<dl class="docutils">
+<dt>imputer</dt>
+<dd>Type of imputation, sklearn-like.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArrays.write_dbs">
+<code class="descname">write_dbs</code><span class="sig-paren">(</span><em>conn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArrays.write_dbs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.write_dbs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write list of methylation arrays to SQL database. Recommend naming MethylationArray.</p>
+<dl class="docutils">
+<dt>conn</dt>
+<dd>SQL connection.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pymethylprocess.MethylationDataTypes.MethylationArrays.write_pkls">
+<code class="descname">write_pkls</code><span class="sig-paren">(</span><em>pkl</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArrays.write_pkls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.write_pkls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write list of methylation arrays to single pickle. Recommend naming each MethylationArray.</p>
+<dl class="docutils">
+<dt>pkl</dt>
+<dd>Pickle file to write to.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pymethylprocess.MethylationDataTypes.extract_pheno_beta_df_from_folder">
+<code class="descclassname">pymethylprocess.MethylationDataTypes.</code><code class="descname">extract_pheno_beta_df_from_folder</code><span class="sig-paren">(</span><em>folder</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#extract_pheno_beta_df_from_folder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.extract_pheno_beta_df_from_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return phenotype and beta dataframes from specified folder with csv.</p>
+<dl class="docutils">
+<dt>folder</dt>
+<dd>Input folder.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymethylprocess.MethylationDataTypes.extract_pheno_beta_df_from_pickle_dict">
+<code class="descclassname">pymethylprocess.MethylationDataTypes.</code><code class="descname">extract_pheno_beta_df_from_pickle_dict</code><span class="sig-paren">(</span><em>input_dict</em>, <em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#extract_pheno_beta_df_from_pickle_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.extract_pheno_beta_df_from_pickle_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return phenotype and beta dataframes from specified dictionary storing MethylationArray python dictionary.</p>
+<dl class="docutils">
+<dt>input_dict</dt>
+<dd>Python disctionary storing pheno/beta information.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymethylprocess.MethylationDataTypes.extract_pheno_beta_df_from_sql">
+<code class="descclassname">pymethylprocess.MethylationDataTypes.</code><code class="descname">extract_pheno_beta_df_from_sql</code><span class="sig-paren">(</span><em>conn</em>, <em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#extract_pheno_beta_df_from_sql"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.extract_pheno_beta_df_from_sql" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return phenotype and beta dataframes from SQL tables storing MethylationArray info.</p>
+<dl class="docutils">
+<dt>conn</dt>
+<dd>SQL connection.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<span class="target" id="module-pymethylprocess.meffil_functions"></span><div class="section" id="meffil-functions-py">
+<h2>meffil_functions.py<a class="headerlink" href="#meffil-functions-py" title="Permalink to this headline">¶</a></h2>
+<p>Contains a few R functions that interact with meffil and minfi.</p>
+<dl class="function">
+<dt id="pymethylprocess.meffil_functions.est_cell_counts_IDOL">
+<code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">est_cell_counts_IDOL</code><span class="sig-paren">(</span><em>rgset</em>, <em>library</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#est_cell_counts_IDOL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.est_cell_counts_IDOL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given RGSet object, estimate cell counts for 450k/850k using reference approach via IDOL library.</p>
+<dl class="docutils">
+<dt>rgset</dt>
+<dd>RGSet object stored in python via rpy2</dd>
+<dt>library</dt>
+<dd>What type of CpG library to use.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymethylprocess.meffil_functions.est_cell_counts_meffil">
+<code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">est_cell_counts_meffil</code><span class="sig-paren">(</span><em>qc_list</em>, <em>cell_type_reference</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#est_cell_counts_meffil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.est_cell_counts_meffil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given QCObject list R object, estimate cell counts using reference approach via meffil.</p>
+<dl class="docutils">
+<dt>qc_list</dt>
+<dd>R list containing qc objects.</dd>
+<dt>cell_type_reference</dt>
+<dd>Reference blood/tissue set.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymethylprocess.meffil_functions.est_cell_counts_minfi">
+<code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">est_cell_counts_minfi</code><span class="sig-paren">(</span><em>rgset</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#est_cell_counts_minfi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.est_cell_counts_minfi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given RGSet object, estimate cell counts using reference approach via minfi.</p>
+<dl class="docutils">
+<dt>rgset</dt>
+<dd>RGSet object stored in python via rpy2</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymethylprocess.meffil_functions.load_detection_p_values_beadnum">
+<code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">load_detection_p_values_beadnum</code><span class="sig-paren">(</span><em>qc_list</em>, <em>n_cores</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#load_detection_p_values_beadnum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.load_detection_p_values_beadnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of detection p-value matrix and bead number matrix.</p>
+<dl class="docutils">
+<dt>qc_list</dt>
+<dd>R list containing qc objects.</dd>
+<dt>n_cores</dt>
+<dd>Number of cores to use in computation.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymethylprocess.meffil_functions.r_autosomal_cpgs">
+<code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">r_autosomal_cpgs</code><span class="sig-paren">(</span><em>array_type='450k'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#r_autosomal_cpgs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.r_autosomal_cpgs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of autosomal cpg probes per platform.</p>
+<dl class="docutils">
+<dt>array_type</dt>
+<dd>450k/850k array?</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymethylprocess.meffil_functions.r_snp_cpgs">
+<code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">r_snp_cpgs</code><span class="sig-paren">(</span><em>array_type='450k'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#r_snp_cpgs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.r_snp_cpgs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of SNP cpg probes per platform.</p>
+<dl class="docutils">
+<dt>array_type</dt>
+<dd>450k/850k array?</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymethylprocess.meffil_functions.remove_sex">
+<code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">remove_sex</code><span class="sig-paren">(</span><em>beta</em>, <em>array_type='450k'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#remove_sex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.remove_sex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove non-autosomal cpgs from beta matrix.</p>
+<dl class="docutils">
+<dt>array_type</dt>
+<dd>450k/850k array?</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pymethylprocess.meffil_functions.set_missing">
+<code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">set_missing</code><span class="sig-paren">(</span><em>beta</em>, <em>pval_beadnum</em>, <em>detection_val=1e-06</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#set_missing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.set_missing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set missing beta values to NA, taking into account detection values and bead number thesholds.</p>
+<dl class="docutils">
+<dt>pval_beadnum</dt>
+<dd>Detection pvalues and number of beads per cpg/samples</dd>
+<dt>detection_val</dt>
+<dd>If threshold to set site to missingness based on p-value detection.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-install">
+<h2>pymethyl-install<a class="headerlink" href="#pymethyl-install" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-install <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-install-version">
+<code class="descname">--version</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-install-version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the version and exit.</p>
+</dd></dl>
+
+<div class="section" id="pymethyl-install-change-gcc-path">
+<h3>change_gcc_path<a class="headerlink" href="#pymethyl-install-change-gcc-path" title="Permalink to this headline">¶</a></h3>
+<p>Change GCC and G++ paths if don’t have version 7.2.0. [Experimental]</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-install change_gcc_path <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pymethyl-install-install-bioconductor">
+<h3>install_bioconductor<a class="headerlink" href="#pymethyl-install-install-bioconductor" title="Permalink to this headline">¶</a></h3>
+<p>Installs bioconductor.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-install install_bioconductor <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pymethyl-install-install-custom">
+<h3>install_custom<a class="headerlink" href="#pymethyl-install-install-custom" title="Permalink to this headline">¶</a></h3>
+<p>Installs bioconductor packages.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-install install_custom <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-install-install-custom-p">
+<code class="descname">-p</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--package</code><code class="descclassname"> &lt;package&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-install-install-custom-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Custom packages.  [default: ENmix]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-install-install-custom-m">
+<code class="descname">-m</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--manager</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-install-install-custom-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use BiocManager (recommended).</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-install-install-meffil">
+<h3>install_meffil<a class="headerlink" href="#pymethyl-install-install-meffil" title="Permalink to this headline">¶</a></h3>
+<p>Installs meffil (update!).</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-install install_meffil <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pymethyl-install-install-minfi-others">
+<h3>install_minfi_others<a class="headerlink" href="#pymethyl-install-install-minfi-others" title="Permalink to this headline">¶</a></h3>
+<p>Installs minfi and other dependencies.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-install install_minfi_others <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pymethyl-install-install-r-packages">
+<h3>install_r_packages<a class="headerlink" href="#pymethyl-install-install-r-packages" title="Permalink to this headline">¶</a></h3>
+<p>Installs r packages.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-install install_r_packages <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-install-install-r-packages-p">
+<code class="descname">-p</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--package</code><code class="descclassname"> &lt;package&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-install-install-r-packages-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Custom packages.  [default: ]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-install-install-some-deps">
+<h3>install_some_deps<a class="headerlink" href="#pymethyl-install-install-some-deps" title="Permalink to this headline">¶</a></h3>
+<p>Installs bioconductor, minfi, enmix, tcga biolinks, and meffil.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-install install_some_deps <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pymethyl-install-install-tcga-biolinks">
+<h3>install_tcga_biolinks<a class="headerlink" href="#pymethyl-install-install-tcga-biolinks" title="Permalink to this headline">¶</a></h3>
+<p>Installs tcga biolinks.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-install install_tcga_biolinks <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="pymethyl-visualize">
+<h2>pymethyl-visualize<a class="headerlink" href="#pymethyl-visualize" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-visualize <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-version">
+<code class="descname">--version</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-visualize-version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the version and exit.</p>
+</dd></dl>
+
+<div class="section" id="pymethyl-visualize-plot-cell-type-results">
+<h3>plot_cell_type_results<a class="headerlink" href="#pymethyl-visualize-plot-cell-type-results" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-visualize plot_cell_type_results <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-cell-type-results-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_csv</code><code class="descclassname"> &lt;input_csv&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-cell-type-results-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input csv.  [default: cell_type_estimates.csv]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-cell-type-results-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--outfilename</code><code class="descclassname"> &lt;outfilename&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-cell-type-results-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output png.  [default: visualizations/cell_type_results.png]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-cell-type-results-cols">
+<code class="descname">-cols</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--plot_cols</code><code class="descclassname"> &lt;plot_cols&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-cell-type-results-cols" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot columns.  [default: Gran, CD4T, CD8T, Bcell, Mono, NK, gMDSC]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-cell-type-results-fs">
+<code class="descname">-fs</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--font_scale</code><code class="descclassname"> &lt;font_scale&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-cell-type-results-fs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Font scaling  [default: 1.0]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-visualize-plot-heatmap">
+<h3>plot_heatmap<a class="headerlink" href="#pymethyl-visualize-plot-heatmap" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-visualize plot_heatmap <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-heatmap-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_csv</code><code class="descclassname"> &lt;input_csv&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-heatmap-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input csv.  [default: ]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-heatmap-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--outfilename</code><code class="descclassname"> &lt;outfilename&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-heatmap-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output png.  [default: output.png]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-heatmap-idx">
+<code class="descname">-idx</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--index_col</code><code class="descclassname"> &lt;index_col&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-heatmap-idx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Index load dataframe  [default: 0]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-heatmap-fs">
+<code class="descname">-fs</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--font_scale</code><code class="descclassname"> &lt;font_scale&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-heatmap-fs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Font scaling  [default: 1.0]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-heatmap-min">
+<code class="descname">-min</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--min_val</code><code class="descclassname"> &lt;min_val&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-heatmap-min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Min heat val  [default: 0.0]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-heatmap-max">
+<code class="descname">-max</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--max_val</code><code class="descclassname"> &lt;max_val&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-heatmap-max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Max heat val, if -1, defaults to None  [default: 1.0]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-heatmap-a">
+<code class="descname">-a</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--annot</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-heatmap-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Annotate heatmap  [default: False]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-heatmap-n">
+<code class="descname">-n</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--norm</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-heatmap-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize matrix data  [default: False]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-heatmap-c">
+<code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--cluster</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-heatmap-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cluster matrix data  [default: False]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-heatmap-m">
+<code class="descname">-m</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--matrix_type</code><code class="descclassname"> &lt;matrix_type&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-heatmap-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type of matrix supplied  [default: none]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-heatmap-x">
+<code class="descname">-x</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--xticks</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-heatmap-x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show x ticks  [default: False]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-heatmap-y">
+<code class="descname">-y</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--yticks</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-heatmap-y" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show y ticks  [default: False]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-heatmap-t">
+<code class="descname">-t</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--transpose</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-heatmap-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transpose matrix data  [default: False]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-plot-heatmap-col">
+<code class="descname">-col</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--color_column</code><code class="descclassname"> &lt;color_column&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-plot-heatmap-col" title="Permalink to this definition">¶</a></dt>
+<dd><p>Color column.  [default: color]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-visualize-transform-plot">
+<h3>transform_plot<a class="headerlink" href="#pymethyl-visualize-transform-plot" title="Permalink to this headline">¶</a></h3>
+<p>Dimensionality reduce VAE or original beta values using UMAP and plot using plotly.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-visualize transform_plot <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-transform-plot-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-transform-plot-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./final_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-transform-plot-c">
+<code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--column_of_interest</code><code class="descclassname"> &lt;column_of_interest&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-transform-plot-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column extract from phenotype data.  [default: disease]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-transform-plot-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_file</code><code class="descclassname"> &lt;output_file&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-transform-plot-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output visualization.  [default: ./visualization.html]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-transform-plot-nn">
+<code class="descname">-nn</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--n_neighbors</code><code class="descclassname"> &lt;n_neighbors&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-transform-plot-nn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of neighbors UMAP.  [default: 5]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-transform-plot-a">
+<code class="descname">-a</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--axes_off</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-visualize-transform-plot-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to turn axes on or off.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-transform-plot-s">
+<code class="descname">-s</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--supervised</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-visualize-transform-plot-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Supervise umap embedding.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-transform-plot-d">
+<code class="descname">-d</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--min_dist</code><code class="descclassname"> &lt;min_dist&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-transform-plot-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>UMAP min distance.  [default: 0.1]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-transform-plot-m">
+<code class="descname">-m</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--metric</code><code class="descclassname"> &lt;metric&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-visualize-transform-plot-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reduction metric.  [default: euclidean]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-visualize-transform-plot-cc">
+<code class="descname">-cc</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--case_control_override</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-visualize-transform-plot-cc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add controls from case_control column and override current disease for classification tasks.  [default: False]</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="pymethyl-utils">
+<h2>pymethyl-utils<a class="headerlink" href="#pymethyl-utils" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-version">
+<code class="descname">--version</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-utils-version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the version and exit.</p>
+</dd></dl>
+
+<div class="section" id="pymethyl-utils-backup-pkl">
+<h3>backup_pkl<a class="headerlink" href="#pymethyl-utils-backup-pkl" title="Permalink to this headline">¶</a></h3>
+<p>Copy methylarray pickle to new location to backup.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils backup_pkl <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-backup-pkl-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-backup-pkl-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./final_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-backup-pkl-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_pkl</code><code class="descclassname"> &lt;output_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-backup-pkl-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output database for beta and phenotype data.  [default: ./backup/methyl_array.pkl]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-bin-column">
+<h3>bin_column<a class="headerlink" href="#pymethyl-utils-bin-column" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils bin_column <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-bin-column-t">
+<code class="descname">-t</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--test_pkl</code><code class="descclassname"> &lt;test_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-bin-column-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pickle containing testing set.  [default: ./train_val_test_sets/test_methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-bin-column-c">
+<code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--col</code><code class="descclassname"> &lt;col&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-bin-column-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column to turn into bins.  [default: age]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-bin-column-n">
+<code class="descname">-n</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--n_bins</code><code class="descclassname"> &lt;n_bins&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-bin-column-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of bins.  [default: 10]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-bin-column-ot">
+<code class="descname">-ot</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_test_pkl</code><code class="descclassname"> &lt;output_test_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-bin-column-ot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binned shap pickle for further testing.  [default: ./train_val_test_sets/test_methyl_array_shap_binned.pkl]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-concat-csv">
+<h3>concat_csv<a class="headerlink" href="#pymethyl-utils-concat-csv" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils concat_csv <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-concat-csv-i1">
+<code class="descname">-i1</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_csv</code><code class="descclassname"> &lt;input_csv&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-concat-csv-i1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Beta csv.  [default: ./beta1.csv]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-concat-csv-i2">
+<code class="descname">-i2</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_csv2</code><code class="descclassname"> &lt;input_csv2&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-concat-csv-i2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Beta/other csv 2.  [default: ./cell_estimates.csv]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-concat-csv-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_csv</code><code class="descclassname"> &lt;output_csv&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-concat-csv-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output csv.  [default: ./beta.concat.csv]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-concat-csv-a">
+<code class="descname">-a</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--axis</code><code class="descclassname"> &lt;axis&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-concat-csv-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Axis to merge on. Columns are 0, rows are 1.  [default: 1]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-counts">
+<h3>counts<a class="headerlink" href="#pymethyl-utils-counts" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils counts <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-counts-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-counts-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./final_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-counts-k">
+<code class="descname">-k</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--key</code><code class="descclassname"> &lt;key&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-counts-k" title="Permalink to this definition">¶</a></dt>
+<dd><p>Key to split on.  [default: disease]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-create-external-validation-set">
+<h3>create_external_validation_set<a class="headerlink" href="#pymethyl-utils-create-external-validation-set" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils create_external_validation_set <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-create-external-validation-set-t">
+<code class="descname">-t</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--train_pkl</code><code class="descclassname"> &lt;train_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-create-external-validation-set-t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input methyl array.  [default: ./train_val_test_sets/train_methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-create-external-validation-set-q">
+<code class="descname">-q</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--query_pkl</code><code class="descclassname"> &lt;query_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-create-external-validation-set-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input methylation array to add/subtract cpgs to.  [default: ./final_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-create-external-validation-set-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_pkl</code><code class="descclassname"> &lt;output_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-create-external-validation-set-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output methyl array external validation.  [default: ./external_validation/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-create-external-validation-set-c">
+<code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--cpg_replace_method</code><code class="descclassname"> &lt;cpg_replace_method&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-create-external-validation-set-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>What to do for missing CpGs.  [default: mid]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-feature-select-train-val-test">
+<h3>feature_select_train_val_test<a class="headerlink" href="#pymethyl-utils-feature-select-train-val-test" title="Permalink to this headline">¶</a></h3>
+<p>Filter CpGs by taking x top CpGs with highest mean absolute deviation scores or via spectral feature selection.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils feature_select_train_val_test <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-feature-select-train-val-test-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl_dir</code><code class="descclassname"> &lt;input_pkl_dir&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-feature-select-train-val-test-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./train_val_test_sets/]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-feature-select-train-val-test-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_dir</code><code class="descclassname"> &lt;output_dir&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-feature-select-train-val-test-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output database for beta and phenotype data.  [default: ./train_val_test_sets_fs/]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-feature-select-train-val-test-n">
+<code class="descname">-n</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--n_top_cpgs</code><code class="descclassname"> &lt;n_top_cpgs&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-feature-select-train-val-test-n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number cpgs to include with highest variance across population.  [default: 300000]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-feature-select-train-val-test-f">
+<code class="descname">-f</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--feature_selection_method</code><code class="descclassname"> &lt;feature_selection_method&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-feature-select-train-val-test-f" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-feature-select-train-val-test-mm">
+<code class="descname">-mm</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--metric</code><code class="descclassname"> &lt;metric&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-feature-select-train-val-test-mm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-feature-select-train-val-test-nn">
+<code class="descname">-nn</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--n_neighbors</code><code class="descclassname"> &lt;n_neighbors&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-feature-select-train-val-test-nn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number neighbors for feature selection, default enacts rbf kernel.  [default: 0]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-feature-select-train-val-test-m">
+<code class="descname">-m</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--mad_top_cpgs</code><code class="descclassname"> &lt;mad_top_cpgs&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-feature-select-train-val-test-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number cpgs to apply mad filtering first before more sophisticated feature selection. If 0 or primary feature selection is mad, no mad pre-filtering.  [default: 0]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-fix-key">
+<h3>fix_key<a class="headerlink" href="#pymethyl-utils-fix-key" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils fix_key <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-fix-key-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-fix-key-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./final_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-fix-key-k">
+<code class="descname">-k</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--key</code><code class="descclassname"> &lt;key&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-fix-key-k" title="Permalink to this definition">¶</a></dt>
+<dd><p>Key to split on.  [default: disease]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-fix-key-d">
+<code class="descname">-d</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--disease_only</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-utils-fix-key-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only look at disease, or text before subtype_delimiter.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-fix-key-sd">
+<code class="descname">-sd</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--subtype_delimiter</code><code class="descclassname"> &lt;subtype_delimiter&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-fix-key-sd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delimiter for disease extraction.  [default: ,]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-fix-key-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_pkl</code><code class="descclassname"> &lt;output_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-fix-key-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./fixed_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-modify-pheno-data">
+<h3>modify_pheno_data<a class="headerlink" href="#pymethyl-utils-modify-pheno-data" title="Permalink to this headline">¶</a></h3>
+<p>Use another spreadsheet to add more descriptive data to methylarray.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils modify_pheno_data <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-modify-pheno-data-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-modify-pheno-data-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./final_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-modify-pheno-data-is">
+<code class="descname">-is</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_formatted_sample_sheet</code><code class="descclassname"> &lt;input_formatted_sample_sheet&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-modify-pheno-data-is" title="Permalink to this definition">¶</a></dt>
+<dd><p>Information passed through function create_sample_sheet, has Basename and disease fields.  [default: ./tcga_idats/minfi_sheet.csv]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-modify-pheno-data-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_pkl</code><code class="descclassname"> &lt;output_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-modify-pheno-data-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output database for beta and phenotype data.  [default: ./modified_processed/methyl_array.pkl]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-move-jpg">
+<h3>move_jpg<a class="headerlink" href="#pymethyl-utils-move-jpg" title="Permalink to this headline">¶</a></h3>
+<p>Move preprocessing jpegs to preprocessing output directory.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils move_jpg <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-move-jpg-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_dir</code><code class="descclassname"> &lt;input_dir&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-move-jpg-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directory containing jpg.  [default: ./]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-move-jpg-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_dir</code><code class="descclassname"> &lt;output_dir&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-move-jpg-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output directory for images.  [default: ./preprocess_output_images/]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-overwrite-pheno-data">
+<h3>overwrite_pheno_data<a class="headerlink" href="#pymethyl-utils-overwrite-pheno-data" title="Permalink to this headline">¶</a></h3>
+<p>Use another spreadsheet to add more descriptive data to methylarray.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils overwrite_pheno_data <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-overwrite-pheno-data-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-overwrite-pheno-data-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./final_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-overwrite-pheno-data-is">
+<code class="descname">-is</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_formatted_sample_sheet</code><code class="descclassname"> &lt;input_formatted_sample_sheet&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-overwrite-pheno-data-is" title="Permalink to this definition">¶</a></dt>
+<dd><p>Information passed through function create_sample_sheet, has Basename and disease fields.  [default: ./tcga_idats/minfi_sheet.csv]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-overwrite-pheno-data-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_pkl</code><code class="descclassname"> &lt;output_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-overwrite-pheno-data-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output database for beta and phenotype data.  [default: ./modified_processed/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-overwrite-pheno-data-c">
+<code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--index_col</code><code class="descclassname"> &lt;index_col&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-overwrite-pheno-data-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Index col when reading csv.  [default: 0]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-pkl-to-csv">
+<h3>pkl_to_csv<a class="headerlink" href="#pymethyl-utils-pkl-to-csv" title="Permalink to this headline">¶</a></h3>
+<p>Output methylarray pickle to csv.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils pkl_to_csv <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-pkl-to-csv-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-pkl-to-csv-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./final_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-pkl-to-csv-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_dir</code><code class="descclassname"> &lt;output_dir&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-pkl-to-csv-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./final_preprocessed/]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-pkl-to-csv-c">
+<code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--col</code><code class="descclassname"> &lt;col&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-pkl-to-csv-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column to color.  [default: ]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-print-number-sex-cpgs">
+<h3>print_number_sex_cpgs<a class="headerlink" href="#pymethyl-utils-print-number-sex-cpgs" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils print_number_sex_cpgs <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-print-number-sex-cpgs-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-print-number-sex-cpgs-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./final_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-print-number-sex-cpgs-a">
+<code class="descname">-a</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--array_type</code><code class="descclassname"> &lt;array_type&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-print-number-sex-cpgs-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Array Type.  [default: 450k]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-print-shape">
+<h3>print_shape<a class="headerlink" href="#pymethyl-utils-print-shape" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils print_shape <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-print-shape-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-print-shape-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./final_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-ref-estimate-cell-counts">
+<h3>ref_estimate_cell_counts<a class="headerlink" href="#pymethyl-utils-ref-estimate-cell-counts" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils ref_estimate_cell_counts <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-ref-estimate-cell-counts-ro">
+<code class="descname">-ro</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_r_object_dir</code><code class="descclassname"> &lt;input_r_object_dir&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-ref-estimate-cell-counts-ro" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input directory containing qc data.  [default: ./preprocess_outputs/]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-ref-estimate-cell-counts-a">
+<code class="descname">-a</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--algorithm</code><code class="descclassname"> &lt;algorithm&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-ref-estimate-cell-counts-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Algorithm to run cell type.  [default: meffil]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-ref-estimate-cell-counts-ref">
+<code class="descname">-ref</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--reference</code><code class="descclassname"> &lt;reference&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-ref-estimate-cell-counts-ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cell Type Reference.  [default: cord blood gse68456]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-ref-estimate-cell-counts-l">
+<code class="descname">-l</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--library</code><code class="descclassname"> &lt;library&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-ref-estimate-cell-counts-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>IDOL Library.  [default: IDOLOptimizedCpGs450klegacy]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-ref-estimate-cell-counts-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_csv</code><code class="descclassname"> &lt;output_csv&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-ref-estimate-cell-counts-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output cell type estimates.  [default: ./added_cell_counts/cell_type_estimates.csv]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-remove-sex">
+<h3>remove_sex<a class="headerlink" href="#pymethyl-utils-remove-sex" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils remove_sex <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-remove-sex-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-remove-sex-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./preprocess_outputs/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-remove-sex-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_pkl</code><code class="descclassname"> &lt;output_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-remove-sex-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output methyl array autosomal.  [default: ./autosomal/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-remove-sex-a">
+<code class="descname">-a</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--array_type</code><code class="descclassname"> &lt;array_type&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-remove-sex-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Array Type.  [default: 450k]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-remove-snps">
+<h3>remove_snps<a class="headerlink" href="#pymethyl-utils-remove-snps" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils remove_snps <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-remove-snps-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-remove-snps-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./autosomal/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-remove-snps-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_pkl</code><code class="descclassname"> &lt;output_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-remove-snps-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output methyl array autosomal.  [default: ./no_snp/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-remove-snps-a">
+<code class="descname">-a</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--array_type</code><code class="descclassname"> &lt;array_type&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-remove-snps-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Array Type.  [default: 450k]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-set-part-array-background">
+<h3>set_part_array_background<a class="headerlink" href="#pymethyl-utils-set-part-array-background" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils set_part_array_background <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-set-part-array-background-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-set-part-array-background-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input methyl array.  [default: ./final_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-set-part-array-background-c">
+<code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--cpg_pkl</code><code class="descclassname"> &lt;cpg_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-set-part-array-background-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pickled numpy array for subsetting.  [default: ./subset_cpgs.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-set-part-array-background-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_pkl</code><code class="descclassname"> &lt;output_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-set-part-array-background-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output methyl array external validation.  [default: ./removal/methyl_array.pkl]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-stratify">
+<h3>stratify<a class="headerlink" href="#pymethyl-utils-stratify" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils stratify <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-stratify-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-stratify-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./final_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-stratify-k">
+<code class="descname">-k</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--key</code><code class="descclassname"> &lt;key&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-stratify-k" title="Permalink to this definition">¶</a></dt>
+<dd><p>Key to split on.  [default: disease]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-stratify-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_dir</code><code class="descclassname"> &lt;output_dir&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-stratify-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output directory for stratified.  [default: ./stratified/]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-subset-array">
+<h3>subset_array<a class="headerlink" href="#pymethyl-utils-subset-array" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils subset_array <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-subset-array-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-subset-array-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input methyl array.  [default: ./final_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-subset-array-c">
+<code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--cpg_pkl</code><code class="descclassname"> &lt;cpg_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-subset-array-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pickled numpy array for subsetting.  [default: ./subset_cpgs.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-subset-array-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_pkl</code><code class="descclassname"> &lt;output_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-subset-array-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output methyl array external validation.  [default: ./subset/methyl_array.pkl]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-train-test-val-split">
+<h3>train_test_val_split<a class="headerlink" href="#pymethyl-utils-train-test-val-split" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils train_test_val_split <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-train-test-val-split-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-train-test-val-split-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input database for beta and phenotype data.  [default: ./final_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-train-test-val-split-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_dir</code><code class="descclassname"> &lt;output_dir&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-train-test-val-split-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output directory for training, testing, and validation sets.  [default: ./train_val_test_sets/]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-train-test-val-split-tp">
+<code class="descname">-tp</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--train_percent</code><code class="descclassname"> &lt;train_percent&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-train-test-val-split-tp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Percent data training on.  [default: 0.8]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-train-test-val-split-vp">
+<code class="descname">-vp</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--val_percent</code><code class="descclassname"> &lt;val_percent&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-train-test-val-split-vp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Percent of training data that comprises validation set.  [default: 0.1]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-train-test-val-split-cat">
+<code class="descname">-cat</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--categorical</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-utils-train-test-val-split-cat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multi-class prediction.  [default: False]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-train-test-val-split-do">
+<code class="descname">-do</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--disease_only</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pymethyl-utils-train-test-val-split-do" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only look at disease, or text before subtype_delimiter.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-train-test-val-split-k">
+<code class="descname">-k</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--key</code><code class="descclassname"> &lt;key&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-train-test-val-split-k" title="Permalink to this definition">¶</a></dt>
+<dd><p>Key to split on.  [default: disease]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-train-test-val-split-sd">
+<code class="descname">-sd</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--subtype_delimiter</code><code class="descclassname"> &lt;subtype_delimiter&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-train-test-val-split-sd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delimiter for disease extraction.  [default: ,]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-write-cpgs">
+<h3>write_cpgs<a class="headerlink" href="#pymethyl-utils-write-cpgs" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils write_cpgs <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-write-cpgs-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-write-cpgs-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input methyl array.  [default: ./final_preprocessed/methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-write-cpgs-c">
+<code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--cpg_pkl</code><code class="descclassname"> &lt;cpg_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-write-cpgs-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pickled numpy array for subsetting.  [default: ./subset_cpgs.pkl]</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Joshua Levy
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
