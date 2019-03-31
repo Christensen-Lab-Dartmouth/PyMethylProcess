@@ -136,6 +136,75 @@ def set_part_array_background(input_pkl,cpg_pkl,output_pkl):
     methyl_array.write_pickle(output_pkl)
 
 @util.command()
+@click.option('-i', '--input_pkl', default='./train_val_test_sets/test_methyl_array.pkl', help='Input methyl array.', type=click.Path(exists=False), show_default=True)
+@click.option('-ac', '--age_column', default='', help='Age column of Methylation Array. Leave blank for no age', type=click.Path(exists=False), show_default=True)
+@click.option('-a', '--analyses', multiple=True, help='Analyses to run', type=click.Choice(['epitoc','horvath','hannum']), show_default=True)
+@click.option('-o', '--output_csv', default='age_estimation/output_age_estimations.csv',  help='Output csv', type=click.Path(exists=False), show_default=True)
+def est_age(input_pkl,age_column,analyses,output_csv):
+    """Estimate age using cgAgeR"""
+    import pandas as pd
+    import rpy2.robjects as robjects
+    from rpy2.robjects.packages import importr
+    from rpy2.robjects import pandas2ri, numpy2ri
+    pandas2ri.activate()
+    os.makedirs(output_csv[:output_csv.rfind('/')],exist_ok=True)
+    methyl_array = MethylationArray.from_pickle(input_pkl)
+    if age_column:
+        age_column = pandas2ri.py2ri(methyl_array.pheno[age_column])
+    else:
+        age_column = robjects.r('NULL')
+    run_analyses = dict(epitoc=False, horvath=False, hannum=False)
+    for analysis in analyses:
+        run_analyses[analysis] = True
+    importr('cgageR')
+    returned_ages = robjects.r("""function (beta, hannum, horvath, epitoc, age) {
+                return(getAgeR(beta, epitoc=epitoc, horvath=horvath, hannum=hannum, chrage=age))
+                }""")(methyl_array.beta.T, run_analyses['hannum'], run_analyses['horvath'], run_analyses['epitoc'], age_column)
+    result_dfs = []
+    return_data = lambda data_str: robjects.r("""function (results) results{}""".format(data_str))(returned_ages)
+    if 'hannum' in analyses:
+        result_dfs.append(pandas2ri.ri2py(return_data('$HannumClock.output$Hannum.Clock.Est')))
+    if 'epitoc' in analyses:
+        result_dfs.append(pandas2ri.ri2py(return_data('$EpiTOC.output$EpiTOC.Est')))
+    if 'horvath' in analyses:
+        result_dfs.append(pandas2ri.ri2py(return_data('$HorvathClock.output$Horvath.Est')))
+    df=pd.concat(result_dfs,axis=1)
+    df.index = methyl_array.pheno.index
+    df.to_csv(output_csv)
+    print(df)
+
+@util.command()
+@click.option('-tr', '--train_pkl', default='./train_val_test_sets/train_methyl_array.pkl', help='Input methyl array.', type=click.Path(exists=False), show_default=True)
+@click.option('-te', '--test_pkl', default='./train_val_test_sets/test_methyl_array.pkl', help='Input methyl array.', type=click.Path(exists=False), show_default=True)
+@click.option('-c', '--cell_type_columns', default='', help='Cell type columns. Leave blank for auto selection, not incorporate reference information.', multiple=True, show_default=True)
+@click.option('-k', '--n_cell_types', default=7, help='Number of cell types.', show_default=True)
+@click.option('-a', '--analysis', default='reffreecellmix', help='Analyses to run', type=click.Choice(['reffreecellmix']), show_default=True)
+def ref_free_cell_deconv(train_pkl,test_pkl,cell_type_columns,n_cell_types, analysis):
+    """Reference free cell type deconvolution"""
+    import rpy2.robjects as robjects
+    from rpy2.robjects.packages import importr
+    from rpy2.robjects import pandas2ri, numpy2ri
+    pandas2ri.activate()
+    train_methyl_array,  test_methyl_array= MethylationArray.from_pickle(train_pkl), MethylationArray.from_pickle(test_pkl)
+    #robjects.r('source("https://raw.githubusercontent.com/rtmag/refactor/master/R/refactor.R")')
+    importr('RefFreeEWAS') # add edec, medecom
+    if cell_type_columns[0] != '':
+        mean_cell_type = train_methyl_array.pheno[list(cell_type_columns)].mean(axis=0)
+        n_cell_types = len(mean_cell_type)
+    else:
+        mean_cell_type = robjects.r('NULL')
+    run_reffree_cell_mix = robjects.r("""function (train_beta,test_beta,k) {
+                    train_beta = as.matrix(train_beta)
+                    return(RefFreeCellMix(train_beta,mu0=RefFreeCellMixInitialize(train_beta, K = k, method = "ward"),K=k,iters=10,Yfinal=test_beta,verbose=TRUE)$mu)
+                    }""")
+    if analysis == 'reffreecellmix':
+        results = run_reffree_cell_mix(train_methyl_array.beta.T, test_methyl_array.beta.T, n_cell_types)
+
+    print(results)
+
+
+
+@util.command()
 @click.option('-ro', '--input_r_object_dir', default='./preprocess_outputs/', help='Input directory containing qc data.', type=click.Path(exists=False), show_default=True)
 @click.option('-a', '--algorithm', default='meffil', help='Algorithm to run cell type.', type=click.Choice(['meffil','minfi','IDOL']), show_default=True)
 @click.option('-ref', '--reference', default='cord blood gse68456', help='Cell Type Reference.', type=click.Choice(['andrews and bakulski cord blood','blood gse35069', 'blood gse35069 chen', 'blood gse35069 complete', 'cord blood gse68456', 'gervin and lyle cord blood', 'saliva gse48472']), show_default=True)
@@ -145,6 +214,7 @@ def ref_estimate_cell_counts(input_r_object_dir, algorithm, reference, library, 
     """Reference based cell type estimates."""
     import rpy2.robjects as robjects
     from rpy2.robjects import pandas2ri, numpy2ri
+
     pandas2ri.activate()
     from pymethylprocess.meffil_functions import est_cell_counts_meffil, est_cell_counts_minfi, est_cell_counts_IDOL
     os.makedirs(output_csv[:output_csv.rfind('/')],exist_ok=True)
@@ -269,11 +339,29 @@ def pkl_to_csv(input_pkl, output_dir, col):
 @click.option('-i2', '--input_csv2', default='./cell_estimates.csv', help='Beta/other csv 2.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_csv', default='./beta.concat.csv', help='Output csv.', type=click.Path(exists=False), show_default=True)
 @click.option('-a', '--axis', default=1, help='Axis to merge on. Columns are 0, rows are 1.', show_default=True)
-def concat_csv(input_csv, input_csv2, output_csv, axis):
+@click.option('-i', '--index_col', default=0, help='Index Column.', show_default=True)
+def concat_csv(input_csv, input_csv2, output_csv, axis, index_col):
     """Concatenate two csv files together."""
     import pandas as pd
     os.makedirs(output_csv[:output_csv.rfind('/')],exist_ok=True)
-    pd.concat([pd.read_csv(input_csv),pd.read_csv(input_csv2)],axis=axis).to_csv(output_csv)
+    pd.concat([pd.read_csv(input_csv,index_col=index_col),pd.read_csv(input_csv2,index_col=index_col)],axis=axis).to_csv(output_csv)
+
+@util.command()
+@click.option('-i', '--input_csv', default='./results.csv', help='Results csv.', type=click.Path(exists=False), show_default=True)
+@click.option('-c1', '--pred_col', default='y_pred', help='Prediction column.', type=click.Path(exists=False), show_default=True)
+@click.option('-c2', '--true_col', default='y_true', help='True Column.', type=click.Path(exists=False), show_default=True)
+def rate_regression(input_csv,pred_col,true_col):
+    # add bootstrap?
+    import pandas as pd
+    from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
+    df=pd.read_csv(input_csv)
+    y_pred = df[pred_col]
+    y_true = df[true_col]
+    results = {'Mean Squared Error':mean_squared_error,'Mean Absolute Error': mean_absolute_error, "R2": r2_score}
+    print("y_true: {}\n y_pred: {}".format(true_col,pred_col))
+    for k,v in results.items():
+        print("{}: {}".format(k,v(y_true,y_pred)))
+
 
 @util.command()
 @click.option('-t', '--test_pkl', default='./train_val_test_sets/test_methyl_array.pkl', help='Pickle containing testing set.', type=click.Path(exists=False), show_default=True)
