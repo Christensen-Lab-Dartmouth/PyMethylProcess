@@ -21,9 +21,10 @@ Why:
 Getting Started:  
 * Installation:   
     * pip install git+https://github.com/bodono/scs-python.git@bb45c69ce57b1fbb5ab23e02b30549a7e0b801e3 git+https://github.com/jlevy44/hypopt.git@27aefef62483174736bd6d5a1b3983dbaf4184dc
-    * pip install pymethylprocess && pymethyl-install_r_dependencies  
-    * docker pull joshualevy44/pymethylprocess  
-    * Or see example scripts for usage, install from github
+    * pip install pymethylprocess && pymethyl-install_r_dependencies (Note: May need to prefix pip install with MACOSX_DEPLOYMENT_TARGET=10.9 CC=clang CXX=clang++ for Mac OS install)
+    * docker pull joshualevy44/pymethylprocess
+    * Alternatively, run sh build_docker.sh to build the docker container, and then run sh run_docker.sh to run the docker container.
+    * Or see example scripts for usage.
 * Example Usage Scripts (in github repo): Located in ./example_scripts/  
 * Help docs (in github repo): https://christensen-lab-dartmouth.github.io/PyMethylProcess/
 
@@ -34,5 +35,3 @@ Getting Started:
 ![pipeline-preprocess](https://user-images.githubusercontent.com/19698023/54839016-5cfbe080-4ca0-11e9-8c7e-22a871483d16.jpeg)  
 ![pipeline-visualize](https://user-images.githubusercontent.com/19698023/54839038-66854880-4ca0-11e9-8afe-e167806f83ce.jpeg)  
 ![pipeline-train-test-split](https://user-images.githubusercontent.com/19698023/54839060-713fdd80-4ca0-11e9-85a8-9385012a6807.jpeg)  
-
-Note: May need to prefix pip install with MACOSX_DEPLOYMENT_TARGET=10.9 CC=clang CXX=clang++ for Mac OS install

@@ -5,6 +5,8 @@ https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess
 
 To get started, download pymethylprocess using Docker (joshualevy44/pymethylprocess) or PIP (pymethylprocess) and run pymethyl-install_r_dependencies.
 
+See README.md in Github repository for more install directions and for example scripts for running the pipeline (not all datasets may be available on GEO at this time).
+
 There is both an API and CLI available for use. Examples for CLI usage can be found in ./example_scripts.
 
 .. toctree::

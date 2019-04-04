@@ -127,6 +127,7 @@
 <li><a class="reference internal" href="#pymethyl-utils-concat-csv">concat_csv</a></li>
 <li><a class="reference internal" href="#pymethyl-utils-counts">counts</a></li>
 <li><a class="reference internal" href="#pymethyl-utils-create-external-validation-set">create_external_validation_set</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-est-age">est_age</a></li>
 <li><a class="reference internal" href="#pymethyl-utils-feature-select-train-val-test">feature_select_train_val_test</a></li>
 <li><a class="reference internal" href="#pymethyl-utils-fix-key">fix_key</a></li>
 <li><a class="reference internal" href="#pymethyl-utils-modify-pheno-data">modify_pheno_data</a></li>
@@ -135,7 +136,9 @@
 <li><a class="reference internal" href="#pymethyl-utils-pkl-to-csv">pkl_to_csv</a></li>
 <li><a class="reference internal" href="#pymethyl-utils-print-number-sex-cpgs">print_number_sex_cpgs</a></li>
 <li><a class="reference internal" href="#pymethyl-utils-print-shape">print_shape</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-rate-regression">rate_regression</a></li>
 <li><a class="reference internal" href="#pymethyl-utils-ref-estimate-cell-counts">ref_estimate_cell_counts</a></li>
+<li><a class="reference internal" href="#pymethyl-utils-ref-free-cell-deconv">ref_free_cell_deconv</a></li>
 <li><a class="reference internal" href="#pymethyl-utils-remove-sex">remove_sex</a></li>
 <li><a class="reference internal" href="#pymethyl-utils-remove-snps">remove_snps</a></li>
 <li><a class="reference internal" href="#pymethyl-utils-set-part-array-background">set_part_array_background</a></li>
@@ -216,6 +219,7 @@
 <h1>Welcome to PyMethylProcess’s documentation!<a class="headerlink" href="#welcome-to-pymethylprocess-s-documentation" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess">https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess</a></p>
 <p>To get started, download pymethylprocess using Docker (joshualevy44/pymethylprocess) or PIP (pymethylprocess) and run pymethyl-install_r_dependencies.</p>
+<p>See README.md in Github repository for more install directions and for example scripts for running the pipeline (not all datasets may be available on GEO at this time).</p>
 <p>There is both an API and CLI available for use. Examples for CLI usage can be found in ./example_scripts.</p>
 <div class="toctree-wrapper compound">
 </div>
@@ -2282,6 +2286,12 @@ Initialize object with scikit-learn model, and optionally supply a hyperparamete
 <dd><p>Axis to merge on. Columns are 0, rows are 1.  [default: 1]</p>
 </dd></dl>
 
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-concat-csv-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--index_col</code><code class="descclassname"> &lt;index_col&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-concat-csv-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Index Column.  [default: 0]</p>
+</dd></dl>
+
 </div>
 <div class="section" id="pymethyl-utils-counts">
 <h3>counts<a class="headerlink" href="#pymethyl-utils-counts" title="Permalink to this headline">¶</a></h3>
@@ -2332,6 +2342,38 @@ Initialize object with scikit-learn model, and optionally supply a hyperparamete
 <dt id="cmdoption-pymethyl-utils-create-external-validation-set-c">
 <code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--cpg_replace_method</code><code class="descclassname"> &lt;cpg_replace_method&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-create-external-validation-set-c" title="Permalink to this definition">¶</a></dt>
 <dd><p>What to do for missing CpGs.  [default: mid]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-est-age">
+<h3>est_age<a class="headerlink" href="#pymethyl-utils-est-age" title="Permalink to this headline">¶</a></h3>
+<p>Estimate age using cgAgeR</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils est_age <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-est-age-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_pkl</code><code class="descclassname"> &lt;input_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-est-age-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input methyl array.  [default: ./train_val_test_sets/test_methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-est-age-ac">
+<code class="descname">-ac</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--age_column</code><code class="descclassname"> &lt;age_column&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-est-age-ac" title="Permalink to this definition">¶</a></dt>
+<dd><p>Age column of Methylation Array. Leave blank for no age  [default: ]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-est-age-a">
+<code class="descname">-a</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--analyses</code><code class="descclassname"> &lt;analyses&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-est-age-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analyses to run</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-est-age-o">
+<code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_csv</code><code class="descclassname"> &lt;output_csv&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-est-age-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output csv  [default: age_estimation/output_age_estimations.csv]</p>
 </dd></dl>
 
 </div>
@@ -2559,6 +2601,31 @@ Initialize object with scikit-learn model, and optionally supply a hyperparamete
 </dd></dl>
 
 </div>
+<div class="section" id="pymethyl-utils-rate-regression">
+<h3>rate_regression<a class="headerlink" href="#pymethyl-utils-rate-regression" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils rate_regression <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-rate-regression-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--input_csv</code><code class="descclassname"> &lt;input_csv&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-rate-regression-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Results csv.  [default: ./results.csv]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-rate-regression-c1">
+<code class="descname">-c1</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--pred_col</code><code class="descclassname"> &lt;pred_col&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-rate-regression-c1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prediction column.  [default: y_pred]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-rate-regression-c2">
+<code class="descname">-c2</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--true_col</code><code class="descclassname"> &lt;true_col&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-rate-regression-c2" title="Permalink to this definition">¶</a></dt>
+<dd><p>True Column.  [default: y_true]</p>
+</dd></dl>
+
+</div>
 <div class="section" id="pymethyl-utils-ref-estimate-cell-counts">
 <h3>ref_estimate_cell_counts<a class="headerlink" href="#pymethyl-utils-ref-estimate-cell-counts" title="Permalink to this headline">¶</a></h3>
 <p>Reference based cell type estimates.</p>
@@ -2594,6 +2661,44 @@ Initialize object with scikit-learn model, and optionally supply a hyperparamete
 <dt id="cmdoption-pymethyl-utils-ref-estimate-cell-counts-o">
 <code class="descname">-o</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output_csv</code><code class="descclassname"> &lt;output_csv&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-ref-estimate-cell-counts-o" title="Permalink to this definition">¶</a></dt>
 <dd><p>Output cell type estimates.  [default: ./added_cell_counts/cell_type_estimates.csv]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pymethyl-utils-ref-free-cell-deconv">
+<h3>ref_free_cell_deconv<a class="headerlink" href="#pymethyl-utils-ref-free-cell-deconv" title="Permalink to this headline">¶</a></h3>
+<p>Reference free cell type deconvolution</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pymethyl-utils ref_free_cell_deconv <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-ref-free-cell-deconv-tr">
+<code class="descname">-tr</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--train_pkl</code><code class="descclassname"> &lt;train_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-ref-free-cell-deconv-tr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input methyl array.  [default: ./train_val_test_sets/train_methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-ref-free-cell-deconv-te">
+<code class="descname">-te</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--test_pkl</code><code class="descclassname"> &lt;test_pkl&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-ref-free-cell-deconv-te" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input methyl array.  [default: ./train_val_test_sets/test_methyl_array.pkl]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-ref-free-cell-deconv-c">
+<code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--cell_type_columns</code><code class="descclassname"> &lt;cell_type_columns&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-ref-free-cell-deconv-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cell type columns. Leave blank for auto selection, not incorporate reference information.  [default: ]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-ref-free-cell-deconv-k">
+<code class="descname">-k</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--n_cell_types</code><code class="descclassname"> &lt;n_cell_types&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-ref-free-cell-deconv-k" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of cell types.  [default: 7]</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pymethyl-utils-ref-free-cell-deconv-a">
+<code class="descname">-a</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--analysis</code><code class="descclassname"> &lt;analysis&gt;</code><a class="headerlink" href="#cmdoption-pymethyl-utils-ref-free-cell-deconv-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analyses to run  [default: reffreecellmix]</p>
 </dd></dl>
 
 </div>
