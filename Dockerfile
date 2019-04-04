@@ -12,9 +12,9 @@ RUN apt-get install -y libgtk2.0-dev xvfb xauth xfonts-base libcairo2-dev libcur
 
 RUN apt-get install -y libx11-dev openssl libxt-dev #libxaw xlib
 
-RUN pip install --upgrade rpy2
-
 RUN pip install --upgrade pip
+
+RUN pip install rpy2==2.9.4
 
 RUN pip install numpy kneed Cython pathos nevergrad
 
@@ -26,6 +26,9 @@ RUN pip install git+https://github.com/bodono/scs-python.git@bb45c69ce57b1fbb5ab
 
 RUN pip install git+https://github.com/jlevy44/hypopt.git@27aefef62483174736bd6d5a1b3983dbaf4184dc
 
-RUN pip install -i https://test.pypi.org/simple/ pymethylprocess --no-deps
+RUN pip install pymethylprocess --no-deps
 
 RUN pymethyl-install_r_dependencies
+
+ADD ./pymethyl
+WORKDIR /pymethyl

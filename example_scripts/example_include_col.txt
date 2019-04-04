@@ -1,0 +1,5 @@
+age:ch1	Age
+gender:ch1	Sex
+cell type:ch1	Cell_Type
+subject:ch1	Subject_Type
+disease state:ch1	Disease_State

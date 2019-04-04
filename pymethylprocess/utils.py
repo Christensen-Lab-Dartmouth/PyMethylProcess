@@ -199,7 +199,7 @@ def ref_free_cell_deconv(train_pkl,test_pkl,cell_type_columns,n_cell_types, anal
                     }""")
     if analysis == 'reffreecellmix':
         results = run_reffree_cell_mix(train_methyl_array.beta.T, test_methyl_array.beta.T, n_cell_types)
-
+    # FINISH
     print(results)
 
 
