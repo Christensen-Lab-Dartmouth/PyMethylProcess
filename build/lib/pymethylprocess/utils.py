@@ -194,11 +194,12 @@ def ref_free_cell_deconv(train_pkl,test_pkl,cell_type_columns,n_cell_types, anal
     else:
         mean_cell_type = robjects.r('NULL')
     run_reffree_cell_mix = robjects.r("""function (train_beta,test_beta,k) {
-                    return(RefFreeCellMix(as.matrix(train_beta),mu0=RefFreeCellMixInitialize(as.matrix(train_beta), K = k, method = "ward"),K=k,iters=10,Yfinal=test_beta,verbose=TRUE)$mu)
+                    train_beta = as.matrix(train_beta)
+                    return(RefFreeCellMix(train_beta,mu0=RefFreeCellMixInitialize(train_beta, K = k, method = "ward"),K=k,iters=10,Yfinal=test_beta,verbose=TRUE)$mu)
                     }""")
     if analysis == 'reffreecellmix':
         results = run_reffree_cell_mix(train_methyl_array.beta.T, test_methyl_array.beta.T, n_cell_types)
-
+    # FINISH
     print(results)
 
 

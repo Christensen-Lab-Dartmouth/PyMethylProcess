@@ -98,10 +98,10 @@ class TCGADownloader:
         base=importr('base')
         geo = importr("GEOquery")
         geo.getGEOSuppFiles(query)
-        tar_path=os.popen('conda list | grep "packages in environment at" | awk "{print $6}"').read().split()[-1].replace(':','')+'/bin/tar'
-        if not os.path.exists(tar_path):
-            tar_path = 'internal'
-        robjects.r["untar"]("{0}/{0}_RAW.tar".format(query), exdir = "{}/idat".format(query), tar=tar_path)
+        raw_tar_file = "{0}/{0}_RAW.tar".format(query)
+        if not os.path.exists(raw_tar_file):
+            print("Warning: GEO file {} not downloaded. Check accession on GEO and make sure there is this file available.".format(raw_tar_file))
+        robjects.r["untar"](raw_tar_file, exdir = "{}/idat".format(query), tar='internal')
         idatFiles = robjects.r('list.files("{}/idat", pattern = "idat.gz$", full = TRUE)'.format(query))
         robjects.r["sapply"](idatFiles, robjects.r["gunzip"], overwrite = True)
         subprocess.call('mv {}/idat/*.idat {}/'.format(query, output_dir),shell=True)
