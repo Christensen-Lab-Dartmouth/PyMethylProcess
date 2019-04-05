@@ -26,7 +26,7 @@ RUN pip install git+https://github.com/bodono/scs-python.git@bb45c69ce57b1fbb5ab
 
 RUN pip install git+https://github.com/jlevy44/hypopt.git@27aefef62483174736bd6d5a1b3983dbaf4184dc
 
-RUN pip install pymethylprocess==0.1.1 --no-deps
+RUN pip install pymethylprocess==0.1.2 --no-deps
 
 RUN pymethyl-install_r_dependencies
 
@@ -35,5 +35,5 @@ WORKDIR /pymethyl
 
 RUN pip install pymethylprocess --upgrade --no-deps
 
-RUN export LC_ALL=C.UTF-8
-RUN export LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8

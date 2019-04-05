@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: pymethylprocess
-Version: 0.1.1
+Version: 0.1.2
 Summary: Preprocessing methylation pipeline, written in python. Easy to use and highly parallelized.
 Home-page: https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess
 Author: Joshua Levy

@@ -2,7 +2,7 @@ from setuptools import setup
 with open('README.md','r', encoding='utf-8') as f:
       long_description = f.read()
 setup(name='pymethylprocess',
-      version='0.1.1',
+      version='0.1.2',
       description='Preprocessing methylation pipeline, written in python. Easy to use and highly parallelized.',
       url='https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess',
       author='Joshua Levy',

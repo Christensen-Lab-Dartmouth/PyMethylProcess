@@ -444,7 +444,7 @@ class ImputerObject:
             imputers['sklearn']['MICE']=f(**opts)
         except:
             print('Please install development branch of iterative imputer from sklearn. Defaulting to mean imputation.')
-            imputers['sklearn']['MICE']=imputers['sklearn']['SimpleImputer']
+            imputers['sklearn']['MICE']=imputers['sklearn']['Mean']
         try:
             if solver == 'fancyimpute':
                 f=imputers[solver][method]
