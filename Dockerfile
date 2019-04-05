@@ -12,7 +12,7 @@ RUN apt-get install -y libgtk2.0-dev xvfb xauth xfonts-base libcairo2-dev libcur
 
 RUN apt-get install -y libx11-dev openssl libxt-dev #libxaw xlib
 
-RUN pip install --upgrade pip
+RUN pip install pip==19.0.3
 
 RUN pip install rpy2==2.9.4
 
@@ -26,9 +26,14 @@ RUN pip install git+https://github.com/bodono/scs-python.git@bb45c69ce57b1fbb5ab
 
 RUN pip install git+https://github.com/jlevy44/hypopt.git@27aefef62483174736bd6d5a1b3983dbaf4184dc
 
-RUN pip install pymethylprocess --no-deps
+RUN pip install pymethylprocess==0.1.1 --no-deps
 
 RUN pymethyl-install_r_dependencies
 
-ADD ./pymethyl
+RUN mkdir ./pymethyl
 WORKDIR /pymethyl
+
+RUN pip install pymethylprocess --upgrade --no-deps
+
+RUN export LC_ALL=C.UTF-8
+RUN export LANG=C.UTF-8
