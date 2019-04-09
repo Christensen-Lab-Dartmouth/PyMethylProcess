@@ -30,6 +30,14 @@ Getting Started:
 
 *PyMethyProcess* is pending submission and review, and link to paper will be posted shortly.
 
+**Benchmark Results:**
+<img width="1297" alt="benchmark" src="https://user-images.githubusercontent.com/19698023/55841697-422dc680-5afe-11e9-815d-dda140626c7c.png">
+
+**Supplementary Figure Removed from Manuscript:**
+![Supplemental](https://user-images.githubusercontent.com/19698023/55841691-380bc800-5afe-11e9-9411-d428efa1070e.jpeg)
+
+**Supplemental Figure 1:** UMAP embeddings (colored) of: a) GSE87571 (age), b) GSE81961 (disease status), c) GSE69138 (subtype), d) GSE42861 (disease status), e) GSE112179 (brain disorder), f) GSE90496 (subclass), g) TCGA Pancancer (subtype)  
+
 ![pipeline-download](https://user-images.githubusercontent.com/19698023/54839004-566d6900-4ca0-11e9-97fa-f338d11b896b.jpeg)  
 ![pipeline-format](https://user-images.githubusercontent.com/19698023/54839010-59685980-4ca0-11e9-92da-58bccec68347.jpeg)  
 ![pipeline-preprocess](https://user-images.githubusercontent.com/19698023/54839016-5cfbe080-4ca0-11e9-8c7e-22a871483d16.jpeg)  
