@@ -41,5 +41,5 @@ Getting Started:
 ![pipeline-download](https://user-images.githubusercontent.com/19698023/54839004-566d6900-4ca0-11e9-97fa-f338d11b896b.jpeg)  
 ![pipeline-format](https://user-images.githubusercontent.com/19698023/54839010-59685980-4ca0-11e9-92da-58bccec68347.jpeg)  
 ![pipeline-preprocess](https://user-images.githubusercontent.com/19698023/54839016-5cfbe080-4ca0-11e9-8c7e-22a871483d16.jpeg)  
-![pipeline-visualize](https://user-images.githubusercontent.com/19698023/54839038-66854880-4ca0-11e9-8afe-e167806f83ce.jpeg)  
+![pipeline-visualize](https://user-images.githubusercontent.com/19698023/56082165-48f05e00-5dca-11e9-863b-682a5d4c325f.jpeg) 
 ![pipeline-train-test-split](https://user-images.githubusercontent.com/19698023/54839060-713fdd80-4ca0-11e9-85a8-9385012a6807.jpeg)  
