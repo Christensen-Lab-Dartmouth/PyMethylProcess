@@ -39,22 +39,25 @@
 \contentsline {section}{\numberline {8.3}concat\_csv}{34}{section.8.3}
 \contentsline {section}{\numberline {8.4}counts}{34}{section.8.4}
 \contentsline {section}{\numberline {8.5}create\_external\_validation\_set}{34}{section.8.5}
-\contentsline {section}{\numberline {8.6}feature\_select\_train\_val\_test}{35}{section.8.6}
-\contentsline {section}{\numberline {8.7}fix\_key}{35}{section.8.7}
-\contentsline {section}{\numberline {8.8}modify\_pheno\_data}{36}{section.8.8}
-\contentsline {section}{\numberline {8.9}move\_jpg}{36}{section.8.9}
-\contentsline {section}{\numberline {8.10}overwrite\_pheno\_data}{36}{section.8.10}
-\contentsline {section}{\numberline {8.11}pkl\_to\_csv}{37}{section.8.11}
-\contentsline {section}{\numberline {8.12}print\_number\_sex\_cpgs}{37}{section.8.12}
-\contentsline {section}{\numberline {8.13}print\_shape}{37}{section.8.13}
-\contentsline {section}{\numberline {8.14}ref\_estimate\_cell\_counts}{38}{section.8.14}
-\contentsline {section}{\numberline {8.15}remove\_sex}{38}{section.8.15}
-\contentsline {section}{\numberline {8.16}remove\_snps}{39}{section.8.16}
-\contentsline {section}{\numberline {8.17}set\_part\_array\_background}{39}{section.8.17}
-\contentsline {section}{\numberline {8.18}stratify}{39}{section.8.18}
-\contentsline {section}{\numberline {8.19}subset\_array}{40}{section.8.19}
-\contentsline {section}{\numberline {8.20}train\_test\_val\_split}{40}{section.8.20}
-\contentsline {section}{\numberline {8.21}write\_cpgs}{40}{section.8.21}
+\contentsline {section}{\numberline {8.6}est\_age}{35}{section.8.6}
+\contentsline {section}{\numberline {8.7}feature\_select\_train\_val\_test}{35}{section.8.7}
+\contentsline {section}{\numberline {8.8}fix\_key}{36}{section.8.8}
+\contentsline {section}{\numberline {8.9}modify\_pheno\_data}{36}{section.8.9}
+\contentsline {section}{\numberline {8.10}move\_jpg}{37}{section.8.10}
+\contentsline {section}{\numberline {8.11}overwrite\_pheno\_data}{37}{section.8.11}
+\contentsline {section}{\numberline {8.12}pkl\_to\_csv}{37}{section.8.12}
+\contentsline {section}{\numberline {8.13}print\_number\_sex\_cpgs}{38}{section.8.13}
+\contentsline {section}{\numberline {8.14}print\_shape}{38}{section.8.14}
+\contentsline {section}{\numberline {8.15}rate\_regression}{38}{section.8.15}
+\contentsline {section}{\numberline {8.16}ref\_estimate\_cell\_counts}{38}{section.8.16}
+\contentsline {section}{\numberline {8.17}ref\_free\_cell\_deconv}{39}{section.8.17}
+\contentsline {section}{\numberline {8.18}remove\_sex}{39}{section.8.18}
+\contentsline {section}{\numberline {8.19}remove\_snps}{40}{section.8.19}
+\contentsline {section}{\numberline {8.20}set\_part\_array\_background}{40}{section.8.20}
+\contentsline {section}{\numberline {8.21}stratify}{40}{section.8.21}
+\contentsline {section}{\numberline {8.22}subset\_array}{41}{section.8.22}
+\contentsline {section}{\numberline {8.23}train\_test\_val\_split}{41}{section.8.23}
+\contentsline {section}{\numberline {8.24}write\_cpgs}{42}{section.8.24}
 \contentsline {chapter}{\numberline {9}Indices and tables}{43}{chapter.9}
-\contentsline {chapter}{Python Module Index}{45}{section*.294}
-\contentsline {chapter}{Index}{47}{section*.295}
+\contentsline {chapter}{Python Module Index}{45}{section*.307}
+\contentsline {chapter}{Index}{47}{section*.308}

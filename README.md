@@ -18,6 +18,8 @@ Why:
 * Make DNAm accessible to python developers and more machine learning oriented researchers  
 * Streamlined analysis makes processing easy  
 
+*PyMethyProcess* is pending submission and review, biorxiv: https://www.biorxiv.org/content/10.1101/604496v1.  
+
 Getting Started:  
 * Installation:   
     * pip install git+https://github.com/bodono/scs-python.git@bb45c69ce57b1fbb5ab23e02b30549a7e0b801e3 git+https://github.com/jlevy44/hypopt.git@27aefef62483174736bd6d5a1b3983dbaf4184dc
@@ -27,8 +29,6 @@ Getting Started:
     * Or see example scripts for usage.
 * Example Usage Scripts (in github repo): Located in ./example_scripts/  
 * Help docs (in github repo): https://christensen-lab-dartmouth.github.io/PyMethylProcess/
-
-*PyMethyProcess* is pending submission and review, and link to paper will be posted shortly.
 
 **Benchmark Results:**
 <img width="1297" alt="benchmark" src="https://user-images.githubusercontent.com/19698023/55841697-422dc680-5afe-11e9-815d-dda140626c7c.png">

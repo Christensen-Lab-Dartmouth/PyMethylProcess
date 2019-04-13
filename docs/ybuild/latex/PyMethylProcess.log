@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  22 MAR 2019 12:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  9 APR 2019 21:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -841,39 +841,39 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
 \openout6 = `PyMethylProcess.toc'.
 
  [2]
-<pymethylprocess_overview.jpeg, id=326, 1027.84pt x 770.88pt>
+<pymethylprocess_overview.jpeg, id=341, 1027.84pt x 770.88pt>
 File: pymethylprocess_overview.jpeg Graphic file (type jpg)
 <use pymethylprocess_overview.jpeg>
-Package pdftex.def Info: pymethylprocess_overview.jpeg  used on input line 84.
+Package pdftex.def Info: pymethylprocess_overview.jpeg  used on input line 86.
 (pdftex.def)             Requested size: 361.3491pt x 271.01184pt.
-<pipeline-download.jpeg, id=327, 1027.84pt x 770.88pt>
+<pipeline-download.jpeg, id=342, 1027.84pt x 770.88pt>
 File: pipeline-download.jpeg Graphic file (type jpg)
 <use pipeline-download.jpeg>
-Package pdftex.def Info: pipeline-download.jpeg  used on input line 86.
+Package pdftex.def Info: pipeline-download.jpeg  used on input line 88.
 (pdftex.def)             Requested size: 361.3491pt x 271.01184pt.
-<pipeline-format.jpeg, id=328, 1027.84pt x 770.88pt>
+<pipeline-format.jpeg, id=343, 1027.84pt x 770.88pt>
 File: pipeline-format.jpeg Graphic file (type jpg)
 <use pipeline-format.jpeg>
-Package pdftex.def Info: pipeline-format.jpeg  used on input line 88.
+Package pdftex.def Info: pipeline-format.jpeg  used on input line 90.
 (pdftex.def)             Requested size: 361.3491pt x 271.01184pt.
  [1
 
  <./pymethylprocess_overview.jpeg> <./pipeline-download.jpeg>]
-<pipeline-preprocess.jpeg, id=334, 1027.84pt x 770.88pt>
+<pipeline-preprocess.jpeg, id=350, 1027.84pt x 770.88pt>
 File: pipeline-preprocess.jpeg Graphic file (type jpg)
 <use pipeline-preprocess.jpeg>
-Package pdftex.def Info: pipeline-preprocess.jpeg  used on input line 90.
+Package pdftex.def Info: pipeline-preprocess.jpeg  used on input line 92.
 (pdftex.def)             Requested size: 361.3491pt x 271.01184pt.
-<pipeline-visualize.jpeg, id=335, 1027.84pt x 770.88pt>
+<pipeline-visualize.jpeg, id=351, 1027.84pt x 770.88pt>
 File: pipeline-visualize.jpeg Graphic file (type jpg)
 <use pipeline-visualize.jpeg>
-Package pdftex.def Info: pipeline-visualize.jpeg  used on input line 92.
+Package pdftex.def Info: pipeline-visualize.jpeg  used on input line 94.
 (pdftex.def)             Requested size: 361.3491pt x 271.01184pt.
  [2 <./pipeline-format.jpeg> <./pipeline-preprocess.jpeg>]
-<pipeline-train-test-split.jpeg, id=340, 1027.84pt x 770.88pt>
+<pipeline-train-test-split.jpeg, id=356, 1027.84pt x 770.88pt>
 File: pipeline-train-test-split.jpeg Graphic file (type jpg)
 <use pipeline-train-test-split.jpeg>
-Package pdftex.def Info: pipeline-train-test-split.jpeg  used on input line 94.
+Package pdftex.def Info: pipeline-train-test-split.jpeg  used on input line 96.
 
 (pdftex.def)             Requested size: 361.3491pt x 271.01184pt.
 
@@ -881,53 +881,53 @@ Package pdftex.def Info: pipeline-train-test-split.jpeg  used on input line 94.
 
 ]
 Chapter 1.
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 103.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 105.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 103.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 105.
  [5]
-Underfull \hbox (badness 10000) in paragraph at lines 291--291
+Underfull \hbox (badness 10000) in paragraph at lines 293--293
 []\T1/ptm/m/it/10 n_cores=6\T1/ptm/m/n/10 , \T1/ptm/m/it/10 n_pcs=4\T1/ptm/m/n/
 10 , \T1/ptm/m/it/10 qc_report_fname='qc/report.html'\T1/ptm/m/n/10 , \T1/ptm/m
 /it/10 nor-mal-iza-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 291--291
+Underfull \hbox (badness 10000) in paragraph at lines 293--293
 \T1/ptm/m/it/10 tion_report_fname='norm/report.html'\T1/ptm/m/n/10 , \T1/ptm/m/
 it/10 pc_plot_fname='qc/pc_plot.pdf'\T1/ptm/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 6125) in paragraph at lines 291--291
+Underfull \hbox (badness 6125) in paragraph at lines 293--293
 \T1/ptm/m/it/10 use-Cache=True\T1/ptm/m/n/10 , \T1/ptm/m/it/10 qc_only=True\T1/
 ptm/m/n/10 , \T1/ptm/m/it/10 qc_parameters={'p.beadnum.cpgs': 0.1\T1/ptm/m/n/10
  ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 344--344
+Underfull \hbox (badness 10000) in paragraph at lines 346--346
 []\T1/ptm/m/it/10 n_cores=6\T1/ptm/m/n/10 , \T1/ptm/m/it/10 pipeline='enmix'\T1
 /ptm/m/n/10 , \T1/ptm/m/it/10 noob=False\T1/ptm/m/n/10 , \T1/ptm/m/it/10 qc_onl
 y=False\T1/ptm/m/n/10 ,
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 393--393
+Underfull \hbox (badness 10000) in paragraph at lines 395--395
 []\T1/ptm/m/it/10 pheno_sheet\T1/ptm/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 393--393
+Underfull \hbox (badness 10000) in paragraph at lines 395--395
 \T1/ptm/m/it/10 idat_dir\T1/ptm/m/n/10 ,
  []
 
 [7] [8]
 Chapter 2.
 
-Underfull \hbox (badness 10000) in paragraph at lines 645--645
+Underfull \hbox (badness 10000) in paragraph at lines 647--647
 []\T1/ptm/m/it/10 pheno_df\T1/ptm/m/n/10 , \T1/ptm/m/it/10 beta_df\T1/ptm/m/n/1
 0 ,
  []
@@ -935,56 +935,56 @@ Underfull \hbox (badness 10000) in paragraph at lines 645--645
 [9
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 885--885
+Underfull \hbox (badness 10000) in paragraph at lines 887--887
 []\T1/ptm/m/it/10 train_p=0.8\T1/ptm/m/n/10 , \T1/ptm/m/it/10 strat-i-fied=True
 \T1/ptm/m/n/10 , \T1/ptm/m/it/10 dis-ease_only=False\T1/ptm/m/n/10 , \T1/ptm/m/
 it/10 key='disease'\T1/ptm/m/n/10 , \T1/ptm/m/it/10 sub-
  []
 
 [10]
-Overfull \hbox (22.65372pt too wide) in paragraph at lines 1009--1009
+Overfull \hbox (22.65372pt too wide) in paragraph at lines 1011--1011
 []\T1/ptm/m/it/10 list_methylation_arrays\T1/pcr/m/n/10 ) 
  []
 
 [11]
-Overfull \hbox (11.3646pt too wide) in paragraph at lines 1075--1075
+Overfull \hbox (11.3646pt too wide) in paragraph at lines 1077--1077
 []\T1/ptm/m/it/10 folder\T1/pcr/m/n/10 ) 
  []
 
 
-Overfull \hbox (54.30452pt too wide) in paragraph at lines 1088--1088
+Overfull \hbox (54.30452pt too wide) in paragraph at lines 1090--1090
 []\T1/ptm/m/it/10 input_dict\T1/ptm/m/n/10 ,
  []
 
 
-Overfull \hbox (26.24475pt too wide) in paragraph at lines 1088--1088
+Overfull \hbox (26.24475pt too wide) in paragraph at lines 1090--1090
 \T1/ptm/m/it/10 dis-
  []
 
 
-Overfull \hbox (47.32472pt too wide) in paragraph at lines 1088--1088
+Overfull \hbox (47.32472pt too wide) in paragraph at lines 1090--1090
 \T1/ptm/m/it/10 ease=''\T1/pcr/m/n/10 ) 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1101--1101
+Underfull \hbox (badness 10000) in paragraph at lines 1103--1103
 []\T1/ptm/m/it/10 conn\T1/ptm/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1101--1101
+Underfull \hbox (badness 10000) in paragraph at lines 1103--1103
 \T1/ptm/m/it/10 dis-
  []
 
 [12]
 Chapter 3.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1135--1135
+Underfull \hbox (badness 10000) in paragraph at lines 1137--1137
 []\T1/ptm/m/it/10 qc_list\T1/ptm/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1164--1164
+Underfull \hbox (badness 10000) in paragraph at lines 1166--1166
 []\T1/ptm/m/it/10 qc_list\T1/ptm/m/n/10 ,
  []
 
@@ -995,12 +995,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 1164--1164
 ]
 Chapter 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1240--1240
+Underfull \hbox (badness 10000) in paragraph at lines 1242--1242
 \T1/ptm/m/it/10 grid={}\T1/ptm/m/n/10 , \T1/ptm/m/it/10 la-be-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1240--1240
+Underfull \hbox (badness 10000) in paragraph at lines 1242--1242
 \T1/ptm/m/it/10 len-code=False\T1/ptm/m/n/10 ,
  []
 
@@ -1017,13 +1017,13 @@ Chapter 6.
 ]
 Chapter 7.
 [23] [24]
-Underfull \hbox (badness 10000) in paragraph at lines 2017--2018
+Underfull \hbox (badness 10000) in paragraph at lines 2019--2020
 \T1/ptm/m/n/10 Mapping file from uuid to TCGA bar-code. Down-loaded us-ing down
 -load_tcga. [de-fault:
  []
 
 [25] [26] [27] [28] [29]
-Underfull \hbox (badness 5533) in paragraph at lines 2657--2658
+Underfull \hbox (badness 5533) in paragraph at lines 2659--2660
 \T1/ptm/m/n/10 Idat csv for one sam-ple sheet, al-ter-na-tively can be your phe
 -no-type sam-ple sheet. [de-fault:
  []
@@ -1032,18 +1032,18 @@ Underfull \hbox (badness 5533) in paragraph at lines 2657--2658
 
 ]
 Chapter 8.
-[33] [34] [35] [36] [37] [38] [39] [40] [41] [42
-
-]
+[33] [34] [35] [36] [37] [38] [39] [40] [41] [42]
 Chapter 9.
-LaTeX Font Info:    Try loading font information for TS1+ptm on input line 3495
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 3629
 .
 (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [43] [44
+) [43
+
+] [44
 
 ]
-Overfull \hbox (12.6225pt too wide) in paragraph at lines 3511--3512
+Overfull \hbox (12.6225pt too wide) in paragraph at lines 3645--3646
 []\T1/pcr/m/n/10 pymethylprocess.general_machine_learning\T1/ptm/m/n/10 ,
  []
 
@@ -1080,594 +1080,594 @@ Overfull \hbox (24.1225pt too wide) in paragraph at lines 14--16
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 17--18
-[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
- []
-
-
-Overfull \hbox (6.1225pt too wide) in paragraph at lines 19--20
-[]| \T1/pcr/m/n/10 pymethyl-utils-print_number_sex_cpgs
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 20--21
-[]| \T1/pcr/m/n/10 pymethyl-utils-remove_sex command
+[]| \T1/pcr/m/n/10 pymethyl-utils-est_age command
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 21--22
-[]| \T1/pcr/m/n/10 pymethyl-utils-remove_snps command
+[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 23--24
-[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
+Overfull \hbox (6.1225pt too wide) in paragraph at lines 23--24
+[]| \T1/pcr/m/n/10 pymethyl-utils-print_number_sex_cpgs
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--25
+[]| \T1/pcr/m/n/10 pymethyl-utils-remove_sex command
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 25--26
+[]| \T1/pcr/m/n/10 pymethyl-utils-remove_snps command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 27--28
+[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 29--30
 []| \T1/pcr/m/n/10 pymethyl-utils-concat_csv command
  []
 
 
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 27--29
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 30--32
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 32--33
-[]\T1/pcr/m/n/10 -bns, --p_beadnum_samples
+Underfull \hbox (badness 10000) in paragraph at lines 31--32
+[]| \T1/pcr/m/n/10 pymethyl-utils-est_age command
  []
 
 
 Overfull \hbox (24.1225pt too wide) in paragraph at lines 33--35
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
- []
-
-
-Overfull \hbox (48.1225pt too wide) in paragraph at lines 36--38
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 39--40
-[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--42
-[]| \T1/pcr/m/n/10 pymethyl-utils-bin_column command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 42--43
-[]| \T1/pcr/m/n/10 pymethyl-utils-pkl_to_csv command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 43--44
-[]\T1/pcr/m/n/10 -c, --column_of_interest
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 44--45
-[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
- []
-
-
-Overfull \hbox (30.1225pt too wide) in paragraph at lines 46--48
-[]| \T1/pcr/m/n/10 pymethyl-utils-set_part_array_background
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 48--49
-[]| \T1/pcr/m/n/10 pymethyl-utils-subset_array
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 49--50
-[]| \T1/pcr/m/n/10 pymethyl-utils-write_cpgs command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 50--51
-[]\T1/pcr/m/n/10 -c, --cpg_replace_method
- []
-
-
-Overfull \hbox (60.1225pt too wide) in paragraph at lines 51--53
-[]| \T1/pcr/m/n/10 pymethyl-utils-create_external_validation_set
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 53--54
-[]\T1/pcr/m/n/10 -c, --include_columns_file
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 54--56
 []| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 61--62
-[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 36--38
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 63--64
+Underfull \hbox (badness 10000) in paragraph at lines 38--39
+[]\T1/pcr/m/n/10 -bns, --p_beadnum_samples
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 39--41
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--42
+[]\T1/pcr/m/n/10 -c, --cell_type_columns
+ []
+
+
+Overfull \hbox (48.1225pt too wide) in paragraph at lines 44--46
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 47--48
 []| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
  []
 
 
-Overfull \hbox (36.1225pt too wide) in paragraph at lines 65--67
-[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_cell_type_results
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
+[]| \T1/pcr/m/n/10 pymethyl-utils-bin_column command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 50--51
+[]| \T1/pcr/m/n/10 pymethyl-utils-pkl_to_csv command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--52
+[]\T1/pcr/m/n/10 -c, --column_of_interest
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--53
+[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
+ []
+
+
+Overfull \hbox (30.1225pt too wide) in paragraph at lines 54--56
+[]| \T1/pcr/m/n/10 pymethyl-utils-set_part_array_background
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 56--57
+[]| \T1/pcr/m/n/10 pymethyl-utils-subset_array
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
+[]| \T1/pcr/m/n/10 pymethyl-utils-write_cpgs command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 58--59
+[]\T1/pcr/m/n/10 -c, --cpg_replace_method
+ []
+
+
+Overfull \hbox (60.1225pt too wide) in paragraph at lines 59--61
+[]| \T1/pcr/m/n/10 pymethyl-utils-create_external_validation_set
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 61--62
+[]\T1/pcr/m/n/10 -c, --include_columns_file
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 62--64
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
  []
 
 [47
 
 ]
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 68--70
+Underfull \hbox (badness 10000) in paragraph at lines 67--68
+[]| \T1/pcr/m/n/10 pymethyl-utils-rate_regression
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--70
+[]| \T1/pcr/m/n/10 pymethyl-utils-rate_regression
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 73--74
+[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 75--76
+[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
+ []
+
+
+Overfull \hbox (36.1225pt too wide) in paragraph at lines 77--79
+[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_cell_type_results
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 80--82
 []| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 70--71
+Underfull \hbox (badness 10000) in paragraph at lines 82--83
 []\T1/pcr/m/n/10 -d, --disease_class_column
  []
 
 
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 71--73
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 83--85
 []| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
  []
 
 
-Overfull \hbox (78.1225pt too wide) in paragraph at lines 74--76
+Overfull \hbox (78.1225pt too wide) in paragraph at lines 86--88
 []| \T1/pcr/m/n/10 pymethyl-preprocess-get_categorical_distribution
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 76--78
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
- []
-
-
-Overfull \hbox (108.1225pt too wide) in paragraph at lines 79--81
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-split_preprocess_input_by_subtype
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 81--82
-[]| \T1/pcr/m/n/10 pymethyl-utils-fix_key command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 83--84
-[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 84--85
-[]\T1/pcr/m/n/10 -d, --optional_input_pkl_dir
- []
-
-
-Overfull \hbox (66.1225pt too wide) in paragraph at lines 85--87
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-combine_methylation_arrays
  []
 
 
 Overfull \hbox (24.1225pt too wide) in paragraph at lines 88--90
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-merge_sample_sheets
- []
-
-
-Overfull \hbox (66.1225pt too wide) in paragraph at lines 93--95
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-combine_methylation_arrays
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 95--96
-[]\T1/pcr/m/n/10 -e, --exclude_disease_list
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 97--98
-[]\T1/pcr/m/n/10 -f, --feature_selection_method
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 98--99
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-feature_select
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 99--101
 []| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
  []
 
 
-Overfull \hbox (54.1225pt too wide) in paragraph at lines 101--103
-[]| \T1/pcr/m/n/10 pymethyl-utils-feature_select_train_val_test
- []
-
-
-Overfull \hbox (36.1225pt too wide) in paragraph at lines 104--106
-[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_cell_type_results
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 106--107
-[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 108--109
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-download_geo
- []
-
-
-Overfull \hbox (108.1225pt too wide) in paragraph at lines 110--112
+Overfull \hbox (108.1225pt too wide) in paragraph at lines 91--93
 []| \T1/pcr/m/n/10 pymethyl-preprocess-split_preprocess_input_by_subtype
  []
 
 
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 113--115
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 115--117
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
- []
-
-
-Overfull \hbox (36.1225pt too wide) in paragraph at lines 118--120
-[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_cell_type_results
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 120--121
-[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 122--123
-[]| \T1/pcr/m/n/10 pymethyl-utils-move_jpg command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 124--125
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-feature_select
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 125--127
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 127--128
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-na_report
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 128--129
-[]| \T1/pcr/m/n/10 pymethyl-utils-backup_pkl command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 129--130
-[]| \T1/pcr/m/n/10 pymethyl-utils-counts command line
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 130--131
+Underfull \hbox (badness 10000) in paragraph at lines 93--94
 []| \T1/pcr/m/n/10 pymethyl-utils-fix_key command
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 131--132
-[]| \T1/pcr/m/n/10 pymethyl-utils-modify_pheno_data
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 133--134
-[]| \T1/pcr/m/n/10 pymethyl-utils-pkl_to_csv command
- []
-
-
-Overfull \hbox (6.1225pt too wide) in paragraph at lines 134--135
-[]| \T1/pcr/m/n/10 pymethyl-utils-print_number_sex_cpgs
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 135--136
-[]| \T1/pcr/m/n/10 pymethyl-utils-print_shape command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 136--137
-[]| \T1/pcr/m/n/10 pymethyl-utils-remove_sex command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 137--138
-[]| \T1/pcr/m/n/10 pymethyl-utils-remove_snps command
- []
-
-
-Overfull \hbox (30.1225pt too wide) in paragraph at lines 138--140
-[]| \T1/pcr/m/n/10 pymethyl-utils-set_part_array_background
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 140--141
-[]| \T1/pcr/m/n/10 pymethyl-utils-stratify command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 141--142
-[]| \T1/pcr/m/n/10 pymethyl-utils-subset_array
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 143--144
-[]| \T1/pcr/m/n/10 pymethyl-utils-write_cpgs command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 144--145
+Underfull \hbox (badness 10000) in paragraph at lines 95--96
 []| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
  []
 
-[48]
-Overfull \hbox (54.1225pt too wide) in paragraph at lines 146--148
-[]| \T1/pcr/m/n/10 pymethyl-utils-feature_select_train_val_test
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--97
+[]\T1/pcr/m/n/10 -d, --optional_input_pkl_dir
  []
 
 
-Overfull \hbox (66.1225pt too wide) in paragraph at lines 149--151
+Overfull \hbox (66.1225pt too wide) in paragraph at lines 97--99
 []| \T1/pcr/m/n/10 pymethyl-preprocess-combine_methylation_arrays
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 151--152
-[]\T1/pcr/m/n/10 -i, --subtype_output_dir
- []
-
-
-Overfull \hbox (48.1225pt too wide) in paragraph at lines 152--154
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 155--156
-[]| \T1/pcr/m/n/10 pymethyl-utils-concat_csv command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 157--158
-[]| \T1/pcr/m/n/10 pymethyl-utils-concat_csv command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 159--160
-[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 160--161
-[]\T1/pcr/m/n/10 -is, --formatted_sample_sheet
- []
-
-
-Overfull \hbox (78.1225pt too wide) in paragraph at lines 161--163
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-get_categorical_distribution
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 164--165
-[]\T1/pcr/m/n/10 -is, --input_formatted_sample_sheet
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 165--166
-[]| \T1/pcr/m/n/10 pymethyl-utils-modify_pheno_data
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 167--168
-[]\T1/pcr/m/n/10 -is, --input_sample_sheet
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 168--170
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 170--171
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-meffil_encode
- []
-
-
-Overfull \hbox (78.1225pt too wide) in paragraph at lines 172--174
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-get_categorical_distribution
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 174--175
-[]| \T1/pcr/m/n/10 pymethyl-utils-counts command line
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 175--176
-[]| \T1/pcr/m/n/10 pymethyl-utils-fix_key command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 176--177
-[]| \T1/pcr/m/n/10 pymethyl-utils-stratify command
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 179--181
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 182--184
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 185--187
-[]| \T1/pcr/m/n/10 pymethyl-utils-ref_estimate_cell_counts
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 190--191
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-feature_select
- []
-
-
-Overfull \hbox (54.1225pt too wide) in paragraph at lines 191--193
-[]| \T1/pcr/m/n/10 pymethyl-utils-feature_select_train_val_test
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 194--195
-[]| \T1/pcr/m/n/10 pymethyl-install-install_custom
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 196--198
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 199--200
-[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
- []
-
-
-Overfull \hbox (48.1225pt too wide) in paragraph at lines 201--203
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 203--205
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 206--208
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 209--210
-[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 211--212
-[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 213--214
-[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 215--216
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-feature_select
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 216--218
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
- []
-
-
-Overfull \hbox (54.1225pt too wide) in paragraph at lines 218--220
-[]| \T1/pcr/m/n/10 pymethyl-utils-feature_select_train_val_test
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 221--222
-[]| \T1/pcr/m/n/10 pymethyl-utils-bin_column command
- []
-
-
-Overfull \hbox (48.1225pt too wide) in paragraph at lines 223--225
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 225--227
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 228--229
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-feature_select
- []
-
-[49]
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 229--231
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
- []
-
-
-Overfull \hbox (54.1225pt too wide) in paragraph at lines 231--233
-[]| \T1/pcr/m/n/10 pymethyl-utils-feature_select_train_val_test
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 234--235
-[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 236--238
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 100--102
 []| \T1/pcr/m/n/10 pymethyl-preprocess-merge_sample_sheets
  []
 
 
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 239--241
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
+Overfull \hbox (66.1225pt too wide) in paragraph at lines 105--107
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-combine_methylation_arrays
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 242--243
+Underfull \hbox (badness 10000) in paragraph at lines 107--108
+[]\T1/pcr/m/n/10 -e, --exclude_disease_list
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--110
+[]\T1/pcr/m/n/10 -f, --feature_selection_method
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
 []| \T1/pcr/m/n/10 pymethyl-preprocess-feature_select
  []
 
 
-Overfull \hbox (54.1225pt too wide) in paragraph at lines 243--245
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 111--113
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
+ []
+
+
+Overfull \hbox (54.1225pt too wide) in paragraph at lines 113--115
 []| \T1/pcr/m/n/10 pymethyl-utils-feature_select_train_val_test
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 245--246
-[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
+Overfull \hbox (36.1225pt too wide) in paragraph at lines 116--118
+[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_cell_type_results
  []
 
 
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 247--249
+Underfull \hbox (badness 10000) in paragraph at lines 118--119
+[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 120--121
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-download_geo
+ []
+
+
+Overfull \hbox (108.1225pt too wide) in paragraph at lines 122--124
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-split_preprocess_input_by_subtype
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 125--127
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 127--129
 []| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
  []
 
 
-Overfull \hbox (36.1225pt too wide) in paragraph at lines 250--252
+Underfull \hbox (badness 10000) in paragraph at lines 130--131
+[]| \T1/pcr/m/n/10 pymethyl-utils-concat_csv command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 132--133
+[]| \T1/pcr/m/n/10 pymethyl-utils-rate_regression
+ []
+
+
+Overfull \hbox (36.1225pt too wide) in paragraph at lines 133--135
 []| \T1/pcr/m/n/10 pymethyl-visualize-plot_cell_type_results
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
+[]| \T1/pcr/m/n/10 pymethyl-utils-move_jpg command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-feature_select
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 140--142
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-na_report
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 143--144
+[]| \T1/pcr/m/n/10 pymethyl-utils-backup_pkl command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--145
+[]| \T1/pcr/m/n/10 pymethyl-utils-counts command line
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 145--146
+[]| \T1/pcr/m/n/10 pymethyl-utils-est_age command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 146--147
+[]| \T1/pcr/m/n/10 pymethyl-utils-fix_key command
+ []
+
+[48]
+Underfull \hbox (badness 10000) in paragraph at lines 147--148
+[]| \T1/pcr/m/n/10 pymethyl-utils-modify_pheno_data
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 149--150
+[]| \T1/pcr/m/n/10 pymethyl-utils-pkl_to_csv command
+ []
+
+
+Overfull \hbox (6.1225pt too wide) in paragraph at lines 150--151
+[]| \T1/pcr/m/n/10 pymethyl-utils-print_number_sex_cpgs
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 151--152
+[]| \T1/pcr/m/n/10 pymethyl-utils-print_shape command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 152--153
+[]| \T1/pcr/m/n/10 pymethyl-utils-remove_sex command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+[]| \T1/pcr/m/n/10 pymethyl-utils-remove_snps command
+ []
+
+
+Overfull \hbox (30.1225pt too wide) in paragraph at lines 154--156
+[]| \T1/pcr/m/n/10 pymethyl-utils-set_part_array_background
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 156--157
+[]| \T1/pcr/m/n/10 pymethyl-utils-stratify command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
+[]| \T1/pcr/m/n/10 pymethyl-utils-subset_array
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 159--160
+[]| \T1/pcr/m/n/10 pymethyl-utils-write_cpgs command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 160--161
+[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
+ []
+
+
+Overfull \hbox (54.1225pt too wide) in paragraph at lines 162--164
+[]| \T1/pcr/m/n/10 pymethyl-utils-feature_select_train_val_test
+ []
+
+
+Overfull \hbox (66.1225pt too wide) in paragraph at lines 165--167
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-combine_methylation_arrays
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 167--168
+[]\T1/pcr/m/n/10 -i, --subtype_output_dir
+ []
+
+
+Overfull \hbox (48.1225pt too wide) in paragraph at lines 168--170
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--172
+[]| \T1/pcr/m/n/10 pymethyl-utils-concat_csv command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+[]| \T1/pcr/m/n/10 pymethyl-utils-concat_csv command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 175--176
+[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 176--177
+[]\T1/pcr/m/n/10 -is, --formatted_sample_sheet
+ []
+
+
+Overfull \hbox (78.1225pt too wide) in paragraph at lines 177--179
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-get_categorical_distribution
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 180--181
+[]\T1/pcr/m/n/10 -is, --input_formatted_sample_sheet
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--182
+[]| \T1/pcr/m/n/10 pymethyl-utils-modify_pheno_data
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 183--184
+[]\T1/pcr/m/n/10 -is, --input_sample_sheet
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 184--186
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-meffil_encode
+ []
+
+
+Overfull \hbox (78.1225pt too wide) in paragraph at lines 188--190
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-get_categorical_distribution
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--191
+[]| \T1/pcr/m/n/10 pymethyl-utils-counts command line
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 191--192
+[]| \T1/pcr/m/n/10 pymethyl-utils-fix_key command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 192--193
+[]| \T1/pcr/m/n/10 pymethyl-utils-stratify command
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 197--199
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 200--202
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 203--205
+[]| \T1/pcr/m/n/10 pymethyl-utils-ref_estimate_cell_counts
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 208--209
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-feature_select
+ []
+
+
+Overfull \hbox (54.1225pt too wide) in paragraph at lines 209--211
+[]| \T1/pcr/m/n/10 pymethyl-utils-feature_select_train_val_test
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
+[]| \T1/pcr/m/n/10 pymethyl-install-install_custom
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 214--216
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 217--218
+[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
+ []
+
+
+Overfull \hbox (48.1225pt too wide) in paragraph at lines 219--221
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 221--223
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
+ []
+
+[49]
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 224--226
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 227--228
+[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 229--230
+[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 231--232
+[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 233--234
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-feature_select
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 234--236
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
+ []
+
+
+Overfull \hbox (54.1225pt too wide) in paragraph at lines 236--238
+[]| \T1/pcr/m/n/10 pymethyl-utils-feature_select_train_val_test
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 239--240
+[]| \T1/pcr/m/n/10 pymethyl-utils-bin_column command
+ []
+
+
+Overfull \hbox (48.1225pt too wide) in paragraph at lines 241--243
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 243--245
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 246--247
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-feature_select
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 247--249
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
+ []
+
+
+Overfull \hbox (54.1225pt too wide) in paragraph at lines 249--251
+[]| \T1/pcr/m/n/10 pymethyl-utils-feature_select_train_val_test
  []
 
 
@@ -1676,258 +1676,263 @@ Underfull \hbox (badness 10000) in paragraph at lines 252--253
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 254--255
-[]| \T1/pcr/m/n/10 pymethyl-utils-concat_csv command
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 255--257
-[]| \T1/pcr/m/n/10 pymethyl-utils-ref_estimate_cell_counts
- []
-
-
-Overfull \hbox (12.1225pt too wide) in paragraph at lines 258--259
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-download_clinical
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 259--260
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-download_geo
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 260--261
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-download_tcga
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 261--262
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-na_report
- []
-
-
-Overfull \hbox (54.1225pt too wide) in paragraph at lines 262--264
-[]| \T1/pcr/m/n/10 pymethyl-utils-feature_select_train_val_test
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 264--265
-[]| \T1/pcr/m/n/10 pymethyl-utils-move_jpg command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 265--266
-[]| \T1/pcr/m/n/10 pymethyl-utils-pkl_to_csv command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 266--267
-[]| \T1/pcr/m/n/10 pymethyl-utils-stratify command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 269--270
-[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
- []
-
-
-Overfull \hbox (66.1225pt too wide) in paragraph at lines 271--273
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-combine_methylation_arrays
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 273--274
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-feature_select
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 274--276
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 276--278
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 278--279
-[]| \T1/pcr/m/n/10 pymethyl-utils-backup_pkl command
- []
-
-
-Overfull \hbox (60.1225pt too wide) in paragraph at lines 279--281
-[]| \T1/pcr/m/n/10 pymethyl-utils-create_external_validation_set
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 281--282
-[]| \T1/pcr/m/n/10 pymethyl-utils-fix_key command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 282--283
-[]| \T1/pcr/m/n/10 pymethyl-utils-modify_pheno_data
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 284--285
-[]| \T1/pcr/m/n/10 pymethyl-utils-remove_sex command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 285--286
-[]| \T1/pcr/m/n/10 pymethyl-utils-remove_snps command
- []
-
-
-Overfull \hbox (30.1225pt too wide) in paragraph at lines 286--288
-[]| \T1/pcr/m/n/10 pymethyl-utils-set_part_array_background
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 288--289
-[]| \T1/pcr/m/n/10 pymethyl-utils-subset_array
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 289--290
-[]\T1/pcr/m/n/10 -o, --subtype_output_dir
- []
-
-
-Overfull \hbox (108.1225pt too wide) in paragraph at lines 290--292
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-split_preprocess_input_by_subtype
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 292--293
-[]\T1/pcr/m/n/10 -os, --output_sample_sheet
- []
-
-
-Overfull \hbox (30.1225pt too wide) in paragraph at lines 293--295
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-concat_sample_sheets
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 295--297
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 297--298
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-meffil_encode
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 298--300
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 254--256
 []| \T1/pcr/m/n/10 pymethyl-preprocess-merge_sample_sheets
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 300--301
-[]\T1/pcr/m/n/10 -os, --output_sheet_name
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 302--303
-[]\T1/pcr/m/n/10 -ot, --output_test_pkl
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 303--304
-[]| \T1/pcr/m/n/10 pymethyl-utils-bin_column command
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 305--306
-[]| \T1/pcr/m/n/10 pymethyl-install-install_custom
- []
-
-[50]
-Underfull \hbox (badness 10000) in paragraph at lines 307--308
-[]\T1/pcr/m/n/10 -p, --pc_qc_parameters_csv
- []
-
-
-Overfull \hbox (48.1225pt too wide) in paragraph at lines 308--310
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 311--313
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 314--316
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 316--317
-[]\T1/pcr/m/n/10 -pdc, --p_detection_cpgs
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 317--319
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 319--320
-[]\T1/pcr/m/n/10 -pds, --p_detection_samples
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 320--322
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
- []
-
-
-Overfull \hbox (60.1225pt too wide) in paragraph at lines 323--325
-[]| \T1/pcr/m/n/10 pymethyl-utils-create_external_validation_set
- []
-
-
-Overfull \hbox (48.1225pt too wide) in paragraph at lines 326--328
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 328--330
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 331--332
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-na_report
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 333--335
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 257--259
 []| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
  []
 
 
-Overfull \hbox (48.1225pt too wide) in paragraph at lines 336--338
+Underfull \hbox (badness 10000) in paragraph at lines 260--261
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-feature_select
+ []
+
+
+Overfull \hbox (54.1225pt too wide) in paragraph at lines 261--263
+[]| \T1/pcr/m/n/10 pymethyl-utils-feature_select_train_val_test
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 263--264
+[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 265--267
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
+ []
+
+
+Overfull \hbox (36.1225pt too wide) in paragraph at lines 268--270
+[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_cell_type_results
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 270--271
+[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 272--273
+[]| \T1/pcr/m/n/10 pymethyl-utils-concat_csv command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 273--274
+[]| \T1/pcr/m/n/10 pymethyl-utils-est_age command
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 274--276
+[]| \T1/pcr/m/n/10 pymethyl-utils-ref_estimate_cell_counts
+ []
+
+
+Overfull \hbox (12.1225pt too wide) in paragraph at lines 277--278
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-download_clinical
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 278--279
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-download_geo
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 279--280
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-download_tcga
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 280--281
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-na_report
+ []
+
+
+Overfull \hbox (54.1225pt too wide) in paragraph at lines 281--283
+[]| \T1/pcr/m/n/10 pymethyl-utils-feature_select_train_val_test
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 283--284
+[]| \T1/pcr/m/n/10 pymethyl-utils-move_jpg command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 284--285
+[]| \T1/pcr/m/n/10 pymethyl-utils-pkl_to_csv command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 285--286
+[]| \T1/pcr/m/n/10 pymethyl-utils-stratify command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 288--289
+[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
+ []
+
+
+Overfull \hbox (66.1225pt too wide) in paragraph at lines 290--292
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-combine_methylation_arrays
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 292--293
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-feature_select
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 293--295
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 295--297
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--298
+[]| \T1/pcr/m/n/10 pymethyl-utils-backup_pkl command
+ []
+
+
+Overfull \hbox (60.1225pt too wide) in paragraph at lines 298--300
+[]| \T1/pcr/m/n/10 pymethyl-utils-create_external_validation_set
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 300--301
+[]| \T1/pcr/m/n/10 pymethyl-utils-fix_key command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 301--302
+[]| \T1/pcr/m/n/10 pymethyl-utils-modify_pheno_data
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 303--304
+[]| \T1/pcr/m/n/10 pymethyl-utils-remove_sex command
+ []
+
+[50]
+Underfull \hbox (badness 10000) in paragraph at lines 304--305
+[]| \T1/pcr/m/n/10 pymethyl-utils-remove_snps command
+ []
+
+
+Overfull \hbox (30.1225pt too wide) in paragraph at lines 305--307
+[]| \T1/pcr/m/n/10 pymethyl-utils-set_part_array_background
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 307--308
+[]| \T1/pcr/m/n/10 pymethyl-utils-subset_array
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 308--309
+[]\T1/pcr/m/n/10 -o, --subtype_output_dir
+ []
+
+
+Overfull \hbox (108.1225pt too wide) in paragraph at lines 309--311
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-split_preprocess_input_by_subtype
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 311--312
+[]\T1/pcr/m/n/10 -os, --output_sample_sheet
+ []
+
+
+Overfull \hbox (30.1225pt too wide) in paragraph at lines 312--314
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-concat_sample_sheets
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 314--316
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 316--317
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-meffil_encode
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 317--319
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-merge_sample_sheets
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 319--320
+[]\T1/pcr/m/n/10 -os, --output_sheet_name
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 321--322
+[]\T1/pcr/m/n/10 -ot, --output_test_pkl
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 322--323
+[]| \T1/pcr/m/n/10 pymethyl-utils-bin_column command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 324--325
+[]| \T1/pcr/m/n/10 pymethyl-install-install_custom
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 326--327
+[]\T1/pcr/m/n/10 -p, --pc_qc_parameters_csv
+ []
+
+
+Overfull \hbox (48.1225pt too wide) in paragraph at lines 327--329
 []| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
  []
 
 
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 330--332
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 333--335
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 335--336
+[]\T1/pcr/m/n/10 -pdc, --p_detection_cpgs
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 336--338
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 338--339
+[]\T1/pcr/m/n/10 -pds, --p_detection_samples
+ []
+
+
 Overfull \hbox (24.1225pt too wide) in paragraph at lines 339--341
-[]| \T1/pcr/m/n/10 pymethyl-utils-ref_estimate_cell_counts
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 341--342
-[]\T1/pcr/m/n/10 -ro, --input_r_object_dir
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 342--344
-[]| \T1/pcr/m/n/10 pymethyl-utils-ref_estimate_cell_counts
+Overfull \hbox (60.1225pt too wide) in paragraph at lines 342--344
+[]| \T1/pcr/m/n/10 pymethyl-utils-create_external_validation_set
  []
 
 
@@ -1936,1441 +1941,1503 @@ Overfull \hbox (48.1225pt too wide) in paragraph at lines 345--347
  []
 
 
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 348--350
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 347--349
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 350--351
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-na_report
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 352--354
 []| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
  []
 
 
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 351--353
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 354--355
-[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
- []
-
-
-Overfull \hbox (30.1225pt too wide) in paragraph at lines 356--358
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-concat_sample_sheets
+Overfull \hbox (48.1225pt too wide) in paragraph at lines 355--357
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
  []
 
 
 Overfull \hbox (24.1225pt too wide) in paragraph at lines 358--360
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-merge_sample_sheets
+[]| \T1/pcr/m/n/10 pymethyl-utils-ref_estimate_cell_counts
  []
 
 
-Overfull \hbox (30.1225pt too wide) in paragraph at lines 361--363
+Underfull \hbox (badness 10000) in paragraph at lines 360--361
+[]\T1/pcr/m/n/10 -ro, --input_r_object_dir
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 361--363
+[]| \T1/pcr/m/n/10 pymethyl-utils-ref_estimate_cell_counts
+ []
+
+
+Overfull \hbox (48.1225pt too wide) in paragraph at lines 364--366
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 367--369
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 370--372
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 373--374
+[]| \T1/pcr/m/n/10 pymethyl-visualize-transform_plot
+ []
+
+
+Overfull \hbox (30.1225pt too wide) in paragraph at lines 375--377
 []| \T1/pcr/m/n/10 pymethyl-preprocess-concat_sample_sheets
  []
 
 
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 363--365
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 377--379
 []| \T1/pcr/m/n/10 pymethyl-preprocess-merge_sample_sheets
  []
 
 
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 366--368
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 369--371
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 371--372
-[]\T1/pcr/m/n/10 -sd, --subtype_delimiter
- []
-
-
-Overfull \hbox (78.1225pt too wide) in paragraph at lines 372--374
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-get_categorical_distribution
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 374--376
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
- []
-
-
-Overfull \hbox (108.1225pt too wide) in paragraph at lines 377--379
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-split_preprocess_input_by_subtype
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 379--380
-[]| \T1/pcr/m/n/10 pymethyl-utils-fix_key command
+Overfull \hbox (30.1225pt too wide) in paragraph at lines 380--382
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-concat_sample_sheets
  []
 
 
 Overfull \hbox (24.1225pt too wide) in paragraph at lines 382--384
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 384--385
-[]\T1/pcr/m/n/10 -st, --sample_threshold
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-merge_sample_sheets
  []
 
 
 Overfull \hbox (24.1225pt too wide) in paragraph at lines 385--387
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 388--389
-[]| \T1/pcr/m/n/10 pymethyl-utils-bin_column command
- []
-
-
-Overfull \hbox (48.1225pt too wide) in paragraph at lines 390--392
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
- []
-
-
-Overfull \hbox (60.1225pt too wide) in paragraph at lines 393--395
-[]| \T1/pcr/m/n/10 pymethyl-utils-create_external_validation_set
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 396--397
-[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
- []
-
-[51]
-Overfull \hbox (48.1225pt too wide) in paragraph at lines 400--402
-[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
- []
-
-
-Overfull \hbox (24.1225pt too wide) in paragraph at lines 402--404
 []| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
  []
 
 
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 388--390
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 390--391
+[]\T1/pcr/m/n/10 -sd, --subtype_delimiter
+ []
+
+
+Overfull \hbox (78.1225pt too wide) in paragraph at lines 391--393
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-get_categorical_distribution
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 393--395
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
+ []
+
+[51]
+Overfull \hbox (108.1225pt too wide) in paragraph at lines 396--398
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-split_preprocess_input_by_subtype
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 398--399
+[]| \T1/pcr/m/n/10 pymethyl-utils-fix_key command
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 401--403
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 403--404
+[]\T1/pcr/m/n/10 -st, --sample_threshold
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 404--406
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 407--408
+[]| \T1/pcr/m/n/10 pymethyl-utils-bin_column command
+ []
+
+
+Overfull \hbox (48.1225pt too wide) in paragraph at lines 409--411
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
+ []
+
+
+Overfull \hbox (60.1225pt too wide) in paragraph at lines 412--414
+[]| \T1/pcr/m/n/10 pymethyl-utils-create_external_validation_set
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 415--416
 []| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 409--410
+Overfull \hbox (48.1225pt too wide) in paragraph at lines 423--425
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
+ []
+
+
+Overfull \hbox (24.1225pt too wide) in paragraph at lines 425--427
+[]| \T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--431
 []| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 413--415
+Underfull \hbox (badness 10000) in paragraph at lines 432--433
+[]| \T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 436--438
 []\T1/pcr/m/n/10 assign_results_to_pheno_col() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 
 pymethyl-
  []
 
 
-Overfull \hbox (24.50092pt too wide) in paragraph at lines 413--415
+Overfull \hbox (24.50092pt too wide) in paragraph at lines 436--438
 \T1/ptm/m/it/10 pro-cess.general_machine_learning.MachineLearning
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 418--420
+Underfull \hbox (badness 10000) in paragraph at lines 441--443
 []\T1/pcr/m/n/10 bin_column() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 418--420
+Underfull \hbox (badness 10000) in paragraph at lines 441--443
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 423--425
+Underfull \hbox (badness 10000) in paragraph at lines 446--448
 []\T1/pcr/m/n/10 categorical_breakdown() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymeth
 yl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 423--425
+Underfull \hbox (badness 10000) in paragraph at lines 446--448
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--427
+Underfull \hbox (badness 10000) in paragraph at lines 448--450
 []\T1/pcr/m/n/10 combine() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--427
+Underfull \hbox (badness 10000) in paragraph at lines 448--450
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArrays
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 427--429
+Underfull \hbox (badness 10000) in paragraph at lines 450--452
 []\T1/pcr/m/n/10 concat() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Overfull \hbox (10.4803pt too wide) in paragraph at lines 427--429
+Overfull \hbox (10.4803pt too wide) in paragraph at lines 450--452
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessPhenoData
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 432--434
+Underfull \hbox (badness 10000) in paragraph at lines 455--457
 []\T1/pcr/m/n/10 download_clinical() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-p
 ro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 432--434
+Underfull \hbox (badness 10000) in paragraph at lines 455--457
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.TCGADownloader
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 434--436
+Underfull \hbox (badness 10000) in paragraph at lines 457--459
 []\T1/pcr/m/n/10 download_geo() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 434--436
+Underfull \hbox (badness 10000) in paragraph at lines 457--459
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.TCGADownloader
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 436--438
+Underfull \hbox (badness 10000) in paragraph at lines 459--461
 []\T1/pcr/m/n/10 download_tcga() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 436--438
+Underfull \hbox (badness 10000) in paragraph at lines 459--461
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.TCGADownloader
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 447--449
+Underfull \hbox (badness 10000) in paragraph at lines 470--472
 []\T1/pcr/m/n/10 export() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Overfull \hbox (10.4803pt too wide) in paragraph at lines 447--449
+Overfull \hbox (10.4803pt too wide) in paragraph at lines 470--472
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessPhenoData
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 449--451
+Underfull \hbox (badness 10000) in paragraph at lines 472--474
 []\T1/pcr/m/n/10 export_csv() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 449--451
+Underfull \hbox (badness 10000) in paragraph at lines 472--474
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 451--453
+Underfull \hbox (badness 10000) in paragraph at lines 474--476
 []\T1/pcr/m/n/10 export_pickle() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 451--453
+Underfull \hbox (badness 10000) in paragraph at lines 474--476
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 453--455
+Underfull \hbox (badness 10000) in paragraph at lines 476--478
 []\T1/pcr/m/n/10 export_sql() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 453--455
+Underfull \hbox (badness 10000) in paragraph at lines 476--478
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 455--457
+Underfull \hbox (badness 10000) in paragraph at lines 478--480
 []\T1/pcr/m/n/10 extract_manifest() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pr
 o-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 455--457
+Underfull \hbox (badness 10000) in paragraph at lines 478--480
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 457--459
+Underfull \hbox (badness 10000) in paragraph at lines 480--482
 []\T1/pcr/m/n/10 extract_pheno_beta_df_from_folder()
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 457--459
+Underfull \hbox (badness 10000) in paragraph at lines 480--482
 \T1/ptm/m/n/10 (\T1/ptm/m/it/10 in mod-ule pymethyl-pro-
  []
 
-
-Overfull \hbox (10.1225pt too wide) in paragraph at lines 459--461
+[52]
+Overfull \hbox (10.1225pt too wide) in paragraph at lines 482--484
 []\T1/pcr/m/n/10 extract_pheno_beta_df_from_pickle_dict()
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 459--461
+Underfull \hbox (badness 10000) in paragraph at lines 482--484
 \T1/ptm/m/n/10 (\T1/ptm/m/it/10 in mod-ule pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 461--463
+Underfull \hbox (badness 10000) in paragraph at lines 484--486
 \T1/ptm/m/it/10 ule pymethyl-pro-cess.MethylationDataTypes\T1/ptm/m/n/10 ),
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 463--465
+Underfull \hbox (badness 10000) in paragraph at lines 486--488
 []\T1/pcr/m/n/10 extract_pheno_data() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-
 pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 463--465
+Underfull \hbox (badness 10000) in paragraph at lines 486--488
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 468--470
+Underfull \hbox (badness 10000) in paragraph at lines 491--493
 []\T1/pcr/m/n/10 feature_select() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 468--470
+Underfull \hbox (badness 10000) in paragraph at lines 491--493
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 470--472
+Underfull \hbox (badness 10000) in paragraph at lines 493--495
 []\T1/pcr/m/n/10 filter_beta() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 470--472
+Underfull \hbox (badness 10000) in paragraph at lines 493--495
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
  []
 
 
-Overfull \hbox (55.83047pt too wide) in paragraph at lines 472--474
+Overfull \hbox (55.83047pt too wide) in paragraph at lines 495--497
 []\T1/pcr/m/n/10 fit() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-cess.genera
 l_machine_learning.MachineLearning
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 474--476
+Underfull \hbox (badness 10000) in paragraph at lines 497--499
 []\T1/pcr/m/n/10 fit_predict() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Overfull \hbox (11.06099pt too wide) in paragraph at lines 474--476
+Overfull \hbox (11.06099pt too wide) in paragraph at lines 497--499
 \T1/ptm/m/it/10 cess.general_machine_learning.MachineLearning
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 476--478
+Underfull \hbox (badness 10000) in paragraph at lines 499--501
 []\T1/pcr/m/n/10 fit_transform() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Overfull \hbox (11.06099pt too wide) in paragraph at lines 476--478
+Overfull \hbox (11.06099pt too wide) in paragraph at lines 499--501
 \T1/ptm/m/it/10 cess.general_machine_learning.MachineLearning
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 478--480
+Underfull \hbox (badness 10000) in paragraph at lines 501--503
 []\T1/pcr/m/n/10 format_custom() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Overfull \hbox (10.4803pt too wide) in paragraph at lines 478--480
+Overfull \hbox (10.4803pt too wide) in paragraph at lines 501--503
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessPhenoData
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--482
+Underfull \hbox (badness 10000) in paragraph at lines 503--505
 []\T1/pcr/m/n/10 format_geo() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Overfull \hbox (10.4803pt too wide) in paragraph at lines 480--482
+Overfull \hbox (10.4803pt too wide) in paragraph at lines 503--505
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessPhenoData
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 482--484
+Underfull \hbox (badness 10000) in paragraph at lines 505--507
 []\T1/pcr/m/n/10 format_tcga() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Overfull \hbox (10.4803pt too wide) in paragraph at lines 482--484
+Overfull \hbox (10.4803pt too wide) in paragraph at lines 505--507
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessPhenoData
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 484--486
+Underfull \hbox (badness 10000) in paragraph at lines 507--509
 []\T1/pcr/m/n/10 from_pickle() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 484--486
+Underfull \hbox (badness 10000) in paragraph at lines 507--509
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
-[52]
-Underfull \hbox (badness 10000) in paragraph at lines 489--491
+
+Underfull \hbox (badness 10000) in paragraph at lines 512--514
 []\T1/pcr/m/n/10 get_beta() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 489--491
+Underfull \hbox (badness 10000) in paragraph at lines 512--514
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
  []
 
 
-Overfull \hbox (23.92023pt too wide) in paragraph at lines 491--493
+Overfull \hbox (23.92023pt too wide) in paragraph at lines 514--516
 \T1/ptm/m/it/10 pro-cess.PreProcessDataTypes.PreProcessPhenoData
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 493--495
+Underfull \hbox (badness 10000) in paragraph at lines 516--518
 []\T1/pcr/m/n/10 get_meth() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 493--495
-\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 495--497
-[]\T1/pcr/m/n/10 get_unmeth() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 495--497
-\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 497--499
-[]\T1/pcr/m/n/10 groupby() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 497--499
-\T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 502--504
-[]\T1/pcr/m/n/10 impute() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 502--504
-\T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 504--506
-[]\T1/pcr/m/n/10 impute() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 504--506
-\T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArrays
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 506--508
-[]\T1/pcr/m/n/10 ImputerObject \T1/ptm/m/n/10 (\T1/ptm/m/it/10 class in pymethy
-l-pro-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 511--513
-[]\T1/pcr/m/n/10 load_detection_p_values_beadnum() \T1/ptm/m/n/10 (\T1/ptm/m/it
-/10 in
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 513--515
-[]\T1/pcr/m/n/10 load_idats() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 513--515
+Underfull \hbox (badness 10000) in paragraph at lines 516--518
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 518--520
+[]\T1/pcr/m/n/10 get_unmeth() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 518--520
+\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 520--522
+[]\T1/pcr/m/n/10 groupby() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 520--522
+\T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 525--527
+[]\T1/pcr/m/n/10 impute() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 525--527
+\T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 527--529
+[]\T1/pcr/m/n/10 impute() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 527--529
+\T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArrays
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 529--531
+[]\T1/pcr/m/n/10 ImputerObject \T1/ptm/m/n/10 (\T1/ptm/m/it/10 class in pymethy
+l-pro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 534--536
+[]\T1/pcr/m/n/10 load_detection_p_values_beadnum() \T1/ptm/m/n/10 (\T1/ptm/m/it
+/10 in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 536--538
+[]\T1/pcr/m/n/10 load_idats() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 536--538
+\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 541--543
 []\T1/pcr/m/n/10 MachineLearning \T1/ptm/m/n/10 (\T1/ptm/m/it/10 class in pymet
 hyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 520--522
+Underfull \hbox (badness 10000) in paragraph at lines 543--545
 []\T1/pcr/m/n/10 merge() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Overfull \hbox (10.4803pt too wide) in paragraph at lines 520--522
+Overfull \hbox (10.4803pt too wide) in paragraph at lines 543--545
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessPhenoData
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 522--524
+Underfull \hbox (badness 10000) in paragraph at lines 545--547
 []\T1/pcr/m/n/10 merge_preprocess_sheet() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymet
 hyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 522--524
+Underfull \hbox (badness 10000) in paragraph at lines 545--547
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 524--526
+Underfull \hbox (badness 10000) in paragraph at lines 547--549
 []\T1/pcr/m/n/10 MethylationArray \T1/ptm/m/n/10 (\T1/ptm/m/it/10 class in pyme
 thyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 526--528
+Underfull \hbox (badness 10000) in paragraph at lines 549--551
 []\T1/pcr/m/n/10 MethylationArrays \T1/ptm/m/n/10 (\T1/ptm/m/it/10 class in pym
 ethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 528--530
+Underfull \hbox (badness 10000) in paragraph at lines 551--553
 []\T1/pcr/m/n/10 move_jpg() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 528--530
-\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 533--535
-[]\T1/pcr/m/n/10 output_pheno_beta() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-p
-ro-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 533--535
-\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 535--537
-[]\T1/pcr/m/n/10 overwrite_pheno_data() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethy
-l-pro-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 535--537
-\T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 540--542
-[]\T1/pcr/m/n/10 plot_original_qc() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pr
-o-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 540--542
-\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 542--544
-[]\T1/pcr/m/n/10 plot_qc_metrics() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro
--
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 542--544
-\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 544--546
-[]\T1/pcr/m/n/10 predict() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
- []
-
-
-Overfull \hbox (11.06099pt too wide) in paragraph at lines 544--546
-\T1/ptm/m/it/10 cess.general_machine_learning.MachineLearning
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 546--548
-[]\T1/pcr/m/n/10 preprocess_enmix_pipeline() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 py
-methyl-pro-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 546--548
-\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 548--550
-[]\T1/pcr/m/n/10 preprocessENmix() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro
--
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 548--550
-\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 550--552
-[]\T1/pcr/m/n/10 PreProcessIDAT \T1/ptm/m/n/10 (\T1/ptm/m/it/10 class in pymeth
-yl-pro-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 552--554
-[]\T1/pcr/m/n/10 preprocessMeffil() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pr
-o-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 552--554
-\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 554--556
-[]\T1/pcr/m/n/10 preprocessNoob() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 554--556
+Underfull \hbox (badness 10000) in paragraph at lines 551--553
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 556--558
+[]\T1/pcr/m/n/10 output_pheno_beta() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-p
+ro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 556--558
+\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 558--560
+[]\T1/pcr/m/n/10 overwrite_pheno_data() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethy
+l-pro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 558--560
+\T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 563--565
+[]\T1/pcr/m/n/10 plot_original_qc() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pr
+o-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 563--565
+\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 565--567
+[]\T1/pcr/m/n/10 plot_qc_metrics() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro
+-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 565--567
+\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 567--569
+[]\T1/pcr/m/n/10 predict() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
+ []
+
+
+Overfull \hbox (11.06099pt too wide) in paragraph at lines 567--569
+\T1/ptm/m/it/10 cess.general_machine_learning.MachineLearning
+ []
+
+[53]
+Underfull \hbox (badness 10000) in paragraph at lines 569--571
+[]\T1/pcr/m/n/10 preprocess_enmix_pipeline() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 py
+methyl-pro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 569--571
+\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 571--573
+[]\T1/pcr/m/n/10 preprocessENmix() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro
+-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 571--573
+\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 573--575
+[]\T1/pcr/m/n/10 PreProcessIDAT \T1/ptm/m/n/10 (\T1/ptm/m/it/10 class in pymeth
+yl-pro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 575--577
+[]\T1/pcr/m/n/10 preprocessMeffil() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pr
+o-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 575--577
+\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 577--579
+[]\T1/pcr/m/n/10 preprocessNoob() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 577--579
+\T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 579--581
 []\T1/pcr/m/n/10 PreProcessPhenoData \T1/ptm/m/n/10 (\T1/ptm/m/it/10 class in p
 ymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 558--560
+Underfull \hbox (badness 10000) in paragraph at lines 581--583
 []\T1/pcr/m/n/10 preprocessRAW() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 558--560
+Underfull \hbox (badness 10000) in paragraph at lines 581--583
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 562--563
+Underfull \hbox (badness 10000) in paragraph at lines 585--586
 []\T1/pcr/m/n/10 pymethyl-install-install_custom
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 565--566
+Underfull \hbox (badness 10000) in paragraph at lines 588--589
 []\T1/pcr/m/n/10 pymethyl-install-install_r_packages
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 567--568
+Underfull \hbox (badness 10000) in paragraph at lines 590--591
 []\T1/pcr/m/n/10 pymethyl-preprocess command line
  []
 
 
-Overfull \hbox (28.1225pt too wide) in paragraph at lines 569--570
+Overfull \hbox (28.1225pt too wide) in paragraph at lines 592--593
 []\T1/pcr/m/n/10 pymethyl-preprocess-batch_deploy_preprocess
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 571--573
+Underfull \hbox (badness 10000) in paragraph at lines 594--596
 []| \T1/pcr/m/n/10 -i, --subtype_output_dir
  []
 
-[53]
-Underfull \hbox (badness 10000) in paragraph at lines 575--577
+
+Underfull \hbox (badness 10000) in paragraph at lines 598--600
 []| \T1/pcr/m/n/10 -p, --pc_qc_parameters_csv
  []
 
 
-Overfull \hbox (46.1225pt too wide) in paragraph at lines 582--583
+Overfull \hbox (46.1225pt too wide) in paragraph at lines 605--606
 []\T1/pcr/m/n/10 pymethyl-preprocess-combine_methylation_arrays
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 583--585
+Underfull \hbox (badness 10000) in paragraph at lines 606--608
 []| \T1/pcr/m/n/10 -d, --optional_input_pkl_dir
  []
 
 
-Overfull \hbox (10.1225pt too wide) in paragraph at lines 588--589
+Overfull \hbox (10.1225pt too wide) in paragraph at lines 611--612
 []\T1/pcr/m/n/10 pymethyl-preprocess-concat_sample_sheets
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 589--591
+Underfull \hbox (badness 10000) in paragraph at lines 612--614
 []| \T1/pcr/m/n/10 -os, --output_sample_sheet
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 591--593
+Underfull \hbox (badness 10000) in paragraph at lines 614--616
 []| \T1/pcr/m/n/10 -s1, --sample_sheet1
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 593--595
+Underfull \hbox (badness 10000) in paragraph at lines 616--618
 []| \T1/pcr/m/n/10 -s2, --sample_sheet2
  []
 
 
-Overfull \hbox (4.1225pt too wide) in paragraph at lines 595--596
+Overfull \hbox (4.1225pt too wide) in paragraph at lines 618--619
 []\T1/pcr/m/n/10 pymethyl-preprocess-create_sample_sheet
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 597--599
+Underfull \hbox (badness 10000) in paragraph at lines 620--622
 []| \T1/pcr/m/n/10 -c, --include_columns_file
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 599--601
+Underfull \hbox (badness 10000) in paragraph at lines 622--624
 []| \T1/pcr/m/n/10 -d, --disease_class_column
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 602--604
+Underfull \hbox (badness 10000) in paragraph at lines 625--627
 []| \T1/pcr/m/n/10 -is, --input_sample_sheet
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 606--608
+Underfull \hbox (badness 10000) in paragraph at lines 629--631
 []| \T1/pcr/m/n/10 -os, --output_sample_sheet
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 609--610
+Underfull \hbox (badness 10000) in paragraph at lines 632--633
 []\T1/pcr/m/n/10 pymethyl-preprocess-download_clinical
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 611--612
+Underfull \hbox (badness 10000) in paragraph at lines 634--635
 []\T1/pcr/m/n/10 pymethyl-preprocess-download_geo
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 614--615
+Underfull \hbox (badness 10000) in paragraph at lines 637--638
 []\T1/pcr/m/n/10 pymethyl-preprocess-download_tcga
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 616--617
+Underfull \hbox (badness 10000) in paragraph at lines 639--640
 []\T1/pcr/m/n/10 pymethyl-preprocess-feature_select
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 617--619
+Underfull \hbox (badness 10000) in paragraph at lines 640--642
 []| \T1/pcr/m/n/10 -f, --feature_selection_method
  []
 
 
-Overfull \hbox (58.1225pt too wide) in paragraph at lines 626--627
+Overfull \hbox (58.1225pt too wide) in paragraph at lines 649--650
 []\T1/pcr/m/n/10 pymethyl-preprocess-get_categorical_distribution
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 628--630
+Underfull \hbox (badness 10000) in paragraph at lines 651--653
 []| \T1/pcr/m/n/10 -is, --formatted_sample_sheet
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 631--633
+Underfull \hbox (badness 10000) in paragraph at lines 654--656
 []| \T1/pcr/m/n/10 -sd, --subtype_delimiter
  []
 
 
-Overfull \hbox (4.1225pt too wide) in paragraph at lines 633--634
+Overfull \hbox (4.1225pt too wide) in paragraph at lines 656--657
 []\T1/pcr/m/n/10 pymethyl-preprocess-imputation_pipeline
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 634--636
+Underfull \hbox (badness 10000) in paragraph at lines 657--659
 []| \T1/pcr/m/n/10 -ct, --cpg_threshold
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 637--639
+[54]
+Underfull \hbox (badness 10000) in paragraph at lines 660--662
 []| \T1/pcr/m/n/10 -f, --feature_selection_method
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 644--646
+Underfull \hbox (badness 10000) in paragraph at lines 667--669
 []| \T1/pcr/m/n/10 -nfs, --n_neighbors_fs
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 649--651
+Underfull \hbox (badness 10000) in paragraph at lines 672--674
 []| \T1/pcr/m/n/10 -sd, --subtype_delimiter
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 652--654
-[]| \T1/pcr/m/n/10 -st, --sample_threshold
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 654--655
-[]\T1/pcr/m/n/10 pymethyl-preprocess-meffil_encode
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 655--657
-[]| \T1/pcr/m/n/10 -is, --input_sample_sheet
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 657--659
-[]| \T1/pcr/m/n/10 -os, --output_sample_sheet
- []
-
-
-Overfull \hbox (4.1225pt too wide) in paragraph at lines 659--660
-[]\T1/pcr/m/n/10 pymethyl-preprocess-merge_sample_sheets
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 662--664
-[]| \T1/pcr/m/n/10 -os, --output_sample_sheet
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 664--666
-[]| \T1/pcr/m/n/10 -s1, --sample_sheet1
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 666--668
-[]| \T1/pcr/m/n/10 -s2, --sample_sheet2
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 668--669
-[]\T1/pcr/m/n/10 pymethyl-preprocess-na_report command
- []
-
-[54]
-Overfull \hbox (4.1225pt too wide) in paragraph at lines 672--673
-[]\T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 673--675
-[]| \T1/pcr/m/n/10 -bnc, --p_beadnum_cpgs
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 675--677
-[]| \T1/pcr/m/n/10 -bns, --p_beadnum_samples
+[]| \T1/pcr/m/n/10 -st, --sample_threshold
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 684--686
-[]| \T1/pcr/m/n/10 -pdc, --p_detection_cpgs
+Underfull \hbox (badness 10000) in paragraph at lines 677--678
+[]\T1/pcr/m/n/10 pymethyl-preprocess-meffil_encode
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 686--688
-[]| \T1/pcr/m/n/10 -pds, --p_detection_samples
+Underfull \hbox (badness 10000) in paragraph at lines 678--680
+[]| \T1/pcr/m/n/10 -is, --input_sample_sheet
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 692--693
-[]\T1/pcr/m/n/10 pymethyl-preprocess-remove_diseases
+Underfull \hbox (badness 10000) in paragraph at lines 680--682
+[]| \T1/pcr/m/n/10 -os, --output_sample_sheet
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 694--696
-[]| \T1/pcr/m/n/10 -e, --exclude_disease_list
+Overfull \hbox (4.1225pt too wide) in paragraph at lines 682--683
+[]\T1/pcr/m/n/10 pymethyl-preprocess-merge_sample_sheets
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 685--687
+[]| \T1/pcr/m/n/10 -os, --output_sample_sheet
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 687--689
+[]| \T1/pcr/m/n/10 -s1, --sample_sheet1
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 689--691
+[]| \T1/pcr/m/n/10 -s2, --sample_sheet2
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 691--692
+[]\T1/pcr/m/n/10 pymethyl-preprocess-na_report command
+ []
+
+
+Overfull \hbox (4.1225pt too wide) in paragraph at lines 695--696
+[]\T1/pcr/m/n/10 pymethyl-preprocess-preprocess_pipeline
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 696--698
-[]| \T1/pcr/m/n/10 -is, --formatted_sample_sheet
+[]| \T1/pcr/m/n/10 -bnc, --p_beadnum_cpgs
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 699--701
-[]| \T1/pcr/m/n/10 -os, --output_sheet_name
+Underfull \hbox (badness 10000) in paragraph at lines 698--700
+[]| \T1/pcr/m/n/10 -bns, --p_beadnum_samples
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 701--703
-[]| \T1/pcr/m/n/10 -sd, --subtype_delimiter
+Underfull \hbox (badness 10000) in paragraph at lines 707--709
+[]| \T1/pcr/m/n/10 -pdc, --p_detection_cpgs
  []
 
 
-Overfull \hbox (88.1225pt too wide) in paragraph at lines 703--704
-[]\T1/pcr/m/n/10 pymethyl-preprocess-split_preprocess_input_by_subtype
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 706--708
-[]| \T1/pcr/m/n/10 -o, --subtype_output_dir
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 708--710
-[]| \T1/pcr/m/n/10 -sd, --subtype_delimiter
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 712--713
-[]\T1/pcr/m/n/10 pymethyl-utils-backup_pkl command line
+Underfull \hbox (badness 10000) in paragraph at lines 709--711
+[]| \T1/pcr/m/n/10 -pds, --p_detection_samples
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 715--716
+[]\T1/pcr/m/n/10 pymethyl-preprocess-remove_diseases
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 717--719
+[]| \T1/pcr/m/n/10 -e, --exclude_disease_list
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 719--721
+[]| \T1/pcr/m/n/10 -is, --formatted_sample_sheet
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 722--724
+[]| \T1/pcr/m/n/10 -os, --output_sheet_name
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 724--726
+[]| \T1/pcr/m/n/10 -sd, --subtype_delimiter
+ []
+
+
+Overfull \hbox (88.1225pt too wide) in paragraph at lines 726--727
+[]\T1/pcr/m/n/10 pymethyl-preprocess-split_preprocess_input_by_subtype
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 729--731
+[]| \T1/pcr/m/n/10 -o, --subtype_output_dir
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 731--733
+[]| \T1/pcr/m/n/10 -sd, --subtype_delimiter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 735--736
+[]\T1/pcr/m/n/10 pymethyl-utils-backup_pkl command line
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 738--739
 []\T1/pcr/m/n/10 pymethyl-utils-bin_column command line
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 718--720
+Underfull \hbox (badness 10000) in paragraph at lines 741--743
 []| \T1/pcr/m/n/10 -ot, --output_test_pkl
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 721--722
+Underfull \hbox (badness 10000) in paragraph at lines 744--745
 []\T1/pcr/m/n/10 pymethyl-utils-concat_csv command line
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 726--727
+Underfull \hbox (badness 10000) in paragraph at lines 750--751
 []\T1/pcr/m/n/10 pymethyl-utils-counts command line
  []
 
 
-Overfull \hbox (40.1225pt too wide) in paragraph at lines 729--730
+Overfull \hbox (40.1225pt too wide) in paragraph at lines 753--754
 []\T1/pcr/m/n/10 pymethyl-utils-create_external_validation_set
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 730--732
+Underfull \hbox (badness 10000) in paragraph at lines 754--756
 []| \T1/pcr/m/n/10 -c, --cpg_replace_method
  []
 
+[55]
+Underfull \hbox (badness 10000) in paragraph at lines 759--760
+[]\T1/pcr/m/n/10 pymethyl-utils-est_age command line
+ []
 
-Overfull \hbox (34.1225pt too wide) in paragraph at lines 735--736
+
+Overfull \hbox (34.1225pt too wide) in paragraph at lines 764--765
 []\T1/pcr/m/n/10 pymethyl-utils-feature_select_train_val_test
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 736--738
+Underfull \hbox (badness 10000) in paragraph at lines 765--767
 []| \T1/pcr/m/n/10 -f, --feature_selection_method
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 738--740
+Underfull \hbox (badness 10000) in paragraph at lines 767--769
 []| \T1/pcr/m/n/10 -i, --input_pkl_dir <input_pkl_dir>\T1/ptm/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 746--747
+Underfull \hbox (badness 10000) in paragraph at lines 775--776
 []\T1/pcr/m/n/10 pymethyl-utils-fix_key command line
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 751--753
+Underfull \hbox (badness 10000) in paragraph at lines 780--782
 []| \T1/pcr/m/n/10 -sd, --subtype_delimiter
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 753--754
+Underfull \hbox (badness 10000) in paragraph at lines 782--783
 []\T1/pcr/m/n/10 pymethyl-utils-modify_pheno_data
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 755--757
+Underfull \hbox (badness 10000) in paragraph at lines 784--786
 []| \T1/pcr/m/n/10 -is, --input_formatted_sample_sheet
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 755--757
+Underfull \hbox (badness 10000) in paragraph at lines 784--786
 \T1/pcr/m/n/10 <input_formatted_sample_sheet>\T1/ptm/m/n/10 ,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 758--759
-[]\T1/pcr/m/n/10 pymethyl-utils-move_jpg command line
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 761--762
-[]\T1/pcr/m/n/10 pymethyl-utils-overwrite_pheno_data
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 764--766
-[]| \T1/pcr/m/n/10 -is, --input_formatted_sample_sheet
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 764--766
-\T1/pcr/m/n/10 <input_formatted_sample_sheet>\T1/ptm/m/n/10 ,
- []
-
-[55]
-Underfull \hbox (badness 10000) in paragraph at lines 767--768
-[]\T1/pcr/m/n/10 pymethyl-utils-pkl_to_csv command line
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 771--772
-[]\T1/pcr/m/n/10 pymethyl-utils-print_number_sex_cpgs
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 774--775
-[]\T1/pcr/m/n/10 pymethyl-utils-print_shape command
- []
-
-
-Overfull \hbox (4.1225pt too wide) in paragraph at lines 776--777
-[]\T1/pcr/m/n/10 pymethyl-utils-ref_estimate_cell_counts
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 781--783
-[]| \T1/pcr/m/n/10 -ro, --input_r_object_dir
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 783--784
-[]\T1/pcr/m/n/10 pymethyl-utils-remove_sex command line
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 787--788
-[]\T1/pcr/m/n/10 pymethyl-utils-remove_snps command
+[]\T1/pcr/m/n/10 pymethyl-utils-move_jpg command line
  []
 
 
-Overfull \hbox (10.1225pt too wide) in paragraph at lines 791--792
-[]\T1/pcr/m/n/10 pymethyl-utils-set_part_array_background
+Underfull \hbox (badness 10000) in paragraph at lines 790--791
+[]\T1/pcr/m/n/10 pymethyl-utils-overwrite_pheno_data
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 795--796
-[]\T1/pcr/m/n/10 pymethyl-utils-stratify command line
+Underfull \hbox (badness 10000) in paragraph at lines 793--795
+[]| \T1/pcr/m/n/10 -is, --input_formatted_sample_sheet
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 799--800
-[]\T1/pcr/m/n/10 pymethyl-utils-subset_array command
+Underfull \hbox (badness 10000) in paragraph at lines 793--795
+\T1/pcr/m/n/10 <input_formatted_sample_sheet>\T1/ptm/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 796--797
+[]\T1/pcr/m/n/10 pymethyl-utils-pkl_to_csv command line
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 800--801
+[]\T1/pcr/m/n/10 pymethyl-utils-print_number_sex_cpgs
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 803--804
-[]\T1/pcr/m/n/10 pymethyl-utils-train_test_val_split
+[]\T1/pcr/m/n/10 pymethyl-utils-print_shape command
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 809--811
-[]| \T1/pcr/m/n/10 -sd, --subtype_delimiter
+Underfull \hbox (badness 10000) in paragraph at lines 805--806
+[]\T1/pcr/m/n/10 pymethyl-utils-rate_regression command
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 811--813
-[]| \T1/pcr/m/n/10 -tp, --train_percent
+Overfull \hbox (4.1225pt too wide) in paragraph at lines 809--810
+[]\T1/pcr/m/n/10 pymethyl-utils-ref_estimate_cell_counts
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 814--815
-[]\T1/pcr/m/n/10 pymethyl-utils-write_cpgs command line
+Underfull \hbox (badness 10000) in paragraph at lines 814--816
+[]| \T1/pcr/m/n/10 -ro, --input_r_object_dir
  []
 
 
-Overfull \hbox (16.1225pt too wide) in paragraph at lines 819--820
-[]\T1/pcr/m/n/10 pymethyl-visualize-plot_cell_type_results
+Underfull \hbox (badness 10000) in paragraph at lines 816--817
+[]\T1/pcr/m/n/10 pymethyl-utils-ref_free_cell_deconv
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 818--820
+[]| \T1/pcr/m/n/10 -c, --cell_type_columns
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 824--825
-[]\T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
+[]\T1/pcr/m/n/10 pymethyl-utils-remove_sex command line
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 827--829
-[]| \T1/pcr/m/n/10 -col, --color_column <color_column>\T1/ptm/m/n/10 ,
+Underfull \hbox (badness 10000) in paragraph at lines 828--829
+[]\T1/pcr/m/n/10 pymethyl-utils-remove_snps command
+ []
+
+
+Overfull \hbox (10.1225pt too wide) in paragraph at lines 832--833
+[]\T1/pcr/m/n/10 pymethyl-utils-set_part_array_background
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 836--837
+[]\T1/pcr/m/n/10 pymethyl-utils-stratify command line
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 840--841
+[]\T1/pcr/m/n/10 pymethyl-utils-subset_array command
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 844--845
+[]\T1/pcr/m/n/10 pymethyl-utils-train_test_val_split
+ []
+
+[56]
+Underfull \hbox (badness 10000) in paragraph at lines 850--852
+[]| \T1/pcr/m/n/10 -sd, --subtype_delimiter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 852--854
+[]| \T1/pcr/m/n/10 -tp, --train_percent
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 855--856
+[]\T1/pcr/m/n/10 pymethyl-utils-write_cpgs command line
+ []
+
+
+Overfull \hbox (16.1225pt too wide) in paragraph at lines 860--861
+[]\T1/pcr/m/n/10 pymethyl-visualize-plot_cell_type_results
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 865--866
+[]\T1/pcr/m/n/10 pymethyl-visualize-plot_heatmap
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 868--870
+[]| \T1/pcr/m/n/10 -col, --color_column <color_column>\T1/ptm/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 881--882
 []\T1/pcr/m/n/10 pymethyl-visualize-transform_plot
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 842--844
+Underfull \hbox (badness 10000) in paragraph at lines 883--885
 []| \T1/pcr/m/n/10 -c, --column_of_interest
  []
 
 
-Overfull \hbox (10.1225pt too wide) in paragraph at lines 851--852
+Overfull \hbox (10.1225pt too wide) in paragraph at lines 892--893
 []\T1/pcr/m/n/10 pymethylprocess.general_machine_learning
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 852--853
+Underfull \hbox (badness 10000) in paragraph at lines 893--894
 []\T1/pcr/m/n/10 pymethylprocess.meffil_functions \T1/ptm/m/n/10 (\T1/ptm/m/it/
 10 mod-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 853--854
+Underfull \hbox (badness 10000) in paragraph at lines 894--895
 []\T1/pcr/m/n/10 pymethylprocess.MethylationDataTypes
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 854--855
+Underfull \hbox (badness 10000) in paragraph at lines 895--896
 []\T1/pcr/m/n/10 pymethylprocess.PreProcessDataTypes
  []
 
-[56]
-Underfull \hbox (badness 10000) in paragraph at lines 858--860
+
+Underfull \hbox (badness 10000) in paragraph at lines 899--901
 []\T1/pcr/m/n/10 r_autosomal_cpgs() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 in mod-ule 
 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 860--862
+Underfull \hbox (badness 10000) in paragraph at lines 901--903
 []\T1/pcr/m/n/10 r_snp_cpgs() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 in mod-ule pymeth
 yl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 862--864
+Underfull \hbox (badness 10000) in paragraph at lines 903--905
 []\T1/pcr/m/n/10 remove_diseases() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro
 -
  []
 
 
-Overfull \hbox (10.4803pt too wide) in paragraph at lines 862--864
+Overfull \hbox (10.4803pt too wide) in paragraph at lines 903--905
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessPhenoData
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 864--866
+Underfull \hbox (badness 10000) in paragraph at lines 905--907
 []\T1/pcr/m/n/10 remove_missingness() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-
 pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 864--866
+Underfull \hbox (badness 10000) in paragraph at lines 905--907
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 866--868
+Underfull \hbox (badness 10000) in paragraph at lines 907--909
 []\T1/pcr/m/n/10 remove_na_samples() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-p
 ro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 866--868
+Underfull \hbox (badness 10000) in paragraph at lines 907--909
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 868--870
+Underfull \hbox (badness 10000) in paragraph at lines 909--911
 []\T1/pcr/m/n/10 remove_sex() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 in mod-ule pymeth
 yl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 870--872
+Underfull \hbox (badness 10000) in paragraph at lines 911--913
 []\T1/pcr/m/n/10 remove_whitespace() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-p
 ro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 870--872
+Underfull \hbox (badness 10000) in paragraph at lines 911--913
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 872--874
+Underfull \hbox (badness 10000) in paragraph at lines 913--915
 []\T1/pcr/m/n/10 return_beta() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 872--874
+Underfull \hbox (badness 10000) in paragraph at lines 913--915
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 874--876
+Underfull \hbox (badness 10000) in paragraph at lines 915--917
 []\T1/pcr/m/n/10 return_cpgs() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 874--876
+Underfull \hbox (badness 10000) in paragraph at lines 915--917
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 876--878
+Underfull \hbox (badness 10000) in paragraph at lines 917--919
 []\T1/pcr/m/n/10 return_idx() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 876--878
+Underfull \hbox (badness 10000) in paragraph at lines 917--919
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 878--880
+Underfull \hbox (badness 10000) in paragraph at lines 919--921
 []\T1/pcr/m/n/10 return_imputer() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 878--880
+Underfull \hbox (badness 10000) in paragraph at lines 919--921
 \T1/ptm/m/it/10 cess.MethylationDataTypes.ImputerObject
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 880--882
+Underfull \hbox (badness 10000) in paragraph at lines 921--923
 []\T1/pcr/m/n/10 return_outcome_metric() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymeth
 yl-pro-
  []
 
 
-Overfull \hbox (11.06099pt too wide) in paragraph at lines 880--882
+Overfull \hbox (11.06099pt too wide) in paragraph at lines 921--923
 \T1/ptm/m/it/10 cess.general_machine_learning.MachineLearning
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 882--884
+Underfull \hbox (badness 10000) in paragraph at lines 923--925
 []\T1/pcr/m/n/10 return_raw_beta_array() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymeth
 yl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 882--884
+Underfull \hbox (badness 10000) in paragraph at lines 923--925
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 884--886
+Underfull \hbox (badness 10000) in paragraph at lines 925--927
 []\T1/pcr/m/n/10 return_shape() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 884--886
+Underfull \hbox (badness 10000) in paragraph at lines 925--927
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 889--891
+Underfull \hbox (badness 10000) in paragraph at lines 930--932
 []\T1/pcr/m/n/10 set_missing() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 in mod-ule pymet
 hyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 891--893
+Underfull \hbox (badness 10000) in paragraph at lines 932--934
 []\T1/pcr/m/n/10 split_by_subtype() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pr
 o-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 891--893
+Underfull \hbox (badness 10000) in paragraph at lines 932--934
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 893--895
+[57]
+Underfull \hbox (badness 10000) in paragraph at lines 934--936
 []\T1/pcr/m/n/10 split_key() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 893--895
+Underfull \hbox (badness 10000) in paragraph at lines 934--936
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 895--897
+Underfull \hbox (badness 10000) in paragraph at lines 936--938
 []\T1/pcr/m/n/10 split_key() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Overfull \hbox (10.4803pt too wide) in paragraph at lines 895--897
+Overfull \hbox (10.4803pt too wide) in paragraph at lines 936--938
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessPhenoData
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 897--899
+Underfull \hbox (badness 10000) in paragraph at lines 938--940
 []\T1/pcr/m/n/10 split_train_test() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pr
 o-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 897--899
+Underfull \hbox (badness 10000) in paragraph at lines 938--940
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 899--901
+Underfull \hbox (badness 10000) in paragraph at lines 940--942
 []\T1/pcr/m/n/10 store_results() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Overfull \hbox (11.06099pt too wide) in paragraph at lines 899--901
+Overfull \hbox (11.06099pt too wide) in paragraph at lines 940--942
 \T1/ptm/m/it/10 cess.general_machine_learning.MachineLearning
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 901--903
+Underfull \hbox (badness 10000) in paragraph at lines 942--944
 []\T1/pcr/m/n/10 subsample() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 901--903
+Underfull \hbox (badness 10000) in paragraph at lines 942--944
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 903--905
+Underfull \hbox (badness 10000) in paragraph at lines 944--946
 []\T1/pcr/m/n/10 subset_cpgs() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 903--905
+Underfull \hbox (badness 10000) in paragraph at lines 944--946
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 905--907
+Underfull \hbox (badness 10000) in paragraph at lines 946--948
 []\T1/pcr/m/n/10 subset_index() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 905--907
+Underfull \hbox (badness 10000) in paragraph at lines 946--948
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 910--912
+Underfull \hbox (badness 10000) in paragraph at lines 951--953
 []\T1/pcr/m/n/10 TCGADownloader \T1/ptm/m/n/10 (\T1/ptm/m/it/10 class in pymeth
 yl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 912--914
+Underfull \hbox (badness 10000) in paragraph at lines 953--955
 []\T1/pcr/m/n/10 to_methyl_array() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro
 -
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 912--914
+Underfull \hbox (badness 10000) in paragraph at lines 953--955
 \T1/ptm/m/it/10 cess.PreProcessDataTypes.PreProcessIDAT
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 914--916
+Underfull \hbox (badness 10000) in paragraph at lines 955--957
 []\T1/pcr/m/n/10 transform() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Overfull \hbox (11.06099pt too wide) in paragraph at lines 914--916
+Overfull \hbox (11.06099pt too wide) in paragraph at lines 955--957
 \T1/ptm/m/it/10 cess.general_machine_learning.MachineLearning
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 916--918
+Underfull \hbox (badness 10000) in paragraph at lines 957--959
 []\T1/pcr/m/n/10 transform_results_to_beta() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 py
 methyl-pro-
  []
 
 
-Overfull \hbox (11.06099pt too wide) in paragraph at lines 916--918
+Overfull \hbox (11.06099pt too wide) in paragraph at lines 957--959
 \T1/ptm/m/it/10 cess.general_machine_learning.MachineLearning
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 921--923
+Underfull \hbox (badness 10000) in paragraph at lines 962--964
 []\T1/pcr/m/n/10 write_csvs() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 921--923
+Underfull \hbox (badness 10000) in paragraph at lines 962--964
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 923--925
+Underfull \hbox (badness 10000) in paragraph at lines 964--966
 []\T1/pcr/m/n/10 write_db() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 923--925
+Underfull \hbox (badness 10000) in paragraph at lines 964--966
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 925--927
+Underfull \hbox (badness 10000) in paragraph at lines 966--968
 []\T1/pcr/m/n/10 write_dbs() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 925--927
+Underfull \hbox (badness 10000) in paragraph at lines 966--968
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArrays
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 927--929
+Underfull \hbox (badness 10000) in paragraph at lines 968--970
 []\T1/pcr/m/n/10 write_pickle() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 927--929
+Underfull \hbox (badness 10000) in paragraph at lines 968--970
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArray
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 929--931
+Underfull \hbox (badness 10000) in paragraph at lines 970--972
 []\T1/pcr/m/n/10 write_pkls() \T1/ptm/m/n/10 (\T1/ptm/m/it/10 pymethyl-pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 929--931
+Underfull \hbox (badness 10000) in paragraph at lines 970--972
 \T1/ptm/m/it/10 cess.MethylationDataTypes.MethylationArrays
  []
 
-[57])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3519.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 3519.
+[58
+
+])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3653.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 3653.
  (./PyMethylProcess.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 3519.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3519.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 3653.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3653.
 
 Package rerunfilecheck Info: File `PyMethylProcess.out' has not changed.
-(rerunfilecheck)             Checksum: DB836DA1A451B0882E3E806601A3E600;8370.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3519.
+(rerunfilecheck)             Checksum: B3F24987409CB3C4353D51A5D04DF322;8763.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3653.
  ) 
 Here is how much of TeX's memory you used:
- 14103 strings out of 492649
- 212035 string characters out of 6129622
- 297814 words of memory out of 5000000
- 17279 multiletter control sequences out of 15000+600000
+ 14139 strings out of 492649
+ 213030 string characters out of 6129622
+ 298333 words of memory out of 5000000
+ 17298 multiletter control sequences out of 15000+600000
  46181 words of font info for 67 fonts, out of 8000000 for 9000
  1142 hyphenation exceptions out of 8191
  37i,12n,48p,696b,546s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -3383,10 +3450,10 @@ type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/u
 rw/times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/u
 tmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmri8a.pfb
 >
-Output written on PyMethylProcess.pdf (61 pages, 1261932 bytes).
+Output written on PyMethylProcess.pdf (62 pages, 1266091 bytes).
 PDF statistics:
- 1487 PDF objects out of 1728 (max. 8388607)
- 1391 compressed objects within 14 object streams
- 412 named destinations out of 1000 (max. 500000)
- 523 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1549 PDF objects out of 1728 (max. 8388607)
+ 1451 compressed objects within 15 object streams
+ 429 named destinations out of 1000 (max. 500000)
+ 547 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -59,7 +59,7 @@
 
 
 \title{PyMethylProcess Documentation}
-\date{Mar 22, 2019}
+\date{Apr 09, 2019}
 \release{0.1}
 \author{Joshua Levy}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -78,6 +78,8 @@
 \sphinxurl{https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess}
 
 To get started, download pymethylprocess using Docker (joshualevy44/pymethylprocess) or PIP (pymethylprocess) and run pymethyl-install\_r\_dependencies.
+
+See README.md in Github repository for more install directions and for example scripts for running the pipeline (not all datasets may be available on GEO at this time).
 
 There is both an API and CLI available for use. Examples for CLI usage can be found in ./example\_scripts.
 
@@ -2808,6 +2810,14 @@ Axis to merge on. Columns are 0, rows are 1.  {[}default: 1{]}
 
 \end{fulllineitems}
 
+\index{pymethyl-utils-concat\_csv command line option@\spxentry{pymethyl-utils-concat\_csv command line option}!-i, --index\_col \textless{}index\_col\textgreater{}@\spxentry{-i, --index\_col \textless{}index\_col\textgreater{}}}\index{-i, --index\_col \textless{}index\_col\textgreater{}@\spxentry{-i, --index\_col \textless{}index\_col\textgreater{}}!pymethyl-utils-concat\_csv command line option@\spxentry{pymethyl-utils-concat\_csv command line option}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{index:cmdoption-pymethyl-utils-concat-csv-i}}\pysigline{\sphinxbfcode{\sphinxupquote{-i}}\sphinxcode{\sphinxupquote{}}\sphinxcode{\sphinxupquote{,~}}\sphinxbfcode{\sphinxupquote{-{-}index\_col}}\sphinxcode{\sphinxupquote{~\textless{}index\_col\textgreater{}}}}
+Index Column.  {[}default: 0{]}
+
+\end{fulllineitems}
+
 
 
 \section{counts}
@@ -2873,6 +2883,48 @@ Output methyl array external validation.  {[}default: ./external\_validation/met
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{index:cmdoption-pymethyl-utils-create-external-validation-set-c}}\pysigline{\sphinxbfcode{\sphinxupquote{-c}}\sphinxcode{\sphinxupquote{}}\sphinxcode{\sphinxupquote{,~}}\sphinxbfcode{\sphinxupquote{-{-}cpg\_replace\_method}}\sphinxcode{\sphinxupquote{~\textless{}cpg\_replace\_method\textgreater{}}}}
 What to do for missing CpGs.  {[}default: mid{]}
+
+\end{fulllineitems}
+
+
+
+\section{est\_age}
+\label{\detokenize{index:pymethyl-utils-est-age}}
+Estimate age using cgAgeR
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+pymethyl\PYGZhy{}utils est\PYGZus{}age \PYG{o}{[}OPTIONS\PYG{o}{]}
+\end{sphinxVerbatim}
+\subsubsection*{Options}
+\index{pymethyl-utils-est\_age command line option@\spxentry{pymethyl-utils-est\_age command line option}!-i, --input\_pkl \textless{}input\_pkl\textgreater{}@\spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}}\index{-i, --input\_pkl \textless{}input\_pkl\textgreater{}@\spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}!pymethyl-utils-est\_age command line option@\spxentry{pymethyl-utils-est\_age command line option}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{index:cmdoption-pymethyl-utils-est-age-i}}\pysigline{\sphinxbfcode{\sphinxupquote{-i}}\sphinxcode{\sphinxupquote{}}\sphinxcode{\sphinxupquote{,~}}\sphinxbfcode{\sphinxupquote{-{-}input\_pkl}}\sphinxcode{\sphinxupquote{~\textless{}input\_pkl\textgreater{}}}}
+Input methyl array.  {[}default: ./train\_val\_test\_sets/test\_methyl\_array.pkl{]}
+
+\end{fulllineitems}
+
+\index{pymethyl-utils-est\_age command line option@\spxentry{pymethyl-utils-est\_age command line option}!-ac, --age\_column \textless{}age\_column\textgreater{}@\spxentry{-ac, --age\_column \textless{}age\_column\textgreater{}}}\index{-ac, --age\_column \textless{}age\_column\textgreater{}@\spxentry{-ac, --age\_column \textless{}age\_column\textgreater{}}!pymethyl-utils-est\_age command line option@\spxentry{pymethyl-utils-est\_age command line option}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{index:cmdoption-pymethyl-utils-est-age-ac}}\pysigline{\sphinxbfcode{\sphinxupquote{-ac}}\sphinxcode{\sphinxupquote{}}\sphinxcode{\sphinxupquote{,~}}\sphinxbfcode{\sphinxupquote{-{-}age\_column}}\sphinxcode{\sphinxupquote{~\textless{}age\_column\textgreater{}}}}
+Age column of Methylation Array. Leave blank for no age  {[}default: {]}
+
+\end{fulllineitems}
+
+\index{pymethyl-utils-est\_age command line option@\spxentry{pymethyl-utils-est\_age command line option}!-a, --analyses \textless{}analyses\textgreater{}@\spxentry{-a, --analyses \textless{}analyses\textgreater{}}}\index{-a, --analyses \textless{}analyses\textgreater{}@\spxentry{-a, --analyses \textless{}analyses\textgreater{}}!pymethyl-utils-est\_age command line option@\spxentry{pymethyl-utils-est\_age command line option}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{index:cmdoption-pymethyl-utils-est-age-a}}\pysigline{\sphinxbfcode{\sphinxupquote{-a}}\sphinxcode{\sphinxupquote{}}\sphinxcode{\sphinxupquote{,~}}\sphinxbfcode{\sphinxupquote{-{-}analyses}}\sphinxcode{\sphinxupquote{~\textless{}analyses\textgreater{}}}}
+Analyses to run
+
+\end{fulllineitems}
+
+\index{pymethyl-utils-est\_age command line option@\spxentry{pymethyl-utils-est\_age command line option}!-o, --output\_csv \textless{}output\_csv\textgreater{}@\spxentry{-o, --output\_csv \textless{}output\_csv\textgreater{}}}\index{-o, --output\_csv \textless{}output\_csv\textgreater{}@\spxentry{-o, --output\_csv \textless{}output\_csv\textgreater{}}!pymethyl-utils-est\_age command line option@\spxentry{pymethyl-utils-est\_age command line option}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{index:cmdoption-pymethyl-utils-est-age-o}}\pysigline{\sphinxbfcode{\sphinxupquote{-o}}\sphinxcode{\sphinxupquote{}}\sphinxcode{\sphinxupquote{,~}}\sphinxbfcode{\sphinxupquote{-{-}output\_csv}}\sphinxcode{\sphinxupquote{~\textless{}output\_csv\textgreater{}}}}
+Output csv  {[}default: age\_estimation/output\_age\_estimations.csv{]}
 
 \end{fulllineitems}
 
@@ -3170,6 +3222,38 @@ Input database for beta and phenotype data.  {[}default: ./final\_preprocessed/m
 
 
 
+\section{rate\_regression}
+\label{\detokenize{index:pymethyl-utils-rate-regression}}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+pymethyl\PYGZhy{}utils rate\PYGZus{}regression \PYG{o}{[}OPTIONS\PYG{o}{]}
+\end{sphinxVerbatim}
+\subsubsection*{Options}
+\index{pymethyl-utils-rate\_regression command line option@\spxentry{pymethyl-utils-rate\_regression command line option}!-i, --input\_csv \textless{}input\_csv\textgreater{}@\spxentry{-i, --input\_csv \textless{}input\_csv\textgreater{}}}\index{-i, --input\_csv \textless{}input\_csv\textgreater{}@\spxentry{-i, --input\_csv \textless{}input\_csv\textgreater{}}!pymethyl-utils-rate\_regression command line option@\spxentry{pymethyl-utils-rate\_regression command line option}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{index:cmdoption-pymethyl-utils-rate-regression-i}}\pysigline{\sphinxbfcode{\sphinxupquote{-i}}\sphinxcode{\sphinxupquote{}}\sphinxcode{\sphinxupquote{,~}}\sphinxbfcode{\sphinxupquote{-{-}input\_csv}}\sphinxcode{\sphinxupquote{~\textless{}input\_csv\textgreater{}}}}
+Results csv.  {[}default: ./results.csv{]}
+
+\end{fulllineitems}
+
+\index{pymethyl-utils-rate\_regression command line option@\spxentry{pymethyl-utils-rate\_regression command line option}!-c1, --pred\_col \textless{}pred\_col\textgreater{}@\spxentry{-c1, --pred\_col \textless{}pred\_col\textgreater{}}}\index{-c1, --pred\_col \textless{}pred\_col\textgreater{}@\spxentry{-c1, --pred\_col \textless{}pred\_col\textgreater{}}!pymethyl-utils-rate\_regression command line option@\spxentry{pymethyl-utils-rate\_regression command line option}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{index:cmdoption-pymethyl-utils-rate-regression-c1}}\pysigline{\sphinxbfcode{\sphinxupquote{-c1}}\sphinxcode{\sphinxupquote{}}\sphinxcode{\sphinxupquote{,~}}\sphinxbfcode{\sphinxupquote{-{-}pred\_col}}\sphinxcode{\sphinxupquote{~\textless{}pred\_col\textgreater{}}}}
+Prediction column.  {[}default: y\_pred{]}
+
+\end{fulllineitems}
+
+\index{pymethyl-utils-rate\_regression command line option@\spxentry{pymethyl-utils-rate\_regression command line option}!-c2, --true\_col \textless{}true\_col\textgreater{}@\spxentry{-c2, --true\_col \textless{}true\_col\textgreater{}}}\index{-c2, --true\_col \textless{}true\_col\textgreater{}@\spxentry{-c2, --true\_col \textless{}true\_col\textgreater{}}!pymethyl-utils-rate\_regression command line option@\spxentry{pymethyl-utils-rate\_regression command line option}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{index:cmdoption-pymethyl-utils-rate-regression-c2}}\pysigline{\sphinxbfcode{\sphinxupquote{-c2}}\sphinxcode{\sphinxupquote{}}\sphinxcode{\sphinxupquote{,~}}\sphinxbfcode{\sphinxupquote{-{-}true\_col}}\sphinxcode{\sphinxupquote{~\textless{}true\_col\textgreater{}}}}
+True Column.  {[}default: y\_true{]}
+
+\end{fulllineitems}
+
+
+
 \section{ref\_estimate\_cell\_counts}
 \label{\detokenize{index:pymethyl-utils-ref-estimate-cell-counts}}
 Reference based cell type estimates.
@@ -3215,6 +3299,56 @@ IDOL Library.  {[}default: IDOLOptimizedCpGs450klegacy{]}
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{index:cmdoption-pymethyl-utils-ref-estimate-cell-counts-o}}\pysigline{\sphinxbfcode{\sphinxupquote{-o}}\sphinxcode{\sphinxupquote{}}\sphinxcode{\sphinxupquote{,~}}\sphinxbfcode{\sphinxupquote{-{-}output\_csv}}\sphinxcode{\sphinxupquote{~\textless{}output\_csv\textgreater{}}}}
 Output cell type estimates.  {[}default: ./added\_cell\_counts/cell\_type\_estimates.csv{]}
+
+\end{fulllineitems}
+
+
+
+\section{ref\_free\_cell\_deconv}
+\label{\detokenize{index:pymethyl-utils-ref-free-cell-deconv}}
+Reference free cell type deconvolution
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+pymethyl\PYGZhy{}utils ref\PYGZus{}free\PYGZus{}cell\PYGZus{}deconv \PYG{o}{[}OPTIONS\PYG{o}{]}
+\end{sphinxVerbatim}
+\subsubsection*{Options}
+\index{pymethyl-utils-ref\_free\_cell\_deconv command line option@\spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}!-tr, --train\_pkl \textless{}train\_pkl\textgreater{}@\spxentry{-tr, --train\_pkl \textless{}train\_pkl\textgreater{}}}\index{-tr, --train\_pkl \textless{}train\_pkl\textgreater{}@\spxentry{-tr, --train\_pkl \textless{}train\_pkl\textgreater{}}!pymethyl-utils-ref\_free\_cell\_deconv command line option@\spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{index:cmdoption-pymethyl-utils-ref-free-cell-deconv-tr}}\pysigline{\sphinxbfcode{\sphinxupquote{-tr}}\sphinxcode{\sphinxupquote{}}\sphinxcode{\sphinxupquote{,~}}\sphinxbfcode{\sphinxupquote{-{-}train\_pkl}}\sphinxcode{\sphinxupquote{~\textless{}train\_pkl\textgreater{}}}}
+Input methyl array.  {[}default: ./train\_val\_test\_sets/train\_methyl\_array.pkl{]}
+
+\end{fulllineitems}
+
+\index{pymethyl-utils-ref\_free\_cell\_deconv command line option@\spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}!-te, --test\_pkl \textless{}test\_pkl\textgreater{}@\spxentry{-te, --test\_pkl \textless{}test\_pkl\textgreater{}}}\index{-te, --test\_pkl \textless{}test\_pkl\textgreater{}@\spxentry{-te, --test\_pkl \textless{}test\_pkl\textgreater{}}!pymethyl-utils-ref\_free\_cell\_deconv command line option@\spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{index:cmdoption-pymethyl-utils-ref-free-cell-deconv-te}}\pysigline{\sphinxbfcode{\sphinxupquote{-te}}\sphinxcode{\sphinxupquote{}}\sphinxcode{\sphinxupquote{,~}}\sphinxbfcode{\sphinxupquote{-{-}test\_pkl}}\sphinxcode{\sphinxupquote{~\textless{}test\_pkl\textgreater{}}}}
+Input methyl array.  {[}default: ./train\_val\_test\_sets/test\_methyl\_array.pkl{]}
+
+\end{fulllineitems}
+
+\index{pymethyl-utils-ref\_free\_cell\_deconv command line option@\spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}!-c, --cell\_type\_columns \textless{}cell\_type\_columns\textgreater{}@\spxentry{-c, --cell\_type\_columns \textless{}cell\_type\_columns\textgreater{}}}\index{-c, --cell\_type\_columns \textless{}cell\_type\_columns\textgreater{}@\spxentry{-c, --cell\_type\_columns \textless{}cell\_type\_columns\textgreater{}}!pymethyl-utils-ref\_free\_cell\_deconv command line option@\spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{index:cmdoption-pymethyl-utils-ref-free-cell-deconv-c}}\pysigline{\sphinxbfcode{\sphinxupquote{-c}}\sphinxcode{\sphinxupquote{}}\sphinxcode{\sphinxupquote{,~}}\sphinxbfcode{\sphinxupquote{-{-}cell\_type\_columns}}\sphinxcode{\sphinxupquote{~\textless{}cell\_type\_columns\textgreater{}}}}
+Cell type columns. Leave blank for auto selection, not incorporate reference information.  {[}default: {]}
+
+\end{fulllineitems}
+
+\index{pymethyl-utils-ref\_free\_cell\_deconv command line option@\spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}!-k, --n\_cell\_types \textless{}n\_cell\_types\textgreater{}@\spxentry{-k, --n\_cell\_types \textless{}n\_cell\_types\textgreater{}}}\index{-k, --n\_cell\_types \textless{}n\_cell\_types\textgreater{}@\spxentry{-k, --n\_cell\_types \textless{}n\_cell\_types\textgreater{}}!pymethyl-utils-ref\_free\_cell\_deconv command line option@\spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{index:cmdoption-pymethyl-utils-ref-free-cell-deconv-k}}\pysigline{\sphinxbfcode{\sphinxupquote{-k}}\sphinxcode{\sphinxupquote{}}\sphinxcode{\sphinxupquote{,~}}\sphinxbfcode{\sphinxupquote{-{-}n\_cell\_types}}\sphinxcode{\sphinxupquote{~\textless{}n\_cell\_types\textgreater{}}}}
+Number of cell types.  {[}default: 7{]}
+
+\end{fulllineitems}
+
+\index{pymethyl-utils-ref\_free\_cell\_deconv command line option@\spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}!-a, --analysis \textless{}analysis\textgreater{}@\spxentry{-a, --analysis \textless{}analysis\textgreater{}}}\index{-a, --analysis \textless{}analysis\textgreater{}@\spxentry{-a, --analysis \textless{}analysis\textgreater{}}!pymethyl-utils-ref\_free\_cell\_deconv command line option@\spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{index:cmdoption-pymethyl-utils-ref-free-cell-deconv-a}}\pysigline{\sphinxbfcode{\sphinxupquote{-a}}\sphinxcode{\sphinxupquote{}}\sphinxcode{\sphinxupquote{,~}}\sphinxbfcode{\sphinxupquote{-{-}analysis}}\sphinxcode{\sphinxupquote{~\textless{}analysis\textgreater{}}}}
+Analyses to run  {[}default: reffreecellmix{]}
 
 \end{fulllineitems}
 

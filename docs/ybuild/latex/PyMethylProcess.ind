@@ -12,17 +12,23 @@
     \subitem \spxentry{pymethyl-visualize command line option}, \hyperpage{19}
   \item \spxentry{-a, --algorithm \textless{}algorithm\textgreater{}}
     \subitem \spxentry{pymethyl-utils-ref\_estimate\_cell\_counts command line option}, 
-		\hyperpage{38}
+		\hyperpage{39}
+  \item \spxentry{-a, --analyses \textless{}analyses\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-est\_age command line option}, \hyperpage{35}
+  \item \spxentry{-a, --analysis \textless{}analysis\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}, \hyperpage{39}
   \item \spxentry{-a, --annot}
     \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
   \item \spxentry{-a, --array\_type \textless{}array\_type\textgreater{}}
-    \subitem \spxentry{pymethyl-utils-print\_number\_sex\_cpgs command line option}, \hyperpage{37}
-    \subitem \spxentry{pymethyl-utils-remove\_sex command line option}, \hyperpage{38}
-    \subitem \spxentry{pymethyl-utils-remove\_snps command line option}, \hyperpage{39}
+    \subitem \spxentry{pymethyl-utils-print\_number\_sex\_cpgs command line option}, \hyperpage{38}
+    \subitem \spxentry{pymethyl-utils-remove\_sex command line option}, \hyperpage{39}
+    \subitem \spxentry{pymethyl-utils-remove\_snps command line option}, \hyperpage{40}
   \item \spxentry{-a, --axes\_off}
     \subitem \spxentry{pymethyl-visualize-transform\_plot command line option}, \hyperpage{21}
   \item \spxentry{-a, --axis \textless{}axis\textgreater{}}
     \subitem \spxentry{pymethyl-utils-concat\_csv command line option}, \hyperpage{34}
+  \item \spxentry{-ac, --age\_column \textless{}age\_column\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-est\_age command line option}, \hyperpage{35}
   \item \spxentry{-b, --basename\_col \textless{}basename\_col\textgreater{}}
     \subitem \spxentry{pymethyl-preprocess-create\_sample\_sheet command line option}, 
 		\hyperpage{25}
@@ -32,6 +38,8 @@
   \item \spxentry{-bns, --p\_beadnum\_samples \textless{}p\_beadnum\_samples\textgreater{}}
     \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
 		\hyperpage{29}
+  \item \spxentry{-c, --cell\_type\_columns \textless{}cell\_type\_columns\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}, \hyperpage{39}
   \item \spxentry{-c, --chunk\_size \textless{}chunk\_size\textgreater{}}
     \subitem \spxentry{pymethyl-preprocess-batch\_deploy\_preprocess command line option}, 
 		\hyperpage{24}
@@ -44,9 +52,9 @@
     \subitem \spxentry{pymethyl-visualize-transform\_plot command line option}, \hyperpage{20}
   \item \spxentry{-c, --cpg\_pkl \textless{}cpg\_pkl\textgreater{}}
     \subitem \spxentry{pymethyl-utils-set\_part\_array\_background command line option}, 
-		\hyperpage{39}
-    \subitem \spxentry{pymethyl-utils-subset\_array command line option}, \hyperpage{40}
-    \subitem \spxentry{pymethyl-utils-write\_cpgs command line option}, \hyperpage{41}
+		\hyperpage{40}
+    \subitem \spxentry{pymethyl-utils-subset\_array command line option}, \hyperpage{41}
+    \subitem \spxentry{pymethyl-utils-write\_cpgs command line option}, \hyperpage{42}
   \item \spxentry{-c, --cpg\_replace\_method \textless{}cpg\_replace\_method\textgreater{}}
     \subitem \spxentry{pymethyl-utils-create\_external\_validation\_set command line option}, 
 		\hyperpage{35}
@@ -55,8 +63,12 @@
 		\hyperpage{25}
   \item \spxentry{-c, --index\_col \textless{}index\_col\textgreater{}}
     \subitem \spxentry{pymethyl-utils-overwrite\_pheno\_data command line option}, \hyperpage{37}
+  \item \spxentry{-c1, --pred\_col \textless{}pred\_col\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-rate\_regression command line option}, \hyperpage{38}
+  \item \spxentry{-c2, --true\_col \textless{}true\_col\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-rate\_regression command line option}, \hyperpage{38}
   \item \spxentry{-cat, --categorical}
-    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{41}
   \item \spxentry{-cc, --case\_control\_override}
     \subitem \spxentry{pymethyl-visualize-transform\_plot command line option}, \hyperpage{21}
   \item \spxentry{-col, --color\_column \textless{}color\_column\textgreater{}}
@@ -88,7 +100,7 @@
     \subitem \spxentry{pymethyl-preprocess-merge\_sample\_sheets command line option}, 
 		\hyperpage{28}
   \item \spxentry{-do, --disease\_only}
-    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{41}
   \item \spxentry{-e, --exclude \textless{}exclude\textgreater{}}
     \subitem \spxentry{pymethyl-preprocess-combine\_methylation\_arrays command line option}, 
 		\hyperpage{24}
@@ -114,12 +126,15 @@
 		\hyperpage{25}
     \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
 		\hyperpage{29}
+  \item \spxentry{-i, --index\_col \textless{}index\_col\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-concat\_csv command line option}, \hyperpage{34}
   \item \spxentry{-i, --input\_csv \textless{}input\_csv\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-rate\_regression command line option}, \hyperpage{38}
     \subitem \spxentry{pymethyl-visualize-plot\_cell\_type\_results command line option}, 
 		\hyperpage{19}
     \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
   \item \spxentry{-i, --input\_dir \textless{}input\_dir\textgreater{}}
-    \subitem \spxentry{pymethyl-utils-move\_jpg command line option}, \hyperpage{36}
+    \subitem \spxentry{pymethyl-utils-move\_jpg command line option}, \hyperpage{37}
   \item \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}
     \subitem \spxentry{pymethyl-preprocess-feature\_select command line option}, \hyperpage{26}
     \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
@@ -127,20 +142,21 @@
     \subitem \spxentry{pymethyl-preprocess-na\_report command line option}, \hyperpage{29}
     \subitem \spxentry{pymethyl-utils-backup\_pkl command line option}, \hyperpage{33}
     \subitem \spxentry{pymethyl-utils-counts command line option}, \hyperpage{34}
-    \subitem \spxentry{pymethyl-utils-fix\_key command line option}, \hyperpage{35}
+    \subitem \spxentry{pymethyl-utils-est\_age command line option}, \hyperpage{35}
+    \subitem \spxentry{pymethyl-utils-fix\_key command line option}, \hyperpage{36}
     \subitem \spxentry{pymethyl-utils-modify\_pheno\_data command line option}, \hyperpage{36}
     \subitem \spxentry{pymethyl-utils-overwrite\_pheno\_data command line option}, \hyperpage{37}
     \subitem \spxentry{pymethyl-utils-pkl\_to\_csv command line option}, \hyperpage{37}
-    \subitem \spxentry{pymethyl-utils-print\_number\_sex\_cpgs command line option}, \hyperpage{37}
+    \subitem \spxentry{pymethyl-utils-print\_number\_sex\_cpgs command line option}, \hyperpage{38}
     \subitem \spxentry{pymethyl-utils-print\_shape command line option}, \hyperpage{38}
-    \subitem \spxentry{pymethyl-utils-remove\_sex command line option}, \hyperpage{38}
-    \subitem \spxentry{pymethyl-utils-remove\_snps command line option}, \hyperpage{39}
+    \subitem \spxentry{pymethyl-utils-remove\_sex command line option}, \hyperpage{39}
+    \subitem \spxentry{pymethyl-utils-remove\_snps command line option}, \hyperpage{40}
     \subitem \spxentry{pymethyl-utils-set\_part\_array\_background command line option}, 
-		\hyperpage{39}
-    \subitem \spxentry{pymethyl-utils-stratify command line option}, \hyperpage{39}
-    \subitem \spxentry{pymethyl-utils-subset\_array command line option}, \hyperpage{40}
-    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
-    \subitem \spxentry{pymethyl-utils-write\_cpgs command line option}, \hyperpage{41}
+		\hyperpage{40}
+    \subitem \spxentry{pymethyl-utils-stratify command line option}, \hyperpage{40}
+    \subitem \spxentry{pymethyl-utils-subset\_array command line option}, \hyperpage{41}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{41}
+    \subitem \spxentry{pymethyl-utils-write\_cpgs command line option}, \hyperpage{42}
     \subitem \spxentry{pymethyl-visualize-transform\_plot command line option}, \hyperpage{20}
   \item \spxentry{-i, --input\_pkl\_dir \textless{}input\_pkl\_dir\textgreater{}}
     \subitem \spxentry{pymethyl-utils-feature\_select\_train\_val\_test command line option}, 
@@ -172,9 +188,11 @@
     \subitem \spxentry{pymethyl-preprocess-get\_categorical\_distribution command line option}, 
 		\hyperpage{27}
     \subitem \spxentry{pymethyl-utils-counts command line option}, \hyperpage{34}
-    \subitem \spxentry{pymethyl-utils-fix\_key command line option}, \hyperpage{35}
-    \subitem \spxentry{pymethyl-utils-stratify command line option}, \hyperpage{39}
-    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
+    \subitem \spxentry{pymethyl-utils-fix\_key command line option}, \hyperpage{36}
+    \subitem \spxentry{pymethyl-utils-stratify command line option}, \hyperpage{40}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{41}
+  \item \spxentry{-k, --n\_cell\_types \textless{}n\_cell\_types\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}, \hyperpage{39}
   \item \spxentry{-k, --n\_neighbors \textless{}n\_neighbors\textgreater{}}
     \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
 		\hyperpage{27}
@@ -183,13 +201,13 @@
 		\hyperpage{25}
   \item \spxentry{-l, --library \textless{}library\textgreater{}}
     \subitem \spxentry{pymethyl-utils-ref\_estimate\_cell\_counts command line option}, 
-		\hyperpage{38}
+		\hyperpage{39}
   \item \spxentry{-l, --low\_count \textless{}low\_count\textgreater{}}
     \subitem \spxentry{pymethyl-preprocess-remove\_diseases command line option}, \hyperpage{30}
   \item \spxentry{-m, --mad\_top\_cpgs \textless{}mad\_top\_cpgs\textgreater{}}
     \subitem \spxentry{pymethyl-preprocess-feature\_select command line option}, \hyperpage{26}
     \subitem \spxentry{pymethyl-utils-feature\_select\_train\_val\_test command line option}, 
-		\hyperpage{35}
+		\hyperpage{36}
   \item \spxentry{-m, --manager}
     \subitem \spxentry{pymethyl-install-install\_custom command line option}, \hyperpage{17}
   \item \spxentry{-m, --mapping\_file \textless{}mapping\_file\textgreater{}}
@@ -252,8 +270,9 @@
     \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
   \item \spxentry{-o, --output\_csv \textless{}output\_csv\textgreater{}}
     \subitem \spxentry{pymethyl-utils-concat\_csv command line option}, \hyperpage{34}
+    \subitem \spxentry{pymethyl-utils-est\_age command line option}, \hyperpage{35}
     \subitem \spxentry{pymethyl-utils-ref\_estimate\_cell\_counts command line option}, 
-		\hyperpage{38}
+		\hyperpage{39}
   \item \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}
     \subitem \spxentry{pymethyl-preprocess-download\_clinical command line option}, \hyperpage{25}
     \subitem \spxentry{pymethyl-preprocess-download\_geo command line option}, \hyperpage{26}
@@ -261,10 +280,10 @@
     \subitem \spxentry{pymethyl-preprocess-na\_report command line option}, \hyperpage{29}
     \subitem \spxentry{pymethyl-utils-feature\_select\_train\_val\_test command line option}, 
 		\hyperpage{35}
-    \subitem \spxentry{pymethyl-utils-move\_jpg command line option}, \hyperpage{36}
+    \subitem \spxentry{pymethyl-utils-move\_jpg command line option}, \hyperpage{37}
     \subitem \spxentry{pymethyl-utils-pkl\_to\_csv command line option}, \hyperpage{37}
-    \subitem \spxentry{pymethyl-utils-stratify command line option}, \hyperpage{39}
-    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
+    \subitem \spxentry{pymethyl-utils-stratify command line option}, \hyperpage{41}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{41}
   \item \spxentry{-o, --output\_file \textless{}output\_file\textgreater{}}
     \subitem \spxentry{pymethyl-visualize-transform\_plot command line option}, \hyperpage{20}
   \item \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}
@@ -281,11 +300,11 @@
     \subitem \spxentry{pymethyl-utils-fix\_key command line option}, \hyperpage{36}
     \subitem \spxentry{pymethyl-utils-modify\_pheno\_data command line option}, \hyperpage{36}
     \subitem \spxentry{pymethyl-utils-overwrite\_pheno\_data command line option}, \hyperpage{37}
-    \subitem \spxentry{pymethyl-utils-remove\_sex command line option}, \hyperpage{38}
-    \subitem \spxentry{pymethyl-utils-remove\_snps command line option}, \hyperpage{39}
+    \subitem \spxentry{pymethyl-utils-remove\_sex command line option}, \hyperpage{39}
+    \subitem \spxentry{pymethyl-utils-remove\_snps command line option}, \hyperpage{40}
     \subitem \spxentry{pymethyl-utils-set\_part\_array\_background command line option}, 
-		\hyperpage{39}
-    \subitem \spxentry{pymethyl-utils-subset\_array command line option}, \hyperpage{40}
+		\hyperpage{40}
+    \subitem \spxentry{pymethyl-utils-subset\_array command line option}, \hyperpage{41}
   \item \spxentry{-o, --subtype\_output\_dir \textless{}subtype\_output\_dir\textgreater{}}
     \subitem \spxentry{pymethyl-preprocess-split\_preprocess\_input\_by\_subtype command line option}, 
 		\hyperpage{31}
@@ -337,10 +356,10 @@
 		\hyperpage{23}
   \item \spxentry{-ref, --reference \textless{}reference\textgreater{}}
     \subitem \spxentry{pymethyl-utils-ref\_estimate\_cell\_counts command line option}, 
-		\hyperpage{38}
+		\hyperpage{39}
   \item \spxentry{-ro, --input\_r\_object\_dir \textless{}input\_r\_object\_dir\textgreater{}}
     \subitem \spxentry{pymethyl-utils-ref\_estimate\_cell\_counts command line option}, 
-		\hyperpage{38}
+		\hyperpage{39}
   \item \spxentry{-s, --series}
     \subitem \spxentry{pymethyl-preprocess-batch\_deploy\_preprocess command line option}, 
 		\hyperpage{23}
@@ -377,7 +396,7 @@
     \subitem \spxentry{pymethyl-preprocess-split\_preprocess\_input\_by\_subtype command line option}, 
 		\hyperpage{31}
     \subitem \spxentry{pymethyl-utils-fix\_key command line option}, \hyperpage{36}
-    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{41}
   \item \spxentry{-ss, --split\_by\_subtype}
     \subitem \spxentry{pymethyl-preprocess-imputation\_pipeline command line option}, 
 		\hyperpage{27}
@@ -394,15 +413,19 @@
 		\hyperpage{35}
   \item \spxentry{-t, --transpose}
     \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
+  \item \spxentry{-te, --test\_pkl \textless{}test\_pkl\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}, \hyperpage{39}
   \item \spxentry{-tp, --train\_percent \textless{}train\_percent\textgreater{}}
-    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{41}
+  \item \spxentry{-tr, --train\_pkl \textless{}train\_pkl\textgreater{}}
+    \subitem \spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}, \hyperpage{39}
   \item \spxentry{-u, --use\_cache}
     \subitem \spxentry{pymethyl-preprocess-batch\_deploy\_preprocess command line option}, 
 		\hyperpage{23}
     \subitem \spxentry{pymethyl-preprocess-preprocess\_pipeline command line option}, 
 		\hyperpage{29}
   \item \spxentry{-vp, --val\_percent \textless{}val\_percent\textgreater{}}
-    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{40}
+    \subitem \spxentry{pymethyl-utils-train\_test\_val\_split command line option}, \hyperpage{41}
   \item \spxentry{-x, --xticks}
     \subitem \spxentry{pymethyl-visualize-plot\_heatmap command line option}, \hyperpage{20}
   \item \spxentry{-y, --yticks}
@@ -720,6 +743,7 @@
     \subitem \spxentry{-t, --test\_pkl \textless{}test\_pkl\textgreater{}}, \hyperpage{33}
   \item \spxentry{pymethyl-utils-concat\_csv command line option}
     \subitem \spxentry{-a, --axis \textless{}axis\textgreater{}}, \hyperpage{34}
+    \subitem \spxentry{-i, --index\_col \textless{}index\_col\textgreater{}}, \hyperpage{34}
     \subitem \spxentry{-i1, --input\_csv \textless{}input\_csv\textgreater{}}, \hyperpage{34}
     \subitem \spxentry{-i2, --input\_csv2 \textless{}input\_csv2\textgreater{}}, \hyperpage{34}
     \subitem \spxentry{-o, --output\_csv \textless{}output\_csv\textgreater{}}, \hyperpage{34}
@@ -732,21 +756,26 @@
     \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{35}
     \subitem \spxentry{-q, --query\_pkl \textless{}query\_pkl\textgreater{}}, \hyperpage{35}
     \subitem \spxentry{-t, --train\_pkl \textless{}train\_pkl\textgreater{}}, \hyperpage{35}
+  \item \spxentry{pymethyl-utils-est\_age command line option}
+    \subitem \spxentry{-a, --analyses \textless{}analyses\textgreater{}}, \hyperpage{35}
+    \subitem \spxentry{-ac, --age\_column \textless{}age\_column\textgreater{}}, \hyperpage{35}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{35}
+    \subitem \spxentry{-o, --output\_csv \textless{}output\_csv\textgreater{}}, \hyperpage{35}
   \item \spxentry{pymethyl-utils-feature\_select\_train\_val\_test command line option}
     \subitem \spxentry{-f, --feature\_selection\_method \textless{}feature\_selection\_method\textgreater{}}, 
 		\hyperpage{35}
     \subitem \spxentry{-i, --input\_pkl\_dir \textless{}input\_pkl\_dir\textgreater{}}, 
 		\hyperpage{35}
     \subitem \spxentry{-m, --mad\_top\_cpgs \textless{}mad\_top\_cpgs\textgreater{}}, 
-		\hyperpage{35}
+		\hyperpage{36}
     \subitem \spxentry{-mm, --metric \textless{}metric\textgreater{}}, \hyperpage{35}
     \subitem \spxentry{-n, --n\_top\_cpgs \textless{}n\_top\_cpgs\textgreater{}}, \hyperpage{35}
     \subitem \spxentry{-nn, --n\_neighbors \textless{}n\_neighbors\textgreater{}}, \hyperpage{35}
     \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{35}
   \item \spxentry{pymethyl-utils-fix\_key command line option}
     \subitem \spxentry{-d, --disease\_only}, \hyperpage{36}
-    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{35}
-    \subitem \spxentry{-k, --key \textless{}key\textgreater{}}, \hyperpage{35}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{36}
+    \subitem \spxentry{-k, --key \textless{}key\textgreater{}}, \hyperpage{36}
     \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{36}
     \subitem \spxentry{-sd, --subtype\_delimiter \textless{}subtype\_delimiter\textgreater{}}, 
 		\hyperpage{36}
@@ -756,8 +785,8 @@
 		\hyperpage{36}
     \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{36}
   \item \spxentry{pymethyl-utils-move\_jpg command line option}
-    \subitem \spxentry{-i, --input\_dir \textless{}input\_dir\textgreater{}}, \hyperpage{36}
-    \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{36}
+    \subitem \spxentry{-i, --input\_dir \textless{}input\_dir\textgreater{}}, \hyperpage{37}
+    \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{37}
   \item \spxentry{pymethyl-utils-overwrite\_pheno\_data command line option}
     \subitem \spxentry{-c, --index\_col \textless{}index\_col\textgreater{}}, \hyperpage{37}
     \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{37}
@@ -769,51 +798,63 @@
     \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{37}
     \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{37}
   \item \spxentry{pymethyl-utils-print\_number\_sex\_cpgs command line option}
-    \subitem \spxentry{-a, --array\_type \textless{}array\_type\textgreater{}}, \hyperpage{37}
-    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{37}
-  \item \spxentry{pymethyl-utils-print\_shape command line option}
-    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{38}
-  \item \spxentry{pymethyl-utils-ref\_estimate\_cell\_counts command line option}
-    \subitem \spxentry{-a, --algorithm \textless{}algorithm\textgreater{}}, \hyperpage{38}
-    \subitem \spxentry{-l, --library \textless{}library\textgreater{}}, \hyperpage{38}
-    \subitem \spxentry{-o, --output\_csv \textless{}output\_csv\textgreater{}}, \hyperpage{38}
-    \subitem \spxentry{-ref, --reference \textless{}reference\textgreater{}}, \hyperpage{38}
-    \subitem \spxentry{-ro, --input\_r\_object\_dir \textless{}input\_r\_object\_dir\textgreater{}}, 
-		\hyperpage{38}
-  \item \spxentry{pymethyl-utils-remove\_sex command line option}
     \subitem \spxentry{-a, --array\_type \textless{}array\_type\textgreater{}}, \hyperpage{38}
     \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{38}
-    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{38}
-  \item \spxentry{pymethyl-utils-remove\_snps command line option}
+  \item \spxentry{pymethyl-utils-print\_shape command line option}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{38}
+  \item \spxentry{pymethyl-utils-rate\_regression command line option}
+    \subitem \spxentry{-c1, --pred\_col \textless{}pred\_col\textgreater{}}, \hyperpage{38}
+    \subitem \spxentry{-c2, --true\_col \textless{}true\_col\textgreater{}}, \hyperpage{38}
+    \subitem \spxentry{-i, --input\_csv \textless{}input\_csv\textgreater{}}, \hyperpage{38}
+  \item \spxentry{pymethyl-utils-ref\_estimate\_cell\_counts command line option}
+    \subitem \spxentry{-a, --algorithm \textless{}algorithm\textgreater{}}, \hyperpage{39}
+    \subitem \spxentry{-l, --library \textless{}library\textgreater{}}, \hyperpage{39}
+    \subitem \spxentry{-o, --output\_csv \textless{}output\_csv\textgreater{}}, \hyperpage{39}
+    \subitem \spxentry{-ref, --reference \textless{}reference\textgreater{}}, \hyperpage{39}
+    \subitem \spxentry{-ro, --input\_r\_object\_dir \textless{}input\_r\_object\_dir\textgreater{}}, 
+		\hyperpage{39}
+  \item \spxentry{pymethyl-utils-ref\_free\_cell\_deconv command line option}
+    \subitem \spxentry{-a, --analysis \textless{}analysis\textgreater{}}, \hyperpage{39}
+    \subitem \spxentry{-c, --cell\_type\_columns \textless{}cell\_type\_columns\textgreater{}}, 
+		\hyperpage{39}
+    \subitem \spxentry{-k, --n\_cell\_types \textless{}n\_cell\_types\textgreater{}}, 
+		\hyperpage{39}
+    \subitem \spxentry{-te, --test\_pkl \textless{}test\_pkl\textgreater{}}, \hyperpage{39}
+    \subitem \spxentry{-tr, --train\_pkl \textless{}train\_pkl\textgreater{}}, \hyperpage{39}
+  \item \spxentry{pymethyl-utils-remove\_sex command line option}
     \subitem \spxentry{-a, --array\_type \textless{}array\_type\textgreater{}}, \hyperpage{39}
     \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{39}
     \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{39}
+  \item \spxentry{pymethyl-utils-remove\_snps command line option}
+    \subitem \spxentry{-a, --array\_type \textless{}array\_type\textgreater{}}, \hyperpage{40}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{40}
+    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{40}
   \item \spxentry{pymethyl-utils-set\_part\_array\_background command line option}
-    \subitem \spxentry{-c, --cpg\_pkl \textless{}cpg\_pkl\textgreater{}}, \hyperpage{39}
-    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{39}
-    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{39}
-  \item \spxentry{pymethyl-utils-stratify command line option}
-    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{39}
-    \subitem \spxentry{-k, --key \textless{}key\textgreater{}}, \hyperpage{39}
-    \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{39}
-  \item \spxentry{pymethyl-utils-subset\_array command line option}
     \subitem \spxentry{-c, --cpg\_pkl \textless{}cpg\_pkl\textgreater{}}, \hyperpage{40}
     \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{40}
     \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{40}
-  \item \spxentry{pymethyl-utils-train\_test\_val\_split command line option}
-    \subitem \spxentry{-cat, --categorical}, \hyperpage{40}
-    \subitem \spxentry{-do, --disease\_only}, \hyperpage{40}
+  \item \spxentry{pymethyl-utils-stratify command line option}
     \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{40}
     \subitem \spxentry{-k, --key \textless{}key\textgreater{}}, \hyperpage{40}
-    \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{40}
-    \subitem \spxentry{-sd, --subtype\_delimiter \textless{}subtype\_delimiter\textgreater{}}, 
-		\hyperpage{40}
-    \subitem \spxentry{-tp, --train\_percent \textless{}train\_percent\textgreater{}}, 
-		\hyperpage{40}
-    \subitem \spxentry{-vp, --val\_percent \textless{}val\_percent\textgreater{}}, \hyperpage{40}
-  \item \spxentry{pymethyl-utils-write\_cpgs command line option}
+    \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{41}
+  \item \spxentry{pymethyl-utils-subset\_array command line option}
     \subitem \spxentry{-c, --cpg\_pkl \textless{}cpg\_pkl\textgreater{}}, \hyperpage{41}
     \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{41}
+    \subitem \spxentry{-o, --output\_pkl \textless{}output\_pkl\textgreater{}}, \hyperpage{41}
+  \item \spxentry{pymethyl-utils-train\_test\_val\_split command line option}
+    \subitem \spxentry{-cat, --categorical}, \hyperpage{41}
+    \subitem \spxentry{-do, --disease\_only}, \hyperpage{41}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{41}
+    \subitem \spxentry{-k, --key \textless{}key\textgreater{}}, \hyperpage{41}
+    \subitem \spxentry{-o, --output\_dir \textless{}output\_dir\textgreater{}}, \hyperpage{41}
+    \subitem \spxentry{-sd, --subtype\_delimiter \textless{}subtype\_delimiter\textgreater{}}, 
+		\hyperpage{41}
+    \subitem \spxentry{-tp, --train\_percent \textless{}train\_percent\textgreater{}}, 
+		\hyperpage{41}
+    \subitem \spxentry{-vp, --val\_percent \textless{}val\_percent\textgreater{}}, \hyperpage{41}
+  \item \spxentry{pymethyl-utils-write\_cpgs command line option}
+    \subitem \spxentry{-c, --cpg\_pkl \textless{}cpg\_pkl\textgreater{}}, \hyperpage{42}
+    \subitem \spxentry{-i, --input\_pkl \textless{}input\_pkl\textgreater{}}, \hyperpage{42}
   \item \spxentry{pymethyl-visualize command line option}
     \subitem \spxentry{--version}, \hyperpage{19}
   \item \spxentry{pymethyl-visualize-plot\_cell\_type\_results command line option}
