@@ -43,7 +43,8 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
-    'sphinx_click.ext'
+    'sphinx_click.ext',
+    'numpydoc'
 ]
 html_theme = 'sphinx_rtd_theme'
 
