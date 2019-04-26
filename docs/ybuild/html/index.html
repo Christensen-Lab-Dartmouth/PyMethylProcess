@@ -81,8 +81,12 @@
               <!-- Local TOC -->
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Welcome to PyMethylProcess’s documentation!</a><ul>
-<li><a class="reference internal" href="#preprocessdatatypes-py">PreProcessDataTypes.py</a></li>
-<li><a class="reference internal" href="#methylationdatatypes-py">MethylationDataTypes.py</a></li>
+<li><a class="reference internal" href="#preprocessdatatypes-py">PreProcessDataTypes.py</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#methylationdatatypes-py">MethylationDataTypes.py</a><ul>
+</ul>
+</li>
 <li><a class="reference internal" href="#meffil-functions-py">meffil_functions.py</a></li>
 <li><a class="reference internal" href="#general-machine-learning-py">general_machine_learning.py</a></li>
 <li><a class="reference internal" href="#pymethyl-install">pymethyl-install</a><ul>
@@ -248,202 +252,387 @@
 <dt>meffil</dt>
 <dd>Rpy2 importr meffil library, default to None will load through rpy2</dd>
 </dl>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_csv" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_csv</span></code></a>(self,&nbsp;output_dir)</td>
+<td>Export pheno and beta dataframes to CSVs</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_pickle" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_pickle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_pickle</span></code></a>(self,&nbsp;output_pickle[,&nbsp;disease])</td>
+<td>Export pheno and beta dataframes to pickle, stored in python dict that can be loaded into MethylationArray</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_sql" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_sql"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_sql</span></code></a>(self,&nbsp;output_db[,&nbsp;disease])</td>
+<td>Export pheno and beta dataframes to SQL</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.extract_manifest" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.extract_manifest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract_manifest</span></code></a>(self)</td>
+<td>Get manifest from RGSet.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.extract_pheno_data" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.extract_pheno_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extract_pheno_data</span></code></a>(self[,&nbsp;methylset])</td>
+<td>Extract pheno data from MSet or RGSet, minfi.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.filter_beta" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.filter_beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filter_beta</span></code></a>(self)</td>
+<td>After creating beta, filter out outliers.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_beta" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_beta</span></code></a>(self)</td>
+<td>Get beta value matrix from minfi after finding RSet.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_meth" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_meth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_meth</span></code></a>(self)</td>
+<td>Get methylation intensity matrix from MSet</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_unmeth" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_unmeth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_unmeth</span></code></a>(self)</td>
+<td>Get unmethylated intensity matrix from MSet</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.load_idats" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.load_idats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_idats</span></code></a>(self)</td>
+<td>For minfi pipeline, load IDATs from specified idat_dir.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.move_jpg" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.move_jpg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_jpg</span></code></a>(self)</td>
+<td>Move jpeg files from current working directory to the idat directory.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.output_pheno_beta" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.output_pheno_beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">output_pheno_beta</span></code></a>(self[,&nbsp;meffil])</td>
+<td>Get pheno and beta dataframe objects stored as attributes for input to MethylationArray object.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.plot_original_qc" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.plot_original_qc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_original_qc</span></code></a>(self,&nbsp;output_dir)</td>
+<td>Plot QC results from ENmix pipeline and possible minfi.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.plot_qc_metrics" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.plot_qc_metrics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_qc_metrics</span></code></a>(self,&nbsp;output_dir)</td>
+<td>Plot QC results from ENmix pipeline and possible minfi.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessENmix" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessENmix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preprocessENmix</span></code></a>(self[,&nbsp;n_cores])</td>
+<td>Run ENmix preprocessing pipeline.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessMeffil" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessMeffil"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preprocessMeffil</span></code></a>(self[,&nbsp;n_cores,&nbsp;n_pcs,&nbsp;…])</td>
+<td>Run meffil preprocessing pipeline with functional normalization.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessNoob" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessNoob"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preprocessNoob</span></code></a>(self)</td>
+<td>Run minfi preprocessing with Noob normalization</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessRAW" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessRAW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preprocessRAW</span></code></a>(self)</td>
+<td>Run minfi preprocessing with RAW normalization</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocess_enmix_pipeline" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocess_enmix_pipeline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preprocess_enmix_pipeline</span></code></a>(self[,&nbsp;n_cores,&nbsp;…])</td>
+<td>Run complete ENmix or minfi preprocessing pipeline.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.return_beta" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.return_beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">return_beta</span></code></a>(self)</td>
+<td>Return minfi RSet after having created MSet.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.to_methyl_array" title="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.to_methyl_array"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_methyl_array</span></code></a>(self[,&nbsp;disease])</td>
+<td>Convert results from preprocessing into MethylationArray, and directly return MethylationArray object.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_csv">
-<code class="descname">export_csv</code><span class="sig-paren">(</span><em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.export_csv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_csv" title="Permalink to this definition">¶</a></dt>
+<code class="descname">export_csv</code><span class="sig-paren">(</span><em>self</em>, <em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.export_csv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_csv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Export pheno and beta dataframes to CSVs</p>
-<dl class="docutils">
-<dt>output_dir</dt>
-<dd>Where to store csvs.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>output_dir</strong></dt>
+<dd><p class="first last">Where to store csvs.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_pickle">
-<code class="descname">export_pickle</code><span class="sig-paren">(</span><em>output_pickle</em>, <em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.export_pickle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_pickle" title="Permalink to this definition">¶</a></dt>
+<code class="descname">export_pickle</code><span class="sig-paren">(</span><em>self</em>, <em>output_pickle</em>, <em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.export_pickle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_pickle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Export pheno and beta dataframes to pickle, stored in python dict that can be loaded into MethylationArray</p>
-<dl class="docutils">
-<dt>output_pickle</dt>
-<dd>Where to store MethylationArray.</dd>
-<dt>disease</dt>
-<dd>Custom naming scheme for data.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>output_pickle</strong></dt>
+<dd><p class="first last">Where to store MethylationArray.</p>
+</dd>
+<dt><strong>disease</strong></dt>
+<dd><p class="first last">Custom naming scheme for data.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_sql">
-<code class="descname">export_sql</code><span class="sig-paren">(</span><em>output_db</em>, <em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.export_sql"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_sql" title="Permalink to this definition">¶</a></dt>
+<code class="descname">export_sql</code><span class="sig-paren">(</span><em>self</em>, <em>output_db</em>, <em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.export_sql"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.export_sql" title="Permalink to this definition">¶</a></dt>
 <dd><p>Export pheno and beta dataframes to SQL</p>
-<dl class="docutils">
-<dt>output_db</dt>
-<dd>Where to store data, sqlite db.</dd>
-<dt>disease</dt>
-<dd>Custom naming scheme for data.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>output_db</strong></dt>
+<dd><p class="first last">Where to store data, sqlite db.</p>
+</dd>
+<dt><strong>disease</strong></dt>
+<dd><p class="first last">Custom naming scheme for data.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.extract_manifest">
-<code class="descname">extract_manifest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.extract_manifest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.extract_manifest" title="Permalink to this definition">¶</a></dt>
+<code class="descname">extract_manifest</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.extract_manifest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.extract_manifest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get manifest from RGSet.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.extract_pheno_data">
-<code class="descname">extract_pheno_data</code><span class="sig-paren">(</span><em>methylset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.extract_pheno_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.extract_pheno_data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">extract_pheno_data</code><span class="sig-paren">(</span><em>self</em>, <em>methylset=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.extract_pheno_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.extract_pheno_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract pheno data from MSet or RGSet, minfi.</p>
-<dl class="docutils">
-<dt>methylset</dt>
-<dd>If MSet has beenn created, set to True, else extract from original RGSet.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>methylset</strong></dt>
+<dd><p class="first last">If MSet has beenn created, set to True, else extract from original RGSet.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.filter_beta">
-<code class="descname">filter_beta</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.filter_beta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.filter_beta" title="Permalink to this definition">¶</a></dt>
+<code class="descname">filter_beta</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.filter_beta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.filter_beta" title="Permalink to this definition">¶</a></dt>
 <dd><p>After creating beta, filter out outliers.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_beta">
-<code class="descname">get_beta</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.get_beta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_beta" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_beta</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.get_beta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_beta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get beta value matrix from minfi after finding RSet.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_meth">
-<code class="descname">get_meth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.get_meth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_meth" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_meth</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.get_meth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_meth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get methylation intensity matrix from MSet</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_unmeth">
-<code class="descname">get_unmeth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.get_unmeth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_unmeth" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_unmeth</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.get_unmeth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.get_unmeth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get unmethylated intensity matrix from MSet</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.load_idats">
-<code class="descname">load_idats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.load_idats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.load_idats" title="Permalink to this definition">¶</a></dt>
+<code class="descname">load_idats</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.load_idats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.load_idats" title="Permalink to this definition">¶</a></dt>
 <dd><p>For minfi pipeline, load IDATs from specified idat_dir.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.move_jpg">
-<code class="descname">move_jpg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.move_jpg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.move_jpg" title="Permalink to this definition">¶</a></dt>
+<code class="descname">move_jpg</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.move_jpg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.move_jpg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move jpeg files from current working directory to the idat directory.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.output_pheno_beta">
-<code class="descname">output_pheno_beta</code><span class="sig-paren">(</span><em>meffil=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.output_pheno_beta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.output_pheno_beta" title="Permalink to this definition">¶</a></dt>
+<code class="descname">output_pheno_beta</code><span class="sig-paren">(</span><em>self</em>, <em>meffil=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.output_pheno_beta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.output_pheno_beta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get pheno and beta dataframe objects stored as attributes for input to MethylationArray object.</p>
-<dl class="docutils">
-<dt>meffil</dt>
-<dd>True if ran meffil pipeline.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>meffil</strong></dt>
+<dd><p class="first last">True if ran meffil pipeline.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.plot_original_qc">
-<code class="descname">plot_original_qc</code><span class="sig-paren">(</span><em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.plot_original_qc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.plot_original_qc" title="Permalink to this definition">¶</a></dt>
+<code class="descname">plot_original_qc</code><span class="sig-paren">(</span><em>self</em>, <em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.plot_original_qc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.plot_original_qc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot QC results from ENmix pipeline and possible minfi. Still experimental.</p>
-<dl class="docutils">
-<dt>output_dir</dt>
-<dd>Where to store plots.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>output_dir</strong></dt>
+<dd><p class="first last">Where to store plots.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.plot_qc_metrics">
-<code class="descname">plot_qc_metrics</code><span class="sig-paren">(</span><em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.plot_qc_metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.plot_qc_metrics" title="Permalink to this definition">¶</a></dt>
+<code class="descname">plot_qc_metrics</code><span class="sig-paren">(</span><em>self</em>, <em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.plot_qc_metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.plot_qc_metrics" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot QC results from ENmix pipeline and possible minfi. Still experimental.</p>
-<dl class="docutils">
-<dt>output_dir</dt>
-<dd>Where to store plots.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>output_dir</strong></dt>
+<dd><p class="first last">Where to store plots.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessENmix">
-<code class="descname">preprocessENmix</code><span class="sig-paren">(</span><em>n_cores=6</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.preprocessENmix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessENmix" title="Permalink to this definition">¶</a></dt>
+<code class="descname">preprocessENmix</code><span class="sig-paren">(</span><em>self</em>, <em>n_cores=6</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.preprocessENmix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessENmix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run ENmix preprocessing pipeline.</p>
-<dl class="docutils">
-<dt>n_cores</dt>
-<dd>Number of CPUs to use.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>n_cores</strong></dt>
+<dd><p class="first last">Number of CPUs to use.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessMeffil">
-<code class="descname">preprocessMeffil</code><span class="sig-paren">(</span><em>n_cores=6</em>, <em>n_pcs=4</em>, <em>qc_report_fname='qc/report.html'</em>, <em>normalization_report_fname='norm/report.html'</em>, <em>pc_plot_fname='qc/pc_plot.pdf'</em>, <em>useCache=True</em>, <em>qc_only=True</em>, <em>qc_parameters={'p.beadnum.cpgs': 0.1</em>, <em>'p.beadnum.samples': 0.1</em>, <em>'p.detection.cpgs': 0.1</em>, <em>'p.detection.samples': 0.1}</em>, <em>rm_sex=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.preprocessMeffil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessMeffil" title="Permalink to this definition">¶</a></dt>
+<code class="descname">preprocessMeffil</code><span class="sig-paren">(</span><em>self</em>, <em>n_cores=6</em>, <em>n_pcs=4</em>, <em>qc_report_fname='qc/report.html'</em>, <em>normalization_report_fname='norm/report.html'</em>, <em>pc_plot_fname='qc/pc_plot.pdf'</em>, <em>useCache=True</em>, <em>qc_only=True</em>, <em>qc_parameters={'p.beadnum.samples': 0.1</em>, <em>'p.detection.samples': 0.1</em>, <em>'p.detection.cpgs': 0.1</em>, <em>'p.beadnum.cpgs': 0.1}</em>, <em>rm_sex=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.preprocessMeffil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessMeffil" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run meffil preprocessing pipeline with functional normalization.</p>
-<dl class="docutils">
-<dt>n_cores</dt>
-<dd>Number of CPUs to use.</dd>
-<dt>n_pcs</dt>
-<dd>Number of principal components to use for functional normalization, set to -1 to autoselect via kneedle algorithm.</dd>
-<dt>qc_report_fname</dt>
-<dd>HTML filename to store QC report.</dd>
-<dt>normalization_report_fname</dt>
-<dd>HTML filename to store normalization report</dd>
-<dt>pc_plot_fname</dt>
-<dd>PDF file to store principal components plot.</dd>
-<dt>useCache</dt>
-<dd>Use saved QC objects instead of running through QC again.</dd>
-<dt>qc_only</dt>
-<dd>Perform QC, then save and quit before normalization.</dd>
-<dt>qc_parameters</dt>
-<dd>Python dictionary with parameters for qc.</dd>
-<dt>rm_sex</dt>
-<dd>Remove non-autosomal cpgs?</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>n_cores</strong></dt>
+<dd><p class="first last">Number of CPUs to use.</p>
+</dd>
+<dt><strong>n_pcs</strong></dt>
+<dd><p class="first last">Number of principal components to use for functional normalization, set to -1 to autoselect via kneedle algorithm.</p>
+</dd>
+<dt><strong>qc_report_fname</strong></dt>
+<dd><p class="first last">HTML filename to store QC report.</p>
+</dd>
+<dt><strong>normalization_report_fname</strong></dt>
+<dd><p class="first last">HTML filename to store normalization report</p>
+</dd>
+<dt><strong>pc_plot_fname</strong></dt>
+<dd><p class="first last">PDF file to store principal components plot.</p>
+</dd>
+<dt><strong>useCache</strong></dt>
+<dd><p class="first last">Use saved QC objects instead of running through QC again.</p>
+</dd>
+<dt><strong>qc_only</strong></dt>
+<dd><p class="first last">Perform QC, then save and quit before normalization.</p>
+</dd>
+<dt><strong>qc_parameters</strong></dt>
+<dd><p class="first last">Python dictionary with parameters for qc.</p>
+</dd>
+<dt><strong>rm_sex</strong></dt>
+<dd><p class="first last">Remove non-autosomal cpgs?</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessNoob">
-<code class="descname">preprocessNoob</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.preprocessNoob"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessNoob" title="Permalink to this definition">¶</a></dt>
+<code class="descname">preprocessNoob</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.preprocessNoob"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessNoob" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run minfi preprocessing with Noob normalization</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessRAW">
-<code class="descname">preprocessRAW</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.preprocessRAW"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessRAW" title="Permalink to this definition">¶</a></dt>
+<code class="descname">preprocessRAW</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.preprocessRAW"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocessRAW" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run minfi preprocessing with RAW normalization</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocess_enmix_pipeline">
-<code class="descname">preprocess_enmix_pipeline</code><span class="sig-paren">(</span><em>n_cores=6</em>, <em>pipeline='enmix'</em>, <em>noob=False</em>, <em>qc_only=False</em>, <em>use_cache=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.preprocess_enmix_pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocess_enmix_pipeline" title="Permalink to this definition">¶</a></dt>
+<code class="descname">preprocess_enmix_pipeline</code><span class="sig-paren">(</span><em>self</em>, <em>n_cores=6</em>, <em>pipeline='enmix'</em>, <em>noob=False</em>, <em>qc_only=False</em>, <em>use_cache=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.preprocess_enmix_pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.preprocess_enmix_pipeline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run complete ENmix or minfi preprocessing pipeline.</p>
-<dl class="docutils">
-<dt>n_cores</dt>
-<dd>Number CPUs.</dd>
-<dt>pipeline</dt>
-<dd>Run enmix or minfi</dd>
-<dt>noob</dt>
-<dd>Noob norm or RAW if minfi running.</dd>
-<dt>qc_only</dt>
-<dd>Save and quit after only running QC?</dd>
-<dt>use_cache</dt>
-<dd>Load preexisting RGSet instead of running QC again.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>n_cores</strong></dt>
+<dd><p class="first last">Number CPUs.</p>
+</dd>
+<dt><strong>pipeline</strong></dt>
+<dd><p class="first last">Run enmix or minfi</p>
+</dd>
+<dt><strong>noob</strong></dt>
+<dd><p class="first last">Noob norm or RAW if minfi running.</p>
+</dd>
+<dt><strong>qc_only</strong></dt>
+<dd><p class="first last">Save and quit after only running QC?</p>
+</dd>
+<dt><strong>use_cache</strong></dt>
+<dd><p class="first last">Load preexisting RGSet instead of running QC again.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.return_beta">
-<code class="descname">return_beta</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.return_beta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.return_beta" title="Permalink to this definition">¶</a></dt>
+<code class="descname">return_beta</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.return_beta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.return_beta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return minfi RSet after having created MSet.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessIDAT.to_methyl_array">
-<code class="descname">to_methyl_array</code><span class="sig-paren">(</span><em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.to_methyl_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.to_methyl_array" title="Permalink to this definition">¶</a></dt>
+<code class="descname">to_methyl_array</code><span class="sig-paren">(</span><em>self</em>, <em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessIDAT.to_methyl_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessIDAT.to_methyl_array" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert results from preprocessing into MethylationArray, and directly return MethylationArray object.</p>
-<dl class="docutils">
-<dt>disease</dt>
-<dd>Custom naming scheme for data.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>disease</strong></dt>
+<dd><p class="first last">Custom naming scheme for data.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -460,116 +649,244 @@
 <dt>header_line</dt>
 <dd>Where to start reading clinical csv</dd>
 </dl>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.concat" title="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.concat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concat</span></code></a>(self,&nbsp;other_formatted_sheet)</td>
+<td>Concat multiple PreProcessPhenoData objects, concat their dataframes to accept more than one smaplesheet/dataset.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.export" title="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.export"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export</span></code></a>(self,&nbsp;output_sheet_name)</td>
+<td>Export pheno data to csv after done with manipulation.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_custom" title="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_custom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_custom</span></code></a>(self,&nbsp;basename_col,&nbsp;…[,&nbsp;…])</td>
+<td>Custom format clinical sheet if user supplied idats.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_geo" title="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_geo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_geo</span></code></a>(self[,&nbsp;disease_class_column,&nbsp;…])</td>
+<td>Format clinical sheets if downloaded geo idats.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_tcga" title="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_tcga"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_tcga</span></code></a>(self[,&nbsp;mapping_file])</td>
+<td>Format clinical sheets if downloaded tcga idats.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.get_categorical_distribution" title="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.get_categorical_distribution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_categorical_distribution</span></code></a>(self,&nbsp;key[,&nbsp;…])</td>
+<td>Print categorical distribution, counts for each unique value in phenotype column.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.merge" title="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.merge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge</span></code></a>(self,&nbsp;other_formatted_sheet[,&nbsp;…])</td>
+<td>Merge multiple PreProcessPhenoData objects, merge their dataframes to accept more than one saplesheet/dataset or add more pheno info.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.remove_diseases" title="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.remove_diseases"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_diseases</span></code></a>(self,&nbsp;exclude_disease_list,&nbsp;…)</td>
+<td>Remove samples with certain diseases from disease column.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.split_key" title="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.split_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_key</span></code></a>(self,&nbsp;key,&nbsp;subtype_delimiter)</td>
+<td>Split pheno column by key, with subtype delimiter, eg.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.concat">
-<code class="descname">concat</code><span class="sig-paren">(</span><em>other_formatted_sheet</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.concat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.concat" title="Permalink to this definition">¶</a></dt>
+<code class="descname">concat</code><span class="sig-paren">(</span><em>self</em>, <em>other_formatted_sheet</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.concat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.concat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Concat multiple PreProcessPhenoData objects, concat their dataframes to accept more than one smaplesheet/dataset.</p>
-<dl class="docutils">
-<dt>other_formatted_sheet</dt>
-<dd>Other PreProcessPhenoData to concat.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>other_formatted_sheet</strong></dt>
+<dd><p class="first last">Other PreProcessPhenoData to concat.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.export">
-<code class="descname">export</code><span class="sig-paren">(</span><em>output_sheet_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.export" title="Permalink to this definition">¶</a></dt>
+<code class="descname">export</code><span class="sig-paren">(</span><em>self</em>, <em>output_sheet_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.export" title="Permalink to this definition">¶</a></dt>
 <dd><p>Export pheno data to csv after done with manipulation.</p>
-<dl class="docutils">
-<dt>output_sheet_name</dt>
-<dd>Output csv name.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>output_sheet_name</strong></dt>
+<dd><p class="first last">Output csv name.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_custom">
-<code class="descname">format_custom</code><span class="sig-paren">(</span><em>basename_col</em>, <em>disease_class_column</em>, <em>include_columns={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.format_custom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_custom" title="Permalink to this definition">¶</a></dt>
+<code class="descname">format_custom</code><span class="sig-paren">(</span><em>self</em>, <em>basename_col</em>, <em>disease_class_column</em>, <em>include_columns={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.format_custom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_custom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Custom format clinical sheet if user supplied idats.</p>
-<dl class="docutils">
-<dt>basename_col</dt>
-<dd>Column name of sample names.</dd>
-<dt>disease_class_column</dt>
-<dd>Disease column of clinical info csv.</dd>
-<dt>include_columns</dt>
-<dd>Dictionary specifying other columns to include, and new names to assign them to.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>basename_col</strong></dt>
+<dd><p class="first last">Column name of sample names.</p>
+</dd>
+<dt><strong>disease_class_column</strong></dt>
+<dd><p class="first last">Disease column of clinical info csv.</p>
+</dd>
+<dt><strong>include_columns</strong></dt>
+<dd><p class="first last">Dictionary specifying other columns to include, and new names to assign them to.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_geo">
-<code class="descname">format_geo</code><span class="sig-paren">(</span><em>disease_class_column='methylation class:ch1'</em>, <em>include_columns={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.format_geo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_geo" title="Permalink to this definition">¶</a></dt>
+<code class="descname">format_geo</code><span class="sig-paren">(</span><em>self</em>, <em>disease_class_column='methylation class:ch1'</em>, <em>include_columns={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.format_geo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_geo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Format clinical sheets if downloaded geo idats.</p>
-<dl class="docutils">
-<dt>disease_class_column</dt>
-<dd>Disease column of clinical info csv.</dd>
-<dt>include_columns</dt>
-<dd>Dictionary specifying other columns to include, and new names to assign them to.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>disease_class_column</strong></dt>
+<dd><p class="first last">Disease column of clinical info csv.</p>
+</dd>
+<dt><strong>include_columns</strong></dt>
+<dd><p class="first last">Dictionary specifying other columns to include, and new names to assign them to.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_tcga">
-<code class="descname">format_tcga</code><span class="sig-paren">(</span><em>mapping_file='idat_filename_case.txt'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.format_tcga"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_tcga" title="Permalink to this definition">¶</a></dt>
+<code class="descname">format_tcga</code><span class="sig-paren">(</span><em>self</em>, <em>mapping_file='idat_filename_case.txt'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.format_tcga"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.format_tcga" title="Permalink to this definition">¶</a></dt>
 <dd><p>Format clinical sheets if downloaded tcga idats.</p>
-<dl class="docutils">
-<dt>mapping_file</dt>
-<dd>Maps uuids to proper tcga sample names, should be downloaded with tcga clinical information.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>mapping_file</strong></dt>
+<dd><p class="first last">Maps uuids to proper tcga sample names, should be downloaded with tcga clinical information.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.get_categorical_distribution">
-<code class="descname">get_categorical_distribution</code><span class="sig-paren">(</span><em>key</em>, <em>disease_only=False</em>, <em>subtype_delimiter='</em>, <em>'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.get_categorical_distribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.get_categorical_distribution" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_categorical_distribution</code><span class="sig-paren">(</span><em>self</em>, <em>key</em>, <em>disease_only=False</em>, <em>subtype_delimiter='</em>, <em>'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.get_categorical_distribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.get_categorical_distribution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print categorical distribution, counts for each unique value in phenotype column.</p>
-<dl class="docutils">
-<dt>key</dt>
-<dd>Phenotype Column.</dd>
-<dt>disease_only</dt>
-<dd>Whether to split phenotype column entries by delimiter.</dd>
-<dt>subtype_delimiter</dt>
-<dd>Subtype delimiter to split on.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>key</strong></dt>
+<dd><p class="first last">Phenotype Column.</p>
+</dd>
+<dt><strong>disease_only</strong></dt>
+<dd><p class="first last">Whether to split phenotype column entries by delimiter.</p>
+</dd>
+<dt><strong>subtype_delimiter</strong></dt>
+<dd><p class="first last">Subtype delimiter to split on.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.merge">
-<code class="descname">merge</code><span class="sig-paren">(</span><em>other_formatted_sheet</em>, <em>use_second_sheet_disease=True</em>, <em>no_disease_merge=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.merge" title="Permalink to this definition">¶</a></dt>
+<code class="descname">merge</code><span class="sig-paren">(</span><em>self</em>, <em>other_formatted_sheet</em>, <em>use_second_sheet_disease=True</em>, <em>no_disease_merge=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.merge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Merge multiple PreProcessPhenoData objects, merge their dataframes to accept more than one saplesheet/dataset or add more pheno info.</p>
-<dl class="docutils">
-<dt>other_formatted_sheet</dt>
-<dd>Other PreProcessPhenoData to merge.</dd>
-<dt>use_second_sheet_disease</dt>
-<dd>Change disease column to that of second sheet instead of first.</dd>
-<dt>no_disease_merge</dt>
-<dd>Keep both disease columns from both sheets.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>other_formatted_sheet</strong></dt>
+<dd><p class="first last">Other PreProcessPhenoData to merge.</p>
+</dd>
+<dt><strong>use_second_sheet_disease</strong></dt>
+<dd><p class="first last">Change disease column to that of second sheet instead of first.</p>
+</dd>
+<dt><strong>no_disease_merge</strong></dt>
+<dd><p class="first last">Keep both disease columns from both sheets.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.remove_diseases">
-<code class="descname">remove_diseases</code><span class="sig-paren">(</span><em>exclude_disease_list</em>, <em>low_count</em>, <em>disease_only</em>, <em>subtype_delimiter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.remove_diseases"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.remove_diseases" title="Permalink to this definition">¶</a></dt>
+<code class="descname">remove_diseases</code><span class="sig-paren">(</span><em>self</em>, <em>exclude_disease_list</em>, <em>low_count</em>, <em>disease_only</em>, <em>subtype_delimiter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.remove_diseases"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.remove_diseases" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove samples with certain diseases from disease column.</p>
-<dl class="docutils">
-<dt>exclude_disease_list</dt>
-<dd>List containing diseases to remove.</dd>
-<dt>low_count</dt>
-<dd>Remove samples that have less than x disease occurances in column.</dd>
-<dt>disease_only</dt>
-<dd>Whether to split phenotype column entries by delimiter.</dd>
-<dt>subtype_delimiter</dt>
-<dd>Subtype delimiter to split on.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>exclude_disease_list</strong></dt>
+<dd><p class="first last">List containing diseases to remove.</p>
+</dd>
+<dt><strong>low_count</strong></dt>
+<dd><p class="first last">Remove samples that have less than x disease occurances in column.</p>
+</dd>
+<dt><strong>disease_only</strong></dt>
+<dd><p class="first last">Whether to split phenotype column entries by delimiter.</p>
+</dd>
+<dt><strong>subtype_delimiter</strong></dt>
+<dd><p class="first last">Subtype delimiter to split on.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.split_key">
-<code class="descname">split_key</code><span class="sig-paren">(</span><em>key</em>, <em>subtype_delimiter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.split_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.split_key" title="Permalink to this definition">¶</a></dt>
+<code class="descname">split_key</code><span class="sig-paren">(</span><em>self</em>, <em>key</em>, <em>subtype_delimiter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#PreProcessPhenoData.split_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.PreProcessPhenoData.split_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split pheno column by key, with subtype delimiter, eg. entry S1,s2 -&gt; S1 with delimiter “,”.</p>
-<dl class="docutils">
-<dt>key</dt>
-<dd>Pheno column name.</dd>
-<dt>subtype_delimiter</dt>
-<dd>Subtype delimiter to split on.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>key</strong></dt>
+<dd><p class="first last">Pheno column name.</p>
+</dd>
+<dt><strong>subtype_delimiter</strong></dt>
+<dd><p class="first last">Subtype delimiter to split on.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -578,36 +895,82 @@
 <dt id="pymethylprocess.PreProcessDataTypes.TCGADownloader">
 <em class="property">class </em><code class="descclassname">pymethylprocess.PreProcessDataTypes.</code><code class="descname">TCGADownloader</code><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#TCGADownloader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.TCGADownloader" title="Permalink to this definition">¶</a></dt>
 <dd><p>Downloads TCGA and GEO IDAT and clinical data</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.TCGADownloader.download_clinical" title="pymethylprocess.PreProcessDataTypes.TCGADownloader.download_clinical"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_clinical</span></code></a>(self,&nbsp;output_dir)</td>
+<td>Download TCGA Clinical Data.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.TCGADownloader.download_geo" title="pymethylprocess.PreProcessDataTypes.TCGADownloader.download_geo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_geo</span></code></a>(self,&nbsp;query,&nbsp;output_dir)</td>
+<td>Download GEO IDATs.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.PreProcessDataTypes.TCGADownloader.download_tcga" title="pymethylprocess.PreProcessDataTypes.TCGADownloader.download_tcga"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_tcga</span></code></a>(self,&nbsp;output_dir)</td>
+<td>Download TCGA IDATs.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.TCGADownloader.download_clinical">
-<code class="descname">download_clinical</code><span class="sig-paren">(</span><em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#TCGADownloader.download_clinical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.TCGADownloader.download_clinical" title="Permalink to this definition">¶</a></dt>
+<code class="descname">download_clinical</code><span class="sig-paren">(</span><em>self</em>, <em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#TCGADownloader.download_clinical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.TCGADownloader.download_clinical" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download TCGA Clinical Data.</p>
-<dl class="docutils">
-<dt>output_dir</dt>
-<dd>Where to output clinical data csv.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>output_dir</strong></dt>
+<dd><p class="first last">Where to output clinical data csv.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.TCGADownloader.download_geo">
-<code class="descname">download_geo</code><span class="sig-paren">(</span><em>query</em>, <em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#TCGADownloader.download_geo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.TCGADownloader.download_geo" title="Permalink to this definition">¶</a></dt>
+<code class="descname">download_geo</code><span class="sig-paren">(</span><em>self</em>, <em>query</em>, <em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#TCGADownloader.download_geo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.TCGADownloader.download_geo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download GEO IDATs.</p>
-<dl class="docutils">
-<dt>query</dt>
-<dd>GEO accession number to query, must be 450k/850k.</dd>
-<dt>output_dir</dt>
-<dd>Output directory to store idats and clinical information csv</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>query</strong></dt>
+<dd><p class="first last">GEO accession number to query, must be 450k/850k.</p>
+</dd>
+<dt><strong>output_dir</strong></dt>
+<dd><p class="first last">Output directory to store idats and clinical information csv</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.PreProcessDataTypes.TCGADownloader.download_tcga">
-<code class="descname">download_tcga</code><span class="sig-paren">(</span><em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#TCGADownloader.download_tcga"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.TCGADownloader.download_tcga" title="Permalink to this definition">¶</a></dt>
+<code class="descname">download_tcga</code><span class="sig-paren">(</span><em>self</em>, <em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/PreProcessDataTypes.html#TCGADownloader.download_tcga"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.PreProcessDataTypes.TCGADownloader.download_tcga" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download TCGA IDATs.</p>
-<dl class="docutils">
-<dt>output_dir</dt>
-<dd>Where to output idat files.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>output_dir</strong></dt>
+<dd><p class="first last">Where to output idat files.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -629,9 +992,21 @@ Construct sklearn-like imputer given certain input arguments.</p>
 <dt>opts</dt>
 <dd>Additional options to assign to imputer.</dd>
 </dl>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.ImputerObject.return_imputer" title="pymethylprocess.MethylationDataTypes.ImputerObject.return_imputer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">return_imputer</span></code></a>(self)</td>
+<td>Return initialized sklearn-like imputer.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.ImputerObject.return_imputer">
-<code class="descname">return_imputer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#ImputerObject.return_imputer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.ImputerObject.return_imputer" title="Permalink to this definition">¶</a></dt>
+<code class="descname">return_imputer</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#ImputerObject.return_imputer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.ImputerObject.return_imputer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return initialized sklearn-like imputer.</p>
 </dd></dl>
 
@@ -649,43 +1024,166 @@ and dataframe of beta values with samples as index.</p>
 <dt>beta_df</dt>
 <dd>Beta Values Dataframe (samples x cpgs)</dd>
 </dl>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.bin_column" title="pymethylprocess.MethylationDataTypes.MethylationArray.bin_column"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bin_column</span></code></a>(self,&nbsp;col,&nbsp;n_bins)</td>
+<td>Turn continuous variable/covariate into categorical bins.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.categorical_breakdown" title="pymethylprocess.MethylationDataTypes.MethylationArray.categorical_breakdown"><code class="xref py py-obj docutils literal notranslate"><span class="pre">categorical_breakdown</span></code></a>(self,&nbsp;key)</td>
+<td>Print categorical distribution, counts for each unique value in phenotype column.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.feature_select" title="pymethylprocess.MethylationDataTypes.MethylationArray.feature_select"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feature_select</span></code></a>(self,&nbsp;n_top_cpgs[,&nbsp;…])</td>
+<td>Perform unsupervised feature selection on MethylationArray.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.from_pickle" title="pymethylprocess.MethylationDataTypes.MethylationArray.from_pickle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_pickle</span></code></a>(input_pickle)</td>
+<td>Load MethylationArray stored in pickle.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.groupby" title="pymethylprocess.MethylationDataTypes.MethylationArray.groupby"><code class="xref py py-obj docutils literal notranslate"><span class="pre">groupby</span></code></a>(self,&nbsp;key)</td>
+<td>Groupby for Methylation Array.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.impute" title="pymethylprocess.MethylationDataTypes.MethylationArray.impute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">impute</span></code></a>(self,&nbsp;imputer)</td>
+<td>Perform imputation on NaN beta vaues.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.merge_preprocess_sheet" title="pymethylprocess.MethylationDataTypes.MethylationArray.merge_preprocess_sheet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_preprocess_sheet</span></code></a>(self,&nbsp;…)</td>
+<td>Feed in another phenotype dataframe that will be merged with existing phenotype array.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.overwrite_pheno_data" title="pymethylprocess.MethylationDataTypes.MethylationArray.overwrite_pheno_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">overwrite_pheno_data</span></code></a>(self,&nbsp;preprocess_sample_df)</td>
+<td>Feed in another phenotype dataframe that will overwrite overlapping keys of existing phenotype array.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.remove_missingness" title="pymethylprocess.MethylationDataTypes.MethylationArray.remove_missingness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_missingness</span></code></a>(self[,&nbsp;cpg_threshold,&nbsp;…])</td>
+<td>Remove samples and CpGs with certain level of missingness..</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.remove_na_samples" title="pymethylprocess.MethylationDataTypes.MethylationArray.remove_na_samples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_na_samples</span></code></a>(self,&nbsp;outcome_cols)</td>
+<td>Remove samples of MethylationArray who have missing values in phenotype column.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.remove_whitespace" title="pymethylprocess.MethylationDataTypes.MethylationArray.remove_whitespace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_whitespace</span></code></a>(self,&nbsp;key)</td>
+<td>Remove whitespaces from phenotype column.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_cpgs" title="pymethylprocess.MethylationDataTypes.MethylationArray.return_cpgs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">return_cpgs</span></code></a>(self)</td>
+<td>Return list of cpgs of MethylationArray</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_idx" title="pymethylprocess.MethylationDataTypes.MethylationArray.return_idx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">return_idx</span></code></a>(self)</td>
+<td>Return sample names of MethylationArray.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_raw_beta_array" title="pymethylprocess.MethylationDataTypes.MethylationArray.return_raw_beta_array"><code class="xref py py-obj docutils literal notranslate"><span class="pre">return_raw_beta_array</span></code></a>(self)</td>
+<td>Return numpy array of methylation beta vaues.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_shape" title="pymethylprocess.MethylationDataTypes.MethylationArray.return_shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">return_shape</span></code></a>(self)</td>
+<td>Return dimensionality and number of samples of beta matrix.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.split_by_subtype" title="pymethylprocess.MethylationDataTypes.MethylationArray.split_by_subtype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_by_subtype</span></code></a>(self,&nbsp;disease_only,&nbsp;…)</td>
+<td>Split MethylationArray into generator of MethylationArrays by phenotype column.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.split_key" title="pymethylprocess.MethylationDataTypes.MethylationArray.split_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_key</span></code></a>(self,&nbsp;key,&nbsp;subtype_delimiter)</td>
+<td>Manipulate an entire phenotype column, splitting each element up by some delimiter.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.split_train_test" title="pymethylprocess.MethylationDataTypes.MethylationArray.split_train_test"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_train_test</span></code></a>(self[,&nbsp;train_p,&nbsp;…])</td>
+<td>Split MethylationArray into training and test sets, with option to stratify by categorical covariate.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.subsample" title="pymethylprocess.MethylationDataTypes.MethylationArray.subsample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subsample</span></code></a>(self[,&nbsp;key,&nbsp;n_samples,&nbsp;frac,&nbsp;…])</td>
+<td>Subsample MethylationArray, make the set randomly smaller.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.subset_cpgs" title="pymethylprocess.MethylationDataTypes.MethylationArray.subset_cpgs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subset_cpgs</span></code></a>(self,&nbsp;cpgs)</td>
+<td>Subset beta matrix by list of Cpgs.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.subset_index" title="pymethylprocess.MethylationDataTypes.MethylationArray.subset_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subset_index</span></code></a>(self,&nbsp;index)</td>
+<td>Subset MethylationArray by samples.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.write_csvs" title="pymethylprocess.MethylationDataTypes.MethylationArray.write_csvs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_csvs</span></code></a>(self,&nbsp;output_dir)</td>
+<td>Write phenotype data and beta values to csvs.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.write_db" title="pymethylprocess.MethylationDataTypes.MethylationArray.write_db"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_db</span></code></a>(self,&nbsp;conn[,&nbsp;disease])</td>
+<td>Store phenotype data and beta values in SQL database.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArray.write_pickle" title="pymethylprocess.MethylationDataTypes.MethylationArray.write_pickle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_pickle</span></code></a>(self,&nbsp;output_pickle[,&nbsp;disease])</td>
+<td>Store phenotype data and beta values in pickle file.</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>export</strong></td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.bin_column">
-<code class="descname">bin_column</code><span class="sig-paren">(</span><em>col</em>, <em>n_bins</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.bin_column"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.bin_column" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bin_column</code><span class="sig-paren">(</span><em>self</em>, <em>col</em>, <em>n_bins</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.bin_column"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.bin_column" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turn continuous variable/covariate into categorical bins.
 Returns name of new column and updates phenotype matrix to reflect this change.</p>
-<dl class="docutils">
-<dt>col</dt>
-<dd>Continuous column of phenotype array to bin.</dd>
-<dt>n_bins</dt>
-<dd>Number of bins to create.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>col</strong></dt>
+<dd><p class="first last">Continuous column of phenotype array to bin.</p>
+</dd>
+<dt><strong>n_bins</strong></dt>
+<dd><p class="first last">Number of bins to create.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.categorical_breakdown">
-<code class="descname">categorical_breakdown</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.categorical_breakdown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.categorical_breakdown" title="Permalink to this definition">¶</a></dt>
+<code class="descname">categorical_breakdown</code><span class="sig-paren">(</span><em>self</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.categorical_breakdown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.categorical_breakdown" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print categorical distribution, counts for each unique value in phenotype column.</p>
-<dl class="docutils">
-<dt>key</dt>
-<dd>Phenotype Column.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>key</strong></dt>
+<dd><p class="first last">Phenotype Column.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.feature_select">
-<code class="descname">feature_select</code><span class="sig-paren">(</span><em>n_top_cpgs</em>, <em>feature_selection_method='mad'</em>, <em>metric='correlation'</em>, <em>nn=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.feature_select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.feature_select" title="Permalink to this definition">¶</a></dt>
+<code class="descname">feature_select</code><span class="sig-paren">(</span><em>self</em>, <em>n_top_cpgs</em>, <em>feature_selection_method='mad'</em>, <em>metric='correlation'</em>, <em>nn=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.feature_select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.feature_select" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform unsupervised feature selection on MethylationArray.</p>
-<dl class="docutils">
-<dt>n_top_cpgs</dt>
-<dd>Number of CpGs to retain.</dd>
-<dt>feature_selection_method</dt>
-<dd>Method to perform selection.</dd>
-<dt>metric</dt>
-<dd>If considering structural feature selection like SPEC, use this distance metric.</dd>
-<dt>nn</dt>
-<dd>Number of nearest neighbors.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>n_top_cpgs</strong></dt>
+<dd><p class="first last">Number of CpGs to retain.</p>
+</dd>
+<dt><strong>feature_selection_method</strong></dt>
+<dd><p class="first last">Method to perform selection.</p>
+</dd>
+<dt><strong>metric</strong></dt>
+<dd><p class="first last">If considering structural feature selection like SPEC, use this distance metric.</p>
+</dd>
+<dt><strong>nn</strong></dt>
+<dd><p class="first last">Number of nearest neighbors.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="classmethod">
@@ -693,171 +1191,290 @@ Returns name of new column and updates phenotype matrix to reflect this change.<
 <em class="property">classmethod </em><code class="descname">from_pickle</code><span class="sig-paren">(</span><em>input_pickle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.from_pickle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.from_pickle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load MethylationArray stored in pickle.</p>
 <p>Usage: MethylationArray.from_pickle([input_pickle])</p>
-<dl class="docutils">
-<dt>input_pickle</dt>
-<dd>Stored MethylationArray pickle.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>input_pickle</strong></dt>
+<dd><p class="first last">Stored MethylationArray pickle.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.groupby">
-<code class="descname">groupby</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.groupby"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.groupby" title="Permalink to this definition">¶</a></dt>
+<code class="descname">groupby</code><span class="sig-paren">(</span><em>self</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.groupby"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.groupby" title="Permalink to this definition">¶</a></dt>
 <dd><p>Groupby for Methylation Array. Returns generator of methylation arrays grouped by key.</p>
-<dl class="docutils">
-<dt>preprocess_sample_df</dt>
-<dd>New phenotype dataframe.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>preprocess_sample_df</strong></dt>
+<dd><p class="first last">New phenotype dataframe.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.impute">
-<code class="descname">impute</code><span class="sig-paren">(</span><em>imputer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.impute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.impute" title="Permalink to this definition">¶</a></dt>
+<code class="descname">impute</code><span class="sig-paren">(</span><em>self</em>, <em>imputer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.impute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.impute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform imputation on NaN beta vaues. Input imputater returned from ImputerObject.</p>
-<dl class="docutils">
-<dt>imputer</dt>
-<dd>Type of imputer object, in sklearn type interface.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>imputer</strong></dt>
+<dd><p class="first last">Type of imputer object, in sklearn type interface.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.merge_preprocess_sheet">
-<code class="descname">merge_preprocess_sheet</code><span class="sig-paren">(</span><em>preprocess_sample_df</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.merge_preprocess_sheet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.merge_preprocess_sheet" title="Permalink to this definition">¶</a></dt>
+<code class="descname">merge_preprocess_sheet</code><span class="sig-paren">(</span><em>self</em>, <em>preprocess_sample_df</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.merge_preprocess_sheet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.merge_preprocess_sheet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Feed in another phenotype dataframe that will be merged with existing phenotype array.</p>
-<dl class="docutils">
-<dt>preprocess_sample_df</dt>
-<dd>New phenotype dataframe.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>preprocess_sample_df</strong></dt>
+<dd><p class="first last">New phenotype dataframe.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.overwrite_pheno_data">
-<code class="descname">overwrite_pheno_data</code><span class="sig-paren">(</span><em>preprocess_sample_df</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.overwrite_pheno_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.overwrite_pheno_data" title="Permalink to this definition">¶</a></dt>
+<code class="descname">overwrite_pheno_data</code><span class="sig-paren">(</span><em>self</em>, <em>preprocess_sample_df</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.overwrite_pheno_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.overwrite_pheno_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Feed in another phenotype dataframe that will overwrite overlapping keys of existing phenotype array.</p>
-<dl class="docutils">
-<dt>preprocess_sample_df</dt>
-<dd>New phenotype dataframe.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>preprocess_sample_df</strong></dt>
+<dd><p class="first last">New phenotype dataframe.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.remove_missingness">
-<code class="descname">remove_missingness</code><span class="sig-paren">(</span><em>cpg_threshold=None</em>, <em>sample_threshold=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.remove_missingness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.remove_missingness" title="Permalink to this definition">¶</a></dt>
+<code class="descname">remove_missingness</code><span class="sig-paren">(</span><em>self</em>, <em>cpg_threshold=None</em>, <em>sample_threshold=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.remove_missingness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.remove_missingness" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove samples and CpGs with certain level of missingness..</p>
-<dl class="docutils">
-<dt>cpg_threshold</dt>
-<dd>If more than fraction of Samples for this CpG are missing, remove cpg.</dd>
-<dt>sample_threshold</dt>
-<dd>If more than fraction of CpGs for this sample are missing, remove sample.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>cpg_threshold</strong></dt>
+<dd><p class="first last">If more than fraction of Samples for this CpG are missing, remove cpg.</p>
+</dd>
+<dt><strong>sample_threshold</strong></dt>
+<dd><p class="first last">If more than fraction of CpGs for this sample are missing, remove sample.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.remove_na_samples">
-<code class="descname">remove_na_samples</code><span class="sig-paren">(</span><em>outcome_cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.remove_na_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.remove_na_samples" title="Permalink to this definition">¶</a></dt>
+<code class="descname">remove_na_samples</code><span class="sig-paren">(</span><em>self</em>, <em>outcome_cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.remove_na_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.remove_na_samples" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove samples of MethylationArray who have missing values in phenotype column.</p>
-<dl class="docutils">
-<dt>outcome_cols</dt>
-<dd>Phenotype columns, if any rows contain missing values, samples are removed.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>outcome_cols</strong></dt>
+<dd><p class="first last">Phenotype columns, if any rows contain missing values, samples are removed.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.remove_whitespace">
-<code class="descname">remove_whitespace</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.remove_whitespace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.remove_whitespace" title="Permalink to this definition">¶</a></dt>
+<code class="descname">remove_whitespace</code><span class="sig-paren">(</span><em>self</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.remove_whitespace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.remove_whitespace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove whitespaces from phenotype column.</p>
-<dl class="docutils">
-<dt>key</dt>
-<dd>Phenotype column.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>key</strong></dt>
+<dd><p class="first last">Phenotype column.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.return_cpgs">
-<code class="descname">return_cpgs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.return_cpgs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_cpgs" title="Permalink to this definition">¶</a></dt>
+<code class="descname">return_cpgs</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.return_cpgs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_cpgs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return list of cpgs of MethylationArray</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.return_idx">
-<code class="descname">return_idx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.return_idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_idx" title="Permalink to this definition">¶</a></dt>
+<code class="descname">return_idx</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.return_idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_idx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return sample names of MethylationArray.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.return_raw_beta_array">
-<code class="descname">return_raw_beta_array</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.return_raw_beta_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_raw_beta_array" title="Permalink to this definition">¶</a></dt>
+<code class="descname">return_raw_beta_array</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.return_raw_beta_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_raw_beta_array" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return numpy array of methylation beta vaues.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.return_shape">
-<code class="descname">return_shape</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.return_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_shape" title="Permalink to this definition">¶</a></dt>
+<code class="descname">return_shape</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.return_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.return_shape" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return dimensionality and number of samples of beta matrix.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.split_by_subtype">
-<code class="descname">split_by_subtype</code><span class="sig-paren">(</span><em>disease_only</em>, <em>subtype_delimiter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.split_by_subtype"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.split_by_subtype" title="Permalink to this definition">¶</a></dt>
+<code class="descname">split_by_subtype</code><span class="sig-paren">(</span><em>self</em>, <em>disease_only</em>, <em>subtype_delimiter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.split_by_subtype"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.split_by_subtype" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split MethylationArray into generator of MethylationArrays by phenotype column. Much akin to groupby. Only splits from disease column.</p>
-<dl class="docutils">
-<dt>disease_only</dt>
-<dd>Consider disease superclass.</dd>
-<dt>subtype_delimiter</dt>
-<dd>How to break up disease column if using disease_only.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>disease_only</strong></dt>
+<dd><p class="first last">Consider disease superclass.</p>
+</dd>
+<dt><strong>subtype_delimiter</strong></dt>
+<dd><p class="first last">How to break up disease column if using disease_only.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.split_key">
-<code class="descname">split_key</code><span class="sig-paren">(</span><em>key</em>, <em>subtype_delimiter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.split_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.split_key" title="Permalink to this definition">¶</a></dt>
+<code class="descname">split_key</code><span class="sig-paren">(</span><em>self</em>, <em>key</em>, <em>subtype_delimiter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.split_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.split_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>Manipulate an entire phenotype column, splitting each element up by some delimiter.</p>
-<dl class="docutils">
-<dt>key</dt>
-<dd>Phenotype column.</dd>
-<dt>subtype_delimiter</dt>
-<dd>How to break up strings in columns. S1,s2 -&gt; S1 for instance.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>key</strong></dt>
+<dd><p class="first last">Phenotype column.</p>
+</dd>
+<dt><strong>subtype_delimiter</strong></dt>
+<dd><p class="first last">How to break up strings in columns. S1,s2 -&gt; S1 for instance.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.split_train_test">
-<code class="descname">split_train_test</code><span class="sig-paren">(</span><em>train_p=0.8</em>, <em>stratified=True</em>, <em>disease_only=False</em>, <em>key='disease'</em>, <em>subtype_delimiter='</em>, <em>'</em>, <em>val_p=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.split_train_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.split_train_test" title="Permalink to this definition">¶</a></dt>
+<code class="descname">split_train_test</code><span class="sig-paren">(</span><em>self</em>, <em>train_p=0.8</em>, <em>stratified=True</em>, <em>disease_only=False</em>, <em>key='disease'</em>, <em>subtype_delimiter='</em>, <em>'</em>, <em>val_p=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.split_train_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.split_train_test" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split MethylationArray into training and test sets, with option to stratify by categorical covariate.</p>
-<dl class="docutils">
-<dt>train_p</dt>
-<dd>Fraction of methylation array to use as training set.</dd>
-<dt>stratified</dt>
-<dd>Whether to stratify by categorical variable.</dd>
-<dt>disease_only</dt>
-<dd>Consider disease superclass by some delimiter. For instance if disease is S1,s2, superclass would be S1.</dd>
-<dt>key</dt>
-<dd>Column to stratify on.</dd>
-<dt>subtype_delimiter</dt>
-<dd>How to split disease column into super/subclass.</dd>
-<dt>val_p</dt>
-<dd>If set greater than 0, will create additional validation set, fraction of which is broken off from training set.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>train_p</strong></dt>
+<dd><p class="first last">Fraction of methylation array to use as training set.</p>
+</dd>
+<dt><strong>stratified</strong></dt>
+<dd><p class="first last">Whether to stratify by categorical variable.</p>
+</dd>
+<dt><strong>disease_only</strong></dt>
+<dd><p class="first last">Consider disease superclass by some delimiter. For instance if disease is S1,s2, superclass would be S1.</p>
+</dd>
+<dt><strong>key</strong></dt>
+<dd><p class="first last">Column to stratify on.</p>
+</dd>
+<dt><strong>subtype_delimiter</strong></dt>
+<dd><p class="first last">How to split disease column into super/subclass.</p>
+</dd>
+<dt><strong>val_p</strong></dt>
+<dd><p class="first last">If set greater than 0, will create additional validation set, fraction of which is broken off from training set.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.subsample">
-<code class="descname">subsample</code><span class="sig-paren">(</span><em>key='disease'</em>, <em>n_samples=None</em>, <em>frac=None</em>, <em>categorical=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.subsample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.subsample" title="Permalink to this definition">¶</a></dt>
+<code class="descname">subsample</code><span class="sig-paren">(</span><em>self</em>, <em>key='disease'</em>, <em>n_samples=None</em>, <em>frac=None</em>, <em>categorical=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.subsample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.subsample" title="Permalink to this definition">¶</a></dt>
 <dd><p>Subsample MethylationArray, make the set randomly smaller.</p>
-<dl class="docutils">
-<dt>key</dt>
-<dd>If stratifying, use this column of pheno array.</dd>
-<dt>n_samples</dt>
-<dd>Number of samples to consider overall, or per stratum.</dd>
-<dt>frac</dt>
-<dd>Alternative to n_samples, where x frac of array or stratum is considered.</dd>
-<dt>categorical</dt>
-<dd>Whether to stratify by column.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>key</strong></dt>
+<dd><p class="first last">If stratifying, use this column of pheno array.</p>
+</dd>
+<dt><strong>n_samples</strong></dt>
+<dd><p class="first last">Number of samples to consider overall, or per stratum.</p>
+</dd>
+<dt><strong>frac</strong></dt>
+<dd><p class="first last">Alternative to n_samples, where x frac of array or stratum is considered.</p>
+</dd>
+<dt><strong>categorical</strong></dt>
+<dd><p class="first last">Whether to stratify by column.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.subset_cpgs">
-<code class="descname">subset_cpgs</code><span class="sig-paren">(</span><em>cpgs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.subset_cpgs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.subset_cpgs" title="Permalink to this definition">¶</a></dt>
+<code class="descname">subset_cpgs</code><span class="sig-paren">(</span><em>self</em>, <em>cpgs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.subset_cpgs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.subset_cpgs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Subset beta matrix by list of Cpgs.
 Parameters
 ———-
@@ -868,45 +1485,82 @@ cpgs</p>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.subset_index">
-<code class="descname">subset_index</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.subset_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.subset_index" title="Permalink to this definition">¶</a></dt>
+<code class="descname">subset_index</code><span class="sig-paren">(</span><em>self</em>, <em>index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.subset_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.subset_index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Subset MethylationArray by samples.</p>
-<dl class="docutils">
-<dt>index</dt>
-<dd>Sample names to subset by.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>index</strong></dt>
+<dd><p class="first last">Sample names to subset by.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.write_csvs">
-<code class="descname">write_csvs</code><span class="sig-paren">(</span><em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.write_csvs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.write_csvs" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write_csvs</code><span class="sig-paren">(</span><em>self</em>, <em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.write_csvs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.write_csvs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write phenotype data and beta values to csvs.</p>
-<dl class="docutils">
-<dt>output_dir</dt>
-<dd>Directory to output csv files.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>output_dir</strong></dt>
+<dd><p class="first last">Directory to output csv files.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.write_db">
-<code class="descname">write_db</code><span class="sig-paren">(</span><em>conn</em>, <em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.write_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.write_db" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write_db</code><span class="sig-paren">(</span><em>self</em>, <em>conn</em>, <em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.write_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.write_db" title="Permalink to this definition">¶</a></dt>
 <dd><p>Store phenotype data and beta values in SQL database.</p>
-<dl class="docutils">
-<dt>conn</dt>
-<dd>SQLite connection.</dd>
-<dt>disease</dt>
-<dd>Create new tables in db that are related to disease state by this name.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>conn</strong></dt>
+<dd><p class="first last">SQLite connection.</p>
+</dd>
+<dt><strong>disease</strong></dt>
+<dd><p class="first last">Create new tables in db that are related to disease state by this name.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArray.write_pickle">
-<code class="descname">write_pickle</code><span class="sig-paren">(</span><em>output_pickle</em>, <em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.write_pickle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.write_pickle" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write_pickle</code><span class="sig-paren">(</span><em>self</em>, <em>output_pickle</em>, <em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArray.write_pickle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArray.write_pickle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Store phenotype data and beta values in pickle file.
 Is default file format for storing MethylationArray objects.</p>
-<dl class="docutils">
-<dt>output_pickle</dt>
-<dd>Pickle file to store MethylationArray data.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>output_pickle</strong></dt>
+<dd><p class="first last">Pickle file to store MethylationArray data.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -920,44 +1574,101 @@ Initialize with list of methylation arrays. Can optionally leave list empty or w
 <dt>list_methylation_arrays</dt>
 <dd>List of methylation arrays.</dd>
 </dl>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.combine" title="pymethylprocess.MethylationDataTypes.MethylationArrays.combine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">combine</span></code></a>(self[,&nbsp;array_generator])</td>
+<td>Combine the list of methylation arrays into one array via concatenation of beta matrices and phenotype arrays.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.impute" title="pymethylprocess.MethylationDataTypes.MethylationArrays.impute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">impute</span></code></a>(self,&nbsp;imputer)</td>
+<td>Impute all methylation arrays.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.write_dbs" title="pymethylprocess.MethylationDataTypes.MethylationArrays.write_dbs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_dbs</span></code></a>(self,&nbsp;conn)</td>
+<td>Write list of methylation arrays to SQL database.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.write_pkls" title="pymethylprocess.MethylationDataTypes.MethylationArrays.write_pkls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_pkls</span></code></a>(self,&nbsp;pkl)</td>
+<td>Write list of methylation arrays to single pickle.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArrays.combine">
-<code class="descname">combine</code><span class="sig-paren">(</span><em>array_generator=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArrays.combine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.combine" title="Permalink to this definition">¶</a></dt>
+<code class="descname">combine</code><span class="sig-paren">(</span><em>self</em>, <em>array_generator=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArrays.combine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.combine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Combine the list of methylation arrays into one array via concatenation of beta matrices and phenotype arrays.</p>
-<dl class="docutils">
-<dt>array_generator</dt>
-<dd>Generator of additional methylation arrays for computational memory minimization.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>array_generator</strong></dt>
+<dd><p class="first last">Generator of additional methylation arrays for computational memory minimization.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArrays.impute">
-<code class="descname">impute</code><span class="sig-paren">(</span><em>imputer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArrays.impute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.impute" title="Permalink to this definition">¶</a></dt>
+<code class="descname">impute</code><span class="sig-paren">(</span><em>self</em>, <em>imputer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArrays.impute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.impute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Impute all methylation arrays.</p>
-<dl class="docutils">
-<dt>imputer</dt>
-<dd>Type of imputation, sklearn-like.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>imputer</strong></dt>
+<dd><p class="first last">Type of imputation, sklearn-like.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArrays.write_dbs">
-<code class="descname">write_dbs</code><span class="sig-paren">(</span><em>conn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArrays.write_dbs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.write_dbs" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write_dbs</code><span class="sig-paren">(</span><em>self</em>, <em>conn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArrays.write_dbs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.write_dbs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write list of methylation arrays to SQL database. Recommend naming MethylationArray.</p>
-<dl class="docutils">
-<dt>conn</dt>
-<dd>SQL connection.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>conn</strong></dt>
+<dd><p class="first last">SQL connection.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.MethylationDataTypes.MethylationArrays.write_pkls">
-<code class="descname">write_pkls</code><span class="sig-paren">(</span><em>pkl</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArrays.write_pkls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.write_pkls" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write_pkls</code><span class="sig-paren">(</span><em>self</em>, <em>pkl</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#MethylationArrays.write_pkls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.MethylationArrays.write_pkls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write list of methylation arrays to single pickle. Recommend naming each MethylationArray.</p>
-<dl class="docutils">
-<dt>pkl</dt>
-<dd>Pickle file to write to.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>pkl</strong></dt>
+<dd><p class="first last">Pickle file to write to.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -966,30 +1677,57 @@ Initialize with list of methylation arrays. Can optionally leave list empty or w
 <dt id="pymethylprocess.MethylationDataTypes.extract_pheno_beta_df_from_folder">
 <code class="descclassname">pymethylprocess.MethylationDataTypes.</code><code class="descname">extract_pheno_beta_df_from_folder</code><span class="sig-paren">(</span><em>folder</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#extract_pheno_beta_df_from_folder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.extract_pheno_beta_df_from_folder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return phenotype and beta dataframes from specified folder with csv.</p>
-<dl class="docutils">
-<dt>folder</dt>
-<dd>Input folder.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>folder</strong></dt>
+<dd><p class="first last">Input folder.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="pymethylprocess.MethylationDataTypes.extract_pheno_beta_df_from_pickle_dict">
 <code class="descclassname">pymethylprocess.MethylationDataTypes.</code><code class="descname">extract_pheno_beta_df_from_pickle_dict</code><span class="sig-paren">(</span><em>input_dict</em>, <em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#extract_pheno_beta_df_from_pickle_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.extract_pheno_beta_df_from_pickle_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return phenotype and beta dataframes from specified dictionary storing MethylationArray python dictionary.</p>
-<dl class="docutils">
-<dt>input_dict</dt>
-<dd>Python disctionary storing pheno/beta information.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>input_dict</strong></dt>
+<dd><p class="first last">Python disctionary storing pheno/beta information.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="pymethylprocess.MethylationDataTypes.extract_pheno_beta_df_from_sql">
 <code class="descclassname">pymethylprocess.MethylationDataTypes.</code><code class="descname">extract_pheno_beta_df_from_sql</code><span class="sig-paren">(</span><em>conn</em>, <em>disease=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/MethylationDataTypes.html#extract_pheno_beta_df_from_sql"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.MethylationDataTypes.extract_pheno_beta_df_from_sql" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return phenotype and beta dataframes from SQL tables storing MethylationArray info.</p>
-<dl class="docutils">
-<dt>conn</dt>
-<dd>SQL connection.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>conn</strong></dt>
+<dd><p class="first last">SQL connection.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -1000,88 +1738,164 @@ Initialize with list of methylation arrays. Can optionally leave list empty or w
 <dt id="pymethylprocess.meffil_functions.est_cell_counts_IDOL">
 <code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">est_cell_counts_IDOL</code><span class="sig-paren">(</span><em>rgset</em>, <em>library</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#est_cell_counts_IDOL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.est_cell_counts_IDOL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given RGSet object, estimate cell counts for 450k/850k using reference approach via IDOL library.</p>
-<dl class="docutils">
-<dt>rgset</dt>
-<dd>RGSet object stored in python via rpy2</dd>
-<dt>library</dt>
-<dd>What type of CpG library to use.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>rgset</strong></dt>
+<dd><p class="first last">RGSet object stored in python via rpy2</p>
+</dd>
+<dt><strong>library</strong></dt>
+<dd><p class="first last">What type of CpG library to use.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="pymethylprocess.meffil_functions.est_cell_counts_meffil">
 <code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">est_cell_counts_meffil</code><span class="sig-paren">(</span><em>qc_list</em>, <em>cell_type_reference</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#est_cell_counts_meffil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.est_cell_counts_meffil" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given QCObject list R object, estimate cell counts using reference approach via meffil.</p>
-<dl class="docutils">
-<dt>qc_list</dt>
-<dd>R list containing qc objects.</dd>
-<dt>cell_type_reference</dt>
-<dd>Reference blood/tissue set.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>qc_list</strong></dt>
+<dd><p class="first last">R list containing qc objects.</p>
+</dd>
+<dt><strong>cell_type_reference</strong></dt>
+<dd><p class="first last">Reference blood/tissue set.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="pymethylprocess.meffil_functions.est_cell_counts_minfi">
 <code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">est_cell_counts_minfi</code><span class="sig-paren">(</span><em>rgset</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#est_cell_counts_minfi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.est_cell_counts_minfi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given RGSet object, estimate cell counts using reference approach via minfi.</p>
-<dl class="docutils">
-<dt>rgset</dt>
-<dd>RGSet object stored in python via rpy2</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>rgset</strong></dt>
+<dd><p class="first last">RGSet object stored in python via rpy2</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="pymethylprocess.meffil_functions.load_detection_p_values_beadnum">
 <code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">load_detection_p_values_beadnum</code><span class="sig-paren">(</span><em>qc_list</em>, <em>n_cores</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#load_detection_p_values_beadnum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.load_detection_p_values_beadnum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return list of detection p-value matrix and bead number matrix.</p>
-<dl class="docutils">
-<dt>qc_list</dt>
-<dd>R list containing qc objects.</dd>
-<dt>n_cores</dt>
-<dd>Number of cores to use in computation.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>qc_list</strong></dt>
+<dd><p class="first last">R list containing qc objects.</p>
+</dd>
+<dt><strong>n_cores</strong></dt>
+<dd><p class="first last">Number of cores to use in computation.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="pymethylprocess.meffil_functions.r_autosomal_cpgs">
 <code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">r_autosomal_cpgs</code><span class="sig-paren">(</span><em>array_type='450k'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#r_autosomal_cpgs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.r_autosomal_cpgs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return list of autosomal cpg probes per platform.</p>
-<dl class="docutils">
-<dt>array_type</dt>
-<dd>450k/850k array?</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>array_type</strong></dt>
+<dd><p class="first last">450k/850k array?</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="pymethylprocess.meffil_functions.r_snp_cpgs">
 <code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">r_snp_cpgs</code><span class="sig-paren">(</span><em>array_type='450k'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#r_snp_cpgs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.r_snp_cpgs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return list of SNP cpg probes per platform.</p>
-<dl class="docutils">
-<dt>array_type</dt>
-<dd>450k/850k array?</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>array_type</strong></dt>
+<dd><p class="first last">450k/850k array?</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="pymethylprocess.meffil_functions.remove_sex">
 <code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">remove_sex</code><span class="sig-paren">(</span><em>beta</em>, <em>array_type='450k'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#remove_sex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.remove_sex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove non-autosomal cpgs from beta matrix.</p>
-<dl class="docutils">
-<dt>array_type</dt>
-<dd>450k/850k array?</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>array_type</strong></dt>
+<dd><p class="first last">450k/850k array?</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="pymethylprocess.meffil_functions.set_missing">
 <code class="descclassname">pymethylprocess.meffil_functions.</code><code class="descname">set_missing</code><span class="sig-paren">(</span><em>beta</em>, <em>pval_beadnum</em>, <em>detection_val=1e-06</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/meffil_functions.html#set_missing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.meffil_functions.set_missing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set missing beta values to NA, taking into account detection values and bead number thesholds.</p>
-<dl class="docutils">
-<dt>pval_beadnum</dt>
-<dd>Detection pvalues and number of beads per cpg/samples</dd>
-<dt>detection_val</dt>
-<dd>If threshold to set site to missingness based on p-value detection.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>pval_beadnum</strong></dt>
+<dd><p class="first last">Detection pvalues and number of beads per cpg/samples</p>
+</dd>
+<dt><strong>detection_val</strong></dt>
+<dd><p class="first last">If threshold to set site to missingness based on p-value detection.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -1105,116 +1919,244 @@ Initialize object with scikit-learn model, and optionally supply a hyperparamete
 <dt>n_eval</dt>
 <dd>Number of evaluations for randomized grid search, if set to 0, perform exhaustive grid search</dd>
 </dl>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.general_machine_learning.MachineLearning.assign_results_to_pheno_col" title="pymethylprocess.general_machine_learning.MachineLearning.assign_results_to_pheno_col"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assign_results_to_pheno_col</span></code></a>(self,&nbsp;…)</td>
+<td>Assign results to new phenotype column.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.general_machine_learning.MachineLearning.fit" title="pymethylprocess.general_machine_learning.MachineLearning.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(self,&nbsp;train_methyl_array[,&nbsp;…])</td>
+<td>Fit data to model.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.general_machine_learning.MachineLearning.fit_predict" title="pymethylprocess.general_machine_learning.MachineLearning.fit_predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_predict</span></code></a>(self,&nbsp;train_methyl_array[,&nbsp;…])</td>
+<td>Fit and predict training data.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.general_machine_learning.MachineLearning.fit_transform" title="pymethylprocess.general_machine_learning.MachineLearning.fit_transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit_transform</span></code></a>(self,&nbsp;train_methyl_array[,&nbsp;…])</td>
+<td>Fit and transform to training data.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.general_machine_learning.MachineLearning.predict" title="pymethylprocess.general_machine_learning.MachineLearning.predict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code></a>(self,&nbsp;test_methyl_array)</td>
+<td>Make new predictions on test methylation array.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.general_machine_learning.MachineLearning.return_outcome_metric" title="pymethylprocess.general_machine_learning.MachineLearning.return_outcome_metric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">return_outcome_metric</span></code></a>(self,&nbsp;methyl_array,&nbsp;…)</td>
+<td>Supply metric to evaluate results.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.general_machine_learning.MachineLearning.store_results" title="pymethylprocess.general_machine_learning.MachineLearning.store_results"><code class="xref py py-obj docutils literal notranslate"><span class="pre">store_results</span></code></a>(self,&nbsp;output_pkl[,&nbsp;results_dict])</td>
+<td>Store results in pickle file.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pymethylprocess.general_machine_learning.MachineLearning.transform" title="pymethylprocess.general_machine_learning.MachineLearning.transform"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform</span></code></a>(self,&nbsp;test_methyl_array)</td>
+<td>Transform test methylation array.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pymethylprocess.general_machine_learning.MachineLearning.transform_results_to_beta" title="pymethylprocess.general_machine_learning.MachineLearning.transform_results_to_beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform_results_to_beta</span></code></a>(self,&nbsp;…)</td>
+<td>Transform beta matrix into reduced beta matrix and store.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="pymethylprocess.general_machine_learning.MachineLearning.assign_results_to_pheno_col">
-<code class="descname">assign_results_to_pheno_col</code><span class="sig-paren">(</span><em>methyl_array</em>, <em>new_col</em>, <em>output_pkl</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.assign_results_to_pheno_col"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.assign_results_to_pheno_col" title="Permalink to this definition">¶</a></dt>
+<code class="descname">assign_results_to_pheno_col</code><span class="sig-paren">(</span><em>self</em>, <em>methyl_array</em>, <em>new_col</em>, <em>output_pkl</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.assign_results_to_pheno_col"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.assign_results_to_pheno_col" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assign results to new phenotype column.</p>
-<dl class="docutils">
-<dt>methyl_array</dt>
-<dd>MethylationArray.</dd>
-<dt>new_col</dt>
-<dd>New column name.</dd>
-<dt>output_pkl</dt>
-<dd>Output pickle to dump MethylationArray to.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>methyl_array</strong></dt>
+<dd><p class="first last">MethylationArray.</p>
+</dd>
+<dt><strong>new_col</strong></dt>
+<dd><p class="first last">New column name.</p>
+</dd>
+<dt><strong>output_pkl</strong></dt>
+<dd><p class="first last">Output pickle to dump MethylationArray to.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.general_machine_learning.MachineLearning.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>train_methyl_array</em>, <em>val_methyl_array=None</em>, <em>outcome_cols=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.fit" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fit</code><span class="sig-paren">(</span><em>self</em>, <em>train_methyl_array</em>, <em>val_methyl_array=None</em>, <em>outcome_cols=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit data to model.</p>
-<dl class="docutils">
-<dt>train_methyl_array</dt>
-<dd>Training MethylationArray.</dd>
-<dt>val_methyl_array</dt>
-<dd>Validation MethylationArray. Can set to None.</dd>
-<dt>outcome_cols</dt>
-<dd>Set to none if not needed, but phenotype column to train on, can be multiple.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>train_methyl_array</strong></dt>
+<dd><p class="first last">Training MethylationArray.</p>
+</dd>
+<dt><strong>val_methyl_array</strong></dt>
+<dd><p class="first last">Validation MethylationArray. Can set to None.</p>
+</dd>
+<dt><strong>outcome_cols</strong></dt>
+<dd><p class="first last">Set to none if not needed, but phenotype column to train on, can be multiple.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.general_machine_learning.MachineLearning.fit_predict">
-<code class="descname">fit_predict</code><span class="sig-paren">(</span><em>train_methyl_array</em>, <em>outcome_cols=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.fit_predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.fit_predict" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fit_predict</code><span class="sig-paren">(</span><em>self</em>, <em>train_methyl_array</em>, <em>outcome_cols=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.fit_predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.fit_predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit and predict training data.</p>
-<dl class="docutils">
-<dt>train_methyl_array</dt>
-<dd>Training MethylationArray.</dd>
-<dt>outcome_cols</dt>
-<dd>Set to none if not needed, but phenotype column to train on, can be multiple.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>train_methyl_array</strong></dt>
+<dd><p class="first last">Training MethylationArray.</p>
+</dd>
+<dt><strong>outcome_cols</strong></dt>
+<dd><p class="first last">Set to none if not needed, but phenotype column to train on, can be multiple.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.general_machine_learning.MachineLearning.fit_transform">
-<code class="descname">fit_transform</code><span class="sig-paren">(</span><em>train_methyl_array</em>, <em>outcome_cols=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.fit_transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.fit_transform" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fit_transform</code><span class="sig-paren">(</span><em>self</em>, <em>train_methyl_array</em>, <em>outcome_cols=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.fit_transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.fit_transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit and transform to training data.</p>
-<dl class="docutils">
-<dt>train_methyl_array</dt>
-<dd>Training MethylationArray.</dd>
-<dt>outcome_cols</dt>
-<dd>Set to none if not needed, but phenotype column to train on, can be multiple.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>train_methyl_array</strong></dt>
+<dd><p class="first last">Training MethylationArray.</p>
+</dd>
+<dt><strong>outcome_cols</strong></dt>
+<dd><p class="first last">Set to none if not needed, but phenotype column to train on, can be multiple.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.general_machine_learning.MachineLearning.predict">
-<code class="descname">predict</code><span class="sig-paren">(</span><em>test_methyl_array</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.predict" title="Permalink to this definition">¶</a></dt>
+<code class="descname">predict</code><span class="sig-paren">(</span><em>self</em>, <em>test_methyl_array</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make new predictions on test methylation array.</p>
-<dl class="docutils">
-<dt>test_methyl_array</dt>
-<dd>Testing MethylationArray.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>test_methyl_array</strong></dt>
+<dd><p class="first last">Testing MethylationArray.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.general_machine_learning.MachineLearning.return_outcome_metric">
-<code class="descname">return_outcome_metric</code><span class="sig-paren">(</span><em>methyl_array</em>, <em>outcome_cols</em>, <em>metric</em>, <em>run_bootstrap=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.return_outcome_metric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.return_outcome_metric" title="Permalink to this definition">¶</a></dt>
+<code class="descname">return_outcome_metric</code><span class="sig-paren">(</span><em>self</em>, <em>methyl_array</em>, <em>outcome_cols</em>, <em>metric</em>, <em>run_bootstrap=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.return_outcome_metric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.return_outcome_metric" title="Permalink to this definition">¶</a></dt>
 <dd><p>Supply metric to evaluate results.</p>
-<dl class="docutils">
-<dt>methyl_array</dt>
-<dd>MethylationArray to evaluate.</dd>
-<dt>outcome_cols</dt>
-<dd>Outcome phenotype columns.</dd>
-<dt>metric</dt>
-<dd>Sklearn evaluation metric.</dd>
-<dt>run_bootstrap</dt>
-<dd>Make 95% CI from 1k bootstraps.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>methyl_array</strong></dt>
+<dd><p class="first last">MethylationArray to evaluate.</p>
+</dd>
+<dt><strong>outcome_cols</strong></dt>
+<dd><p class="first last">Outcome phenotype columns.</p>
+</dd>
+<dt><strong>metric</strong></dt>
+<dd><p class="first last">Sklearn evaluation metric.</p>
+</dd>
+<dt><strong>run_bootstrap</strong></dt>
+<dd><p class="first last">Make 95% CI from 1k bootstraps.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.general_machine_learning.MachineLearning.store_results">
-<code class="descname">store_results</code><span class="sig-paren">(</span><em>output_pkl</em>, <em>results_dict={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.store_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.store_results" title="Permalink to this definition">¶</a></dt>
+<code class="descname">store_results</code><span class="sig-paren">(</span><em>self</em>, <em>output_pkl</em>, <em>results_dict={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.store_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.store_results" title="Permalink to this definition">¶</a></dt>
 <dd><p>Store results in pickle file.</p>
-<dl class="docutils">
-<dt>output_pkl</dt>
-<dd>Output pickle to dump results to.</dd>
-<dt>results_dict</dt>
-<dd>Supply own results dict to be dumped.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>output_pkl</strong></dt>
+<dd><p class="first last">Output pickle to dump results to.</p>
+</dd>
+<dt><strong>results_dict</strong></dt>
+<dd><p class="first last">Supply own results dict to be dumped.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.general_machine_learning.MachineLearning.transform">
-<code class="descname">transform</code><span class="sig-paren">(</span><em>test_methyl_array</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.transform" title="Permalink to this definition">¶</a></dt>
+<code class="descname">transform</code><span class="sig-paren">(</span><em>self</em>, <em>test_methyl_array</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.transform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform test methylation array.</p>
-<dl class="docutils">
-<dt>test_methyl_array</dt>
-<dd>Testing MethylationArray.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>test_methyl_array</strong></dt>
+<dd><p class="first last">Testing MethylationArray.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="pymethylprocess.general_machine_learning.MachineLearning.transform_results_to_beta">
-<code class="descname">transform_results_to_beta</code><span class="sig-paren">(</span><em>methyl_array</em>, <em>output_pkl</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.transform_results_to_beta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.transform_results_to_beta" title="Permalink to this definition">¶</a></dt>
+<code class="descname">transform_results_to_beta</code><span class="sig-paren">(</span><em>self</em>, <em>methyl_array</em>, <em>output_pkl</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pymethylprocess/general_machine_learning.html#MachineLearning.transform_results_to_beta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pymethylprocess.general_machine_learning.MachineLearning.transform_results_to_beta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform beta matrix into reduced beta matrix and store.</p>
-<dl class="docutils">
-<dt>methyl_array</dt>
-<dd>MethylationArray.</dd>
-<dt>output_pkl</dt>
-<dd>Output pickle to dump MethylationArray to.</dd>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>methyl_array</strong></dt>
+<dd><p class="first last">MethylationArray.</p>
+</dd>
+<dt><strong>output_pkl</strong></dt>
+<dd><p class="first last">Output pickle to dump MethylationArray to.</p>
+</dd>
 </dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
