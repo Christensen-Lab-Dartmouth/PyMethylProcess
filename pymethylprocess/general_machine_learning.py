@@ -154,7 +154,7 @@ class MachineLearning:
         methyl_array.beta = pd.DataFrame(self.results,index=self.beta.index)
         methyl_array.write_pickle(output_pkl)
 
-    def return_outcome_metric(self, methyl_array, outcome_cols, metric, run_bootstrap=False):
+    def return_outcome_metric(self, methyl_array, outcome_cols, metric, run_bootstrap=False, n_bootstrap=1000):
         """Supply metric to evaluate results.
 
         Parameters
@@ -170,7 +170,7 @@ class MachineLearning:
         """
         y_true = methyl_array.pheno[outcome_cols]
         y_pred = self.results
-        if not bootstrap:
+        if not run_bootstrap:
             return metric(y_true,y_pred)
         else:
             from sklearn.utils import resample

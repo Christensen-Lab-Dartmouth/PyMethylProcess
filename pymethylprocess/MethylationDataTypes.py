@@ -143,7 +143,7 @@ class MethylationArray:
         if categorical:
             pheno=self.pheno.groupby(key,group_keys=False).apply(lambda x: x.sample(frac=frac, n=min(x.shape[0],n_samples)))
         else:
-            pheno=self.pheno.sample(frac=frac, n=min(n_samples,self.pheno.shape[0]))
+            pheno=self.pheno.sample(frac=frac, n=(min(n_samples,self.pheno.shape[0]) if n_samples is not None else None))
         return MethylationArray(pheno,self.beta.loc[pheno.index.values,:],'subsampled')
 
     def split_key(self, key, subtype_delimiter):

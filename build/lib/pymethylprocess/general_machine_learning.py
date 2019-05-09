@@ -22,10 +22,12 @@ class MachineLearning:
         T/F encode string labels.
     n_eval
         Number of evaluations for randomized grid search, if set to 0, perform exhaustive grid search
+    series
+        Whether to disable multiprocessing.
     """
-    def __init__(self, model, options, grid={}, labelencode=False, n_eval=0):
+    def __init__(self, model, options, grid={}, labelencode=False, n_eval=0, series=False, verbose=False):
         if grid:
-            self.model = GridSearch(model = model(), param_grid=grid, num_random_search=None if not n_eval else n_eval)
+            self.model = GridSearch(model = model(), param_grid=grid, num_random_search=None if not n_eval else n_eval, series=series)
             self.param_grid_exists=True
             self.grid=grid
         else:
@@ -35,6 +37,7 @@ class MachineLearning:
             self.encoder=LabelEncoder()
         else:
             self.encoder=None
+        self.verbose = verbose
 
     def fit(self, train_methyl_array, val_methyl_array=None, outcome_cols=None):
         """Fit data to model.
@@ -52,7 +55,7 @@ class MachineLearning:
             if self.encoder != None:
                 self.encoder.fit(train_methyl_array.pheno[outcome_cols])
             if self.param_grid_exists:
-                self.model.fit(train_methyl_array.beta,self.encoder.transform(train_methyl_array.pheno[outcome_cols]) if self.encoder != None else train_methyl_array.pheno[outcome_cols], val_methyl_array.beta,self.encoder.transform(val_methyl_array.pheno[outcome_cols]) if self.encoder != None else val_methyl_array.pheno[outcome_cols], scoring='accuracy' if self.encoder!=None else 'r2')
+                self.model.fit(train_methyl_array.beta,self.encoder.transform(train_methyl_array.pheno[outcome_cols]) if self.encoder != None else train_methyl_array.pheno[outcome_cols], val_methyl_array.beta,self.encoder.transform(val_methyl_array.pheno[outcome_cols]) if self.encoder != None else val_methyl_array.pheno[outcome_cols], scoring='accuracy' if self.encoder!=None else 'r2', verbose=self.verbose)
             else:
                 self.model.fit(train_methyl_array.beta,self.encoder.transform(train_methyl_array.pheno[outcome_cols]) if self.encoder != None else train_methyl_array.pheno[outcome_cols])
         else:
@@ -151,7 +154,7 @@ class MachineLearning:
         methyl_array.beta = pd.DataFrame(self.results,index=self.beta.index)
         methyl_array.write_pickle(output_pkl)
 
-    def return_outcome_metric(self, methyl_array, outcome_cols, metric, run_bootstrap=False):
+    def return_outcome_metric(self, methyl_array, outcome_cols, metric, run_bootstrap=False, n_bootstrap=1000):
         """Supply metric to evaluate results.
 
         Parameters
@@ -167,7 +170,7 @@ class MachineLearning:
         """
         y_true = methyl_array.pheno[outcome_cols]
         y_pred = self.results
-        if not bootstrap:
+        if not run_bootstrap:
             return metric(y_true,y_pred)
         else:
             from sklearn.utils import resample

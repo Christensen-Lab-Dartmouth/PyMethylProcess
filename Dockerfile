@@ -22,18 +22,18 @@ RUN pip install umap-learn>=0.3.7 plotly>=3.4.2 fancyimpute>=0.4.2 pandas>=0.23.
 
 RUN pip install shap matplotlib seaborn mlxtend click==6.7
 
-RUN pip install git+https://github.com/bodono/scs-python.git@bb45c69ce57b1fbb5ab23e02b30549a7e0b801e3
-
-RUN pip install git+https://github.com/jlevy44/hypopt.git@af59fbed732f5377cda73fdf42f3d4981c2be3ce
-
-RUN pip install pymethylprocess==0.1.2 --no-deps
+RUN pip install pymethylprocess==0.1.3 --no-deps
 
 RUN pymethyl-install_r_dependencies
 
 RUN mkdir ./pymethyl
 WORKDIR /pymethyl
 
-RUN pip install pymethylprocess --upgrade --no-deps
+RUN pip install git+https://github.com/bodono/scs-python.git@bb45c69ce57b1fbb5ab23e02b30549a7e0b801e3
+
+RUN pip install git+https://github.com/jlevy44/hypopt.git@af59fbed732f5377cda73fdf42f3d4981c2be3ce
+
+RUN pip install pymethylprocess==0.1.3 --no-deps
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8

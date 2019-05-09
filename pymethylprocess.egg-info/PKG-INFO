@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: pymethylprocess
-Version: 0.1.2
+Version: 0.1.3
 Summary: Preprocessing methylation pipeline, written in python. Easy to use and highly parallelized.
 Home-page: https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess
 Author: Joshua Levy
@@ -26,6 +26,8 @@ Description: ## PyMethylProcess
         * Make DNAm accessible to python developers and more machine learning oriented researchers  
         * Streamlined analysis makes processing easy  
         
+        *PyMethyProcess* is pending submission and review, biorxiv: https://www.biorxiv.org/content/biorxiv/early/2019/04/13/604496.full.pdf.  
+        
         Getting Started:  
         * Installation:   
             * pip install git+https://github.com/bodono/scs-python.git@bb45c69ce57b1fbb5ab23e02b30549a7e0b801e3 git+https://github.com/jlevy44/hypopt.git@af59fbed732f5377cda73fdf42f3d4981c2be3ce
@@ -36,12 +38,18 @@ Description: ## PyMethylProcess
         * Example Usage Scripts (in github repo): Located in ./example_scripts/  
         * Help docs (in github repo): https://christensen-lab-dartmouth.github.io/PyMethylProcess/
         
-        *PyMethyProcess* is pending submission and review, and link to paper will be posted shortly.
+        **Benchmark Results:**
+        <img width="1297" alt="benchmark" src="https://user-images.githubusercontent.com/19698023/55841697-422dc680-5afe-11e9-815d-dda140626c7c.png">
+        
+        **Supplementary Figure Removed from Manuscript:**
+        ![Supplemental](https://user-images.githubusercontent.com/19698023/55841691-380bc800-5afe-11e9-9411-d428efa1070e.jpeg)
+        
+        **Supplemental Figure 1:** UMAP embeddings (colored) of: a) GSE87571 (age), b) GSE81961 (disease status), c) GSE69138 (subtype), d) GSE42861 (disease status), e) GSE112179 (brain disorder), f) GSE90496 (subclass), g) TCGA Pancancer (subtype)  
         
         ![pipeline-download](https://user-images.githubusercontent.com/19698023/54839004-566d6900-4ca0-11e9-97fa-f338d11b896b.jpeg)  
         ![pipeline-format](https://user-images.githubusercontent.com/19698023/54839010-59685980-4ca0-11e9-92da-58bccec68347.jpeg)  
         ![pipeline-preprocess](https://user-images.githubusercontent.com/19698023/54839016-5cfbe080-4ca0-11e9-8c7e-22a871483d16.jpeg)  
-        ![pipeline-visualize](https://user-images.githubusercontent.com/19698023/54839038-66854880-4ca0-11e9-8afe-e167806f83ce.jpeg)  
+        ![pipeline-visualize](https://user-images.githubusercontent.com/19698023/56082165-48f05e00-5dca-11e9-863b-682a5d4c325f.jpeg)
         ![pipeline-train-test-split](https://user-images.githubusercontent.com/19698023/54839060-713fdd80-4ca0-11e9-85a8-9385012a6807.jpeg)  
         
 Platform: UNKNOWN
