@@ -24,7 +24,7 @@ Getting Started:
 * Installation:   
     * pip install git+https://github.com/bodono/scs-python.git@bb45c69ce57b1fbb5ab23e02b30549a7e0b801e3 git+https://github.com/jlevy44/hypopt.git@af59fbed732f5377cda73fdf42f3d4981c2be3ce
     * pip install pymethylprocess && pymethyl-install_r_dependencies (Note: May need to prefix pip install with MACOSX_DEPLOYMENT_TARGET=10.9 CC=clang CXX=clang++ for Mac OS install)
-    * docker pull joshualevy44/pymethylprocess
+    * docker pull joshualevy44/pymethylprocess:0.1.3
     * Alternatively, run sh build_docker.sh to build the docker container, and then run sh run_docker.sh to run the docker container.
     * Or see example scripts for usage.
 * Example Usage Scripts (in github repo): Located in ./example_scripts/  
