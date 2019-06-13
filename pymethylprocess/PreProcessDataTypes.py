@@ -105,8 +105,11 @@ class TCGADownloader:
         idatFiles = robjects.r('list.files("{}/idat", pattern = "idat.gz$", full = TRUE)'.format(query))
         robjects.r["sapply"](idatFiles, robjects.r["gunzip"], overwrite = True)
         subprocess.call('mv {}/idat/*.idat {}/'.format(query, output_dir),shell=True)
-        pandas2ri.ri2py(robjects.r['as'](robjects.r("phenoData(getGEO('{}')[[1]])".format(query)),'data.frame')).to_csv('{}/{}_clinical_info.csv'.format(output_dir,query))# ,GSEMatrix = FALSE
+        self.download_geo_clinical_info(query,output_dir)
 
+    def download_geo_clinical_info(self, query, output_dir, other_output_fname=''):
+        robjects.r("write.csv(as(getGEO('{}')[[1]]@phenoData@data,'data.frame'),'{}')".format(query,'{}/{}_clinical_info.csv'.format(output_dir,query) if not other_output_fname else other_output_fname))
+        #pandas2ri.ri2py(robjects.r('as')(robjects.r("getGEO('{}')[[1]]@phenoData@data".format(query)),'data.frame')).to_csv('{}/{}_clinical_info.csv'.format(output_dir,query) if not other_output_fname else other_output_fname)# ,GSEMatrix = FALSE
 
 class PreProcessPhenoData:
     """Class that will manipute phenotype samplesheet before preprocessing of IDATs.
@@ -239,7 +242,7 @@ class PreProcessPhenoData:
             Output csv name.
         """
         self.pheno_sheet.to_csv(output_sheet_name)
-        print("Please move all other sample sheets out of this directory.")
+        print("Next Step: Please move all other sample sheets out of this directory.")
 
     def split_key(self, key, subtype_delimiter):
         """Split pheno column by key, with subtype delimiter, eg. entry S1,s2 -> S1 with delimiter ",".
@@ -539,9 +542,9 @@ class PreProcessIDAT:
         self.RSet = self.minfi.ratioConvert(self.MSet, what = "both", keepCN = True)
         return self.RSet
 
-    def get_beta(self):
+    def get_beta(self, bmiq = False, n_cores=6):
         """Get beta value matrix from minfi after finding RSet."""
-        self.beta = self.minfi.getBeta(self.RSet)
+        self.beta = self.minfi.getBeta(self.RSet) if not bmiq else self.enmix.bmiq_mc(self.MSet, nCores=n_cores)
         return self.beta
 
     def filter_beta(self):
@@ -572,7 +575,7 @@ class PreProcessIDAT:
         self.manifest = self.minfi.getManifest(self.RGset)
         return self.manifest
 
-    def preprocess_enmix_pipeline(self, n_cores=6, pipeline='enmix', noob=False, qc_only=False, use_cache=False):
+    def preprocess_enmix_pipeline(self, n_cores=6, pipeline='enmix', noob=False, qc_only=False, use_cache=False, bmiq=False):
         """Run complete ENmix or minfi preprocessing pipeline.
 
         Parameters
@@ -604,8 +607,11 @@ class PreProcessIDAT:
                 self.preprocessNoob()
             else:
                 self.preprocessRAW()
-        self.return_beta()
-        self.get_beta()
+        if bmiq:
+            self.get_beta(bmiq = True, n_cores=n_cores)
+        else:
+            self.return_beta()
+            self.get_beta()
         self.filter_beta()
         self.extract_pheno_data(methylset=True)
         return self.pheno, self.beta_final
