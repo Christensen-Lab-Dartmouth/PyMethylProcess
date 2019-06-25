@@ -340,6 +340,7 @@ def combine_methylation_arrays(input_pkls, optional_input_pkl_dir, output_pkl, e
 @click.option('-ct', '--cpg_threshold', default=-1., help='Value between 0 and 1 for NaN removal. If cpgs has cpg_threshold proportion of samples missing, then remove cpg. Set to -1 to not remove samples.', show_default=True)
 def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fancyimpute', n_neighbors=5, orientation='rows', output_pkl='', n_top_cpgs=0, feature_selection_method='mad', metric='correlation', n_neighbors_fs=10, disease_only=False, subtype_delimiter=',', sample_threshold=-1, cpg_threshold=-1): # wrap a class around this
     """Imputation of subtype or no subtype using various imputation methods."""
+    import copy
     orientation_dict = {'CpGs':'columns','Samples':'rows'}
     orientation = orientation_dict[orientation]
     #print("Selecting orientation for imputation not implemented yet.")
@@ -363,7 +364,7 @@ def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fa
         def impute_arrays(methyl_arrays):
             for methyl_array in methyl_arrays:
                 methyl_array.remove_missingness(cpg_threshold=cpg_threshold, sample_threshold=sample_threshold)
-                methyl_array.impute(imputer)
+                methyl_array.impute(copy.deepcopy(imputer))
                 yield methyl_array
 
         methyl_array = MethylationArray(*extract_pheno_beta_df_from_pickle_dict(input_dict))

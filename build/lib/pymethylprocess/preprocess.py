@@ -299,7 +299,7 @@ def combine_methylation_arrays(input_pkls, optional_input_pkl_dir, output_pkl, e
         input_pkls=glob.glob(os.path.join(optional_input_pkl_dir,'*','methyl_array.pkl'))
         if exclude:
             input_pkls=(np.array(input_pkls)[~np.isin(np.vectorize(lambda x: x.split('/')[-2])(input_pkls),np.array(exclude))]).tolist()
-    if len(input_pkls) > 0:
+    if len(input_pkls) > 1:
         base_methyl_array=MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(open(input_pkls[0],'rb')), ''))
         methyl_arrays_generator = (MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(open(input_pkl,'rb')), '')) for input_pkl in input_pkls[1:])
         list_methyl_arrays = MethylationArrays([base_methyl_array])

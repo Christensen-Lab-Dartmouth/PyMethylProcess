@@ -29,6 +29,16 @@ Getting Started:
     * Or see example scripts for usage.
 * Example Usage Scripts (in github repo): Located in ./example_scripts/  
 * Help docs (in github repo): https://christensen-lab-dartmouth.github.io/PyMethylProcess/
+* See GitHub wiki for more information on getting started, preprocessing quickly, and setting up and running machine learning analyses / classic methylation analyses (cell type deconvolution, age estimation).  
+* Running the CWL tool (temporary instructions until new docker upload):  
+    * Clone this repository.  
+    * sh docker_build.sh  
+    * Then execute the cwl/pymethylprocess.cwl tool using Toil https://toil.readthedocs.io/en/latest/ or Rabix Composer or executor https://github.com/rabix/composer, amongst others.   
+    * Try this dataset for quick testing: GSE109541  
+    * Note: This CWL tool has limited functionality, if you would like to see additional functions automated (eg. age calculation, cell type deconvolution, running machine learning pipelines), please submit an issue, and we'll add new features.  
+
+**CWL Workflow Visualization**  
+<img width="1290" alt="PyMethylProcess CWL Pipeline" src="https://user-images.githubusercontent.com/19698023/60063482-06e96f80-96cb-11e9-93ae-33abb61f4d4a.png">
 
 **Benchmark Results:**
 <img width="1297" alt="benchmark" src="https://user-images.githubusercontent.com/19698023/55841697-422dc680-5afe-11e9-815d-dda140626c7c.png">

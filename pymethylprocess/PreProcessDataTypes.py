@@ -14,6 +14,7 @@ from rpy2.robjects import pandas2ri, numpy2ri
 import pickle
 import sqlite3
 import os, glob, subprocess
+from os.path import basename
 from collections import Counter
 
 pandas2ri.activate()
@@ -138,8 +139,8 @@ class PreProcessPhenoData:
         include_columns
             Dictionary specifying other columns to include, and new names to assign them to."""
         idats = glob.glob("{}/*.idat".format(self.idat_dir))
-        idat_basenames = np.unique(np.vectorize(lambda x: '_'.join(x.split('/')[-1].split('_')[:3]))(idats))
-        idat_geo_map = dict(zip(np.vectorize(lambda x: x.split('_')[0])(idat_basenames),np.array(idat_basenames)))
+        idat_basenames = np.unique(np.vectorize(lambda x: basename(x).replace('_Grn.idat','').replace('_Red.idat',''))(idats)) # '_'.join(x.split('/')[-1].split('_')[:3])
+        idat_geo_map = dict(zip(np.vectorize(lambda x: basename(x).split('_')[0])(idat_basenames),np.array(idat_basenames)))
         self.pheno_sheet['Basename'] = self.pheno_sheet['geo_accession'].map(idat_geo_map)
         self.pheno_sheet = self.pheno_sheet[self.pheno_sheet['Basename'].isin(idat_basenames)]
         self.pheno_sheet.loc[:,'Basename'] = self.pheno_sheet['Basename'].map(lambda x: self.idat_dir+x)
@@ -445,7 +446,11 @@ class PreProcessIDAT:
             from kneed import KneeLocator
             pc_df=pandas2ri.ri2py(robjects.r['as'](pc_df,'data.frame'))
             pc_df['B'] = pc_df['U']+pc_df['M']
-            n_pcs=int(KneeLocator(pc_df['n'].values, pc_df['B'].values, S=1.0, curve='convex', direction='decreasing').knee)
+            knee=KneeLocator(pc_df['n'].values, pc_df['B'].values, S=1.0, curve='convex', direction='decreasing').knee
+            if knee != None:
+                n_pcs=int(knee)
+            else:
+                n_pcs=2#pc_df['n'].max() # try 2
             with open(pc_plot_fname.replace('.pdf','.txt'),'w') as f:
                 f.write('pcs_selected:{}'.format(n_pcs))
         if qc_only:

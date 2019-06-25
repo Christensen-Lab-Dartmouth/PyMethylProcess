@@ -2,6 +2,7 @@ from pymethylprocess.general_machine_learning import MachineLearning
 from pymethylprocess.MethylationDataTypes import MethylationArray, MethylationArrays
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import accuracy_score, r2_score
+import pandas as pd, numpy as np
 import argparse
 import pickle
 

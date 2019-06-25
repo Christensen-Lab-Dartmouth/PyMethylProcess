@@ -1,39 +1,14 @@
-FROM rpy2/rpy2:latest
+FROM joshualevy44/pymethylprocess:0.1.3
 
-RUN apt-get update -y
+RUN mkdir /pymethyl_repo/
 
-RUN apt-get install -y vim nano
+COPY . /pymethyl_repo/
 
-RUN apt-get remove curl && apt-get install -y curl
+RUN apt-get -y install python3-setuptools
 
-RUN apt-get remove libssl-dev && apt-get install -y libssl-dev
+RUN ls /pymethyl_repo
 
-RUN apt-get install -y libgtk2.0-dev xvfb xauth xfonts-base libcairo2-dev libcurl4-openssl-dev # libxaw xlib
-
-RUN apt-get install -y libx11-dev openssl libxt-dev #libxaw xlib
-
-RUN pip install pip==19.0.3
-
-RUN pip install rpy2==2.9.4
-
-RUN pip install numpy kneed Cython pathos nevergrad
-
-RUN pip install umap-learn>=0.3.7 plotly>=3.4.2 fancyimpute>=0.4.2 pandas>=0.23.4 scikit-learn>=0.20.1
-
-RUN pip install shap matplotlib seaborn mlxtend click==6.7
-
-RUN pip install pymethylprocess==0.1.3 --no-deps
-
-RUN pymethyl-install_r_dependencies
-
-RUN mkdir ./pymethyl
-WORKDIR /pymethyl
-
-RUN pip install git+https://github.com/bodono/scs-python.git@bb45c69ce57b1fbb5ab23e02b30549a7e0b801e3
-
-RUN pip install git+https://github.com/jlevy44/hypopt.git@af59fbed732f5377cda73fdf42f3d4981c2be3ce
-
-RUN pip install pymethylprocess==0.1.3 --no-deps
+RUN cd /pymethyl_repo/ && python3 setup.py sdist bdist_wheel && pip3 install dist/pymethylprocess-0.1.4.tar.gz --no-deps && cd -
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
