@@ -109,6 +109,7 @@ class TCGADownloader:
         self.download_geo_clinical_info(query,output_dir)
 
     def download_geo_clinical_info(self, query, output_dir, other_output_fname=''):
+        geo = importr("GEOquery")
         robjects.r("write.csv(as(getGEO('{}')[[1]]@phenoData@data,'data.frame'),'{}')".format(query,'{}/{}_clinical_info.csv'.format(output_dir,query) if not other_output_fname else other_output_fname))
         #pandas2ri.ri2py(robjects.r('as')(robjects.r("getGEO('{}')[[1]]@phenoData@data".format(query)),'data.frame')).to_csv('{}/{}_clinical_info.csv'.format(output_dir,query) if not other_output_fname else other_output_fname)# ,GSEMatrix = FALSE
 

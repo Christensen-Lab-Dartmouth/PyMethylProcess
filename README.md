@@ -4,6 +4,9 @@
 
 https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess  
 
+**Wiki:**
+https://github.com/Christensen-Lab-Dartmouth/PyMethylProcess/wiki
+
 Help documentation: https://christensen-lab-dartmouth.github.io/PyMethylProcess/  
 
 Alternatively, you can access the pdf: PyMethylProcess.pdf

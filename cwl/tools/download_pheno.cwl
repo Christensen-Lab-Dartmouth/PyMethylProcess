@@ -9,7 +9,7 @@ inputs:
     type: string
     inputBinding:
       position: 0
-      prefix: '-q'
+      prefix: '-g'
       shellQuote: false
       valueFrom: $(inputs.query) -of $(inputs.query)_pheno.csv
 outputs:
