@@ -14,6 +14,7 @@ from rpy2.robjects import pandas2ri, numpy2ri
 import pickle
 import sqlite3
 import os, glob, subprocess
+from os.path import basename
 from collections import Counter
 
 pandas2ri.activate()
@@ -105,8 +106,12 @@ class TCGADownloader:
         idatFiles = robjects.r('list.files("{}/idat", pattern = "idat.gz$", full = TRUE)'.format(query))
         robjects.r["sapply"](idatFiles, robjects.r["gunzip"], overwrite = True)
         subprocess.call('mv {}/idat/*.idat {}/'.format(query, output_dir),shell=True)
-        pandas2ri.ri2py(robjects.r['as'](robjects.r("phenoData(getGEO('{}')[[1]])".format(query)),'data.frame')).to_csv('{}/{}_clinical_info.csv'.format(output_dir,query))# ,GSEMatrix = FALSE
+        self.download_geo_clinical_info(query,output_dir)
 
+    def download_geo_clinical_info(self, query, output_dir, other_output_fname=''):
+        geo = importr("GEOquery")
+        robjects.r("write.csv(as(getGEO('{}')[[1]]@phenoData@data,'data.frame'),'{}')".format(query,'{}/{}_clinical_info.csv'.format(output_dir,query) if not other_output_fname else other_output_fname))
+        #pandas2ri.ri2py(robjects.r('as')(robjects.r("getGEO('{}')[[1]]@phenoData@data".format(query)),'data.frame')).to_csv('{}/{}_clinical_info.csv'.format(output_dir,query) if not other_output_fname else other_output_fname)# ,GSEMatrix = FALSE
 
 class PreProcessPhenoData:
     """Class that will manipute phenotype samplesheet before preprocessing of IDATs.
@@ -135,8 +140,8 @@ class PreProcessPhenoData:
         include_columns
             Dictionary specifying other columns to include, and new names to assign them to."""
         idats = glob.glob("{}/*.idat".format(self.idat_dir))
-        idat_basenames = np.unique(np.vectorize(lambda x: '_'.join(x.split('/')[-1].split('_')[:3]))(idats))
-        idat_geo_map = dict(zip(np.vectorize(lambda x: x.split('_')[0])(idat_basenames),np.array(idat_basenames)))
+        idat_basenames = np.unique(np.vectorize(lambda x: basename(x).replace('_Grn.idat','').replace('_Red.idat',''))(idats)) # '_'.join(x.split('/')[-1].split('_')[:3])
+        idat_geo_map = dict(zip(np.vectorize(lambda x: basename(x).split('_')[0])(idat_basenames),np.array(idat_basenames)))
         self.pheno_sheet['Basename'] = self.pheno_sheet['geo_accession'].map(idat_geo_map)
         self.pheno_sheet = self.pheno_sheet[self.pheno_sheet['Basename'].isin(idat_basenames)]
         self.pheno_sheet.loc[:,'Basename'] = self.pheno_sheet['Basename'].map(lambda x: self.idat_dir+x)
@@ -239,7 +244,7 @@ class PreProcessPhenoData:
             Output csv name.
         """
         self.pheno_sheet.to_csv(output_sheet_name)
-        print("Please move all other sample sheets out of this directory.")
+        print("Next Step: Please move all other sample sheets out of this directory.")
 
     def split_key(self, key, subtype_delimiter):
         """Split pheno column by key, with subtype delimiter, eg. entry S1,s2 -> S1 with delimiter ",".
@@ -442,7 +447,11 @@ class PreProcessIDAT:
             from kneed import KneeLocator
             pc_df=pandas2ri.ri2py(robjects.r['as'](pc_df,'data.frame'))
             pc_df['B'] = pc_df['U']+pc_df['M']
-            n_pcs=int(KneeLocator(pc_df['n'].values, pc_df['B'].values, S=1.0, curve='convex', direction='decreasing').knee)
+            knee=KneeLocator(pc_df['n'].values, pc_df['B'].values, S=1.0, curve='convex', direction='decreasing').knee
+            if knee != None:
+                n_pcs=int(knee)
+            else:
+                n_pcs=2#pc_df['n'].max() # try 2
             with open(pc_plot_fname.replace('.pdf','.txt'),'w') as f:
                 f.write('pcs_selected:{}'.format(n_pcs))
         if qc_only:
@@ -539,9 +548,9 @@ class PreProcessIDAT:
         self.RSet = self.minfi.ratioConvert(self.MSet, what = "both", keepCN = True)
         return self.RSet
 
-    def get_beta(self):
+    def get_beta(self, bmiq = False, n_cores=6):
         """Get beta value matrix from minfi after finding RSet."""
-        self.beta = self.minfi.getBeta(self.RSet)
+        self.beta = self.minfi.getBeta(self.RSet) if not bmiq else self.enmix.bmiq_mc(self.MSet, nCores=n_cores)
         return self.beta
 
     def filter_beta(self):
@@ -572,7 +581,7 @@ class PreProcessIDAT:
         self.manifest = self.minfi.getManifest(self.RGset)
         return self.manifest
 
-    def preprocess_enmix_pipeline(self, n_cores=6, pipeline='enmix', noob=False, qc_only=False, use_cache=False):
+    def preprocess_enmix_pipeline(self, n_cores=6, pipeline='enmix', noob=False, qc_only=False, use_cache=False, bmiq=False):
         """Run complete ENmix or minfi preprocessing pipeline.
 
         Parameters
@@ -604,8 +613,11 @@ class PreProcessIDAT:
                 self.preprocessNoob()
             else:
                 self.preprocessRAW()
-        self.return_beta()
-        self.get_beta()
+        if bmiq:
+            self.get_beta(bmiq = True, n_cores=n_cores)
+        else:
+            self.return_beta()
+            self.get_beta()
         self.filter_beta()
         self.extract_pheno_data(methylset=True)
         return self.pheno, self.beta_final

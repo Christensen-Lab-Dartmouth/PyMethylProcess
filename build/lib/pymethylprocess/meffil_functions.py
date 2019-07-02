@@ -93,8 +93,8 @@ def remove_sex(beta, array_type='450k'):
     beta = robjects.r("""function (beta,array.type){
         featureset<-array.type
         autosomal.sites <- meffil.get.autosomal.sites(featureset)
-        autosomal.sites <- intersect(autosomal.sites, rownames(norm.beta))
-        norm.beta <- norm.beta[autosomal.sites,]
+        autosomal.sites <- intersect(autosomal.sites, rownames(beta))
+        beta <- beta[autosomal.sites,]
         return(beta)
         }""")(beta,array_type)
     return beta

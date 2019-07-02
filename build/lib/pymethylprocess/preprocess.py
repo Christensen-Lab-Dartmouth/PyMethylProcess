@@ -44,6 +44,16 @@ def download_geo(geo_query,output_dir):
     downloader = TCGADownloader()
     downloader.download_geo(geo_query,output_dir)
 
+@preprocess.command()
+@click.option('-g', '--geo_query', default='', help='GEO study to query.', type=click.Path(exists=False), show_default=True)
+@click.option('-o', '--output_dir', default='./geo_idats/', help='Output directory for exported idats.', type=click.Path(exists=False), show_default=True)
+@click.option('-of', '--other_output_fname', default='', help='Output clinical info with other csv filename.', type=click.Path(exists=False), show_default=True)
+def download_geo_clinical_info(geo_query,output_dir,other_output_fname):
+    """Download geo methylation study idats and clinical info."""
+    os.makedirs(output_dir, exist_ok=True)
+    downloader = TCGADownloader()
+    downloader.download_geo_clinical_info(geo_query,output_dir, other_output_fname)
+
 ## prepare
 
 @preprocess.command()
@@ -77,7 +87,7 @@ def create_sample_sheet(input_sample_sheet, source_type, idat_dir, output_sample
     else:
         pheno_sheet.format_custom(basename_col, disease_class_column, include_columns)
     pheno_sheet.export(output_sample_sheet)
-    print("Please remove {} from {}, if it exists in that directory.".format(input_sample_sheet, idat_dir))
+    print("Next Step: Please remove {} from {}, if it exists in that directory.".format(input_sample_sheet, idat_dir))
 
 @preprocess.command()
 @click.option('-is', '--input_sample_sheet', default='./tcga_idats/minfiSheet.csv', help='CSV for minfi input.', type=click.Path(exists=False), show_default=True)
@@ -197,7 +207,8 @@ def split_preprocess_input_by_subtype(idat_csv,disease_only,subtype_delimiter, s
 @click.option('-u', '--use_cache', is_flag=True, help='If this is selected, loads qc results rather than running qc again. Only works for meffil selection.')
 @click.option('-qc', '--qc_only', is_flag=True, help='Only perform QC for meffil pipeline, caches results into rds file for loading again, only works if use_cache is false.')
 @click.option('-c', '--chunk_size', default=-1, help='If not series, chunk up and run these number of commands at once.. -1 means all commands at once.')
-def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series, pc_qc_parameters_csv, use_cache, qc_only, chunk_size):
+@click.option('-b', '--bmiq', is_flag=True, help='BMIQ normalization.')
+def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series, pc_qc_parameters_csv, use_cache, qc_only, chunk_size, bmiq):
     """Deploy multiple preprocessing jobs in series or parallel."""
     pheno_csvs = glob.glob(os.path.join(subtype_output_dir,'*','*.csv'))
     opts = {'-n':n_cores}
@@ -212,6 +223,8 @@ def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series,
         opts['-u']=''
     if qc_only:
         opts['-qc']=''
+    if bmiq:
+        opts['-b']=''
     commands=[]
     for pheno_csv in pheno_csvs:
         pheno_path = os.path.abspath(pheno_csv)
@@ -261,7 +274,7 @@ def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series,
 @click.option('-m', '--meffil', is_flag=True, help='Preprocess using meffil.')
 @click.option('-pc', '--n_pcs', default=-1, show_default=True, help='For meffil, number of principal components for functional normalization. If set to -1, then PCs are selected using elbow method.')
 @click.option('-p', '--pipeline', default='enmix', show_default=True, help='If not meffil, preprocess using minfi or enmix.', type=click.Choice(['minfi','enmix']))
-@click.option('-noob', '--noob_norm', is_flag=True, help='Run noob normalization of minfi selected.')
+@click.option('-noob', '--noob_norm', is_flag=True, help='Run noob normalization if minfi selected.')
 @click.option('-u', '--use_cache', is_flag=True, help='If this is selected, loads qc results rather than running qc again and update with new qc parameters. Only works for meffil selection. Minfi and enmix just loads RG Set.')
 @click.option('-qc', '--qc_only', is_flag=True, help='Only perform QC for meffil pipeline, caches results into rds file for loading again, only works if use_cache is false. Minfi and enmix just saves the RGSet before preprocessing.')
 @click.option('-bns', '--p_beadnum_samples', default=0.05, show_default=True, help='From meffil documentation, "fraction of probes that failed the threshold of 3 beads".')
@@ -270,7 +283,8 @@ def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series,
 @click.option('-pdc', '--p_detection_cpgs', default=0.05, show_default=True, help='From meffil documentation, "fraction of samples that failed a detection.pvalue threshold of 0.01".')
 @click.option('-sc', '--sex_cutoff', default=-2, show_default=True, help='From meffil documentation, "difference of total median intensity for Y chromosome probes and X chromosome probes".')
 @click.option('-sd', '--sex_sd', default=5, show_default=True, help='From meffil documentation, "sex detection outliers if outside this range".')
-def preprocess_pipeline(idat_dir, n_cores, output_pkl, meffil, n_pcs, pipeline, noob_norm, use_cache, qc_only, p_beadnum_samples, p_detection_samples, p_beadnum_cpgs, p_detection_cpgs, sex_cutoff, sex_sd):
+@click.option('-b', '--bmiq', is_flag=True, help='BMIQ normalization.')
+def preprocess_pipeline(idat_dir, n_cores, output_pkl, meffil, n_pcs, pipeline, noob_norm, use_cache, qc_only, p_beadnum_samples, p_detection_samples, p_beadnum_cpgs, p_detection_cpgs, sex_cutoff, sex_sd, bmiq):
     """Perform preprocessing of idats using enmix or meffil."""
     output_dir = output_pkl[:output_pkl.rfind('/')]
     os.makedirs(output_dir,exist_ok=True)
@@ -279,7 +293,7 @@ def preprocess_pipeline(idat_dir, n_cores, output_pkl, meffil, n_pcs, pipeline, 
         qc_parameters={'p.beadnum.samples':p_beadnum_samples,'p.detection.samples':p_detection_samples,'p.detection.cpgs':p_detection_cpgs,'p.beadnum.cpgs':p_beadnum_cpgs,'sex.cutoff':sex_cutoff, 'sex.outlier.sd':sex_sd}
         preprocesser.preprocessMeffil(n_cores=n_cores,n_pcs=n_pcs,qc_report_fname=os.path.join(output_dir,'qc.report.html'), normalization_report_fname=os.path.join(output_dir,'norm.report.html'), pc_plot_fname=os.path.join(output_dir,'pc.plot.pdf'), useCache=use_cache, qc_only=qc_only, qc_parameters=qc_parameters)
     else:
-        preprocesser.preprocess_enmix_pipeline(n_cores=n_cores, pipeline=pipeline, noob=noob_norm, use_cache=use_cache, qc_only=qc_only)
+        preprocesser.preprocess_enmix_pipeline(n_cores=n_cores, pipeline=pipeline, noob=noob_norm, use_cache=use_cache, qc_only=qc_only, bmiq=bmiq)
         try:
             preprocesser.plot_qc_metrics(output_dir)
         except:
@@ -299,7 +313,7 @@ def combine_methylation_arrays(input_pkls, optional_input_pkl_dir, output_pkl, e
         input_pkls=glob.glob(os.path.join(optional_input_pkl_dir,'*','methyl_array.pkl'))
         if exclude:
             input_pkls=(np.array(input_pkls)[~np.isin(np.vectorize(lambda x: x.split('/')[-2])(input_pkls),np.array(exclude))]).tolist()
-    if len(input_pkls) > 1:
+    if len(input_pkls) > 0:
         base_methyl_array=MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(open(input_pkls[0],'rb')), ''))
         methyl_arrays_generator = (MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(open(input_pkl,'rb')), '')) for input_pkl in input_pkls[1:])
         list_methyl_arrays = MethylationArrays([base_methyl_array])
@@ -326,6 +340,7 @@ def combine_methylation_arrays(input_pkls, optional_input_pkl_dir, output_pkl, e
 @click.option('-ct', '--cpg_threshold', default=-1., help='Value between 0 and 1 for NaN removal. If cpgs has cpg_threshold proportion of samples missing, then remove cpg. Set to -1 to not remove samples.', show_default=True)
 def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fancyimpute', n_neighbors=5, orientation='rows', output_pkl='', n_top_cpgs=0, feature_selection_method='mad', metric='correlation', n_neighbors_fs=10, disease_only=False, subtype_delimiter=',', sample_threshold=-1, cpg_threshold=-1): # wrap a class around this
     """Imputation of subtype or no subtype using various imputation methods."""
+    import copy
     orientation_dict = {'CpGs':'columns','Samples':'rows'}
     orientation = orientation_dict[orientation]
     #print("Selecting orientation for imputation not implemented yet.")
@@ -349,7 +364,7 @@ def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fa
         def impute_arrays(methyl_arrays):
             for methyl_array in methyl_arrays:
                 methyl_array.remove_missingness(cpg_threshold=cpg_threshold, sample_threshold=sample_threshold)
-                methyl_array.impute(imputer)
+                methyl_array.impute(copy.deepcopy(imputer))
                 yield methyl_array
 
         methyl_array = MethylationArray(*extract_pheno_beta_df_from_pickle_dict(input_dict))

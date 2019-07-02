@@ -2,7 +2,7 @@ import click
 import os, subprocess, glob
 from os.path import join
 import time
-from pymethylprocess.MethylationDataTypes import MethylationArray
+from pymethylprocess.MethylationDataTypes import MethylationArray, MethylationArrays
 
 CONTEXT_SETTINGS = dict(help_option_names=['-h','--help'], max_content_width=90)
 
@@ -289,9 +289,9 @@ def feature_select_train_val_test(input_pkl_dir,output_dir,n_top_cpgs=300000, fe
 
     cpgs = methyl_array.return_cpgs()
 
-    train_arr.subset_cpgs(cpgs).write_pickle(join(output_dir,'train_methyl_array.pkl'))
-    test_arr.subset_cpgs(cpgs).write_pickle(join(output_dir,'test_methyl_array.pkl'))
-    val_arr.subset_cpgs(cpgs).write_pickle(join(output_dir,'val_methyl_array.pkl'))
+    train_methyl_array.subset_cpgs(cpgs).write_pickle(join(output_dir,'train_methyl_array.pkl'))
+    val_methyl_array.subset_cpgs(cpgs).write_pickle(join(output_dir,'test_methyl_array.pkl'))
+    test_methyl_array.subset_cpgs(cpgs).write_pickle(join(output_dir,'val_methyl_array.pkl'))
 
 ### MISC
 

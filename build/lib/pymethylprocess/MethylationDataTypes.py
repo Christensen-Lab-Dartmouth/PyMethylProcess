@@ -73,7 +73,8 @@ class MethylationArray:
         imputer
             Type of imputer object, in sklearn type interface.
         """
-        self.beta = pd.DataFrame(imputer.fit_transform(self.beta),index=self.beta.index,columns=list(self.beta))
+        imputer.fit(self.beta)
+        self.beta = pd.DataFrame(imputer.transform(self.beta),index=self.beta.index,columns=list(self.beta))
 
     def return_shape(self):
         """Return dimensionality and number of samples of beta matrix."""
