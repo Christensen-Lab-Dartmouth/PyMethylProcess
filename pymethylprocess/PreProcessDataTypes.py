@@ -550,7 +550,10 @@ class PreProcessIDAT:
 
     def get_beta(self, bmiq = False, n_cores=6):
         """Get beta value matrix from minfi after finding RSet."""
-        self.beta = self.minfi.getBeta(self.RSet) if not bmiq else self.enmix.bmiq_mc(self.MSet, nCores=n_cores)
+        from meffil_functions import bmiq_mc
+        self.beta = self.minfi.getBeta(self.RSet)
+        if bmiq:
+            self.beta = bmiq_mc(self.beta, nCores=n_cores, nfit=10000)
         return self.beta
 
     def filter_beta(self):
