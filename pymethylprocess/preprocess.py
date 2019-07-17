@@ -208,7 +208,8 @@ def split_preprocess_input_by_subtype(idat_csv,disease_only,subtype_delimiter, s
 @click.option('-qc', '--qc_only', is_flag=True, help='Only perform QC for meffil pipeline, caches results into rds file for loading again, only works if use_cache is false.')
 @click.option('-c', '--chunk_size', default=-1, help='If not series, chunk up and run these number of commands at once.. -1 means all commands at once.')
 @click.option('-b', '--bmiq', is_flag=True, help='BMIQ normalization.')
-def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series, pc_qc_parameters_csv, use_cache, qc_only, chunk_size, bmiq):
+@click.option('-a', '--additional_command', default='', help='Additional command to input if torque run.', type=click.Path(exists=False))
+def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series, pc_qc_parameters_csv, use_cache, qc_only, chunk_size, bmiq, additional_command):
     """Deploy multiple preprocessing jobs in series or parallel."""
     pheno_csvs = glob.glob(os.path.join(subtype_output_dir,'*','*.csv'))
     opts = {'-n':n_cores}
@@ -258,13 +259,9 @@ def batch_deploy_preprocess(n_cores,subtype_output_dir,meffil,torque,run,series,
                 else:
                     subprocess.call(command,shell=True)
     else:
-        run_command = lambda command: subprocess.call('module load cuda && module load python/3-Anaconda && source activate py36 && {}'.format(command),shell=True)
-        from pyina.schedulers import Torque
-        from pyina.launchers import Mpi
-        config = {'nodes':'1:ppn=6', 'queue':'default', 'timelimit':'01:00:00'}
-        torque = Torque(**config)
-        pool = Mpi(scheduler=torque)
-        pool.map(run_command, commands)
+        from methylnet.torque_jobs import assemble_run_torque
+        for command in commands:
+            job=assemble_run_torque(command, use_gpu=False, additions=additional_command, queue="default", time=4, ngpu=0, additional_options="")
 
 
 @preprocess.command()
@@ -304,20 +301,22 @@ def preprocess_pipeline(idat_dir, n_cores, output_pkl, meffil, n_pcs, pipeline, 
 @preprocess.command()
 @click.option('-i', '--input_pkls', default=['./preprocess_outputs/methyl_array.pkl'], multiple=True, help='Input pickles for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-d', '--optional_input_pkl_dir', default='', help='Auto grab input pkls.', type=click.Path(exists=False), show_default=True)
+@click.option('-b', '--basename', default='methyl_array.pkl', help='If opting for using input directory method, grep for this name.', type=click.Path(exists=False), show_default=True)
 @click.option('-o', '--output_pkl', default='./combined_outputs/methyl_array.pkl', help='Output database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-e', '--exclude', default=[], multiple=True, help='If -d selected, these diseases will be excluded from study.', show_default=True)
-def combine_methylation_arrays(input_pkls, optional_input_pkl_dir, output_pkl, exclude):
+@click.option('-ot', '--outer_join', is_flag=True, help='Outer join phenotype columns.')
+def combine_methylation_arrays(input_pkls, optional_input_pkl_dir, basename, output_pkl, exclude, outer_join):
     """If split MethylationArrays by subtype for either preprocessing or imputation, can use to recombine data for downstream step."""
     os.makedirs(output_pkl[:output_pkl.rfind('/')],exist_ok=True)
     if optional_input_pkl_dir:
-        input_pkls=glob.glob(os.path.join(optional_input_pkl_dir,'*','methyl_array.pkl'))
+        input_pkls=glob.glob(os.path.join(optional_input_pkl_dir,'*',basename))
         if exclude:
             input_pkls=(np.array(input_pkls)[~np.isin(np.vectorize(lambda x: x.split('/')[-2])(input_pkls),np.array(exclude))]).tolist()
     if len(input_pkls) > 0:
         base_methyl_array=MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(open(input_pkls[0],'rb')), ''))
         methyl_arrays_generator = (MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(open(input_pkl,'rb')), '')) for input_pkl in input_pkls[1:])
         list_methyl_arrays = MethylationArrays([base_methyl_array])
-        combined_methyl_array = list_methyl_arrays.combine(methyl_arrays_generator)
+        combined_methyl_array = list_methyl_arrays.combine(methyl_arrays_generator,outer_join=outer_join)
     else:
         combined_methyl_array=MethylationArray(*extract_pheno_beta_df_from_pickle_dict(pickle.load(open(input_pkls[0],'rb')), ''))
     combined_methyl_array.write_pickle(output_pkl)
@@ -338,7 +337,8 @@ def combine_methylation_arrays(input_pkls, optional_input_pkl_dir, output_pkl, e
 @click.option('-sd', '--subtype_delimiter', default=',', help='Delimiter for disease extraction.', type=click.Path(exists=False), show_default=True)
 @click.option('-st', '--sample_threshold', default=-1., help='Value between 0 and 1 for NaN removal. If samples has sample_threshold proportion of cpgs missing, then remove sample. Set to -1 to not remove samples.', show_default=True)
 @click.option('-ct', '--cpg_threshold', default=-1., help='Value between 0 and 1 for NaN removal. If cpgs has cpg_threshold proportion of samples missing, then remove cpg. Set to -1 to not remove samples.', show_default=True)
-def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fancyimpute', n_neighbors=5, orientation='rows', output_pkl='', n_top_cpgs=0, feature_selection_method='mad', metric='correlation', n_neighbors_fs=10, disease_only=False, subtype_delimiter=',', sample_threshold=-1, cpg_threshold=-1): # wrap a class around this
+@click.option('-ky', '--key', default='disease', help='Key to split methylation arrays on.', show_default=True)
+def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fancyimpute', n_neighbors=5, orientation='rows', output_pkl='', n_top_cpgs=0, feature_selection_method='mad', metric='correlation', n_neighbors_fs=10, disease_only=False, subtype_delimiter=',', sample_threshold=-1, cpg_threshold=-1, key='disease'): # wrap a class around this
     """Imputation of subtype or no subtype using various imputation methods."""
     import copy
     orientation_dict = {'CpGs':'columns','Samples':'rows'}
@@ -363,12 +363,14 @@ def imputation_pipeline(input_pkl,split_by_subtype=True,method='knn', solver='fa
 
         def impute_arrays(methyl_arrays):
             for methyl_array in methyl_arrays:
+                if key!='disease':
+                    methyl_array=methyl_array[1]
                 methyl_array.remove_missingness(cpg_threshold=cpg_threshold, sample_threshold=sample_threshold)
                 methyl_array.impute(copy.deepcopy(imputer))
                 yield methyl_array
 
         methyl_array = MethylationArray(*extract_pheno_beta_df_from_pickle_dict(input_dict))
-        methyl_arrays = impute_arrays(methyl_array.split_by_subtype(disease_only, subtype_delimiter))
+        methyl_arrays = impute_arrays(methyl_array.split_by_subtype(disease_only, subtype_delimiter) if key=='disease' else methyl_array.groupby(key))
         methyl_array=MethylationArrays([next(methyl_arrays)]).combine(methyl_arrays)
 
     else:

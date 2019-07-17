@@ -171,7 +171,7 @@ def est_cell_counts_IDOL(rgset,library):
 def bmiq_mc(beta, nCores, nfit):
 	# Credits to Lucas A. Salas
 	from rpy2.robjects.packages import importr
-	enmix=importr('enmix')
+	enmix=importr('ENmix')
 	meffil=importr('meffil')
 	array_types={'IlluminaHumanMethylation450k':'450k','IlluminaHumanMethylationEPIC':'850k'}
 	try:
@@ -209,7 +209,7 @@ def bmiq_mc(beta, nCores, nfit):
  c1 <- makeCluster(nCores)
  registerDoParallel(c1)
  library(wateRmelon)
- writeLines(c(""), "log.txt")
+ #writeLines(c(""), "log.txt")
  for (i in 1:N) {
    id = which(parts == i)
    beta.b1 = beta.b[, id]
@@ -218,7 +218,7 @@ def bmiq_mc(beta, nCores, nfit):
    beta.b1 <- foreach(s = 1:ncol(beta.b1), .combine = cbind,
 					  .export = c("BMIQ")) %dopar% {
 						s = s
-						sink("log.txt", append=TRUE)
+						#sink("log.txt", append=TRUE)
 						#print(s)
 						#print(beta.b1[, s])
 						out <- tryCatch(BMIQ(beta.b1[, s], design.v = design.v, plots = FALSE)$nbeta,error=function(e){rep(-1,ncpgs)})
