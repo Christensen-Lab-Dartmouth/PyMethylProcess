@@ -21,12 +21,13 @@ Why:
 * Make DNAm accessible to python developers and more machine learning oriented researchers  
 * Streamlined analysis makes processing easy  
 
-*PyMethyProcess* is pending submission and review, biorxiv: https://www.biorxiv.org/content/biorxiv/early/2019/04/13/604496.full.pdf.  
+*PyMethyProcess* is now available in Bioinformatics: https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/btz594/5542385 .  
 
 Getting Started:  
 * Installation:   
     * pip install git+https://github.com/bodono/scs-python.git@bb45c69ce57b1fbb5ab23e02b30549a7e0b801e3 git+https://github.com/jlevy44/hypopt.git@af59fbed732f5377cda73fdf42f3d4981c2be3ce
-    * pip install pymethylprocess && pymethyl-install_r_dependencies (Note: May need to prefix pip install with MACOSX_DEPLOYMENT_TARGET=10.9 CC=clang CXX=clang++ for Mac OS install)
+    * pip install pymethylprocess && pymethyl-install_r_dependencies (Note: May need to prefix pip install with MACOSX_DEPLOYMENT_TARGET=10.9 CC=clang CXX=clang++ for Mac OS install)  
+    * If incompatibilities with tensorboard: pip install --upgrade setuptools  
     * docker pull joshualevy44/pymethylprocess:0.1.3
     * Alternatively, run sh build_docker.sh to build the docker container, and then run sh run_docker.sh to run the docker container.
     * Or see example scripts for usage.
@@ -39,6 +40,8 @@ Getting Started:
     * Then execute the cwl/pymethylprocess.cwl tool using Toil https://toil.readthedocs.io/en/latest/ or Rabix Composer or executor https://github.com/rabix/composer, amongst others.   
     * Try this dataset for quick testing: GSE109541  
     * Note: This CWL tool has limited functionality, if you would like to see additional functions automated (eg. age calculation, cell type deconvolution, running machine learning pipelines), please submit an issue, and we'll add new features.  
+
+NOTE: There have been reported issues with installing PyMethylProcess on Mac OS Mojave (rpy2). If this is the issue, try the docker installation and please report an issue.  
 
 **CWL Workflow Visualization**  
 <img width="1290" alt="PyMethylProcess CWL Pipeline" src="https://user-images.githubusercontent.com/19698023/60063482-06e96f80-96cb-11e9-93ae-33abb61f4d4a.png">
