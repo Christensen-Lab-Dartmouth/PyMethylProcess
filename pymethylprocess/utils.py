@@ -290,8 +290,8 @@ def feature_select_train_val_test(input_pkl_dir,output_dir,n_top_cpgs=300000, fe
     cpgs = methyl_array.return_cpgs()
 
     train_methyl_array.subset_cpgs(cpgs).write_pickle(join(output_dir,'train_methyl_array.pkl'))
-    val_methyl_array.subset_cpgs(cpgs).write_pickle(join(output_dir,'test_methyl_array.pkl'))
-    test_methyl_array.subset_cpgs(cpgs).write_pickle(join(output_dir,'val_methyl_array.pkl'))
+    val_methyl_array.subset_cpgs(cpgs).write_pickle(join(output_dir,'val_methyl_array.pkl'))
+    test_methyl_array.subset_cpgs(cpgs).write_pickle(join(output_dir,'test_methyl_array.pkl'))
 
 ### MISC
 
