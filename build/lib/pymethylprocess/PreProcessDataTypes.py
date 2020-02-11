@@ -550,7 +550,10 @@ class PreProcessIDAT:
 
     def get_beta(self, bmiq = False, n_cores=6):
         """Get beta value matrix from minfi after finding RSet."""
-        self.beta = self.minfi.getBeta(self.RSet) if not bmiq else self.enmix.bmiq_mc(self.MSet, nCores=n_cores)
+        from pymethylprocess.meffil_functions import bmiq_mc
+        self.beta = self.minfi.getBeta(self.RSet)
+        if bmiq:
+            self.beta = bmiq_mc(self.beta, nCores=n_cores, nfit=10000)
         return self.beta
 
     def filter_beta(self):
@@ -613,10 +616,10 @@ class PreProcessIDAT:
                 self.preprocessNoob()
             else:
                 self.preprocessRAW()
+        self.return_beta()
         if bmiq:
             self.get_beta(bmiq = True, n_cores=n_cores)
         else:
-            self.return_beta()
             self.get_beta()
         self.filter_beta()
         self.extract_pheno_data(methylset=True)

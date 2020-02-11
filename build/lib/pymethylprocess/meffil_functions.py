@@ -166,3 +166,77 @@ def est_cell_counts_IDOL(rgset,library):
     robjects.r('library(FlowSorted.Blood.EPIC)')
     cell_count_estimates = robjects.r("""function (RGset) as.table(estimateCellCounts2(RGset,IDOLOptimizedCpGs={})$counts)""".format(library))(rgset)
     return cell_count_estimates
+
+
+def bmiq_mc(beta, nCores, nfit):
+	# Credits to Lucas A. Salas
+	from rpy2.robjects.packages import importr
+	enmix=importr('ENmix')
+	meffil=importr('meffil')
+	array_types={'IlluminaHumanMethylation450k':'450k','IlluminaHumanMethylationEPIC':'850k'}
+	try:
+		beta=remove_sex(beta, array_type=array_types['IlluminaHumanMethylation450k'])
+	except:
+		beta = remove_sex(beta, array_type=array_types['IlluminaHumanMethylationEPIC'])
+	imputation_args=dict(k = 10,rowmax=0.5,colmax=0.8,maxp=1500)
+	beta=enmix.rm_outlier(beta,impute=True,rmcr=True, **imputation_args)
+	beta=robjects.r("""bmiq.mc2<-function (mdat, nCores = 1, ...)
+{
+ if (!is(mdat, "matrix")) {
+   stop("object needs to be of class 'matrix'")
+ }
+ if (nCores > detectCores()) {
+   nCores <- detectCores()
+   cat("Only ", nCores, " cores are available in your computer,",
+	   "argument nCores was reset to nCores=", nCores, "\n")
+ }
+ library(IlluminaHumanMethylation450kanno.ilmn12.hg19)
+ anno <- getAnnotation(IlluminaHumanMethylation450kanno.ilmn12.hg19)
+ #mdat<-betasronnerblad
+ anno<-anno[rownames(mdat),]
+ cat("Analysis is running, please wait...!", "\n")
+ beta.b <- mdat
+ rm(mdat)
+ ncpgs<-nrow(beta.b)
+ beta.b[beta.b <= 0] <- 1e-06
+ design.v <- as.vector(anno$Type)
+ design.v[design.v == "I"] = 1
+ design.v[design.v == "II"] = 2
+ design.v <- as.numeric(design.v)
+ coln = colnames(beta.b)
+ N = ceiling(ncol(beta.b)/(nCores * 10))
+ parts = rep(1:N, each = ceiling(ncol(beta.b)/N))[1:ncol(beta.b)]
+ c1 <- makeCluster(nCores)
+ registerDoParallel(c1)
+ library(wateRmelon)
+ #writeLines(c(""), "log.txt")
+ for (i in 1:N) {
+   id = which(parts == i)
+   beta.b1 = beta.b[, id]
+   #print(id)
+   #print(nrow(beta.b1),ncol(beta.b1))
+   beta.b1 <- foreach(s = 1:ncol(beta.b1), .combine = cbind,
+					  .export = c("BMIQ")) %dopar% {
+						s = s
+						#sink("log.txt", append=TRUE)
+						#print(s)
+						#print(beta.b1[, s])
+						out <- tryCatch(BMIQ(beta.b1[, s], design.v = design.v, plots = FALSE)$nbeta,error=function(e){rep(-1,ncpgs)})
+						out
+					  }
+   beta.b[, id] = beta.b1
+ }
+ stopCluster(c1)
+ #print(as(beta.b,'matrix'))
+ if (is.matrix(beta.b)) {
+   if (sum(is.na(beta.b)) > 0) {
+	 stop("BMIQ estimates \n    encountered error, try to run it again")
+   }
+ }
+ else {
+   stop("BMIQ estimates encountered error, try to run it again")
+ }
+ colnames(beta.b) <- coln
+ return(beta.b)
+}""")(beta, nCores, nfit)
+	return beta

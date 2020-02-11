@@ -14,3 +14,5 @@ matplotlib
 seaborn
 mlxtend
 click==6.7
+networkx
+cvxpy==1.0.25

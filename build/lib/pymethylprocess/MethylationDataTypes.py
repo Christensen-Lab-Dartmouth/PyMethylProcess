@@ -73,8 +73,7 @@ class MethylationArray:
         imputer
             Type of imputer object, in sklearn type interface.
         """
-        imputer.fit(self.beta)
-        self.beta = pd.DataFrame(imputer.transform(self.beta),index=self.beta.index,columns=list(self.beta))
+        self.beta = pd.DataFrame(imputer.fit_transform(self.beta),index=self.beta.index,columns=list(self.beta))
 
     def return_shape(self):
         """Return dimensionality and number of samples of beta matrix."""
@@ -364,7 +363,7 @@ class MethylationArrays:
         """Number of stored methylation arrays."""
         return len(self.methylation_arrays)
 
-    def combine(self, array_generator=None): # FIXME add sort based on samples
+    def combine(self, array_generator=None, outer_join=False): # FIXME add sort based on samples
         """Combine the list of methylation arrays into one array via concatenation of beta matrices and phenotype arrays.
 
         Parameters
@@ -373,14 +372,14 @@ class MethylationArrays:
             Generator of additional methylation arrays for computational memory minimization.
         """
         if len(self.methylation_arrays)> 1:
-            pheno_df=pd.concat([methylArr.pheno for methylArr in self.methylation_arrays], join='inner')#.sort()
+            pheno_df=pd.concat([methylArr.pheno for methylArr in self.methylation_arrays], join='inner' if not outer_join else 'outer')#.sort()
             beta_df=pd.concat([methylArr.beta for methylArr in self.methylation_arrays], join='inner')#.sort()
         else:
             pheno_df=self.methylation_arrays[0].pheno
             beta_df=self.methylation_arrays[0].beta
         if array_generator != None:
             for methylArr in array_generator:
-                pheno_df=pd.concat([pheno_df,methylArr.pheno], join='inner')
+                pheno_df=pd.concat([pheno_df,methylArr.pheno], join='inner' if not outer_join else 'outer')
                 beta_df=pd.concat([beta_df,methylArr.beta], join='inner')
         return MethylationArray(pheno_df,beta_df)
 

@@ -30,6 +30,18 @@ def train_test_val_split(input_pkl,output_dir,train_percent,val_percent, categor
     val_arr.write_pickle(join(output_dir,'val_methyl_array.pkl'))
 
 @util.command()
+@click.option('-pheno', '--pheno_csv', default='./final_preprocessed/pheno.csv', help='Pheno CSV.', type=click.Path(exists=False), show_default=True)
+@click.option('-beta', '--beta_csv', default='./final_preprocessed/beta.csv', help='Beta CSV.', type=click.Path(exists=False), show_default=True)
+@click.option('-t', '--transpose', is_flag=True, help='Transpose beta to match pheno row names.')
+@click.option('-o', '--output_pkl', default='./final_preprocessed/methyl_array.pkl', help='Output methyl array external validation.', type=click.Path(exists=False), show_default=True)
+def methy_array_from_csv(pheno_csv, beta_csv, transpose, output_pkl):
+    import pandas as pd
+    beta_df=pd.read_csv(beta_csv,index_col=0)
+    if transpose:
+        beta_df=beta_df.T
+    MethylationArray(pheno_df=pd.read_csv(pheno_csv,index_col=0),beta_df=beta_df).write_pickle(output_pkl)
+
+@util.command()
 @click.option('-i', '--input_pkl', default='./final_preprocessed/methyl_array.pkl', help='Input database for beta and phenotype data.', type=click.Path(exists=False), show_default=True)
 @click.option('-k', '--key', default='disease', help='Key to split on.', type=click.Path(exists=False), show_default=True)
 def counts(input_pkl,key):
@@ -290,8 +302,8 @@ def feature_select_train_val_test(input_pkl_dir,output_dir,n_top_cpgs=300000, fe
     cpgs = methyl_array.return_cpgs()
 
     train_methyl_array.subset_cpgs(cpgs).write_pickle(join(output_dir,'train_methyl_array.pkl'))
-    val_methyl_array.subset_cpgs(cpgs).write_pickle(join(output_dir,'test_methyl_array.pkl'))
-    test_methyl_array.subset_cpgs(cpgs).write_pickle(join(output_dir,'val_methyl_array.pkl'))
+    val_methyl_array.subset_cpgs(cpgs).write_pickle(join(output_dir,'val_methyl_array.pkl'))
+    test_methyl_array.subset_cpgs(cpgs).write_pickle(join(output_dir,'test_methyl_array.pkl'))
 
 ### MISC
 
